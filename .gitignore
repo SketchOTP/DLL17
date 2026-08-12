@@ -1,0 +1,16 @@
+# Python bytecode produced by running the governance validator and its self-test
+__pycache__/
+*.py[cod]
+
+# Local virtual environments, if one is ever created here
+.venv/
+venv/
+
+# Operating-system and editor scratch files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Development-only artifact the governance validator forbids in the tracked tree
+MIGRATION_REPORT.md

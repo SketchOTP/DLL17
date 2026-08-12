@@ -1,0 +1,34 @@
+---
+description: Conditional handling of user-issued external project directives
+alwaysApply: false
+---
+
+# External Project Directives
+
+## Purpose
+
+Handle user-supplied external project directives without assigning directive authority to ANIMUS ONE.
+
+## Activation
+
+Activate only when the user supplies an external directive identifier or explicitly asks for directive-driven execution. The user is the issuer of project directives.
+
+## ANIMUS ONE boundary
+
+ANIMUS ONE may copy or aggregate project governance files for centralized project visibility. It does not issue, approve, modify, reconcile, execute, or close project directives, and it does not replace project-local governance.
+
+## Identifier and lifecycle rules
+
+Keep a user-supplied external directive ID distinct from the local directive ID in `DIRECTIVES.md`. Never invent an external ID. Record the directive in the project-local ledger only after accepting it for execution. Record results in `OUTCOMES.md`, not in the issuance ledger. Follow the active directive’s scope and acceptance condition; report material conflicts or amendments rather than silently changing scope.
+
+## Non-applicability
+
+Do not activate when the user has not supplied an external directive ID or explicitly requested directive-driven execution.
+
+## Fallback
+
+If no external directive is supplied, use ordinary repository workflow. This rule is advisory unless a separate deterministic control enforces a directive gate.
+
+## Control status
+
+This is advisory guidance. The local append-only ledger and any separate hooks or review gates provide enforcement only when actually configured.

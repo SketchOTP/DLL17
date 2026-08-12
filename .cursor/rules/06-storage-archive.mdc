@@ -1,0 +1,37 @@
+---
+description: Conditional handling of large regenerable artifacts
+alwaysApply: false
+---
+
+# Generated Artifact Storage
+
+## Purpose
+
+Provide conditional guidance for storing large, regenerable artifacts without confusing caches with source or backups.
+
+## Activation
+
+Use this rule only when the task creates or manages large generated output, caches, indexes, build products, or experiment artifacts. It applies locally and in CI only where the relevant storage policy is configured.
+
+## Definitions
+
+- **Source:** human-maintained files required to understand, build, test, or operate the project.
+- **Generated output:** reproducible files produced by tools from source and inputs.
+- **Cache:** disposable generated data whose loss does not change project meaning.
+- **Unknown or uncommitted work:** never assume disposable or safe to move.
+
+## Requirements
+
+Use an explicitly approved cache or artifact location. Preserve provenance, inputs, versions, and checksums where the output matters. Confirm regeneration and recovery before moving or deleting. Keep source, governance, version-control metadata, and required offline inputs in the checkout unless an explicit project policy says otherwise. Do not delete unknown or uncommitted work.
+
+## Non-applicability
+
+Do not activate for ordinary source edits, small outputs, or repositories without a configured artifact/cache policy.
+
+## Fallback
+
+If no storage policy is configured, leave files in place and report the limitation. This rule is advisory; it does not create backups or guarantee recovery.
+
+## Control status
+
+This is advisory guidance. Storage permissions, CI retention, backup systems, and deletion barriers are separate enforcement controls.

@@ -1,0 +1,34 @@
+---
+description: Conditional Mimir integration workflow
+alwaysApply: false
+---
+
+# Mimir Integration
+
+## Purpose
+
+Use this rule only when a project-scoped Mimir MCP server or documented Mimir adapter is configured and reachable.
+
+## Activation
+
+Activate for repository work when the active tool catalog exposes Mimir tools or the project profile contains a verified Mimir binding. Do not activate it merely because this file exists. It is mandatory for the Mimir-governed task lifecycle only when the active project contract requires that lifecycle.
+
+## Workflow
+
+Resolve or register the current repository using verified project metadata, then follow the currently exposed Mimir lifecycle in its documented order. Preserve returned task versions and retrieval identifiers. Use Mimir for durable causal facts, evidence, and outcomes that the local repository cannot prove; keep local directive and outcome ledgers authoritative for project history.
+
+## Data boundaries
+
+Never store secrets, credentials, environment files, raw logs, full source files, full diffs, routine narration, or unsupported high-confidence claims.
+
+## Non-applicability
+
+Do not activate when no Mimir server or verified project binding is present, or for pure conversation with no repository work.
+
+## Fallback
+
+If Mimir is unavailable, record the exact unavailable step locally, continue only when safe, and report the limitation. Never claim Mimir context, validation, evidence, retrieval feedback, or closure succeeded when it did not.
+
+## Control status
+
+This is advisory guidance unless the active project contract and Mimir service enforce a required lifecycle.

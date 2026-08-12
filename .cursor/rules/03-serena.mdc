@@ -1,0 +1,30 @@
+---
+description: Conditional Serena symbol-navigation workflow
+alwaysApply: false
+---
+
+# Serena Navigation
+
+## Purpose
+
+Use Serena for non-trivial code navigation when the Serena server is configured, reachable, and its index covers the current checkout.
+
+## Activation
+
+Activate only for code tasks involving unfamiliar or shared behavior. Check that the current workspace and index are the intended ones and that freshness is acceptable before relying on results.
+
+## Workflow
+
+Start with precise symbol lookup, inspect definitions and callers/callees, then inspect relevant tests and contracts. Keep the repository as the source of truth.
+
+## Non-applicability
+
+Do not activate for non-code tasks, familiar code where targeted inspection is sufficient, or repositories without a configured Serena service.
+
+## Fallback
+
+If Serena is unavailable, stale, or incomplete, use the repository’s other configured navigation tools or targeted `rg` search. Do not claim symbol inspection occurred when it did not. Serena is advisory unless a separate enforced control says otherwise.
+
+## Control status
+
+This is advisory guidance; it does not enforce navigation or index freshness.

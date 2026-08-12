@@ -1,0 +1,30 @@
+---
+description: Conditional CocoIndex code-index workflow
+alwaysApply: false
+---
+
+# CocoIndex Code Search
+
+## Purpose
+
+Use CocoIndex only when its configured server or executable is present and the index belongs to the current checkout.
+
+## Activation
+
+Activate for broad or structural code discovery when direct symbol navigation is insufficient. Treat the index as generated data, not source. Confirm freshness using the index’s documented metadata or refresh procedure before relying on results.
+
+## Workflow
+
+Query the index for structural discovery, then verify important results against repository files and tests. Invalidate or refresh the index after changes that make its metadata stale, following the active tool’s documented procedure.
+
+## Non-applicability
+
+Do not activate for non-code tasks, narrow edits that do not need broad discovery, or repositories without a configured CocoIndex system.
+
+## Fallback
+
+If unavailable or stale, use Serena or targeted `rg` search. Do not invent refresh commands or claim index-backed evidence without a successful query.
+
+## Control status
+
+This is advisory guidance; it does not enforce index refresh, freshness, or query use.

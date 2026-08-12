@@ -1,0 +1,10 @@
+---
+description: Minimal always-on adapter to the canonical repository policy
+alwaysApply: true
+---
+
+# Canonical Policy Adapter
+
+`AGENTS.md` is the canonical policy. Apply it together with the user’s current request and the active runtime safety controls. This rule adds no competing precedence, lifecycle, validation, memory, or integration policy.
+
+If this rule conflicts with `AGENTS.md`, report the conflict and use the higher-precedence source defined in `AGENTS.md`.
