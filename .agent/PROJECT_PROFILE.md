@@ -3,14 +3,14 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last verified: `2026-08-12T19:41:43-04:00`
+- Last verified: `2026-08-12T19:55:43-04:00`
 
 ## Identity
 
 - Project name or identifier: Digital Living Lifeform (repository directory `DLL17`)
 - Purpose: Governance and specification baseline for the Digital Living Lifeform program. No organism implementation code exists in this repository yet.
 - Repository root: `/home/sketch/Projects/DLL17`
-- Verified remote: none. No Git repository is initialized at the repository root, so no remote, branch or commit identifier exists. Verified with `git status --short` and `git rev-parse HEAD`, both reporting that this is not a Git repository.
+- Verified remote: none. The repository is a local Git repository on branch `main` with provenance beginning at baseline commit `f82e1b2f7c138a7c4238f109b45a6562b8b18a21`, created under D-003. No remote is configured, and remote hosting is left unresolved for a later directive.
 - Maturity or current phase: R000 greenfield project initialization. Governance baseline only.
 
 ## Languages and runtimes
@@ -24,10 +24,11 @@
 ## Tools
 
 - Build: none present. No build system, package manifest or dependency file exists in this repository at the last verified date.
-- Test: `python3 scripts/test_validate_governance.py`, present and executed on 2026-08-12. It asserts that the repository is a clean unadopted fixture, so it raises an assertion error in an adopted repository. See the risk recorded in `.agent/CURRENT.md` and the learning recorded in `.agent/LEARNINGS.md`.
+- Test: `python3 scripts/test_validate_governance.py`, present and passing as of the last verified date. It validates the governance validator against an isolated pristine fixture under `scripts/fixtures/governance_template/`, plus positive and rejection cases for both validator modes.
 - Lint: none present. No linter is configured in this repository at the last verified date.
 - Type-check: none present. No type checker is configured in this repository at the last verified date.
 - Packaging: none present. No packaging configuration exists in this repository at the last verified date.
+- Source control is local Git on branch `main`, established under D-003. Excluded from tracking are Python bytecode caches, local virtual environments, operating-system and editor scratch files, and the development-only migration report that the validator forbids in the tracked tree. Serena local overrides remain excluded by the pre-existing `.serena/.gitignore`.
 - Preferred navigation/indexing: direct file reading and text search. `.serena/project.yml` and `.cursor/mcp.json` declare optional external navigation servers whose availability is not verified from within this repository.
 
 ## Verified commands

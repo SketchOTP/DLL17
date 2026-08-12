@@ -54,3 +54,19 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The shipped validator self-test asserts that this repository is a clean unadopted fixture, so it raises an assertion error now that the repository is adopted. Repairing it would be a script change outside the D-002 scope. See L-0002.
 - Blockers: none
 - Follow-up directive: none
+
+## D-003 - COMPLETE
+
+- Outcome ID: O-0003
+- Supersedes outcome: none
+- Closed: 2026-08-12T19:55:43-04:00
+- Acceptance: MET
+- Summary: The repository was initialized as a local Git repository on branch main with a baseline commit that captures the accepted post-D002 governance state plus the governance-tooling correction, and the validator self-test was repaired to build every mutable state from a pristine fixture instead of assuming the live governance files are unadopted. The production validator was not modified.
+- Changed areas: .gitignore, scripts/test_validate_governance.py, scripts/fixtures/governance_template/, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md, .agent/LEARNINGS.md, .agent/CURRENT.md, .agent/PROJECT_PROFILE.md, .agent/REPO_MAP.md
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - git status --short after the final commit reporting a clean worktree - PASSED
+- Remaining risks: The repository has no remote, so the baseline exists on one machine only until a later directive resolves remote hosting.
+- Blockers: none
+- Follow-up directive: none

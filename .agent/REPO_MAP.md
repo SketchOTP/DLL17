@@ -24,10 +24,13 @@
 ## Tests and validation
 
 - `scripts/validate_governance.py` — the only executable validation in the repository; checks required files, Cursor rules, policy content and the adopted or unadopted state of the governance files.
-- `scripts/test_validate_governance.py` — validator self-test; asserts a clean unadopted fixture and therefore raises an assertion error while this repository is adopted.
+- `scripts/test_validate_governance.py` — validator self-test; exercises both validator modes with positive and rejection cases built from an isolated fixture.
+- `scripts/fixtures/governance_template/.agent/` — pristine unadopted governance files used as the fixture base for the self-test; never the live project state.
 
 ## Configuration
 
+- `.gitignore` — source-control exclusions for bytecode caches, local environments, scratch files and the forbidden migration report.
+- `.serena/.gitignore` — pre-existing exclusion of Serena local overrides and cache.
 - `.cursor/mcp.json` — external navigation and memory server declarations for Cursor.
 - `.cursor/MCP.md` — documentation of those external integrations.
 - `.cursor/rules/00-core-governance.mdc` — the single always-applied Cursor policy adapter.

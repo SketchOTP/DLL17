@@ -45,3 +45,33 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: All change-evidence reporting for this repository until version control is introduced.
 - Supersedes learning: none
+
+## L-0004
+
+- Learning ID: L-0004
+- Date: 2026-08-12
+- Fact or lesson: A validator self-test must construct its states from an isolated pristine fixture rather than from the live project directory. Once the live governance files were legitimately adopted, any test that assumed they were unadopted became permanently wrong, and the correct repair was to isolate the fixture rather than to relax the validator.
+- Evidence location: scripts/test_validate_governance.py, the template fixture helpers near the top of the file; scripts/fixtures/governance_template/.
+- Confidence: VERIFIED
+- Scope: Governance tooling and any future test that inspects repository state.
+- Supersedes learning: L-0002
+
+## L-0005
+
+- Learning ID: L-0005
+- Date: 2026-08-12
+- Fact or lesson: This repository is now a local Git repository on branch main, with provenance beginning at baseline commit f82e1b2f7c138a7c4238f109b45a6562b8b18a21. No remote is configured, so commit identifiers are durable locally but are not yet replicated anywhere.
+- Evidence location: git log and git rev-parse HEAD at the repository root on 2026-08-12; DEC-0004 in .agent/RECORD.md.
+- Confidence: VERIFIED
+- Scope: All change-evidence reporting for this repository.
+- Supersedes learning: L-0003
+
+## L-0006
+
+- Learning ID: L-0006
+- Date: 2026-08-12
+- Fact or lesson: The self-test summary previously reported a hardcoded count of eighty-two adopted rejection cases while the suite actually held seventy-nine. Counts printed as evidence are now derived from the case lists so the reported figure cannot drift from what ran.
+- Evidence location: scripts/test_validate_governance.py, the summary print statements at the end of main.
+- Confidence: VERIFIED
+- Scope: Any future evidence printed by repository tooling.
+- Supersedes learning: none

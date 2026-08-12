@@ -49,3 +49,23 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: D-002 requires the repository to represent the real project state and to satisfy the existing validator in adopted mode before any R000 implementation work is authorized.
 - Affected areas: .agent/PROJECT_PROFILE.md, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/LEARNINGS.md, .agent/RECORD.md, .agent/REPO_MAP.md
 - Supersedes record: none
+
+## DEC-0004
+
+- Date: 2026-08-12
+- Record or decision ID: DEC-0004
+- Status: ACTIVE
+- Decision or event: Git provenance for this repository begins at D-003. The repository was initialized locally on branch main and the baseline commit f82e1b2f7c138a7c4238f109b45a6562b8b18a21 records the accepted post-D002 governance state plus the D-003 governance-tooling correction. No remote is configured, and no earlier version-control history exists or is implied.
+- Rationale: Directive evidence requires durable commit identifiers, which were unavailable while the repository was untracked. Initializing at D-003 keeps the provenance claim truthful rather than backdating history that never existed.
+- Affected areas: repository root, .gitignore
+- Supersedes record: none
+
+## DEC-0005
+
+- Date: 2026-08-12
+- Record or decision ID: DEC-0005
+- Status: ACTIVE
+- Decision or event: The governance validator self-test now builds every mutable fixture state from the pristine copy under scripts/fixtures/governance_template/ rather than assuming the live governance directory is unadopted. The live directory is exercised only as an adopted-mode positive case and as a template-mode rejection case.
+- Rationale: Adoption of the live governance files is a legitimate permanent condition, so the self-test had to stop treating live state as a pristine fixture. Isolating fixtures fixes the conflict without weakening the production validator.
+- Affected areas: scripts/test_validate_governance.py, scripts/fixtures/governance_template/
+- Supersedes record: none
