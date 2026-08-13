@@ -34,3 +34,8 @@ local.properties
 *.ap_
 *.dex
 captures/
+
+# Environment files, in case one is ever introduced. Secrets never enter this
+# repository; this is a second line of defence, not the control.
+.env
+.envrc
