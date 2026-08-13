@@ -236,3 +236,44 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: Every future bounded liability in this system.
 - Supersedes learning: none
+
+## L-0023
+
+- Learning ID: L-0023
+- Date: 2026-08-13
+- Fact or lesson: An accumulating learning law cannot represent reliability. If preference or habit is updated by adding a multiple of the outcome valence, every object with a net positive outcome eventually pins at the bound, so a source that succeeds eighty-six per cent of the time and one that succeeds thirty-three per cent of the time become indistinguishable, and no contingency reversal can be observed. An error-corrected update that moves the estimate toward the observed outcome discriminates correctly and cannot saturate.
+- Evidence location: research/aliveness-spike/cohorts/Mechanisms.kt; AX-PREFERENCE-01 and AX-HABIT-01 before and after; IMPL-0031; DEC-0021.
+- Confidence: VERIFIED
+- Scope: Every future learned-value mechanism, including the R006 production equivalents if they are ever authorized.
+- Supersedes learning: none
+
+## L-0024
+
+- Learning ID: L-0024
+- Date: 2026-08-13
+- Fact or lesson: An organism cannot learn to avoid something it innately avoids. The first habitat implementation depressed the utility of anything labelled unsafe and promoted withdrawal from it to the top priority tier, which meant the aversive object was never engaged, no punishment ever occurred, and the conditioned avoidance and extinction arms were both untestable. Danger has to be discoverable for danger learning to be measurable.
+- Evidence location: research/aliveness-spike/cohorts/Controller.kt; AX-AVOIDANCE-01 peak fear 0.447 with 1,632 avoidance ticks; IMPL-0032.
+- Confidence: VERIFIED
+- Scope: Any future fixture that intends to measure acquisition of an aversive association.
+- Supersedes learning: none
+
+## L-0025
+
+- Learning ID: L-0025
+- Date: 2026-08-13
+- Fact or lesson: An observational fixture measures the organism's choices, not the mechanism. Several A000 fixtures initially compared learned values for objects the organism had never engaged, or measured a habituation trace after the organism had stopped visiting the object and the trace had decayed. The readouts were real and the conclusions were meaningless. A mechanism claim needs a controlled protocol: forced exposure, or direct exercise of the update law, with the behavioural consequence measured as a separate finding.
+- Evidence location: A000QualificationKernel preference, habituation and habit sections; the corrected fixtures against their originals in qualification/fixtures/A000/A000_REPORT.txt.
+- Confidence: VERIFIED
+- Scope: Every behavioural fixture in this programme.
+- Supersedes learning: none
+
+## L-0026
+
+- Learning ID: L-0026
+- Date: 2026-08-13
+- Fact or lesson: Most spontaneous actions in the candidate architecture are overdetermined: several mechanisms independently support the same choice, so the dominant attribution class is MIXED_SUBSTANTIVE. A one-at-a-time knockout would have classified those actions as unexplained, which is precisely the misclassification exact coalition attribution was adopted to prevent. The canonical decision to move from single knockouts to Shapley allocation was load-bearing rather than ceremonial.
+- Evidence location: research/aliveness-spike/cohorts/Attribution.kt; AX-ATTRIBUTION-01 over 1,363 scored spontaneous actions; the class breakdown in qualification/fixtures/A000/A000_REPORT.txt.
+- Confidence: VERIFIED
+- Scope: Any future causal attribution over this organism's action selection.
+- Supersedes learning: none
+

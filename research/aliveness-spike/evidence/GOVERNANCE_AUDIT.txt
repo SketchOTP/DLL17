@@ -1,0 +1,68 @@
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV1 v1
+SCOPE=research governance only; no organism runtime behaviour is exercised
+
+GA-01  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: Attempt number remains within the three-attempt budget
+   detail:      attemptsConsumed=0 budget=3
+GA-02  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: All prior negative evidence is retained and referenced
+   detail:      no scored attempt has produced evidence yet
+GA-03  BLOCKED
+   requirement: Program success floor has not weakened
+   detail:      BLOCKED_SPEC_ALIVENESS_SUCCESS_FLOOR: the floor is an architect value judgement about how much apparent aliveness is worth the complexity, and is not derivable from A000 evidence
+GA-04  BLOCKED
+   requirement: ScriptedPetBaselineV1 hash/version matches independently qualified evidence
+   detail:      the baseline is implemented and frozen in source, but no independent competence qualification has been run: BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+GA-05  BLOCKED
+   requirement: Baseline competence pilot passed its preregistered margin
+   detail:      requires a pilot-only human rater pool; no human data exists
+GA-06  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: BlindVariancePilotV1 was prospectively registered variance-only/non-scored
+   detail:      no pilot has been registered or run
+GA-07  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: Variance-pilot participants never enter scored pools
+   detail:      no participants exist
+GA-08  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: Pilot/scored status was never reclassified after data
+   detail:      no data exists to reclassify
+GA-09  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: Only the permitted paired-difference SD reached the FULL team
+   detail:      no pilot output exists; no disclosure has occurred
+GA-10  BLOCKED
+   requirement: A001FeasibilityBudgetV1 passes before recruitment/scoring
+   detail:      BLOCKED_SPEC_PAIRED_DIFFERENCE_SD: the powered sample size cannot be computed until the blind variance pilot releases pairedDifferenceSD
+GA-11  BLOCKED
+   requirement: AlivenessStudyProtocolV1 was frozen/timestamped before scored data
+   detail:      the attempt-specific protocol depends on the feasibility budget and is not authored under D008
+GA-12  PASS
+   requirement: MechanismCoalitionSetV1 / exact Shapley attribution contract is frozen
+   detail:      groups=6 (2^k=64 <= 64, exact enumeration) valueFunction=CoalitionValueFunctionV1 attribution=SpontaneousActionAttributionV1
+GA-13  PASS
+   requirement: CuriosityBalanceEnvelopeV1 proves anti-convergence and attribution on identical parameter/seed hashes
+   detail:      the search evaluates both requirements from the same run per grid point and seed, so the two readouts cannot originate from different parameterizations; the recorded result is the search's own output
+GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
+   requirement: MaterialChangeEligibilityV1 and independent adjudication exist for Attempts 2/3
+   detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
+GA-15  BLOCKED
+   requirement: IndependentReviewRosterV1 names primary/alternate/baseline-owner before Attempt 1
+   detail:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED: all three roles are unassigned
+GA-16  BLOCKED
+   requirement: Reviewer independence/conflict declarations and any replacement cause are present
+   detail:      no reviewers are named, so no declarations can exist
+GA-17  PASS
+   requirement: Viewer/expression/interaction contract hashes match across cohorts
+   detail:      every cohort renders through SpikeExpressionContractV1 v1; the contract has no cohort parameter and the viewer has no reference to Cohort
+GA-18  PASS
+   requirement: Human ablation family/multiplicity plan and separate rater pools are frozen
+   detail:      family=FULL-curiosity-anticonvergence,FULL-preference-learning,FULL-episodic-history alpha=50000e-6 correction=Holm-Bonferroni raterPools=separate (plan frozen; execution requires participants)
+GA-19  PASS
+   requirement: Spontaneity attribution thresholds/classifier version are frozen
+   detail:      substantiveFloor=700000e-6 oscillatorCeiling=200000e-6 dominantShare=500000e-6 mixedMin=150000e-6
+GA-20  PASS
+   requirement: A001 is blocked while any required governance role is unassigned
+   detail:      A001_STATE=BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, asserted from GA-15
+
+PASS=6 NOT_APPLICABLE_PRE_ATTEMPT=6 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=1 BLOCKED=7 
+A001_PROGRAM_STATE=ALIVENESS_UNTESTED
+A001_ACTIVATION=BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+

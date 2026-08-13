@@ -35,3 +35,14 @@ Contracts not yet frozen, and therefore not yet derivable:
 | `RecoveryCryptographyContractV1` | Not frozen | Recovery cryptography, the mnemonic encoding, the KDF and the identity-epoch protocol are `BLOCKED_SPEC_RECOVERY_CRYPTOGRAPHY` and may not be invented inside implementation code |
 | `SpeciesBaselineV1`, `CriticalCareContractV1` | Not frozen, gated behind A001 | No physiology exists to implement |
 
+## A000/A001 sources reviewed under D008
+
+| Page | Sections |
+|---|---|
+| Implementation Plan E2E | Section 0.6 required per-phase contract freezes; the whole `A000/A001 — Parallel Aliveness Research Track` section: purpose, A000.1 required research modules, A000.2 abstract habitat, A000.3 candidate mechanisms, A000.4 human leave-one-out ablations, A000.4a multiplicity and rater exposure, A000.5 decision-explanation evidence and falsifiable spontaneity attribution, `A001 — Preregistered human aliveness gate`, `AlivenessProgramGateV1`, `ScriptedPetBaselineV1` and independent competence qualification, primary interaction model, primary endpoint and feasibility budget, `BlindVariancePilotV1`, `A001FeasibilityBudgetV1`, A001 governance audit, A001 pass/fail consequence |
+| Digital Living Lifeform | Sections 6, 7, 8 and 9 for the organism model, hierarchical action control, affordances and foundational learning including habituation recovery, curiosity preservation and the behavioural-death tests; section 20 decision explanation contract; and the amendments of 2026-08-12 covering the parallel aliveness spike track, the research/production inheritance boundary, the falsifiable aliveness gate and strong-baseline comparator, the independently qualified scripted baseline and causal-spontaneity classification, the blind variance pilot and coalition attribution and joint curiosity balance and fixed independent-review roster, and the final A-track mathematical closure with `CoalitionValueFunctionV1`, `CuriosityEnvelopeFeasibilityV1` and independent reviewer breach authority |
+
+The 2026-08-13 R002 phase-boundary clarification was also read, and closes the
+prepared-rest, recovery-cryptography and persistence-backend questions D007 left
+open.
+

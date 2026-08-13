@@ -210,3 +210,34 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The rest packages are written entirely in terms of exhaustion, recovery curves and contradiction conditions, which are species physiology gated behind A001. Implementation Plan E2E R002.12 requires RecoveryCryptographyContractV1 to be frozen before recovery cryptography is written and forbids inventing those choices inside persistence code, and D007 authorized freezing ContinuityDurabilityContractV1 only. The durability machinery both packages depend on is implemented and qualified.
 - Affected areas: governance/release-gates/R002_EXIT_GATE.md, core-continuity/IdentityBinding.kt
 - Supersedes record: none
+
+## DEC-0020
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0020
+- Status: ACTIVE
+- Decision or event: The A000 curiosity balance envelope search returned EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE across all twenty-seven grid points and four seeds, and no threshold was altered.
+- Rationale: CuriosityEnvelopeFeasibilityV1 permits exactly one threshold-only revision ever, and reserves the choice between the threshold path and the mechanism path to the independent gate reviewer. Spending that single revision unilaterally, before a reviewer exists, would be the most expensive shortcut available on this track. The failure is uniform and specific: attribution passed at every point with wide margin while anti-convergence failed at every point on exactly two of its five criteria, which is the shape of a threshold question rather than a mechanism collapse, but that reading is the reviewer's to confirm.
+- Affected areas: research/aliveness-spike/study-protocol/CuriosityBalanceEnvelopeV1.md, research/aliveness-spike/evidence/CURIOSITY_ENVELOPE_SEARCH.txt, governance/release-gates/A000_EXIT_GATE.md
+- Supersedes record: none
+
+## DEC-0021
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0021
+- Status: ACTIVE
+- Decision or event: The A000 preference, habit and relationship update laws were rewritten from accumulators to error-corrected estimates during the track, and the accumulator form is recorded as a mechanism-design finding rather than as a bug.
+- Rationale: The accumulator form pins any object with a net positive outcome at its bound, which makes a reliable food source and an unreliable one indistinguishable and makes a contingency reversal unobservable. That is a property of the learning law, not of the parameters, and it is worth recording because the same law was the obvious first choice.
+- Affected areas: research/aliveness-spike/cohorts/Mechanisms.kt, qualification/longitudinal/A000/ACCELERATED_FINDINGS.md, docs/decisions/DECISION_LOG.md
+- Supersedes record: none
+
+## DEC-0022
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0022
+- Status: ACTIVE
+- Decision or event: R002's qualification bundle is pinned to its qualified commit 7f6f37fabba6a5ad4af2fd517e62cb4c08dbfeb2.
+- Rationale: A000 adds Gradle modules and therefore edits settings.gradle.kts, which is an R002 bundle constituent. This is the same defect IMPL-0014 fixed for R000: evidence of a closed qualification must not depend on the present state of the tree.
+- Affected areas: tools/build_qualification_bundle.py, governance/qualification/R002_QUALIFICATION_BUNDLE.md
+- Supersedes record: none
+

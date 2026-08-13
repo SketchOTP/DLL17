@@ -39,8 +39,23 @@ where it is enforced today.
 | INV-0032 | Canonical state is excluded from Android backup and device transfer at every supported API level. | Canonical architecture, Android backup isolation | `allowBackup=false` plus both `fullBackupContent` and `dataExtractionRules`, with cloud-backup and device-transfer sections; asserted structurally. |
 | INV-0033 | R002 introduces no randomness. | `ContinuityDurabilityContractV1` section 7.3 | Reconciliation, recovery and migration are pure functions; the encrypted write path derives its nonce rather than drawing one. |
 
+| INV-0034 | No spike source imports any production package except the frozen R001 fixed-point library. | Canonical research/production inheritance boundary | `SpikeIsolationTest` reads every spike source's import list and fails on anything outside `com.animusmachinae.dll17.core.math`. |
+| INV-0035 | No production module reaches into the research track. | Canonical research/production inheritance boundary | `SpikeIsolationTest` scans every production module's sources and build files for references to the aliveness spike. |
+| INV-0036 | The presentation layer cannot see which controller produced a frame. | `SpikeExpressionContractV1` | `SpikeExpressionContract` has no cohort parameter; the viewer's rendering classes have no reference to `Cohort` or `Mechanism`; both are asserted by source scan. |
+| INV-0037 | A viewer session never exposes its cohort. | Canonical blinding requirement for the primary interaction model | `ViewerSession` has no accessor at all, asserted by reflection over the class surface; every cohort shares one label, one duration and one tick rate. |
+| INV-0038 | A losing or tied coalition contributes exactly zero attribution mass. | `CoalitionValueFunctionV1` | `v(S) = max(0, margin(S))` with equality at zero counting as a tie; tie-breaking is held outside the utility game entirely. |
+| INV-0039 | Spontaneity attribution uses exact enumeration, never sampling. | `MechanismCoalitionSetV1` | Six frozen groups, `2^6 = 64` coalitions evaluated per scored action; a seventh group would require a separate reviewed approximation contract. |
+
 ### R002 note
 
 INV-0016 through INV-0033 are continuity invariants. None of them is a
 physiological rule: they constrain what elapsed time, storage failure and
 platform protection may do to canonical history, not what the organism is.
+
+### A000 note
+
+INV-0034 through INV-0039 are research-track invariants. They constrain the
+boundary between disposable research and production, and the integrity of the
+blinding and attribution machinery. None of them asserts anything about organism
+behaviour, and none of them is evidence that a mechanism works.
+

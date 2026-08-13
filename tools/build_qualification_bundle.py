@@ -248,6 +248,90 @@ R002_CONSTITUENTS: list[tuple[str, list[str]]] = [
 ]
 
 
+SPIKE_SOURCES = [
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeContract.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeNumerics.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Habitat.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Organism.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Mechanisms.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Controller.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Outcomes.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Attribution.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/DecisionTrace.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Expression.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Agents.kt",
+    "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Runtime.kt",
+    "research/aliveness-spike/accelerated-sim/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/sim/Measures.kt",
+    "research/aliveness-spike/accelerated-sim/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/sim/AcceleratedSimulator.kt",
+    "research/aliveness-spike/accelerated-sim/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/sim/A000QualificationKernel.kt",
+    "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/CuriosityEnvelopeSearch.kt",
+    "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/AlivenessGovernanceAudit.kt",
+    "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/ViewerSession.kt",
+    "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/SwingViewer.kt",
+]
+
+SPIKE_CONTRACTS = [
+    "research/aliveness-spike/study-protocol/README.md",
+    "research/aliveness-spike/study-protocol/SpikeExpressionContractV1.md",
+    "research/aliveness-spike/study-protocol/SpikeDecisionTraceV1.md",
+    "research/aliveness-spike/study-protocol/MechanismCoalitionSetV1.md",
+    "research/aliveness-spike/study-protocol/CoalitionValueFunctionV1.md",
+    "research/aliveness-spike/study-protocol/SpontaneousActionAttributionV1.md",
+    "research/aliveness-spike/study-protocol/CuriosityBalanceEnvelopeV1.md",
+    "research/aliveness-spike/study-protocol/ScriptedPetBaselineV1.md",
+    "research/aliveness-spike/study-protocol/MaterialChangeEligibilityV1.md",
+    "research/aliveness-spike/study-protocol/AlivenessGovernanceAuditV1.md",
+    "research/aliveness-spike/study-protocol/AlivenessProgramGateV1.md",
+    "research/aliveness-spike/study-protocol/BaselineQualificationProtocolV1.md",
+    "research/aliveness-spike/study-protocol/BlindVariancePilotV1.md",
+    "research/aliveness-spike/study-protocol/A001FeasibilityBudgetV1.md",
+    "research/aliveness-spike/study-protocol/IndependentReviewRosterV1.md",
+]
+
+A000_CONSTITUENTS: list[tuple[str, list[str]]] = [
+    ("Research contracts", SPIKE_CONTRACTS),
+    ("Research implementation", SPIKE_SOURCES),
+    (
+        "Research isolation boundary",
+        [
+            "research/aliveness-spike/cohorts/build.gradle.kts",
+            "research/aliveness-spike/accelerated-sim/build.gradle.kts",
+            "research/aliveness-spike/analysis/build.gradle.kts",
+            "research/aliveness-spike/realtime-viewer/build.gradle.kts",
+            "settings.gradle.kts",
+            "research/aliveness-spike/cohorts/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeIsolationTest.kt",
+            CI_WORKFLOW,
+        ],
+    ),
+    (
+        "Accelerated evidence",
+        [
+            "qualification/fixtures/A000/GOLDEN_VECTORS.md",
+            "qualification/fixtures/A000/A000_REPORT.txt",
+            "qualification/longitudinal/A000/ACCELERATED_FINDINGS.md",
+        ],
+    ),
+    (
+        "Envelope and governance evidence",
+        [
+            "research/aliveness-spike/evidence/CURIOSITY_ENVELOPE_SEARCH.txt",
+            "research/aliveness-spike/evidence/GOVERNANCE_AUDIT.txt",
+        ],
+    ),
+    (
+        "Validation evidence",
+        [
+            "qualification/evidence/A000/governance_validation.txt",
+            "qualification/evidence/A000/project_identity.txt",
+            "qualification/evidence/A000/gradle_build.txt",
+            "qualification/evidence/A000/a000_kernel.txt",
+            "qualification/evidence/A000/toolchain_environment.txt",
+        ],
+    ),
+    ("Gate record", ["governance/release-gates/A000_EXIT_GATE.md"]),
+]
+
+
 class PhaseSpec:
     def __init__(
         self,
@@ -302,6 +386,19 @@ PHASES: dict[str, PhaseSpec] = {
         bundle_version="R002-QB-1",
         bundle_path="governance/qualification/R002_QUALIFICATION_BUNDLE.md",
         constituents=R002_CONSTITUENTS,
+        # R002 closed under D007 at this commit and the architect accepted it.
+        # Pinned for the same reason R000 and R001 are: A000 adds a Gradle module
+        # and therefore edits `settings.gradle.kts`, which is an R002 constituent.
+        # A closed gate must not break because a later track exists.
+        frozen_at_commit="7f6f37fabba6a5ad4af2fd517e62cb4c08dbfeb2",
+    ),
+    "A000": PhaseSpec(
+        phase="A000",
+        title="disposable aliveness spike research track",
+        directive="D008",
+        bundle_version="A000-QB-1",
+        bundle_path="governance/qualification/A000_QUALIFICATION_BUNDLE.md",
+        constituents=A000_CONSTITUENTS,
         frozen_at_commit=None,
     ),
 }

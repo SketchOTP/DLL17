@@ -33,3 +33,11 @@ include(":core-state")
 include(":core-continuity")
 include(":desktop-runner")
 include(":android-host")
+
+// A000 disposable aliveness research track (directive D008). Isolated from the
+// production organism dependency graph: nothing under `research/` is depended
+// on by any core-* module, `desktop-runner` or `android-host`.
+include(":research:aliveness-spike:cohorts")
+include(":research:aliveness-spike:accelerated-sim")
+include(":research:aliveness-spike:analysis")
+include(":research:aliveness-spike:realtime-viewer")

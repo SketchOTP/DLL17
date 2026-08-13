@@ -124,3 +124,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: new
 - Related directive: none
 - Status at issuance: ISSUED
+
+## D-008
+
+- Issued: 2026-08-13T15:40:00-04:00
+- Issuer: User
+- External directive: D008
+- Objective: Build and qualify the complete disposable A000 Aliveness Spike so the programme can begin establishing whether the organism hypothesis itself is any good, this being the critical path because R003 through R009 remain blocked until A001 passes.
+- Scope: Re-read the current canonical A000 and A001 sections and all later amendments; build the deterministic accelerated simulator and the real-time observer viewer; implement the abstract habitat and the authorized A000 FULL candidate mechanism set; implement and make independently runnable the FULL, ScriptedPetBaselineV1, DegradedScriptedControlV1 and three leave-one-out cohorts through one frozen presentation contract; implement SpikeDecisionTraceV1 and exact coalition attribution; execute the CuriosityBalanceEnvelopeV1 feasibility analysis; create or freeze every pre-A001 research contract that can legitimately be completed before human evidence exists; run enough deterministic accelerated histories to establish technical viability; produce a reproducible A000 evidence bundle; and push a commit with passing GitHub CI.
+- Exclusions: Inheriting or importing production organism state, R002 continuity state, persistence, lifecycle behavior, production schemas, the production renderer, the Android organism implementation, qualification evidence as executable behavior, or R003 through R009 production mechanism implementations; fabricating any value requiring real human evidence; claiming the scripted baseline has passed its human competence qualification; beginning A001 scored human data collection; beginning D009.
+- Acceptance: The A000 research project is buildable and runnable and isolated from production with only the authorized R001 dependency, the accelerated simulator produces reproducible runs, the real-time viewer exists, all required cohorts run through the same presentation contract, FULL contains the complete authorized candidate mechanism set, SpikeDecisionTraceV1 exists for autonomous actions, exact coalition attribution is executable and evidenced, CuriosityBalanceEnvelopeV1 has been actually evaluated, accelerated histories produce a documented viability or failure result, long-run behavior remains bounded, no human result is fabricated, pre-A001 contracts are frozen where legitimately possible and explicitly blocked where real evidence is still required, a reproducible A000 evidence bundle exists, existing R000 and R001 and R002 qualifications remain green, GitHub CI passes, the work is committed and pushed to main, local HEAD equals origin/main, the worktree is clean, and no R003 through R009 production organism mechanism was introduced.
+- Risk class: NORMAL
+- Relationship: new
+- Related directive: none
+- Status at issuance: ISSUED
+

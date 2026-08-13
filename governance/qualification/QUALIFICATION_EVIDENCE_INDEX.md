@@ -5,8 +5,8 @@
 | R000 | Greenfield project initialization | `governance/qualification/R000_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D005. Gate record: `governance/release-gates/R000_EXIT_GATE.md`. |
 | R001 | Deterministic fixed-point spike | `governance/qualification/R001_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D006. The determinism-matrix criterion rests on evidence plus the 2026-08-13 canonical amendment that made Snapdragon optional. Gate record: `governance/release-gates/R001_EXIT_GATE.md`. |
 | R002 | Lifecycle, durability, trusted time, reconciliation | `governance/qualification/R002_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D007. Gate record: `governance/release-gates/R002_EXIT_GATE.md`. |
-| A000 | Aliveness spike | none | Not started in this repository. Unblocked by R001: it may now depend on the frozen fixed-point numeric library. |
-| A001 | Aliveness gate | none | Blocked behind A000. |
+| A000 | Aliveness spike | `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | `COMPLETE` under D008. Research track, not a production gate: it produced a documented viability result including five negative findings. Gate record: `governance/release-gates/A000_EXIT_GATE.md`. |
+| A001 | Aliveness gate | none | `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`, and additionally blocked on the independent reviewer's determination for the empty curiosity-envelope feasible set. |
 
 ## R000 evidence layout
 
@@ -63,3 +63,29 @@ Once a phase's gate closes, its bundle is pinned in
 verification reads that commit's blobs rather than the working tree. A closed
 gate must not be breakable by a later phase editing a shared build file or
 registry. R000 is pinned to `43054d0a2a210bc48563cc81016d6083bff2a182`.
+
+## A000 evidence layout
+
+A000 evidence must not be read as production qualification. It is research
+evidence about whether the organism hypothesis is worth testing on people, and
+the track is disposable: nothing under `research/` may be copied into production
+organism modules. Findings cross into production only through the canonical
+adoption process — measured finding, preregistered evidence, adopted
+architecture amendment, newly frozen production contract.
+
+| Path | Contents |
+|---|---|
+| `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | Hashed manifest binding the research contracts, implementation, isolation boundary and evidence. |
+| `research/aliveness-spike/study-protocol/` | The fifteen A000/A001 research contracts with their exact `FROZEN` / `READY_FOR_HUMAN_EVIDENCE` / `BLOCKED_*` status. |
+| `qualification/fixtures/A000/` | `A000-FIXTURES-V1` golden vectors and the full kernel report including sample decision traces. |
+| `qualification/longitudinal/A000/` | The accelerated research findings, positive and negative. |
+| `research/aliveness-spike/evidence/` | Curiosity-envelope feasibility search output and the executable governance audit. |
+| `qualification/evidence/A000/` | Governance validation, identity check, build, kernel run, toolchain environment. |
+
+## Why A000 has no pass/fail gate
+
+R000, R001 and R002 each answer "does the implementation meet a frozen
+contract?", which has a yes or no. A000 asks "is this hypothesis worth
+testing?", which does not. Five of its twenty-two findings did not hold, and
+the joint curiosity-envelope feasible set is empty. Those are results, recorded
+with their configurations, not failures to be fixed before the track can close.

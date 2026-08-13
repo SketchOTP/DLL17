@@ -1,0 +1,179 @@
+A000_FIXTURE_SET=A000-FIXTURES-V1
+A000_FIXTURE_VERSION=1
+
+== BOUNDEDNESS
+  seed=101 condition=STATIC days=365 overflow=0 clamps=7883798 slotsStart=751 slotsEnd=751 boundsIntact=true
+  seed=202 condition=CONTROLLED_NOVELTY days=365 overflow=0 clamps=7746154 slotsStart=751 slotsEnd=751 boundsIntact=true
+  seed=303 condition=SHIFTING_CONTEXT days=365 overflow=0 clamps=7824984 slotsStart=751 slotsEnd=751 boundsIntact=true
+
+== DETERMINISM
+  stateSignature=e12b0d863ea0022f ticksCompared=43200 scoredActions=176
+
+== DIFFERENTIATION
+  seeds=11,23,37,51,67,83 days=60
+  pairwiseTV min=0.018646 mean=0.052265 max=0.103079
+  distinctFinalStateSignatures=6/6
+
+== PREFERENCE
+  static: ball=0.791095 cube/mirror baseline=0.000000
+  reversal at day 30
+
+== AVOIDANCE_AND_EXTINCTION
+  acquisitionDays=20 totalDays=60 overflow=0
+  fear by day: 0.000000 0.265224 0.090039 0.030571 0.010272 0.003333 0.003333 0.003333 0.003333 0.003333 0.065680 0.022348
+
+== HABITUATION
+  exposureDays=20 recoveryDays=5
+
+== HABIT_AND_EXPECTANCY
+  days=60 reversalDay=30
+
+== EPISODIC_HISTORY
+  conditioningDays=20 probeDays=5 seed=1234
+
+== ANTI_CONVERGENCE
+  FULL entropy=1.588730 maxOccupancy=0.467535 inactivity=0.475451 wakingOccupancy=0.783809 distinctObjects/day=5.061111 revisits/day=32.094444 cycleRegularity=0.923790
+  FULL-curiosity-anticonvergence entropy=1.480171 maxOccupancy=0.465104 inactivity=0.474688 wakingOccupancy=0.822923 distinctObjects/day=1.000000 revisits/day=0.000000 cycleRegularity=0.945809
+
+== POPULATION_DIVERSITY
+  seeds=2,3,5,7,11,13,17,19 windowDays=20
+
+== ATTRIBUTION
+  scoredSpontaneousActions=1363 tieBreakDetermined=154
+    LEARNED_PREFERENCE=2
+    EPISODIC_OR_HISTORY=1
+    HABIT_OR_EXPECTANCY=56
+    SOCIAL_OR_RELATIONSHIP_HISTORY=114
+    CURIOSITY_OSCILLATOR_ONLY=3
+    RANDOM_TIEBREAK_ONLY=11
+    MIXED_SUBSTANTIVE=1117
+    OTHER_NON_SUBSTANTIVE=59
+
+== COHORT_PARITY
+  FULL distinctFrames=107 postures=4 mechanisms=12
+  ScriptedPetBaselineV1 distinctFrames=1606 postures=6 mechanisms=0
+  DegradedScriptedControlV1 distinctFrames=405 postures=4 mechanisms=0
+  FULL-curiosity-anticonvergence distinctFrames=102 postures=5 mechanisms=10
+  FULL-preference-learning distinctFrames=874 postures=6 mechanisms=11
+  FULL-episodic-history distinctFrames=511 postures=6 mechanisms=11
+
+== FINDINGS
+  HELD     AX-BOUNDEDNESS-01  Does state stay bounded and arithmetic stable over 365 virtual days?
+           101:0:751:true,202:0:751:true,303:0:751:true
+  HELD     AX-DETERMINISM-01  Do two runs of the identical configuration agree exactly?
+           signature=true actions=true attribution=true
+  HELD     AX-DIFFERENTIATION-01  Do different seeds produce measurably different organisms on average?
+           meanTV=0.052265 distinctStateSignatures=6/6
+  NOT HELD AX-DIFFERENTIATION-02  Is every pair of organisms distinguishable, not only the average pair?
+           minTV=0.018646 maxTV=0.103079 floor=0.050000
+  HELD     AX-PREFERENCE-01  Under matched exposure, does preference track outcome payoff?
+           ball=0.791095 mirror=0.000000 engagedBall=22248 engagedMirror=2274
+  HELD     AX-PREFERENCE-REVERSAL-01  Does the adopted preference weaken once its contingency reverses?
+           adopted=FOOD_TROUGH adoptedMid=0.207540 adoptedEnd=0.090422
+  NOT HELD AX-PREFERENCE-REVERSAL-02  Does the organism switch to the alternative once the adopted one is devalued?
+           otherMid=-0.010000 otherEnd=-0.010000
+  HELD     AX-AVOIDANCE-01  Does repeated punishment produce a conditioned avoidance?
+           peakFear=0.447082 punishedEvents=2 avoidanceTicks=1632
+  HELD     AX-EXTINCTION-01  Does the fear decline once the object becomes safe?
+           fearAtSafe=0.013152 fearAtEnd=0.009467 residualFloor=0.447082
+  HELD     AX-HABITUATION-01  Does repeated exposure build a trace that recovers during non-exposure?
+           peak=0.940000 atExposureEnd=0.400000 after5Days=0.070552
+  HELD     AX-DISHABITUATION-01  Does a causal environmental change release habituation?
+           before=0.070552 after=0.000000
+  HELD     AX-SENSITIZATION-01  Does a strong negative event raise responsiveness?
+           before=0.000000 after=0.320000
+  HELD     AX-HABIT-01  Does habit strength follow the contingency rather than accumulate?
+           troughMid=0.000000 troughEnd=0.000000 cacheMid=0.290808 cacheEnd=0.572356 formed=true
+  HELD     AX-EPISODIC-01  Do divergent histories change later behaviour under matched present stimuli?
+           fullDivergence=0.324722 targetDivergence=0.402361
+  NOT HELD AX-EPISODIC-02  Is history dependence reduced when the episodic mechanism is removed?
+           full=0.324722 minusEpisodic=0.402778
+  NOT HELD AX-ANTICONVERGENCE-01  Does FULL avoid behavioural death in a static habitat over 180 days?
+           entropy=1.588730/false distinct=5.061111/true occupancy=0.467535/false wakingOccupancy=0.783809 revisits=32.094444/true regularity=0.923790/false
+  HELD     AX-ANTICONVERGENCE-02  Is the anti-convergence mechanism load-bearing on objective measures?
+           fullDistinct=5.061111 ablatedDistinct=1.000000 fullRevisits=32.094444 ablatedRevisits=0.000000
+  HELD     AX-NOVELTY-SATURATION-01  Does the organism escape permanent novelty saturation?
+           habituationAtEnd=0.359666 distinctObjects/day=5.061111
+  NOT HELD AX-CONVERGENCE-01  Does the population avoid collapsing onto one long-run policy?
+           meanFinalWindowTV=0.034323 minTV=0.005972 pairs=28
+  HELD     AX-ATTRIBUTION-01  Is spontaneous behaviour substantively caused rather than oscillator or tie-break noise?
+           substantiveRate=0.946442(>=0.700000) oscillatorTieBreakOnlyRate=0.010271(<=0.200000) scored=1363
+  HELD     AX-TRACE-01  Does every scored spontaneous action carry a causal decision trace?
+           tracesRetained=3 allHaveAttribution=true allSpontaneous=true
+  HELD     AX-COHORT-PARITY-01  Does every cohort render through the same frozen presentation contract?
+           cohorts=6 posturesUsed=6 expressionsUsed=7 microUsed=10 vocabularyRespected=true
+
+held=17 notHeld=5 total=22
+A000_EVIDENCE_DIGEST=4765e6d587347688841d34c95b5b9caede8cbf44084335302e1475c7aeaa8fc9
+
+
+== SAMPLE DECISION TRACES (audit evidence; never shown to a rater)
+SpikeDecisionTraceV1 run=AX-ATTRIBUTION organism=FULL#8080 tick=388 cohort=FULL
+  selected: PLAY@PLAY_BALL  tier=4  expected=SOCIAL_GAIN
+  drives energy=0.598860 rest=0.994490 safety=1.000000 social=1.000000
+  modulators arousal=0.028866 stress=0.046615 rewardExpectancy=1.000000
+  curiosityPhase=0.540138 inspectionInhibition=0.238828 commitment=6 refractory=false promoted=false
+  margin=0.222025 tieBreak=false spontaneous=true
+  eligible:
+    PLAY@PLAY_BALL tier=4 u=0.457346 [PHYS=0.234835 LEAR=-0.135983 EPIS=0.208000 HABI=0.252357 SOCI=0.000000 CURI=-0.101863]
+    PLAY@PLAY_CUBE tier=4 u=0.235321 [PHYS=0.234835 LEAR=-0.282051 EPIS=0.078000 HABI=0.251929 SOCI=0.000000 CURI=-0.047392] rejected: lower utility in winning tier
+    EXPLORE@AVERSIVE_BUZZER tier=4 u=0.234721 [PHYS=0.199946 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.034775] rejected: lower utility in winning tier
+    PLAY@PERSON_ALPHA tier=4 u=0.228495 [PHYS=0.234835 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.006340] rejected: lower utility in winning tier
+    EXPLORE@SHELTER tier=4 u=0.214046 [PHYS=0.199946 LEAR=-0.282645 EPIS=0.078000 HABI=0.252144 SOCI=0.000000 CURI=-0.033399] rejected: lower utility in winning tier
+    EXPLORE@FOOD_TROUGH tier=4 u=0.187696 [PHYS=0.199946 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.012250] rejected: lower utility in winning tier
+    PLAY@PERSON_BETA tier=4 u=0.182060 [PHYS=0.234835 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.052775] rejected: lower utility in winning tier
+    OBSERVE@AVERSIVE_BUZZER tier=4 u=0.180106 [PHYS=0.145331 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.034775] rejected: lower utility in winning tier
+    EXPLORE@FOOD_CACHE tier=4 u=0.163530 [PHYS=0.199946 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.036416] rejected: lower utility in winning tier
+    ORIENT@AVERSIVE_BUZZER tier=4 u=0.143774 [PHYS=0.108999 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.034775] rejected: lower utility in winning tier
+    OBSERVE@PERSON_ALPHA tier=4 u=0.138991 [PHYS=0.145331 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.006340] rejected: lower utility in winning tier
+    PLAY@PLAY_MIRROR tier=4 u=0.138041 [PHYS=0.234835 LEAR=-0.359179 EPIS=0.000000 HABI=0.248129 SOCI=0.000000 CURI=0.014256] rejected: lower utility in winning tier
+  discardedLowerTier=1
+  attribution class=MIXED_SUBSTANTIVE substantiveShare=1.000000 oscillatorShare=0.000000 v(M)=0.222025
+    shapley: PHYSIOLOGICAL_OR_MOTIVATIONAL_STATE=0.009564 LEARNED_PREFERENCE=0.048217 EPISODIC_OR_HISTORY=0.121876 HABIT_OR_EXPECTANCY=0.082158 SOCIAL_OR_RELATIONSHIP_HISTORY=0.000000 CURIOSITY_OSCILLATOR=-0.039790
+
+SpikeDecisionTraceV1 run=AX-ATTRIBUTION organism=FULL#8080 tick=423 cohort=FULL
+  selected: PLAY@PLAY_BALL  tier=4  expected=SOCIAL_GAIN
+  drives energy=0.589760 rest=0.987840 safety=1.000000 social=1.000000
+  modulators arousal=0.023386 stress=0.041962 rewardExpectancy=1.000000
+  curiosityPhase=0.574826 inspectionInhibition=0.815804 commitment=6 refractory=false promoted=false
+  margin=0.330335 tieBreak=false spontaneous=true
+  eligible:
+    PLAY@PLAY_BALL tier=4 u=0.583406 [PHYS=0.235615 LEAR=0.275450 EPIS=0.208000 HABI=0.563877 SOCI=0.000000 CURI=-0.699536]
+    PLAY@PLAY_CUBE tier=4 u=0.253071 [PHYS=0.235615 LEAR=-0.279094 EPIS=0.078000 HABI=0.250877 SOCI=0.000000 CURI=-0.032327] rejected: lower utility in winning tier
+    EXPLORE@SHELTER tier=4 u=0.248868 [PHYS=0.200600 LEAR=-0.279683 EPIS=0.078000 HABI=0.251085 SOCI=0.000000 CURI=-0.001134] rejected: lower utility in winning tier
+    EXPLORE@AVERSIVE_BUZZER tier=4 u=0.229501 [PHYS=0.200600 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.028901] rejected: lower utility in winning tier
+    PLAY@PERSON_ALPHA tier=4 u=0.221613 [PHYS=0.235615 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.014002] rejected: lower utility in winning tier
+    EXPLORE@FOOD_TROUGH tier=4 u=0.188936 [PHYS=0.200600 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.011664] rejected: lower utility in winning tier
+    PLAY@PLAY_MIRROR tier=4 u=0.176959 [PHYS=0.235615 LEAR=-0.356162 EPIS=0.000000 HABI=0.247084 SOCI=0.000000 CURI=0.050422] rejected: lower utility in winning tier
+    OBSERVE@AVERSIVE_BUZZER tier=4 u=0.174941 [PHYS=0.146040 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.028901] rejected: lower utility in winning tier
+    PLAY@PERSON_BETA tier=4 u=0.163796 [PHYS=0.235615 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.071819] rejected: lower utility in winning tier
+    ORIENT@AVERSIVE_BUZZER tier=4 u=0.138432 [PHYS=0.109531 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.028901] rejected: lower utility in winning tier
+    PLAY@PLAY_CHIME tier=4 u=0.136168 [PHYS=0.235615 LEAR=-0.366615 EPIS=0.000000 HABI=0.250668 SOCI=0.000000 CURI=0.016500] rejected: lower utility in winning tier
+    OBSERVE@FOOD_TROUGH tier=4 u=0.134376 [PHYS=0.146040 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.011664] rejected: lower utility in winning tier
+  discardedLowerTier=1
+  attribution class=HABIT_OR_EXPECTANCY substantiveShare=1.000000 oscillatorShare=0.000000 v(M)=0.330335
+    shapley: PHYSIOLOGICAL_OR_MOTIVATIONAL_STATE=0.014546 LEARNED_PREFERENCE=0.137881 EPISODIC_OR_HISTORY=0.105598 HABIT_OR_EXPECTANCY=0.291076 SOCIAL_OR_RELATIONSHIP_HISTORY=0.000000 CURIOSITY_OSCILLATOR=-0.218765
+
+SpikeDecisionTraceV1 run=AX-ATTRIBUTION organism=FULL#8080 tick=458 cohort=FULL
+  selected: PLAY@PLAY_BALL  tier=4  expected=SOCIAL_GAIN
+  drives energy=0.580660 rest=0.981190 safety=1.000000 social=1.000000
+  modulators arousal=0.018945 stress=0.037773 rewardExpectancy=1.000000
+  curiosityPhase=0.609514 inspectionInhibition=1.000000 commitment=6 refractory=false promoted=false
+  margin=0.078453 tieBreak=false spontaneous=true
+  eligible:
+    PLAY@PLAY_BALL tier=4 u=0.306270 [PHYS=0.236317 LEAR=0.279757 EPIS=0.208000 HABI=0.582196 SOCI=0.000000 CURI=-1.000000]
+    PLAY@PERSON_ALPHA tier=4 u=0.227817 [PHYS=0.236317 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.008500] rejected: lower utility in winning tier
+    EXPLORE@AVERSIVE_BUZZER tier=4 u=0.222643 [PHYS=0.201149 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.021494] rejected: lower utility in winning tier
+    EXPLORE@FOOD_TROUGH tier=4 u=0.205349 [PHYS=0.201149 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.004200] rejected: lower utility in winning tier
+    EXPLORE@SHELTER tier=4 u=0.186077 [PHYS=0.201149 LEAR=-0.276747 EPIS=0.000000 HABI=0.250040 SOCI=0.000000 CURI=0.011635] rejected: lower utility in winning tier
+    PLAY@PLAY_CUBE tier=4 u=0.178643 [PHYS=0.236317 LEAR=-0.276162 EPIS=0.000000 HABI=0.249831 SOCI=0.000000 CURI=-0.031343] rejected: lower utility in winning tier
+    PLAY@PLAY_MIRROR tier=4 u=0.178550 [PHYS=0.236317 LEAR=-0.353170 EPIS=0.000000 HABI=0.246041 SOCI=0.000000 CURI=0.049362] rejected: lower utility in winning tier
+    PLAY@PERSON_BETA tier=4 u=0.175219 [PHYS=0.236317 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.061098] rejected: lower utility in winning tier
+    OBSERVE@AVERSIVE_BUZZER tier=4 u=0.168173 [PHYS=0.146679 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.021494] rejected: lower utility in winning tier
+    PLAY@PLAY_CHIME tier=4 u=0.154882 [PHYS=0.236317 LEAR=-0.363535 EPIS=0.000000 HABI=0.249622 SOCI=0.000000 CURI=0.032478] rejected: lower utility in winning tier
+    OBSERVE@FOOD_TROUGH tier=4 u=0.150879 [PHYS=0.146679 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=0.004200] rejected: lower utility in winning tier
+    OBSERVE@PERSON_ALPHA tier=4 u=0.138179 [PHYS=0.146679 LEAR=0.000000 EPIS=0.000000 HABI=0.000000 SOCI=0.000000 CURI=-0.008500] rejected: lower utility in winning tier
+  discardedLowerTier=1
+  attribution class=HABIT_OR_EXPECTANCY substantiveShare=1.000000 oscillatorShare=0.000000 v(M)=0.078453
+    shapley: PHYSIOLOGICAL_OR_MOTIVATIONAL_STATE=0.013636 LEARNED_PREFERENCE=0.056659 EPISODIC_OR_HISTORY=0.084872 HABIT_OR_EXPECTANCY=0.232510 SOCIAL_OR_RELATIONSHIP_HISTORY=0.000000 CURIOSITY_OSCILLATOR=-0.309223
+

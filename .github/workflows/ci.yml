@@ -63,6 +63,9 @@ jobs:
             qualification/fixtures/
             qualification/replay/
             qualification/fault-injection/
+            qualification/longitudinal/
+            research/aliveness-spike/evidence/
+            research/aliveness-spike/study-protocol/
           if-no-files-found: error
 
   build:
@@ -94,6 +97,10 @@ jobs:
           :core-state:test
           :core-continuity:test
           :desktop-runner:test
+          :research:aliveness-spike:cohorts:test
+          :research:aliveness-spike:accelerated-sim:test
+          :research:aliveness-spike:analysis:test
+          :research:aliveness-spike:realtime-viewer:test
           --no-daemon
 
       # The desktop JVM reference runner is a matrix target for both phases.
@@ -119,6 +126,26 @@ jobs:
             core-state/src/main/kotlin/com/animusmachinae/dll17/core/state/R001QualificationKernel.kt
           check_digest R002 \
             core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/R002QualificationKernel.kt
+
+      # The A000 research kernel is a simulator rather than a fixture replay, so
+      # it runs in its own step and takes a few minutes. It is checked the same
+      # way: CI must reproduce the frozen digest, so a mechanism change that
+      # silently alters research behaviour fails the build instead of quietly
+      # invalidating the recorded findings.
+      - name: A000 aliveness spike kernel digest
+        run: |
+          ./gradlew :research:aliveness-spike:accelerated-sim:run --no-daemon --quiet \
+            | tee a000.txt
+          golden=$(grep -A1 'GOLDEN_EVIDENCE_DIGEST: String' \
+            research/aliveness-spike/accelerated-sim/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/sim/A000QualificationKernel.kt \
+            | grep -oE '[0-9a-f]{64}' | head -1)
+          actual=$(grep -oE 'A000_EVIDENCE_DIGEST=[0-9a-f]{64}' a000.txt | cut -d= -f2)
+          echo "A000 golden: $golden"
+          echo "A000 actual: $actual"
+          if [ -z "$golden" ] || [ "$golden" != "$actual" ]; then
+            echo "::error::CI did not reproduce the frozen A000 evidence digest"
+            exit 1
+          fi
 
       - name: Android instrumented test assembly
         run: ./gradlew :android-host:assembleDebugAndroidTest --no-daemon

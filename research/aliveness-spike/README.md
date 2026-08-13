@@ -1,0 +1,62 @@
+# A000 aliveness spike
+
+Disposable research code. Not production.
+
+This track exists to answer one question: do the proposed internal-state,
+action, learning, memory and individuality mechanisms create an observer-visible
+impression of autonomous life strong enough to justify the downstream production
+complexity? R003 through R009 are blocked until A001 answers it.
+
+## Layout
+
+| Directory | Contents |
+|---|---|
+| `cohorts/` | Habitat, candidate mechanisms, tiered controller, decision trace, coalition attribution, presentation contract, all six cohorts |
+| `accelerated-sim/` | Deterministic accelerated simulator, measures, the A000 qualification kernel |
+| `realtime-viewer/` | Blinded fixed-duration Swing observer and the standardized paired session |
+| `analysis/` | Curiosity-envelope feasibility search and the executable governance audit |
+| `study-protocol/` | The fifteen A000/A001 research contracts |
+| `evidence/` | Envelope search and governance audit output |
+
+## Isolation
+
+The only production dependency permitted by the canonical plan is the frozen
+R001 fixed-point numeric library, and that is what these modules use.
+`core-crypto` arrives transitively because `core-math` publishes it as `api` for
+lookup-table verification; no spike source imports it, and `SpikeIsolationTest`
+fails the build if one ever does.
+
+Nothing under `research/` is depended on by any production module, and spike
+source, state and schemas are never copied into production organism modules.
+Findings cross into production only through the canonical adoption process:
+
+```
+measured finding
++ preregistered evidence
++ adopted architecture amendment
++ newly frozen production contract
+```
+
+The presence of a mechanism here does **not** qualify or authorize its
+R003–R009 production equivalent.
+
+## Running
+
+```
+./gradlew :research:aliveness-spike:accelerated-sim:run              # ~3 min, prints the A000 digest
+./gradlew :research:aliveness-spike:accelerated-sim:run --args=--traces
+./gradlew :research:aliveness-spike:analysis:run                     # ~5 min, envelope feasibility
+./gradlew :research:aliveness-spike:analysis:governanceAudit
+./gradlew :research:aliveness-spike:realtime-viewer:run --args=--pair
+```
+
+Desktop JVM only. No device, no network, no Android SDK.
+
+## Status
+
+A000 is complete. See `governance/release-gates/A000_EXIT_GATE.md` for what it
+established and what it did not, including the five findings that did not hold
+and the empty curiosity-envelope feasible set.
+
+A001 is blocked: `IndependentReviewRosterV1` names nobody, and the empty
+feasible set requires the independent reviewer's determination.
