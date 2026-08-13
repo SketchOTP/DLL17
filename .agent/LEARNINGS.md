@@ -75,3 +75,33 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: Any future evidence printed by repository tooling.
 - Supersedes learning: none
+
+## L-0007
+
+- Learning ID: L-0007
+- Date: 2026-08-12
+- Fact or lesson: Android Gradle Plugin 9 supplies built-in Kotlin support and fails the build if the standalone org.jetbrains.kotlin.android plugin is applied. The Android module therefore applies only com.android.application and org.jetbrains.kotlin.plugin.compose, and the frozen Kotlin 2.4.10 still governs it because the Compose plugin forces that version onto the Android compile classpath.
+- Evidence location: The build failure text from Gradle 9.5.0 naming the plugin rejection, and the resolved kotlin-stdlib 2.4.10 and kotlin-gradle-plugin 2.4.10 in the android-host debugCompileClasspath and buildEnvironment reports on 2026-08-12.
+- Confidence: VERIFIED
+- Scope: Any future change to the Android module build script or to the Kotlin version pin.
+- Supersedes learning: none
+
+## L-0008
+
+- Learning ID: L-0008
+- Date: 2026-08-12
+- Fact or lesson: The governance self-test copies the whole repository once per rejection case. Once build outputs existed this became prohibitively slow, so the copy now ignores build, .gradle, .kotlin and local.properties in addition to the previous exclusions. None of those paths is tracked or validated, so no coverage was lost.
+- Evidence location: scripts/test_validate_governance.py copy_repo, and the suite completing in about seventeen seconds after the change on 2026-08-12.
+- Confidence: VERIFIED
+- Scope: Any future addition of large untracked directories to the repository root.
+- Supersedes learning: none
+
+## L-0009
+
+- Learning ID: L-0009
+- Date: 2026-08-12
+- Fact or lesson: The build host had no Java runtime, no Gradle and no Android SDK before D-004. The toolchain was installed without administrator rights into the user home: Temurin JDK 17.0.20+8 and Gradle 9.5.0 under ~/.local/toolchains, and the Android SDK with platforms android-37.0 and build-tools 37.0.0 under ~/Android/Sdk. Builds require JAVA_HOME and ANDROID_HOME to point at those locations.
+- Evidence location: java -version and gradle --version reporting command not found before installation, and the successful gradle build afterwards, on 2026-08-12.
+- Confidence: VERIFIED
+- Scope: Any later session that needs to build this project on this machine, and any assumption that a toolchain is present.
+- Supersedes learning: none

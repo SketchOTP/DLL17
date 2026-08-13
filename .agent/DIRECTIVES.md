@@ -67,3 +67,17 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: new
 - Related directive: none
 - Status at issuance: ISSUED
+
+## D-004
+
+- Issued: 2026-08-12T20:21:55-04:00
+- Issuer: User
+- External directive: D004
+- Objective: Build the buildable greenfield R000 project skeleton for the Digital Living Lifeform, freeze ProjectIdentityBuildContractV1, create the mandatory R000 registries, establish CI, and publish the work to the authoritative GitHub repository.
+- Scope: Gradle multi-module project structure per Implementation Plan E2E, pure Kotlin JVM core modules, headless desktop runner, minimal Android shell, the seven mandatory R000 registries, the frozen project identity and build contract, a root validation and build path, a GitHub Actions workflow, the GitHub remote and first push, and the governance records needed to capture the result.
+- Exclusions: Physiology; drives; action selection; learning; memory; relationships; development or evolution; persistence semantics; Torpor and rehabilitation; AR behavior; RouteEvidence behavior; DeterminismContractV1; R001 algorithms; A000 organism mechanisms; beginning or proposing D005.
+- Acceptance: ProjectIdentityBuildContractV1 exists and matches the directive exactly, the module boundaries match Implementation Plan E2E, the pure Kotlin JVM modules compile with no Android dependency, the Android shell builds and provides a minimal launchable surface, all seven mandatory registries exist with no invented future organism entries, governance adopted validation and the governance self-test pass, the full root build and test passes, Android debug assembly passes, GitHub CI exists, the work is pushed to SketchOTP/DLL17, and the final worktree is clean.
+- Risk class: NORMAL
+- Relationship: new
+- Related directive: none
+- Status at issuance: ISSUED

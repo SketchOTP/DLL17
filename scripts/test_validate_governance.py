@@ -27,7 +27,22 @@ GOVERNANCE_FILES = (
 
 
 def copy_repo(destination: Path) -> None:
-    shutil.copytree(ROOT, destination, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".git"))
+    # Build outputs and tool caches are untracked and large; copying them once
+    # per rejection case would make the suite unusably slow and would not change
+    # any validator outcome.
+    shutil.copytree(
+        ROOT,
+        destination,
+        ignore=shutil.ignore_patterns(
+            "__pycache__",
+            "*.pyc",
+            ".git",
+            "build",
+            ".gradle",
+            ".kotlin",
+            "local.properties",
+        ),
+    )
 
 
 def fixture_text(relative: str) -> str:

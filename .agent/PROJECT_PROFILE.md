@@ -3,32 +3,35 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last verified: `2026-08-12T19:55:43-04:00`
+- Last verified: `2026-08-12T20:21:55-04:00`
 
 ## Identity
 
 - Project name or identifier: Digital Living Lifeform (repository directory `DLL17`)
-- Purpose: Governance and specification baseline for the Digital Living Lifeform program. No organism implementation code exists in this repository yet.
+- Purpose: Implementation repository for the Digital Living Lifeform program. It holds the governance baseline and, from D-004, the R000 greenfield project skeleton. No organism behavior is implemented yet.
 - Repository root: `/home/sketch/Projects/DLL17`
-- Verified remote: none. The repository is a local Git repository on branch `main` with provenance beginning at baseline commit `f82e1b2f7c138a7c4238f109b45a6562b8b18a21`, created under D-003. No remote is configured, and remote hosting is left unresolved for a later directive.
-- Maturity or current phase: R000 greenfield project initialization. Governance baseline only.
+- Verified remote: `git@github.com:SketchOTP/DLL17.git`, set as origin under D-004. Local branch `main` tracks `origin/main`. Git provenance begins at baseline commit `f82e1b2f7c138a7c4238f109b45a6562b8b18a21`, created under D-003.
+- Maturity or current phase: R000 greenfield project initialization. Buildable project skeleton with no organism logic.
 
 ## Languages and runtimes
 
-- Python 3.14.4, verified with `python3 --version`. Used only by the governance validator and its test script.
-- Markdown, used for all governance, policy and ledger files.
+- Kotlin 2.4.10, used by every source module. Pinned in `gradle/libs.versions.toml`.
+- Kotlin Gradle DSL (`.gradle.kts`), used by all build scripts.
+- Python 3.14.4, verified with `python3 --version`. Used by the governance validator, its test script and the project identity checker.
+- Markdown, used for all governance, policy, contract and registry files.
+- XML, used for the Android manifest and resources.
+- YAML, used for the GitHub Actions workflow.
 - JSON, used for `.cursor/mcp.json`.
 - Cursor rule files (`.mdc`) under `.cursor/rules/`.
-- No Android, Kotlin, Java, Gradle or JVM toolchain is present in this repository at the last verified date.
 
 ## Tools
 
-- Build: none present. No build system, package manifest or dependency file exists in this repository at the last verified date.
-- Test: `python3 scripts/test_validate_governance.py`, present and passing as of the last verified date. It validates the governance validator against an isolated pristine fixture under `scripts/fixtures/governance_template/`, plus positive and rejection cases for both validator modes.
-- Lint: none present. No linter is configured in this repository at the last verified date.
+- Build: Gradle 9.5.0 through the checked-in wrapper, with Android Gradle Plugin 9.3.1 and JDK 17. Run `./gradlew build` from the repository root.
+- Test: `./gradlew build` runs the module test suites; `python3 scripts/test_validate_governance.py` runs the governance validator self-test against an isolated pristine fixture under `scripts/fixtures/governance_template/`. Both pass as of the last verified date.
+- Lint: Android Lint runs as part of `./gradlew build` for `android-host`. No linter is configured for the pure JVM modules at the last verified date.
 - Type-check: none present. No type checker is configured in this repository at the last verified date.
-- Packaging: none present. No packaging configuration exists in this repository at the last verified date.
-- Source control is local Git on branch `main`, established under D-003. Excluded from tracking are Python bytecode caches, local virtual environments, operating-system and editor scratch files, and the development-only migration report that the validator forbids in the tracked tree. Serena local overrides remain excluded by the pre-existing `.serena/.gitignore`.
+- Packaging: `./gradlew :android-host:assembleDebug` produces a debug APK. Production signing is deferred, so no release packaging is configured.
+- Source control is Git on branch `main`, established locally under D-003 and connected to the GitHub remote under D-004. Excluded from tracking are Python bytecode caches, local virtual environments, operating-system and editor scratch files, the development-only migration report that the validator forbids in the tracked tree, Gradle and Kotlin build outputs and caches, `local.properties`, IDE state, and Android build artifacts. Serena local overrides remain excluded by the pre-existing `.serena/.gitignore`.
 - Preferred navigation/indexing: direct file reading and text search. `.serena/project.yml` and `.cursor/mcp.json` declare optional external navigation servers whose availability is not verified from within this repository.
 
 ## Verified commands
@@ -36,11 +39,15 @@
 - `python3 scripts/validate_governance.py --mode ADOPTED` — repository-wide governance validation in adopted mode. Executed on 2026-08-12.
 - The validator also accepts an unadopted mode for the clean distributable fixture state. That mode no longer applies to this repository because the repository is now adopted, so its exact flag is deliberately not recorded here as a runnable project command.
 - `python3 scripts/test_validate_governance.py` — validator self-test script. Executed on 2026-08-12.
-- Project-specific commands: none beyond the governance commands listed above. No organism build, test or run command exists in this repository at the last verified date.
+- `python3 tools/verify_project_identity.py` — checks the build files against the frozen ProjectIdentityBuildContractV1. Executed on 2026-08-12.
+- `./gradlew build` — compiles every module and runs every module test suite. Executed on 2026-08-12.
+- `./gradlew :desktop-runner:run` — runs the headless JVM runner. Executed on 2026-08-12.
+- `./gradlew :android-host:assembleDebug` — builds the debug APK. Executed on 2026-08-12.
+- Project-specific commands: the Gradle and Python commands listed above. No organism run, replay or qualification command exists in this repository at the last verified date.
 
 ## Constraints
 
-- Platform/compatibility: the program targets Android as host, sensor and evidence source, persistence environment and presentation surface, with a deterministic core required to reproduce byte-identical canonical results across the qualified JVM and Android hardware matrix. None of that target toolchain is present in this repository yet.
+- Platform/compatibility: the program targets Android as host, sensor and evidence source, persistence environment and presentation surface, with a deterministic core required to reproduce byte-identical canonical results across the qualified JVM and Android hardware matrix. The build host carries no Java, Gradle or Android SDK by default; the toolchain used for D-004 was installed into the user home at `~/.local/toolchains` and `~/Android/Sdk`, and builds need `JAVA_HOME` and `ANDROID_HOME` pointed at those paths. No Android device or emulator is available on this host.
 - Security: no credentials, secrets or personal data are stored in this repository. Raw logs, full source files, secrets and unsupported claims must be kept out of external memory systems.
 - Data handling: governance ledgers in `.agent/` are append-only for history and must not be rewritten. Local repository files remain authoritative for project directives and outcomes.
 - Deployment: no deployment, release or distribution mechanism exists in this repository. No deployment has occurred.

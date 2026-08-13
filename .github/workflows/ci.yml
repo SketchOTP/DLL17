@@ -1,0 +1,86 @@
+name: R000 CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  governance:
+    name: Governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Governance validation (ADOPTED)
+        run: python3 scripts/validate_governance.py --mode ADOPTED
+
+      - name: Governance self-test
+        run: python3 scripts/test_validate_governance.py
+
+      - name: Project identity contract
+        run: python3 tools/verify_project_identity.py
+
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install pinned Android SDK packages
+        run: sdkmanager "platforms;android-37.0" "build-tools;37.0.0"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Pure JVM module tests
+        run: >
+          ./gradlew
+          :core-math:test
+          :core-crypto:test
+          :core-state:test
+          :desktop-runner:test
+          --no-daemon
+
+      - name: Headless desktop runner
+        run: ./gradlew :desktop-runner:run --no-daemon --quiet
+
+      - name: Full build
+        run: ./gradlew build --no-daemon
+
+      - name: Android debug assembly
+        run: ./gradlew :android-host:assembleDebug --no-daemon
+
+      - name: Record build environment
+        if: always()
+        run: |
+          echo "commit: ${{ github.sha }}"
+          ./gradlew --version --no-daemon
+
+      - name: Upload debug APK
+        if: success()
+        uses: actions/upload-artifact@v5
+        with:
+          name: android-host-debug
+          path: android-host/build/outputs/apk/debug/*.apk
+          if-no-files-found: error

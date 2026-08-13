@@ -14,3 +14,23 @@ Thumbs.db
 
 # Development-only artifact the governance validator forbids in the tracked tree
 MIGRATION_REPORT.md
+
+# Gradle and Kotlin build outputs and caches
+build/
+.gradle/
+.kotlin/
+
+# Machine-local SDK location; CI and local builds resolve the SDK from ANDROID_HOME
+local.properties
+
+# IDE state
+.idea/
+*.iml
+.vscode/
+
+# Android build artifacts that may be produced outside a module build directory
+*.apk
+*.aab
+*.ap_
+*.dex
+captures/
