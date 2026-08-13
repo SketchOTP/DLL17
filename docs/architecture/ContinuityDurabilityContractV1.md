@@ -58,6 +58,15 @@ not make it.
 
 Every parameter introduced by this contract that a later organism phase will
 replace is marked in `ParameterRegistry` with the scope `R002 fixture only`.
+There are exactly two of them:
+
+| Fixture parameter | Frozen value | Unit |
+|---|---|---|
+| `FIXTURE_RESERVE_DRAIN_PER_MINUTE` | `Fixed64` `0.001000` | reserve fraction per baseline-equivalent minute |
+| `FIXTURE_PASSIVE_DEVELOPMENT_PER_MINUTE` | `Fixed64` `0.000100` | progress units per verified minute |
+
+Passive development is granted only from verified time. Blind credit and
+anomalous intervals grant none, in either direction.
 
 ### 1.3 What this contract deliberately does not decide
 
