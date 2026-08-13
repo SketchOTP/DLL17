@@ -70,3 +70,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The repository has no remote, so the baseline exists on one machine only until a later directive resolves remote hosting.
 - Blockers: none
 - Follow-up directive: none
+
+## D-004 - COMPLETE
+
+- Outcome ID: O-0004
+- Supersedes outcome: none
+- Closed: 2026-08-12T20:31:27-04:00
+- Acceptance: MET
+- Summary: The greenfield R000 project skeleton was built. ProjectIdentityBuildContractV1 was frozen from the architect values and is enforced by tools/verify_project_identity.py. The Implementation Plan E2E module topology was created with core-math, core-crypto and core-state as pure Kotlin JVM modules, desktop-runner as a headless JVM runner and android-host as the only Android-linked module. All seven mandatory R000 registries exist as versioned scaffolds with no invented organism entries. A GitHub Actions workflow runs governance validation, the governance self-test, the identity check, module tests, the full build and the Android debug assembly, and it passed on a hosted runner. The work is pushed to the authoritative remote on branch main. No organism behavior, DeterminismContractV1 or R001 algorithm was implemented.
+- Changed areas: settings.gradle.kts, build.gradle.kts, gradle.properties, gradle/, gradlew, core-math/, core-crypto/, core-state/, desktop-runner/, android-host/, docs/, governance/, qualification/, tools/, .github/workflows/ci.yml, .gitignore, LICENSE, scripts/test_validate_governance.py, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md, .agent/LEARNINGS.md, .agent/CURRENT.md, .agent/PROJECT_PROFILE.md, .agent/REPO_MAP.md
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py - PASSED
+  - ./gradlew build covering all five modules and fifteen tests - PASSED
+  - ./gradlew :desktop-runner:run headless execution - PASSED
+  - ./gradlew :android-host:assembleDebug producing a debug APK - PASSED
+  - GitHub Actions run 31654374955 on branch main, both jobs - PASSED
+- Remaining risks: The Android shell has never been launched, because no device or emulator is available on the build host, so the R000 exit gate in Implementation Plan E2E stays open along with device budgets and a hashed CI evidence bundle. The repository is public and carries an MIT LICENSE created by the owner, which contradicts the proprietary no-redistribution clause the architect froze in the same directive; that conflict is recorded and left for the architect.
+- Blockers: none
+- Follow-up directive: none
