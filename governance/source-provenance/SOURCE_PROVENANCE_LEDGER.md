@@ -49,3 +49,20 @@ repository to inherit anything into.
 
 No copied code or asset may enter this repository without an entry in this
 ledger and explicit architect approval.
+
+## Zero-inheritance restated at R002 close
+
+Every Kotlin source file in `core-continuity` was authored under D007. The four
+clocks, the trust classifier, the credit and debt ledgers, the reconciliation
+planner, the generation journal, the compactor, the admission and platform
+controllers, the encrypted-record boundary, the identity binding and the
+migration framework are original to this repository. The one algorithm R002
+takes from an external specification — ChaCha20-Poly1305 — was implemented from
+RFC 8439 rather than copied, and is recorded in
+`DEPENDENCY_LICENSE_INVENTORY.md`.
+
+No organism implementation or state exists to have been inherited. R002
+implements continuity and durability mechanism only; physiology, drives, action
+selection, learning, memory, relationships and development remain unimplemented
+and gated behind A001.
+

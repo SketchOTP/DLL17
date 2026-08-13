@@ -22,6 +22,11 @@ class OfflineReconciliationTest {
 
     private fun ctx() = ArithmeticContext.unattributed()
 
+    private companion object {
+        /** 6 h of one-minute chunks + 18 h of five-minute + 48 h of fifteen-minute. */
+        const val MAX_CHUNKS = 360 + 216 + 192
+    }
+
     private fun anchored(): ContinuityState {
         val state = ContinuityState.genesis(1L, 1L)
         return ContinuityReducer.reduce(
@@ -199,6 +204,48 @@ class OfflineReconciliationTest {
         val plan = reconcile(anchored(), 72L * hour)
         assertTrue(plan.finalState.reserveA in 0L..FixedPoint.ONE)
         assertTrue(plan.finalState.reserveB in 0L..FixedPoint.ONE)
+    }
+
+    @Test
+    fun `the canonical absence ladder produces valid bounded deterministic state`() {
+        // The charter's R002 exit gate names exactly these six durations. Each
+        // must produce a state that is valid (inside every bound), bounded (the
+        // chunk count does not grow without limit) and deterministic (two runs
+        // agree byte for byte).
+        val ladder = linkedMapOf(
+            "5 minutes" to 5L * 60_000L,
+            "6 hours" to 6L * hour,
+            "72 hours" to 72L * hour,
+            "30 days" to 30L * day,
+            "6 months" to 182L * day,
+            "1 year" to 365L * day,
+        )
+        var previousChunks = 0
+        for ((label, elapsed) in ladder) {
+            val first = reconcile(anchored(), elapsed)
+            val second = reconcile(anchored(), elapsed)
+
+            assertEquals(first.finalState.stateHashHex(), second.finalState.stateHashHex(), label)
+            assertTrue(first.finalState.reserveA in 0L..FixedPoint.ONE, label)
+            assertTrue(first.finalState.reserveB in 0L..FixedPoint.ONE, label)
+            assertTrue(first.finalState.circadianPhase in 0L until FixedPoint.ONE, label)
+            assertEquals(elapsed, first.finalState.wallClockAgeMillis, label)
+            assertEquals(elapsed, first.finalState.verifiedTimeTotalMillis, label)
+            // Bounded: past the 72-hour window the chunk count stops growing, so
+            // a one-year absence costs no more work than a three-day one.
+            assertTrue(first.chunksApplied >= previousChunks, label)
+            assertTrue(first.chunksApplied <= MAX_CHUNKS, "$label produced ${first.chunksApplied} chunks")
+            previousChunks = minOf(first.chunksApplied, MAX_CHUNKS)
+        }
+    }
+
+    @Test
+    fun `runtime past the bounded window does not grow with the absence`() {
+        // The charter requires long-absence runtime to stay bounded without any
+        // scheduled Android work. Chunk count is the proxy for that work.
+        val threeDays = reconcile(anchored(), 72L * hour)
+        val oneYear = reconcile(anchored(), 365L * day)
+        assertEquals(threeDays.chunksApplied, oneYear.chunksApplied)
     }
 
     @Test

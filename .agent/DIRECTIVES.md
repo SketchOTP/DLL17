@@ -110,3 +110,17 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Related directive: none
 - Status at issuance: ISSUED
 
+
+## D-007
+
+- Issued: 2026-08-13T11:05:00-04:00
+- Issuer: User
+- External directive: D007
+- Objective: Complete the R002 continuity, durability, trusted-time and reconciliation foundation so that one organism preserves truthful identity and biological continuity through Android lifecycle interruption, process death, reboot, long absence, storage pressure, thermal and power emergencies, interrupted writes, and restart, without depending on continuous Android background execution.
+- Scope: Freeze ContinuityDurabilityContractV1; implement and qualify the four-clock model, durable time anchors, time-confidence classification, clock anomaly handling, bounded blind-decay credit, trusted-time debt and bounded reconciliation, durability classes, material interaction durability boundaries, journal and snapshot recovery, restart and replay correctness, compaction behaviour, storage-pressure handling, durability safe-hold behaviour, platform resource-shed and deep-suspend and recovery ordering, deterministic offline reconciliation modes and ordering, and the encrypted-record boundary; and push a qualified commit with passing GitHub CI.
+- Exclusions: R003 physiology; birth; critical-care biology; R004 action selection; AffordanceWorld behavior; RouteEvidence behavior; R005 embodiment; R006 learning; R007 memory; R008 relationships; R009 development and evolution; dialogue; LLM behavior; beginning D008.
+- Acceptance: ContinuityDurabilityContractV1 is frozen and the implementation conforms to it, every R002 work package in Implementation Plan E2E is completed, every R002 exit-gate criterion passes, process-death and restart fixtures preserve exactly the required durable state, uncommitted material mutations are never exposed after crash or restart, reboot and clock-manipulation exploit fixtures pass, blind-credit and trusted-time reconciliation remain bounded, storage-pressure and durability-safe-hold behaviour pass qualification, platform suspend and recovery ordering passes qualification, journal and snapshot and replay and recovery and compaction remain deterministic, R001 deterministic qualification remains green, a reproducible R002 qualification evidence bundle exists, GitHub CI passes for the qualified commit, the work is committed and pushed to main, local HEAD equals origin/main, the final worktree is clean, and no R003 or later organism behavior was introduced.
+- Risk class: HIGH
+- Relationship: new
+- Related directive: none
+- Status at issuance: ISSUED

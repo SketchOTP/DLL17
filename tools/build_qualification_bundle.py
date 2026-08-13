@@ -169,6 +169,85 @@ R001_CONSTITUENTS: list[tuple[str, list[str]]] = [
 ]
 
 
+CONTINUITY_SOURCES = [
+    "core-crypto/src/main/kotlin/com/animusmachinae/dll17/core/crypto/ChaCha20Poly1305.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/ContinuityContract.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/ContinuityState.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/ContinuityEvent.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/ContinuityReducer.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/TrustedTime.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/OfflineReconciliation.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/DurableStore.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/ContinuityJournal.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/DurabilityAdmission.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/PlatformProtection.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/IdentityBinding.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/ContinuityMigration.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/R002QualificationKernel.kt",
+    "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/CoreContinuityModule.kt",
+]
+
+R002_CONSTITUENTS: list[tuple[str, list[str]]] = [
+    (
+        "Frozen contracts",
+        [
+            "docs/architecture/ContinuityDurabilityContractV1.md",
+            "docs/architecture/DeterminismContractV1.md",
+            "docs/architecture/ProjectIdentityBuildContractV1.md",
+        ],
+    ),
+    ("Dependency and toolchain lock state", BUILD_FILES + ["core-continuity/build.gradle.kts"]),
+    (
+        "Source and licence state",
+        [
+            "LICENSE",
+            "governance/source-provenance/DEPENDENCY_LICENSE_INVENTORY.md",
+            "governance/source-provenance/SOURCE_PROVENANCE_LEDGER.md",
+        ],
+    ),
+    ("Continuity implementation source", CONTINUITY_SOURCES),
+    (
+        "Android backup and transfer exclusion",
+        [
+            "android-host/src/main/AndroidManifest.xml",
+            "android-host/src/main/res/xml/backup_rules.xml",
+            "android-host/src/main/res/xml/data_extraction_rules.xml",
+        ],
+    ),
+    ("Mandatory registry state", REGISTRIES + ["docs/invariants/INVARIANT_REGISTRY.md"]),
+    (
+        "Golden vectors, replay and exploit evidence",
+        [
+            "qualification/fixtures/R002/GOLDEN_VECTORS.md",
+            "qualification/fixtures/R002/desktop_jvm_report.txt",
+            "qualification/replay/R002/REPLAY_EVIDENCE.md",
+            "qualification/fault-injection/R002/EXPLOIT_MATRIX.md",
+        ],
+    ),
+    (
+        "Validation evidence",
+        [
+            "qualification/evidence/R002/governance_validation.txt",
+            "qualification/evidence/R002/governance_selftest.txt",
+            "qualification/evidence/R002/project_identity.txt",
+            "qualification/evidence/R002/gradle_build.txt",
+            "qualification/evidence/R002/desktop_runner.txt",
+            "qualification/evidence/R002/toolchain_environment.txt",
+        ],
+    ),
+    (
+        "Cross-target continuity matrix",
+        [
+            "qualification/device-matrix/R002/CONTINUITY_MATRIX.md",
+            "qualification/device-matrix/R002/desktop_jvm.txt",
+            "qualification/device-matrix/R002/x86_emulator.txt",
+            "qualification/device-matrix/R002/tensor_device.txt",
+        ],
+    ),
+    ("Gate record", ["governance/release-gates/R002_EXIT_GATE.md"]),
+]
+
+
 class PhaseSpec:
     def __init__(
         self,
@@ -212,6 +291,17 @@ PHASES: dict[str, PhaseSpec] = {
         bundle_version="R001-QB-1",
         bundle_path="governance/qualification/R001_QUALIFICATION_BUNDLE.md",
         constituents=R001_CONSTITUENTS,
+        # R001 closed under D006 at this commit. Its evidence is pinned so that
+        # R002 and later phases cannot disturb a gate that already passed.
+        frozen_at_commit="e442e1478deed9e70f5f2b547c92071ba8bce6ff",
+    ),
+    "R002": PhaseSpec(
+        phase="R002",
+        title="lifecycle, durability, trusted time and reconciliation",
+        directive="D007",
+        bundle_version="R002-QB-1",
+        bundle_path="governance/qualification/R002_QUALIFICATION_BUNDLE.md",
+        constituents=R002_CONSTITUENTS,
         frozen_at_commit=None,
     ),
 }

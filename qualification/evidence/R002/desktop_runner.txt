@@ -1,0 +1,217 @@
+Digital Living Lifeform - desktop runner
+phase: R002 lifecycle, durability, trusted time and reconciliation
+canonical logic: DeterminismContractV1 v1 and ContinuityDurabilityContractV1 v1 frozen; deterministic core and continuity foundation implemented
+organism behavior: none. Physiology, drives, learning, memory and relationships remain gated on R003 behind A001.
+modules:
+  - core-math [pure-kotlin-jvm] canonicalLogicImplemented=true
+  - core-crypto [pure-kotlin-jvm] canonicalLogicImplemented=true
+  - core-state [pure-kotlin-jvm] canonicalLogicImplemented=true
+  - core-continuity [pure-kotlin-jvm] canonicalLogicImplemented=true
+
+R001 determinism qualification
+fixture set: R001-FIXTURES-V1 v1
+determinism contract version: 1
+
+fixture FX-ARITHMETIC-01
+  direct state hash : db48cfbc775d9d632506033e908dfa1844cdaa00c46e96195c4116a8abd74f34
+  replay state hash : db48cfbc775d9d632506033e908dfa1844cdaa00c46e96195c4116a8abd74f34
+  replay matches    : true
+  frames applied    : 5
+  journal digest    : 1e24ddb41a619365aaacb8dc9b2efd59da3929de449bb44530b8e5b7ed252756
+  saturations       : 0
+fixture FX-RANDOM-01
+  direct state hash : 64a6d7799bd82eb7b7f6584fa8afd40bc6170b0fab44fce97553adc9d42b3d4c
+  replay state hash : 64a6d7799bd82eb7b7f6584fa8afd40bc6170b0fab44fce97553adc9d42b3d4c
+  replay matches    : true
+  frames applied    : 5
+  journal digest    : 65c26acc5632c97b37f757e67e242582beb8f16fa92f3d9c3a3610c5a45154e9
+  saturations       : 0
+fixture FX-DECAY-01
+  direct state hash : be3815ff9a6ace14c49cef8bed764c1f653322e8d9f99a24fd19f277fdec9989
+  replay state hash : be3815ff9a6ace14c49cef8bed764c1f653322e8d9f99a24fd19f277fdec9989
+  replay matches    : true
+  frames applied    : 6
+  journal digest    : b2d09b92192e064770a0bfd467482d7fba33889227619ffc0484a3b02b2f2159
+  saturations       : 0
+fixture FX-WITNESSED-01
+  direct state hash : 2401c0518ec8712c33a7d40233a4cace4868a7187e7dd2720437025f7f0e4b53
+  replay state hash : 2401c0518ec8712c33a7d40233a4cace4868a7187e7dd2720437025f7f0e4b53
+  replay matches    : true
+  frames applied    : 4
+  journal digest    : 50a517b5d3cf24e5fb615b37e7020b1f7a27a949329b5ff50cd2bfb33709fc68
+  saturations       : 0
+fixture FX-BOUNDARY-01
+  direct state hash : b5c4db23664b3aa0d66b6822cc43b303cc7a5c3ccfe6952bd7c61551dd4ea729
+  replay state hash : b5c4db23664b3aa0d66b6822cc43b303cc7a5c3ccfe6952bd7c61551dd4ea729
+  replay matches    : true
+  frames applied    : 4
+  journal digest    : a9de6225c44c02072be297f99dd3e60165d0bac4b610561be6a81ae8ce22329e
+  saturations       : 1
+
+fixed-point digest   : 1cb3b944aa46e05f322c91d3f724ab4f0094bb59c03e333577b9cb9a9f00d967
+random digest        : b3ba5f87e4f0fd3a9f932f83ed6752a1e051dcfac2ffaeef041e9bacabc34017
+lookup digest        : 951d66b7863bbf706dcedec396b02032bbf5d34dc2b17f2438bf5f4ef6eb19ab
+serialization digest : 552473e9afb48fbe61921bceedf1096aa1213dd98eb714c380bfc8bae79a43f5
+domain isolation     : true
+all replays match    : true
+
+R001_EVIDENCE_DIGEST=54bc044740a4c05b41b509a7160bff559e09421f2eaa55dc36c3d3ffadc1bd86
+
+R002 continuity and durability qualification
+fixture set: R002-FIXTURES-V1 v1
+continuity contract version: 1
+
+fixture FX-VERIFIED-ABSENCE-01 [reconciliation]
+  state hash    : 8f1f35bf05da0dcec146adadc2ef7954177c5f08a99d36ef0734abe91cb90e3f
+  chunks        : 360
+  events        : 723
+  defence held  : true
+  detail        : six verified hours reconciled in 360 chunks
+fixture FX-LONG-ABSENCE-01 [reconciliation]
+  state hash    : 4b2bd0a258a7830be1b6edccc8e151ca2d29a451a9eec49a3b6b0e8a8ed904b4
+  chunks        : 768
+  events        : 1541
+  defence held  : true
+  detail        : thirty verified days, bounded chunking then projection
+fixture FX-SLICED-RESUME-01 [reconciliation]
+  state hash    : 237be255a8cb4ded29e03577737667e49e2d127bc366174c367db46e7dac9ce2
+  chunks        : 384
+  events        : 771
+  defence held  : true
+  detail        : single-chunk slices reproduce the uninterrupted sequence exactly
+fixture FX-REBOOT-01 [trusted-time]
+  state hash    : b0c8bec3c67387541020d51782604b2876ec8d7cf7215f6c07f050117652c6bb
+  chunks        : 0
+  events        : 4
+  defence held  : true
+  detail        : reboot consumed 3600000ms of credit and accrued 7200000ms of debt
+fixture FX-REPEATED-REBOOT-01 [trusted-time]
+  state hash    : c8db6d463cb256a94081997eb2de4111003c4f8bee0597e35af491de0ea519c9
+  chunks        : 0
+  events        : 0
+  defence held  : true
+  detail        : eight reboots consumed 14400000ms total, velocity anomaly=true
+fixture FX-CLOCK-BACKWARD-01 [clock-anomaly]
+  state hash    : 5f43b795974e4d96c5b9497f5a71078cd4cbc8e931cd241ccf847a4df2c7617f
+  chunks        : 0
+  events        : 3
+  defence held  : true
+  detail        : backward wall movement produced no negative time and no development
+fixture FX-CLOCK-FORWARD-01 [clock-anomaly]
+  state hash    : 08bd85a70ec5790f411278aeb43ab246fdcf4a2eb735b4b789ad4623a636337a
+  chunks        : 0
+  events        : 3
+  defence held  : true
+  detail        : a ten-day wall jump generated no reward-bearing progression
+fixture FX-DEBT-FLOOR-01 [debt]
+  state hash    : fe2b3fb07942be62279fcc324568e998af0f8f5a2a941942753ce6a1f4abe800
+  chunks        : 0
+  events        : 0
+  defence held  : true
+  detail        : collection paused at the floor and did not rearm on the restoring care event
+fixture FX-DEBT-CAP-01 [debt]
+  state hash    : 3824ef91e61ee03bc23c771ceacd87a93563c5de871e929adc392c86af566080
+  chunks        : 0
+  events        : 4
+  defence held  : true
+  detail        : one year of uncertainty capped at 72h with 31276200000ms forgiven at accrual
+fixture FX-DEATH-BEFORE-COMMIT-01 [restart-recovery]
+  state hash    : 082e47e3b3308b435a6081a9f60389bee9ad87a0dd579f990b51414b19a65bd7
+  chunks        : 0
+  events        : 1
+  defence held  : true
+  detail        : an interrupted witnessed write left no trace and no visible mutation
+fixture FX-DEATH-AFTER-COMMIT-01 [restart-recovery]
+  state hash    : 3ecdf6a8be0dcf46e622e1f0ab31ad898e93e59639794e602781f525c0815875
+  chunks        : 0
+  events        : 2
+  defence held  : true
+  detail        : an acknowledged transition survived process death exactly
+fixture FX-INTERRUPTED-SNAPSHOT-01 [compaction]
+  state hash    : 95014d59f7b81b8402dd24c48e534eacc5e17f0ec76ad373e14a97df10f77d54
+  chunks        : 0
+  events        : 9
+  defence held  : true
+  detail        : a failed checkpoint install pruned nothing: checkpoint install failed, nothing pruned: simulated write failure at sequence 10
+fixture FX-COMPACTION-01 [compaction]
+  state hash    : 60206065bba3364f9acee907309beee5da10474676cb5e50fe15505b8b41c901
+  chunks        : 0
+  events        : 0
+  defence held  : true
+  detail        : compaction installed a verified checkpoint and recovery reproduced the state
+fixture FX-STORAGE-PRESSURE-01 [storage-pressure]
+  state hash    : 97490eb4fe8bfdbd125d7d18da13fbb0de23dd66999fcb1cea24594c15eacdec
+  chunks        : 0
+  events        : 1
+  defence held  : true
+  detail        : pressure then read-only survival, entered in the normative order
+fixture FX-SAFE-HOLD-EXIT-01 [safe-hold]
+  state hash    : e5a2999f1fb656f320d6aa49d3ef6735daf3443ad79e2bd65c8dc1f2b26b5931
+  chunks        : 0
+  events        : 1349
+  defence held  : true
+  detail        : the held interval was reconciled in full before admission reopened
+fixture FX-STORAGE-FAULT-01 [storage-fault]
+  state hash    : a6e1ed8006ac8423a041557e597a849eee25588c9c0ef9d54bf9d366f7e5d023
+  chunks        : 0
+  events        : 0
+  defence held  : true
+  detail        : a failed emergency commit fell back to the last durable anchor
+fixture FX-DEEP-SUSPEND-01 [platform-deep-suspend]
+  state hash    : a459137ab56b485aee403aba2db1c1dc67d86f43b79ceeb48805146daf74cf9c
+  chunks        : 0
+  events        : 1
+  defence held  : true
+  detail        : a successful anchor made the panic witness unnecessary
+fixture FX-PANIC-WITNESS-01 [platform-deep-suspend]
+  state hash    : 4497bf77bc8f9c717876dd522f7b6d862553c8de2a45c665fdf4c562467c5115
+  chunks        : 0
+  events        : 0
+  defence held  : true
+  detail        : anchor failed, one witness attempt, no visible material mutation lost
+fixture FX-BOTH-WRITES-FAIL-01 [platform-deep-suspend]
+  state hash    : 082e47e3b3308b435a6081a9f60389bee9ad87a0dd579f990b51414b19a65bd7
+  chunks        : 0
+  events        : 0
+  defence held  : true
+  detail        : both writes failed and recovery still began at the last durable anchor
+fixture FX-PLATFORM-RECOVERY-01 [platform-recovery]
+  state hash    : b020b737e8378cf1ce87a7520c1424638ecb13fb0469cbcc166cbb27f013e4a0
+  chunks        : 0
+  events        : 244
+  defence held  : true
+  detail        : hysteresis refused an early restart and the later one reconciled two hours
+fixture FX-ENCRYPTED-RECORD-01 [encrypted-record]
+  state hash    : 375445abe94120d1b3dc21efcd1676317cf04f6922480d3022b4558b1789fea1
+  chunks        : 0
+  events        : 4
+  defence held  : true
+  detail        : records authenticate, leak no canonical plaintext, and fail loudly when corrupted
+fixture FX-QUARANTINE-01 [identity-binding]
+  state hash    : 705513f0290dfbe8ffd3760137be9c473247b117d1fd555d2f09eab384658938
+  chunks        : 0
+  events        : 1
+  defence held  : true
+  detail        : a copied database did not boot as a second organism
+fixture FX-MIGRATION-01 [version-boundary]
+  state hash    : 9c8abd84595b8cf6deba2baf1105406b9f069eede234995f0b6fa16fbf942a16
+  chunks        : 0
+  events        : 0
+  defence held  : true
+  detail        : v0 migrated deterministically and a future version was refused
+fixture FX-REPLAY-EQUIVALENCE-01 [replay-determinism]
+  state hash    : 677d8e77345ed1d169033680c1df372df380606fa231de76274ba3a748664fc1
+  chunks        : 600
+  events        : 1203
+  defence held  : true
+  detail        : a thirty-hour reconciliation replayed from the durable medium byte for byte
+
+trust digest          : 32c553602ec91f167d6d0eaa418dc1ac49dd291491cee0d969c2b920cb83ddaa
+reconciliation digest : 4d0237959e543f7c99192549f97989d8a9d7fa418fb3b63560133cd88148379d
+debt digest           : 591ec340b36eb158dc1a861891d08227da4628cee407f27ba151bbbf44cc57db
+durability digest     : c73563ca850c05fd629f75a7758bb3ba77e36ba212047edf92f292474bd1023b
+encryption digest     : 6db8d74c470473b369c2009f8b4e36cad76f9f8b052aa030000ac4db8bb79e44
+replay digest         : 712c72e954725d4d83415c385debe86350895244e08bac7c6b691f324b2c531c
+all defences held     : true
+
+R002_EVIDENCE_DIGEST=556bbe49df16595f748a487f78a17a83866eb2a018814f69ee469d7976d58d21

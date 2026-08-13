@@ -53,41 +53,38 @@ none supersedes the others and passing only one would be a partial claim.
 
 ---
 
-## The one criterion that rests on an architect decision
+## The determinism matrix, as amended
 
 Gate A criterion 4, Gate B criterion 1 and Gate C criterion 3 are the same
-requirement: identical canonical hashes across **every required target**. The
-canonical determinism matrix names five targets.
+requirement: identical canonical hashes across **every required target**.
 
 | Canonical target | Result |
 |---|---|
 | Desktop JVM reference runner | `PASS` |
 | x86 Android emulator | `PASS` |
 | Tensor Android hardware | `PASS` |
-| Snapdragon Android hardware | **`WAIVED BY ARCHITECT`** |
 | Exynos Android hardware | `CONDITIONAL` — canonical text says "when available", and none was |
+| Snapdragon Android hardware | Optional confidence evidence only; not a gate target |
 
-D006 instructed: *"If a required R001 target cannot be qualified, do not weaken
-the matrix."* Snapdragon is listed without the `when available` qualifier that
-Exynos carries, so on the directive's text alone this criterion would be
-`BLOCKED` and R001 would not close.
+### History of this row
 
-During D006 execution the architect was asked directly and answered that the
-Pixel 9 hardware is sufficient and that Snapdragon is not required. That is an
-architect decision, and it is recorded here as one rather than absorbed:
+D006 was issued while the canonical page listed Snapdragon without the
+`when available` qualifier that Exynos carries, and instructed: *"If a required
+R001 target cannot be qualified, do not weaken the matrix."* No Snapdragon device
+was available. During execution the architect answered that the Pixel 9 hardware
+was sufficient, and this record originally carried that as `WAIVED BY ARCHITECT`
+rather than `PASS` — a session decision, not a specification change — with the
+disagreement between matrix and page left open.
 
-- The Snapdragon row reads `WAIVED BY ARCHITECT`, **not** `PASS`. No claim is
-  made that Snapdragon silicon executed anything.
-- The canonical architecture page still lists Snapdragon as required. A waiver
-  given in a working session is not an amendment to a frozen specification.
-  Until the canonical page is amended, the matrix and the specification
-  disagree, and closing that disagreement is the architect's act, not the
-  implementer's.
+The **2026-08-13 architect amendment** to the canonical architecture page closed
+it: *"Snapdragon qualification is no longer a required R001 gate target … absence
+of a Snapdragon run does not block R001."* The required matrix is now Tensor
+hardware, the x86 emulator and the desktop JVM, with Exynos conditional and
+Snapdragon optional. The specification and this record now agree, and the
+criterion passes on evidence rather than on a waiver.
 
-**If the architect intended D006's "do not weaken the matrix" instruction to
-survive that answer, this criterion is `BLOCKED`, all three gates reopen, and
-R001 does not close.** The evidence for every other criterion is unaffected and
-would stand.
+No Snapdragon evidence exists in either direction. The amendment removed the
+requirement to test; it did not create a result.
 
 ## What the passing targets actually cover
 
@@ -108,16 +105,19 @@ intrinsic, or a hash-iteration-order leak. None appeared.
 
 Recorded so a later reader is not misled about what R001 did and did not settle.
 
-1. **No Snapdragon or Exynos evidence exists.** The waiver removes the
-   requirement to test; it does not create a result.
+1. **No Snapdragon or Exynos evidence exists.** The 2026-08-13 amendment removed
+   the requirement to test Snapdragon and the canonical text makes Exynos
+   conditional. Neither removal creates a result, and production support claims
+   covering those device classes would still need the rows closed.
 2. **The panic-witness attempt deadline is `NOT ESTABLISHED`.** R001 measured the
    write cost on two targets, as the architect's correction requires, and
    deliberately did not convert a healthy-process benchmark into a deadline that
    has to hold during a real critical suspend.
-3. **Class O batching cadence and the maximum tolerated uncommitted window are
-   `NOT ESTABLISHED`.** E2E R001.9 says qualification freezes them. Both are
-   properties of real persistence on a real device, and R001's durable medium is
-   an in-process byte log by design. They belong to R002.
+3. **Class O batching cadence and the maximum tolerated uncommitted window were
+   `NOT ESTABLISHED` at R001.** Both were frozen by R002's
+   `ContinuityDurabilityContractV1` section 8, from the canonical 250–1000 ms
+   band rather than invented. The panic-witness attempt deadline was frozen
+   there too, from R001's own measurement.
 4. **R001's durable medium is not a database.** R001 owns the durability
    *contract*; persistence *semantics* are R002's `ContinuityDurabilityContractV1`.
    Every R001 invariant is provable against an append-only byte log, and
@@ -128,4 +128,9 @@ Recorded so a later reader is not misled about what R001 did and did not settle.
 
 ---
 
-**R001 = PASS**, contingent on the architect's Snapdragon waiver recorded above.
+**R001 = PASS**
+
+Closed under D006. The one criterion that originally rested on a session waiver
+now rests on the 2026-08-13 canonical amendment, and the qualified evidence is
+unchanged. R002 re-ran the R001 kernel on every target it qualified; the digest
+is unchanged.

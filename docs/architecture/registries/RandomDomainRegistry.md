@@ -43,3 +43,17 @@ canonical-architecture change rather than an implementation detail.
 
 Executable form: `core-crypto`, `RandomDomainRegistry`. The serialized layout is
 frozen in `DeterminismContractV1` section 7.3.
+
+
+---
+
+## R002 additions
+
+None. R002 introduces **no** random domain and draws no randomness anywhere.
+
+That is a deliberate property rather than an omission. Reconciliation, recovery
+and migration must all be pure functions of their inputs, and a random draw
+inside any of them would make a replayed reconciliation diverge from the original
+one. The AEAD nonce that an encrypted record needs is derived from the durable
+sequence and key epoch precisely so that the durable write path needs no
+randomness source either.

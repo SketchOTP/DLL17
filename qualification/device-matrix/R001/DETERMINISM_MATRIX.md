@@ -21,8 +21,8 @@ crashing is not passing.
 | Desktop JVM reference runner | OpenJDK 17.0.20, Linux | `x86_64` host | `R001-FIXTURES-V1` v1 | `54bc0447…adc1bd86` | `PASS` |
 | x86 Android emulator | Android 16, API 36, AOSP ATD | `x86_64`, emulated | `R001-FIXTURES-V1` v1 | `54bc0447…adc1bd86` | `PASS` |
 | Tensor Android hardware | Android 16, API 36, Pixel 9 Pro XL | `arm64-v8a`, Google Tensor G4 | `R001-FIXTURES-V1` v1 | `54bc0447…adc1bd86` | `PASS` |
-| Snapdragon Android hardware | — | — | — | not executed | `WAIVED BY ARCHITECT` |
 | Exynos Android hardware | — | — | — | not executed | `CONDITIONAL — canonical "when available"` |
+| Snapdragon Android hardware | — | — | — | not executed | `OPTIONAL — not a gate target since the 2026-08-13 amendment` |
 
 Full per-target records, including build fingerprints and the complete kernel
 output each target produced, are in the sibling files `desktop_jvm.txt`,
@@ -60,27 +60,28 @@ differed.
 
 All three passing targets reported all four values identically.
 
-## Snapdragon — architect waiver, not a pass
+## Snapdragon — no longer a gate target
 
-The canonical determinism matrix lists Snapdragon Android hardware without the
-`when available` qualifier that Exynos carries. No Snapdragon device was
-available for this qualification.
+D006 was executed while the canonical determinism matrix listed Snapdragon
+without the `when available` qualifier that Exynos carries, and no Snapdragon
+device was available. The architect answered during execution that the Pixel 9
+was sufficient, and this file originally recorded that as `WAIVED BY ARCHITECT`
+rather than `PASS`, with the mismatch between matrix and specification left
+open.
 
-The architect was asked directly during D006 execution and answered that the
-Pixel 9 hardware is sufficient and that Snapdragon is not required. That is an
-architect decision and it is recorded as such: the row above reads
-`WAIVED BY ARCHITECT`, deliberately **not** `PASS`, and this file does not claim
-that Snapdragon silicon executed anything.
+The **2026-08-13 architect amendment** to the canonical architecture page closed
+the mismatch:
 
-Two consequences follow, and both are the architect's to resolve rather than the
-implementer's:
+> Snapdragon qualification is no longer a required R001 gate target. […]
+> Snapdragon Android hardware — optional additional evidence only; absence of a
+> Snapdragon run does not block R001.
 
-1. The canonical page still lists Snapdragon as required. A waiver given in a
-   working session is not an amendment to a frozen specification. Until the
-   canonical architecture is amended, the matrix and the specification disagree.
-2. No evidence exists either way about Snapdragon behaviour. The waiver removes
-   the requirement to test; it does not create a result. If production support
-   claims later include Snapdragon devices, this row still needs closing.
+The required matrix is now Tensor hardware, the x86 Android emulator and the
+desktop JVM reference runner, with Exynos conditional when available.
+
+No Snapdragon evidence exists in either direction. The amendment removed the
+requirement to test it; it did not create a result. A production support claim
+covering Snapdragon devices would still want the row closed.
 
 ## Exynos — canonically conditional
 

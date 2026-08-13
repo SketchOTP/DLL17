@@ -96,20 +96,53 @@ can state it against measured device evidence, and each then becomes a
 | Organism memory budget | `NOT ESTABLISHED` | R001+ |
 | Thermal limits | `NOT ESTABLISHED` | later qualification |
 | Battery budget | `NOT ESTABLISHED` | later qualification |
-| Persistence latency | `NOT ESTABLISHED` | R002 |
+| Persistence latency | `NOT ESTABLISHED` | the phase that adopts a real storage engine |
 | Frame-time / rendering budget | `NOT ESTABLISHED` | later qualification |
 | Final storage ceiling | `NOT ESTABLISHED` | later qualification |
 | Canonical reducer latency | `NOT ESTABLISHED` | R001 |
-| Class W commit latency | `NOT ESTABLISHED` | R002 |
-| Reconciliation wall time | `NOT ESTABLISHED` | R002+ |
+| Class W commit latency | `NOT ESTABLISHED` | the phase that adopts a real storage engine |
+| Reconciliation wall time | `NOT ESTABLISHED` | the phase that reconciles real physiology |
 | Sensor cadence | `NOT ESTABLISHED` | later qualification |
 | Local speech latency | `NOT ESTABLISHED` | later qualification |
 | Asset footprint | `NOT ESTABLISHED` | later qualification |
 | Warm startup | `NOT ESTABLISHED` | later qualification |
-| Class O batching cadence | `NOT ESTABLISHED` | R002 |
-| Maximum tolerated uncommitted window | `NOT ESTABLISHED` | R002 |
-| Panic-witness attempt deadline | `NOT ESTABLISHED` | the phase that first writes one in production |
+| Class O batching cadence | **Frozen at R002**: `500` ms | `ContinuityDurabilityContractV1` section 8 |
+| Maximum tolerated uncommitted window | **Frozen at R002**: `1000` ms | `ContinuityDurabilityContractV1` section 8 |
+| Panic-witness attempt deadline | **Frozen at R002**: `20` ms | `ContinuityDurabilityContractV1` section 8 |
 
 The distinction matters: a guessed ceiling written down today would be treated
 as a contract by later phases and would have to be unwound. Device evidence, not
 guessed constants, freezes production limits.
+
+---
+
+## R002 disposition of the three R001 gaps
+
+R001 recorded the Class O batching cadence, the maximum tolerated uncommitted
+window and the panic-witness attempt deadline as `NOT ESTABLISHED` because no
+evidence existed to set them. R002 froze all three in
+`ContinuityDurabilityContractV1` section 8, and none of them was invented:
+
+| Parameter | Value | Where the number came from |
+|---|---|---|
+| Class O batching cadence | `500` ms | Midpoint of the canonical architecture's stated 250–1000 ms durability cadence |
+| Maximum uncommitted window | `1000` ms | Upper edge of the same canonical band |
+| Panic-witness attempt deadline | `20` ms | R001's own measurement: p99 of 16,215 ns on the emulator and 12,614 ns on Tensor, leaving roughly three orders of magnitude of headroom |
+
+All three are `QUALIFICATION_TARGET` rather than `FROZEN_INVARIANT`, so device
+evidence can move them without a contract break.
+
+The panic-witness deadline still carries the caveat R001 recorded: the
+measurements were taken while the process was healthy, which is the opposite of
+the condition the witness exists for. The generous headroom is a response to that
+uncertainty, not a claim to have removed it.
+
+## What R002 deliberately did not measure
+
+R002's durable medium is an in-process byte log with explicit fault injection,
+chosen so that torn writes, capacity exhaustion, corruption and failed fsync are
+expressible as ordinary tests. It is not a database, so persistence latency,
+Class W commit latency and reconciliation wall time on real storage remain
+`NOT ESTABLISHED` and belong to the phase that adopts a storage engine. Reporting
+a latency measured against an in-memory list would be worse than reporting none.
+

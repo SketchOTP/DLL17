@@ -134,3 +134,25 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: none
 - Follow-up directive: none
 
+
+## D-007 - COMPLETE
+
+- Outcome ID: O-0007
+- Supersedes outcome: none
+- Closed: 2026-08-13T13:20:00-04:00
+- Acceptance: MET
+- Summary: R002 is closed as PASS against both canonical exit gates. ContinuityDurabilityContractV1 version 1 was frozen in its own commit before any dependent implementation existed, fixing the four-clock model and canonical duration unit, the durable anchor layout, time-confidence classification and the clock anomaly rule, blind-decay credit with a carried replenishment remainder, the unresolved-time debt cap and safety floor and hysteresis and forgiveness horizon, the offline mode boundaries and chunk schedule and per-chunk ordering, journal generations and compaction, the durability admission states with normative entry and exit orderings, the platform protection states with a single-attempt suspend ordering, the TEMPORAL_DESYNC presentation rules, the encrypted-record boundary with derived nonces, and the restart and version-boundary rules. A new pure Kotlin module core-continuity implements all of it, together with a project-owned RFC 8439 ChaCha20-Poly1305 in core-crypto. One hundred and eighty-nine JVM tests and nine Android instrumented tests pass. Twenty-four continuity fixtures, including the full failure and exploit matrix, produced the byte-identical evidence digest 556bbe49df16595f748a487f78a17a83866eb2a018814f69ee469d7976d58d21 on the desktop JVM reference runner, on the x86_64 Android emulator and on Tensor G4 hardware, and every one of those targets reproduced the unchanged R001 digest in the same instrumented session. No organism behavior was implemented; the two reserves are neutral R002 fixtures.
+- Changed areas: docs/architecture/ContinuityDurabilityContractV1.md, docs/architecture/CANONICAL_SOURCES.md, docs/architecture/registries/, docs/decisions/DECISION_LOG.md, docs/invariants/INVARIANT_REGISTRY.md, docs/release/DEVICE_AND_RESOURCE_BUDGETS.md, core-continuity/, core-crypto/, desktop-runner/, android-host/, governance/release-gates/, governance/qualification/, governance/source-provenance/, qualification/, tools/build_qualification_bundle.py, tools/qualify_r002_continuity.sh, tools/verify_project_identity.py, settings.gradle.kts, .github/workflows/ci.yml, .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py covering six modules - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering R000 and R001 at their pinned commits and R002 with fifty-eight constituents - PASSED
+  - python3 tools/generate_lookup_tables.py --check - PASSED
+  - ./gradlew clean build covering six modules and one hundred and eighty-nine JVM tests - PASSED
+  - ./gradlew :desktop-runner:run reproducing both frozen golden digests - PASSED
+  - tools/qualify_r002_continuity.sh on the x86_64 Android emulator - PASSED
+  - tools/qualify_r002_continuity.sh on a physical Pixel 9 Pro XL with Tensor G4 - PASSED
+- Remaining risks: Two Implementation Plan E2E work packages are not complete and the reasons are canonical rather than unfinished work. R002.5 and R002.10 prepared-rest semantics are written entirely in terms of exhaustion, recovery and contradiction conditions, which are species physiology gated behind A001; the durability machinery they depend on is implemented and qualified but the biology is deferred. R002.12 recovery cryptography and the storage provider are recorded as BLOCKED_SPEC_RECOVERY_CRYPTOGRAPHY and BLOCKED_SPEC_RECOVERY_PROVIDER, because Implementation Plan E2E requires RecoveryCryptographyContractV1 to be frozen first and D007 authorized freezing ContinuityDurabilityContractV1 only. D007 acceptance criterion three requires every work package to be complete while D007's own enumerated scope names none of those packages; that conflict is recorded in the gate record and is the architect's to resolve. Real storage failure modes remain untested because the durable medium is an in-process byte log with fault injection rather than a database. Android backup exclusion is asserted structurally rather than exercised through the platform transport. No frame-time measurement exists because no organism rendering is wired. Exynos remains canonically conditional and Snapdragon optional, with no evidence either way. The repository remains public while carrying a proprietary licence.
+- Blockers: none
+- Follow-up directive: none

@@ -180,3 +180,33 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: A defect in the R000 tooling, found during D-006. R001 legitimately edited shared build files and every registry, which would have failed R000 verification and reopened a gate that had already closed for reasons unrelated to R000. Evidence of a past qualification must not depend on the present state of the repository.
 - Affected areas: tools/build_qualification_bundle.py, governance/qualification/, .github/workflows/ci.yml
 - Supersedes record: none
+
+## DEC-0017
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0017
+- Status: ACTIVE
+- Decision or event: The 2026-08-13 architect amendment to the canonical architecture removed Snapdragon as a required R001 determinism target. The required matrix is Tensor Android hardware, the x86 Android emulator and the desktop JVM reference runner, with Exynos conditional when available and Snapdragon optional confidence evidence only.
+- Rationale: The amendment closes the disagreement DEC-0015 recorded between the frozen page and the qualified matrix. R001's determinism-matrix criterion now rests on evidence plus a canonical amendment rather than on a session waiver, and the qualified evidence itself is unchanged.
+- Affected areas: governance/release-gates/R001_EXIT_GATE.md, qualification/device-matrix/R001/DETERMINISM_MATRIX.md, governance/qualification/QUALIFICATION_EVIDENCE_INDEX.md
+- Supersedes record: DEC-0015
+
+## DEC-0018
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0018
+- Status: ACTIVE
+- Decision or event: ContinuityDurabilityContractV1 version 1 is FROZEN and R002 continuity lives in a new pure Kotlin module, core-continuity, rather than inside core-state.
+- Rationale: R002 adds a large cohesive subsystem covering clocks, trust, reconciliation, durability, platform protection and encryption. Folding it into the closed R001 determinism kernel would have made that surface harder to reason about, and a separate module keeps the Android framework out of continuity logic by construction.
+- Affected areas: docs/architecture/ContinuityDurabilityContractV1.md, core-continuity/, settings.gradle.kts, tools/verify_project_identity.py
+- Supersedes record: none
+
+## DEC-0019
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0019
+- Status: ACTIVE
+- Decision or event: R002.5 prepared-rest semantics and R002.10 prepared-rest durable handoff are deferred to the phase that owns organism behaviour, and R002.12 recovery cryptography and the storage provider are recorded as BLOCKED_SPEC_RECOVERY_CRYPTOGRAPHY and BLOCKED_SPEC_RECOVERY_PROVIDER.
+- Rationale: The rest packages are written entirely in terms of exhaustion, recovery curves and contradiction conditions, which are species physiology gated behind A001. Implementation Plan E2E R002.12 requires RecoveryCryptographyContractV1 to be frozen before recovery cryptography is written and forbids inventing those choices inside persistence code, and D007 authorized freezing ContinuityDurabilityContractV1 only. The durability machinery both packages depend on is implemented and qualified.
+- Affected areas: governance/release-gates/R002_EXIT_GATE.md, core-continuity/IdentityBinding.kt
+- Supersedes record: none

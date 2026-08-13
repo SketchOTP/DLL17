@@ -196,3 +196,43 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: Every harness in this repository that reads device logs into committed evidence.
 - Supersedes learning: none
+
+## L-0019
+
+- Learning ID: L-0019
+- Date: 2026-08-13
+- Fact or lesson: Making reconciliation plan a canonical event sequence, rather than mutate state directly, is what makes it both replayable and resumable. Because the reconciliation is a list of events folded by the ordinary reducer, reduce equals replay holds for it automatically, and an interruption at any chunk resumes from a cursor to the identical sequence. A reconciliation that wrote state directly would leave nothing in the journal to replay and would be unrecoverable if the process died in the middle of one.
+- Evidence location: core-continuity Reconciliation and ContinuityReducer; FX-SLICED-RESUME-01 and FX-REPLAY-EQUIVALENCE-01; slice equivalence asserted at one, two, seven, sixty-four and ten thousand chunks.
+- Confidence: VERIFIED
+- Scope: Every future canonical computation that must survive being interrupted.
+- Supersedes learning: none
+
+## L-0020
+
+- Learning ID: L-0020
+- Date: 2026-08-13
+- Fact or lesson: Blind time must not advance the counter that gates its own replenishment. Blind decay credit is earned from verified elapsed time, so if consuming credit also advanced the verified counter, a reboot loop could manufacture the verified time needed to buy more credit. Separating chronological age from verified time is what closes that loop, and the same separation is why an anomalous or unverifiable interval can advance the clock a user sees without granting anything a user could farm.
+- Evidence location: core-continuity ContinuityReducer BLIND_CREDIT_CONSUMED handler; FX-REBOOT-01 and FX-REPEATED-REBOOT-01; IMPL-0022.
+- Confidence: VERIFIED
+- Scope: Every future mechanism where a resource is earned from one clock and spent against another.
+- Supersedes learning: none
+
+## L-0021
+
+- Learning ID: L-0021
+- Date: 2026-08-13
+- Fact or lesson: A structurally incomplete durable record and a structurally complete record that fails authentication mean opposite things and must be handled differently. The first is a write that never finished and is correctly skipped at the tail; the second is corruption, relocation or foreign data and must always be a storage fault. Treating them the same either makes an interrupted write unrecoverable or lets an acknowledged record be silently dropped, and the first implementation here did the latter.
+- Evidence location: core-continuity EncryptedRecordStore readAll; the four relocation refusal tests in DurabilityAndJournalTest; IMPL-0026.
+- Confidence: VERIFIED
+- Scope: Every future durable reader in this repository.
+- Supersedes learning: none
+
+## L-0022
+
+- Learning ID: L-0022
+- Date: 2026-08-13
+- Fact or lesson: Forgiving uncapped debt at accrual rather than retaining it is what makes the outstanding balance honest. A retained overflow is a liability the user cannot see and cannot discharge, so a one year absence would leave a permanent invisible burden even though only seventy two hours of it could ever be collected. Forgiving at accrual makes the outstanding number always equal to what could actually be collected, which is also what makes it safe to show a user.
+- Evidence location: core-continuity Reconciliation prologue; FX-DEBT-CAP-01, which forgives 31,276,200,000 milliseconds of a one year gap at accrual; IMPL-0021.
+- Confidence: VERIFIED
+- Scope: Every future bounded liability in this system.
+- Supersedes learning: none

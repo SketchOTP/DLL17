@@ -63,3 +63,17 @@ No new third-party Gradle dependency was added by R001 other than the AndroidX
 test-instrumentation artifacts required to execute the determinism matrix on a
 device; those are declared in `gradle/libs.versions.toml` as exact pins under the
 Apache License 2.0, consistent with the rest of the AndroidX rows above.
+
+## R002 addition
+
+| Algorithm | Specification | Licence position | How it entered this repository |
+|---|---|---|---|
+| ChaCha20 and Poly1305 (`AEAD_CHACHA20_POLY1305_V1`) | RFC 8439, *ChaCha20 and Poly1305 for IETF Protocols* | An IETF RFC's algorithm specification is not copyrightable, and the RFC's own text is published under the IETF Trust's terms for reproduction of the specification. No implementation was copied | Written from the published round function, constants and MAC construction, verified against the RFC's own section 2.3.2, 2.5.2 and 2.8.2 test vectors and differentially against `javax.crypto` where the platform offers the algorithm |
+
+The five-limb 26-bit Poly1305 accumulator layout is a widely published technique
+for evaluating a 130-bit modular multiply in 64-bit registers. It is a
+mathematical arrangement rather than an implementation, and this code was written
+from the arithmetic rather than transcribed from any particular library.
+
+R002 added no third-party Gradle dependency of any kind.
+

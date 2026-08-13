@@ -33,3 +33,20 @@ context.
 
 `desktop-runner` executes on the JVM main thread and terminates; it owns no
 long-lived context.
+
+
+---
+
+## R002 additions
+
+| Context | Owner | State after R002 |
+|---|---|---|
+| Persistence writer | `core-continuity` | **Exists as a contract.** `SingleWriterActor` serializes every durable write and refuses reentry. It is a discipline, not a thread: a real dispatcher may implement it, and a violation fails loudly at the call site rather than producing an interleaved journal in one timing window. |
+| Compactor | `core-continuity` | **Exists.** `ContinuityJournal.compact` builds and verifies the candidate checkpoint outside the writer, then submits only the bounded install through the writer, then prunes. |
+| Reconciliation | `core-continuity` | **Exists.** `Reconciliation` is a resumable pure computation with an explicit cursor. It never runs on the Android UI thread, and it yields between bounded batches without changing its result. |
+| Platform protection | `core-continuity` | **Exists.** `PlatformProtectionController` performs at most one anchor attempt and at most one panic-witness attempt. The witness must never be written on the Android UI thread. |
+| Interaction gate | `core-continuity` | **Exists.** `InteractionGate` discards rather than queues while reconciliation is pending, and counts what it discarded so that "consumed no item" is checkable. |
+
+No context here is bound to a thread by `core-continuity` itself. The module is
+pure Kotlin and holds no dispatcher; binding these contexts to real Android
+threads is the hosting phase's work.

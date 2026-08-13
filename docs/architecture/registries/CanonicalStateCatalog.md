@@ -60,3 +60,43 @@ Notes that matter for later phases:
 
 Adding a field here is a canonical-architecture change, not an implementation
 detail.
+
+
+---
+
+## R002 additions — `ContinuityState` (`core-continuity`)
+
+Canonical schema `211`. Serialization order is the order of the rows below.
+`reserveA` and `reserveB` are **neutral R002 fixtures**, not physiology: they
+exist so that a reconciliation has something observable to act on, and R003
+replaces them behind the A001 gate.
+
+| Field ID | Owner module | Type | Units / scale | Bounds | Initial-value rule | Order | Hash | Allowed transitions | Offline behaviour | Migration rule |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `identity.organismId` | `core-continuity` | `i64` | identifier | any | supplied at genesis | 1 | yes | never changes | unchanged | carried forward |
+| `identity.identityEpoch` | `core-continuity` | `i32` | epoch | `>= 1` | `1` | 2 | yes | advanced only by recovery activation | unchanged | carried forward |
+| `identity.lineageHash` | `core-continuity` | 32 bytes | digest | fixed length | derived from organism ID | 3 | yes | never changes | unchanged | carried forward |
+| `identity.deviceFingerprint` | `core-continuity` | `i64` | identifier | any | active device key | 4 | yes | changes only on recovery activation | unchanged | carried forward |
+| `identity.quarantined` | `core-continuity` | `bool` | — | `0` or `1` | `false` | 5 | yes | `QUARANTINE_ENTERED` only | absorbing; no event is accepted afterwards | carried forward |
+| `identity.lastProtectedSequence` | `core-continuity` | `i64` | sequence | non-decreasing | `0` | 6 | yes | `SNAPSHOT_CREATED` | unchanged | reset to `0` |
+| `identity.lastProtectedVerifiedMillis` | `core-continuity` | `i64` | ms | non-negative | `0` | 7 | yes | `SNAPSHOT_CREATED` | unchanged | reset to `0` |
+| `wallClockAgeMillis` | `core-continuity` | `i64` | ms | non-negative | `0` | 8 | yes | verified time, blind credit | advances only from qualified or credited time | carried forward |
+| `activeExperienceTicks` | `core-continuity` | `i64` | ticks | non-negative | `0` | 9 | yes | `ACTIVE_EXPERIENCE_ADVANCED` | never advances offline | reset to `0` |
+| `developmentalProgress` | `core-continuity` | `Fixed64` | progress units | non-negative | `0` | 10 | yes | verified passive development only | capped per absence; zero from blind or anomalous time | reset to `0` |
+| `circadianPhase` | `core-continuity` | `Fixed64` | phase | `[0, 1)` | `0` | 11 | yes | any qualified or credited elapsed time | wraps within the 24-hour period | reset to `0` |
+| `verifiedTimeTotalMillis` | `core-continuity` | `i64` | ms | non-negative | `0` | 12 | yes | `VERIFIED_TIME_ADVANCED` only | never advanced by blind credit | reset to `0` |
+| `reserveA` | `core-continuity` | `Fixed64` | fraction of capacity | `[0, 1]` clamped | `1.0` | 13 | yes | metabolism, debt adjustment, restoration | drains per reconciliation chunk | supplied by migration |
+| `reserveB` | `core-continuity` | `Fixed64` | fraction of capacity | `[0, 1]` clamped | `1.0` | 14 | yes | as `reserveA` | as `reserveA` | supplied by migration |
+| `anchor` | `core-continuity` | record (schema `210`) | — | sequence non-decreasing | genesis anchor | 15 | yes | `ANCHOR_WRITTEN` | the point recovery resumes from | reset to genesis |
+| `credit` | `core-continuity` | record | ms and counters | `<= 4 h` available | zero credit | 16 | yes | replenish, consume, boot observation | the only currency an unverifiable gap can spend | reset to zero |
+| `debt` | `core-continuity` | record | baseline-equivalent ms | `<= 72 h` outstanding | idle | 17 | yes | accrue, collect, pause, rearm, forgive | collected only in Mode B/C chunks | reset to idle |
+| `admissionState` | `core-continuity` | enum `i32` | — | registry ordinal | `OPEN` | 18 | yes | admission controller | survives restart | reset to `OPEN` |
+| `presentationState` | `core-continuity` | enum `i32` | — | registry ordinal | `RECOVERY_RECONCILIATION` | 19 | yes | hold entry and exit | survives restart | reset |
+| `platformState` | `core-continuity` | enum `i32` | — | registry ordinal | `NORMAL` | 20 | yes | platform controller | survives restart | reset to `NORMAL` |
+| `safeHoldActive` | `core-continuity` | `bool` | — | `0` or `1` | `false` | 21 | yes | hold entry and exit | survives restart | reset to `false` |
+| `generationId` | `core-continuity` | `i64` | generation | strictly increasing | `1` | 22 | yes | `GENERATION_FLIPPED` | survives restart | reset to `1` |
+| `lastCommitSequence` | `core-continuity` | `i64` | sequence | non-negative | `0` | 23 | yes | every event | survives restart | reset to `0` |
+| `gapProvenance` | `core-continuity` | enum `i32` | — | registry ordinal | `NONE` | 24 | yes | provenance labelling | a label only; changes nothing else | reset to `NONE` |
+
+Optional values inside `anchor`, `credit` and `debt` carry an explicit presence
+flag rather than a sentinel, so "absent" and "zero" never produce the same bytes.

@@ -47,3 +47,31 @@ entered here first.
 
 No organism presentation may be added until the phase that owns the behaviour
 opens.
+
+
+---
+
+## R002 additions — durability presentation
+
+| Presentation class | Canonical trigger | Permitted reversible anticipation | Irreversible point | Cancellation / rollback | Accessibility substitute | Replay after restart |
+|---|---|---|---|---|---|---|
+| `TEMPORAL_DESYNC` | `DurabilitySafeHoldEntered` is durable | none — it is a status, not an anticipation | never irreversible | replaced by `RECOVERY_RECONCILIATION` | required: the contact-lost statement must be available as text | shown again while the hold persists, because it asserts only the present condition |
+| `STORAGE_REPAIR_REQUIRED` | the emergency safe-hold commit failed | none | never irreversible | replaced when a self-test succeeds | required | shown again while the fault persists |
+| `RECOVERY_RECONCILIATION` | hold exit or platform recovery begins | none | never irreversible | ends at the committed reveal | required | shown again on each recovery |
+
+Hard prohibitions during a durability hold, enforced by `DurabilityPresentation`
+rather than by convention:
+
+- no autonomous locomotion, exploration, feeding, play, emotional response, or
+  anything implying current canonical observation;
+- no cryosleep, frozen-time, paused-life, suspended-animation or stasis
+  vocabulary, checked by name because the prohibition is about what the user is
+  told;
+- the last durable status may appear only as historical telemetry, labelled with
+  its durable age;
+- mutation-producing inputs are rejected without consuming an item.
+
+`STASIS_PROJECTION` is superseded and its ordinal is retired, never reused. A
+threshold crossed during a disconnected interval is presented as having occurred
+while contact was unavailable — never as a healthy organism followed by a hidden
+collapse.

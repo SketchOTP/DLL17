@@ -18,11 +18,12 @@ populated by the phase that owns it.
 | `replay/R001/` | Replay equivalence evidence for every fixture |
 | `device-matrix/R000/` | R000 Android launch qualification on Tensor hardware |
 | `device-matrix/R001/` | R001 cross-target determinism matrix |
-| `evidence/R000/`, `evidence/R001/` | Per-phase validation command output |
-| `fault-injection/` | Empty. R001 injects crashes in-process through the test suite rather than as separate runs; platform fault injection belongs to R002 |
+| `device-matrix/R002/` | R002 cross-target continuity matrix |
+| `evidence/R000/`, `evidence/R001/`, `evidence/R002/` | Per-phase validation command output |
+| `fault-injection/R002/` | R002 failure and exploit matrix: process death, torn writes, reboot loops, clock manipulation, storage exhaustion, thermal suspension |
 | `longitudinal/` | Empty. No long-horizon run exists; there is no organism to run |
 | `red-team/` | Empty. Adversarial review belongs to a later phase |
 
-R001 qualifies a deterministic foundation, not a qualified organism. No
-physiology, behaviour, learning, memory or relationship evidence exists, because
-none of those are implemented.
+R001 qualifies a deterministic foundation and R002 a continuity foundation.
+Neither qualifies an organism. No physiology, behaviour, learning, memory or
+relationship evidence exists, because none of those are implemented.

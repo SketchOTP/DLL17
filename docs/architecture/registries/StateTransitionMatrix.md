@@ -63,3 +63,50 @@ Two transitions are deliberately absent and their absence is the invariant:
 
 The Android shell still has no state machine: it renders a single fixed surface
 and holds no state that survives the activity.
+
+
+---
+
+## R002 additions
+
+### `DurabilityAdmissionState` (`core-continuity`)
+
+| Property | Value |
+|---|---|
+| States | `OPEN`, `PRESSURE`, `READ_ONLY_SURVIVAL`, `STORAGE_FAULT` |
+| Legal transitions | `OPEN ↔ PRESSURE` on the soft threshold; `PRESSURE → READ_ONLY_SURVIVAL` on the reserve floor; any state `→ STORAGE_FAULT` on a failed emergency commit or failed self-test; `STORAGE_FAULT → OPEN` only after a self-test **and** a successful checkpoint write |
+| Guards | Durable capacity only. Admission never consults the reducer, the UI or the platform |
+| Timeout source | None. Admission is level-triggered by capacity, not by elapsed time |
+| Preemption | `STORAGE_FAULT` preempts everything |
+| Failure / terminal states | `STORAGE_FAULT` is absorbing until a self-test and checkpoint both succeed |
+| Durability boundary | `DurabilitySafeHoldEntered` must be durable before publication stops; `DurabilitySafeHoldExited` must be durable before reconciliation begins |
+
+Entry ordering is normative: close admission → attempt the emergency-reserve
+frame → commit `DurabilitySafeHoldEntered` → stop canonical advancement →
+present `TEMPORAL_DESYNC`. Exit ordering is normative: self-test → commit
+`DurabilitySafeHoldExited` → close the interaction gate → reconcile from the last
+durable anchor → commit → reveal → reopen admission.
+
+### `PlatformProtectionState` (`core-continuity`)
+
+| Property | Value |
+|---|---|
+| States | `NORMAL`, `RESOURCE_SHED`, `PLATFORM_DEEP_SUSPEND`, `PLATFORM_RECOVERY` |
+| Legal transitions | `NORMAL ↔ RESOURCE_SHED` on thermal or power pressure; either `→ PLATFORM_DEEP_SUSPEND` on a qualified critical condition; `PLATFORM_DEEP_SUSPEND → PLATFORM_RECOVERY` only after the hysteresis interval; `PLATFORM_RECOVERY → NORMAL` after the committed reveal |
+| Guards | `THERMAL_REENTRY_HYSTERESIS_MILLIS` below the reentry threshold before recovery may begin |
+| Timeout source | The hysteresis interval, measured by the caller and supplied explicitly |
+| Preemption | Platform protection preempts all in-world rendering |
+| Failure / terminal states | None. A failed anchor and a failed witness both leave the last durable anchor authoritative |
+| Durability boundary | At most **one** `PlatformDeepSuspendEntered` attempt and at most **one** panic-witness attempt. No retry loop under thermal or power pressure |
+
+### `DebtState` (`core-continuity`)
+
+| Property | Value |
+|---|---|
+| States | `IDLE`, `ACCRUED`, `COLLECTING`, `PAUSED_LOW_RESERVE`, `FORGIVEN` |
+| Legal transitions | `IDLE → ACCRUED` on accrual; `ACCRUED ↔ COLLECTING` in eligible Mode B/C chunks; either `→ PAUSED_LOW_RESERVE` at the safety floor; `PAUSED_LOW_RESERVE → COLLECTING` only after abundance stability, the grace interval, and a later eligible chunk; any `→ FORGIVEN` past the retention horizon |
+| Guards | Both reserves at or above the abundance threshold, held for the stability interval; the rearm effective time strictly in the future |
+| Timeout source | Verified time only. Wall-clock movement drives nothing here |
+| Preemption | The safety floor preempts collection unconditionally |
+| Failure / terminal states | None. Debt is always eventually discharged, by collection or by forgiveness |
+| Durability boundary | Blind-credit consumption is Class W and is debited before the reconciled reveal |

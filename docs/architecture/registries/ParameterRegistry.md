@@ -99,3 +99,57 @@ is an in-process byte log by design. They are recorded as `NOT ESTABLISHED` in
 
 The R000 toolchain and identity values remain out of scope here; they are frozen
 in `docs/architecture/ProjectIdentityBuildContractV1.md`.
+
+
+---
+
+## R002 additions
+
+Every value below is quoted from `ContinuityDurabilityContractV1`. Values the
+canonical architecture states directly are marked as such in the rationale
+column; values this phase selected are `QUALIFICATION_TARGET` so that device
+evidence can move them without a contract break.
+
+| Parameter ID | Units | Exact current value | Status | Owner gate | Legal change process | Migration consequence |
+|---|---|---|---|---|---|---|
+| `WALL_ELAPSED_SKEW_TOLERANCE_MILLIS` | ms | `120000` | `QUALIFICATION_TARGET` | R002 | Contract version bump plus regenerated R002 vectors | Changes which intervals classify as anomalous |
+| `BLIND_DECAY_CREDIT_MAX_MILLIS` | ms | `14400000` | `QUALIFICATION_TARGET` | R002 | As above | Persisted credit is reclamped |
+| `BLIND_CREDIT_REPLENISH_DIVISOR` | ratio | `6` | `QUALIFICATION_TARGET` | R002 | As above | Changes the credit earned per verified hour |
+| `BLIND_CREDIT_REPLENISH_CAP_MILLIS` | ms | `14400000` | `QUALIFICATION_TARGET` | R002 | As above | Window accounting is reset |
+| `BLIND_CREDIT_REPLENISH_WINDOW_MILLIS` | ms | `86400000` | `QUALIFICATION_TARGET` | R002 | As above | As above |
+| `BOOT_VELOCITY_WINDOW_MILLIS` | ms | `3600000` | `QUALIFICATION_TARGET` | R002 | As above | None |
+| `BOOT_VELOCITY_MAX_BOOTS` | count | `5` | `QUALIFICATION_TARGET` | R002 | As above | None |
+| `DEBT_GLOBAL_CAP_BASELINE_EQUIV_MILLIS` | baseline-equivalent ms | `259200000` | `FROZEN_INVARIANT` | canonical architecture | Architect amendment | Outstanding debt is reclamped and excess forgiven |
+| `DEBT_PER_CHUNK_CAP_BASELINE_EQUIV_MILLIS` | baseline-equivalent ms | `900000` | `QUALIFICATION_TARGET` | R002 | Contract version bump | Changes collection rate only |
+| `DEBT_PER_VERIFIED_DAY_CAP_BASELINE_EQUIV_MILLIS` | baseline-equivalent ms | `21600000` | `QUALIFICATION_TARGET` | R002 | As above | As above |
+| `DEBT_RETENTION_HORIZON_MILLIS` | ms of verified time | `2592000000` | `QUALIFICATION_TARGET` | R002 | As above | Changes when debt is forgiven |
+| `DEBT_SAFETY_FLOOR` | `Fixed64` fraction | `0.200000` | `QUALIFICATION_TARGET` | R002 | As above | Canonical architecture states "initial qualification target near 20%" |
+| `DEBT_ABUNDANCE_REARM` | `Fixed64` fraction | `0.800000` | `QUALIFICATION_TARGET` | R002 | As above | Canonical architecture states "initial target near 80%" |
+| `DEBT_REARM_STABILITY_MILLIS` | ms of verified time | `3600000` | `QUALIFICATION_TARGET` | R002 | As above | None |
+| `DEBT_REARM_GRACE_MILLIS` | ms | `1800000` | `QUALIFICATION_TARGET` | R002 | As above | None |
+| `DEBT_POST_REVEAL_COLLAPSE_MARGIN` | `Fixed64` fraction | `0.050000` | `QUALIFICATION_TARGET` | R002 | As above | None |
+| `MODE_A_MAX_MILLIS` | ms | `300000` | `FROZEN_INVARIANT` | canonical architecture | Architect amendment | Changes mode selection |
+| `MODE_B_MAX_MILLIS` | ms | `259200000` | `FROZEN_INVARIANT` | canonical architecture | Architect amendment | Changes mode selection |
+| `CHUNK_TIER_1_SIZE_MILLIS` | ms | `60000` | `FROZEN_INVARIANT` | canonical architecture | Architect amendment | Changes chunk boundaries and therefore rounding |
+| `CHUNK_TIER_2_SIZE_MILLIS` | ms | `300000` | `FROZEN_INVARIANT` | canonical architecture | Architect amendment | As above |
+| `CHUNK_TIER_3_SIZE_MILLIS` | ms | `900000` | `FROZEN_INVARIANT` | canonical architecture | Architect amendment | As above |
+| `MODE_C_MAX_PASSIVE_DEVELOPMENT_MILLIS` | ms | `259200000` | `FROZEN_INVARIANT` | canonical architecture | Architect amendment | Changes the passive development cap |
+| `RECONCILIATION_SLICE_CHUNKS` | chunks | `64` | `QUALIFICATION_TARGET` | R002 | Contract version bump | None — slicing cannot change the result |
+| `CLASS_O_COMMIT_CADENCE_MILLIS` | ms | `500` | `QUALIFICATION_TARGET` | R002 | Contract version bump | None. Midpoint of the canonical 250–1000 ms band; was `NOT ESTABLISHED` at R001 |
+| `CLASS_O_MAX_UNCOMMITTED_WINDOW_MILLIS` | ms | `1000` | `QUALIFICATION_TARGET` | R002 | As above | None. Upper edge of the same band |
+| `PANIC_WITNESS_ATTEMPT_DEADLINE_MILLIS` | ms | `20` | `QUALIFICATION_TARGET` | R002 | As above | None. Derived from the R001 measured p99 of 16,215 ns with roughly 1200× headroom |
+| `JOURNAL_BYTE_BUDGET` | bytes | `8388608` | `QUALIFICATION_TARGET` | R002 | As above | Changes when generations flip |
+| `EMERGENCY_DURABILITY_RESERVE_BYTES` | bytes | `65536` | `QUALIFICATION_TARGET` | R002 | As above | Changes when read-only survival begins |
+| `THERMAL_REENTRY_HYSTERESIS_MILLIS` | ms | `60000` | `QUALIFICATION_TARGET` | R002 | As above | None |
+| `RECOVERY_STALE_WARNING_MILLIS` | ms | `86400000` | `QUALIFICATION_TARGET` | R002 | As above | None. Canonical architecture states "near 24 hours" |
+| `RECOVERY_CRITICAL_WARNING_MILLIS` | ms | `604800000` | `QUALIFICATION_TARGET` | R002 | As above | None. Canonical architecture states "near seven days" |
+| `FIXTURE_RESERVE_DRAIN_PER_MINUTE` | `Fixed64` fraction per minute | `0.001000` | `QUALIFICATION_TARGET` | R002 | Replaced by R003 | **R002 fixture only.** Not physiology; replaced by `SpeciesBaselineV1` behind the A001 gate |
+| `FIXTURE_PASSIVE_DEVELOPMENT_PER_MINUTE` | `Fixed64` progress per minute | `0.000100` | `QUALIFICATION_TARGET` | R002 | Replaced by R003 | **R002 fixture only.** As above |
+
+### Still `NOT ESTABLISHED` after R002
+
+R001's three unestablished parameters are now frozen above. What remains
+unestablished is everything belonging to phases that have not opened: every
+species baseline, every physiological rate and threshold, and every recovery
+cryptography parameter, which is blocked behind the unfrozen
+`RecoveryCryptographyContractV1`.

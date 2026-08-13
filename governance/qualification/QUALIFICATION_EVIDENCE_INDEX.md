@@ -3,8 +3,8 @@
 | Phase | Gate | Evidence bundle | Status |
 |---|---|---|---|
 | R000 | Greenfield project initialization | `governance/qualification/R000_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D005. Gate record: `governance/release-gates/R000_EXIT_GATE.md`. |
-| R001 | Deterministic fixed-point spike | `governance/qualification/R001_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D006, with one criterion resting on an architect waiver. Gate record: `governance/release-gates/R001_EXIT_GATE.md`. |
-| R002 | Lifecycle, durability, trusted time, reconciliation | none | Blocked until `ContinuityDurabilityContractV1` is frozen. |
+| R001 | Deterministic fixed-point spike | `governance/qualification/R001_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D006. The determinism-matrix criterion rests on evidence plus the 2026-08-13 canonical amendment that made Snapdragon optional. Gate record: `governance/release-gates/R001_EXIT_GATE.md`. |
+| R002 | Lifecycle, durability, trusted time, reconciliation | `governance/qualification/R002_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D007. Gate record: `governance/release-gates/R002_EXIT_GATE.md`. |
 | A000 | Aliveness spike | none | Not started in this repository. Unblocked by R001: it may now depend on the frozen fixed-point numeric library. |
 | A001 | Aliveness gate | none | Blocked behind A000. |
 
