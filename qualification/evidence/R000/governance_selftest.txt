@@ -1,0 +1,6 @@
+Governance mode tests PASSED
+- Live repository passed adopted validation
+- Live adopted governance state rejected in template mode
+- Template positive fixture plus 20 template rejection cases
+- ADOPTED positive fixture plus 79 ADOPTED rejection cases
+- Fresh ADOPTED fixture with empty ledgers passed

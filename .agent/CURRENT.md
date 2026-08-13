@@ -3,56 +3,58 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-12T20:21:55-04:00`
+- Last updated: `2026-08-13T01:20:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-004
-- External directive ID: D004
-- Objective: Build the buildable greenfield R000 project skeleton, freeze ProjectIdentityBuildContractV1, create the mandatory R000 registries, establish CI, and publish the work to the authoritative GitHub repository.
+- Local directive ID: D-005
+- External directive ID: D005
+- Objective: Complete the remaining R000 work and close the R000 exit gate, resolving the licence conflict, producing actual Android launch evidence, measuring the R000 runtime baseline, and building a reproducible hashed qualification evidence bundle.
 - Current status: `COMPLETE`
-- Acceptance: The frozen identity contract, the E2E module boundaries, Android-free core modules, a buildable and launchable Android shell, all seven mandatory registries with no invented organism entries, passing governance validation and self-tests, a passing root build and Android debug assembly, an existing CI workflow, the work pushed to SketchOTP/DLL17, and a clean final worktree.
-- Current phase: R000 greenfield project initialization.
-- Expected or actual touched areas: settings.gradle.kts, build.gradle.kts, gradle.properties, gradle/, core-math/, core-crypto/, core-state/, desktop-runner/, android-host/, docs/, governance/, qualification/, tools/, .github/workflows/ci.yml, .gitignore, scripts/test_validate_governance.py, .agent/
-- Immediate next action: Hold for architect review of the D-004 completion report; this snapshot is awaiting reset to IDLE once that review closes.
+- Acceptance: The licence conflict resolved in favour of the frozen proprietary policy, the shell installed and actually launched on an Android target with the visible state verified and a clean terminate and relaunch, measured baseline evidence recorded with no fabricated future budgets, a hashed reproducible qualification bundle, all existing tests still passing, GitHub CI passing for the qualified commit, every R000 exit-gate criterion PASS, no R001 or organism functionality introduced, HEAD matching origin/main, and a clean worktree.
+- Current phase: R000 closed. The next hard gate is the DeterminismContractV1 freeze, followed by R001.
+- Expected or actual touched areas: LICENSE, docs/, governance/, qualification/, tools/, .github/workflows/ci.yml, .agent/
+- Immediate next action: Hold for architect review of the D-005 completion report; this snapshot is awaiting reset to IDLE once that review closes. Do not begin D006 or any R001 implementation.
 
 ## Temporary task-relevant facts
 
-- Branch main tracks origin/main at git@github.com:SketchOTP/DLL17.git. The R000 project commit is 6370986, the merge of the owner-created initial commit is 8b2f155, and the pushed head before this record was de69ee0.
-- GitHub Actions run 31654374955 passed both jobs on a hosted runner.
-- The project builds with Gradle 9.5.0, JDK 17, Kotlin 2.4.10, Android Gradle Plugin 9.3.1, compileSdk and targetSdk 37, minSdk 29 and Compose BOM 2026.06.00.
-- The build host had no Java, Gradle or Android SDK before D-004. The toolchain lives at ~/.local/toolchains and ~/Android/Sdk and requires JAVA_HOME and ANDROID_HOME.
-- No Android device or emulator is available on this host, so the shell has been assembled and packaged but never launched.
-- The R000 exit gate defined by Implementation Plan E2E is still open. A device launch, recorded device and resource budgets, and a hashed CI evidence bundle remain outstanding.
-- Gate state recorded from the canonical charter. R000 greenfield project initialization is authorized now.
+- R000 is closed as PASS. Both the Implementation Plan E2E exit gate and the Digital Living Lifeform charter exit gate were evaluated criterion by criterion and every criterion passed.
+- The Android shell was qualified on physical hardware, a Pixel 9 Pro XL on Android 16 API 36 arm64-v8a, which satisfies the charter wording requiring target hardware rather than only the weaker device-or-emulator wording.
+- Measured R000 baseline on that device: APK 29,245,211 bytes, installed code 18,735 KB, cold launch 512 ms, relaunch 603 ms, total PSS 110,612 KB, idle CPU 0.0 percent.
+- Every future production budget is deliberately NOT ESTABLISHED. No number was invented.
+- The qualification bundle binds thirty-seven constituents by SHA-256 with manifest hash e2290aea61abc2fd82c96db43653cf953daeeffa193c55af98268306a9654556, and CI verifies it on every push and pull request.
+- The debug APK is byte-identical across a clean rebuild on this toolchain.
+- The x86 Android emulator could not complete a qualification run. The android-37.0 google_apis x86_64 image crashes surfaceflinger under all three rendering backends on this host. R001 requires that target, so it must be resolved before R001 closes.
+- The repository source licence is now proprietary with all rights reserved. The repository is still public, because D005 excluded changing visibility.
+- The build host toolchain lives at ~/.local/toolchains and ~/Android/Sdk and requires JAVA_HOME and ANDROID_HOME.
 - A000 aliveness spike harness and study scaffolding may proceed in parallel.
-- The next production hard gate is the DeterminismContractV1 freeze followed by R001 deterministic fixed-point and replay qualification.
 - R002 continuity and durability may proceed only after R001 passes.
 - R003 through R009 production organism mechanisms are additionally blocked until A001 passes.
 - No organism behavior exists. Every module contains structural markers only.
-- D-001 remains recorded as nonconforming, and D-002 and D-003 remain recorded as accepted and complete.
+- D-001 remains recorded as nonconforming, and D-002, D-003 and D-004 remain recorded as accepted and complete.
 
 ## Last validation after adoption
 
-- Command or check: python3 scripts/validate_governance.py --mode ADOPTED, python3 scripts/test_validate_governance.py, python3 tools/verify_project_identity.py, ./gradlew build and ./gradlew :android-host:assembleDebug
+- Command or check: python3 scripts/validate_governance.py --mode ADOPTED, python3 scripts/test_validate_governance.py, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify, ./gradlew clean build, ./gradlew :android-host:assembleDebug and tools/qualify_r000_android.sh on a physical device
 - Result: `PASSED`
 
 ## Risks
 
-- The Android shell has never run. Packaging success is not launch success, and the R000 exit gate cannot close until a device or emulator run exists.
-- The repository is public and carries an MIT LICENSE created by the owner, which contradicts the proprietary no-redistribution clause frozen in ProjectIdentityBuildContractV1. Recorded, not resolved.
+- The x86 Android emulator is unusable on this host for the android-37.0 image. The canonical determinism matrix requires it for R001 cross-architecture qualification.
+- The repository is public while carrying a proprietary licence, and an MIT grant was published for the revisions between the initial commit and the D-005 commit. Whether that historical grant remains effective is a legal question for the copyright holder.
+- Determinism has been proven on exactly one hardware family. R001 requires identical canonical bytes across the full matrix, and nothing measured so far predicts that.
 - Governance history contains a permanent nonconformance at D-001 that must not be rewritten by later work. Recorded as DEC-0002.
 
 ## Blockers
 
-- None. R001 and later production phases remain gated as described above, which is the intended program state rather than a blocker on this directive.
+- None. R001 and later production phases remain gated behind the DeterminismContractV1 freeze, which is the intended program state rather than a blocker on this directive.
 
 ## Pending decisions
 
-- When and how to obtain a device or emulator so the R000 exit gate can be closed.
+- Whether the repository should remain public now that the licence is proprietary.
+- How to obtain a working x86 Android emulator target, or an alternative cross-architecture target, before R001 determinism qualification.
 - Whether to place the canonical charter pages under any local mirror so that the external specification survives independently of the hosted pages.
-- Whether CI should emit a hashed evidence bundle before R001 or as part of R001 qualification.
-- Which of the MIT LICENSE or the proprietary contract clause is authoritative, and whether the repository should stay public.
+- When to freeze DeterminismContractV1, which is the gate that unblocks R001.
 
 ## Status vocabulary
 

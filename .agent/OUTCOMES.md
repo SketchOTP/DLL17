@@ -90,3 +90,24 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The Android shell has never been launched, because no device or emulator is available on the build host, so the R000 exit gate in Implementation Plan E2E stays open along with device budgets and a hashed CI evidence bundle. The repository is public and carries an MIT LICENSE created by the owner, which contradicts the proprietary no-redistribution clause the architect froze in the same directive; that conflict is recorded and left for the architect.
 - Blockers: none
 - Follow-up directive: none
+
+## D-005 - COMPLETE
+
+- Outcome ID: O-0005
+- Supersedes outcome: none
+- Closed: 2026-08-13T01:20:00-04:00
+- Acceptance: MET
+- Summary: R000 is closed as PASS. The inherited MIT licence was replaced with a proprietary all-rights-reserved notice matching the frozen contract. The Android shell was installed and actually launched on physical Tensor hardware, a Pixel 9 Pro XL on Android 16, with all six expected shell strings verified on screen through the accessibility tree, and with a clean terminate and relaunch and no crash attributed to the package. Measured runtime observations were recorded as R000_MEASURED_BASELINE and every future production budget was left explicitly NOT ESTABLISHED. A hashed qualification bundle binding thirty-seven constituents was produced and is verified in CI. Both the Implementation Plan E2E gate and the charter gate were evaluated criterion by criterion and all criteria passed. No organism behavior, DeterminismContractV1 or R001 algorithm was implemented.
+- Changed areas: LICENSE, docs/architecture/ProjectIdentityBuildContractV1.md, docs/decisions/DECISION_LOG.md, docs/release/DEVICE_AND_RESOURCE_BUDGETS.md, governance/release-gates/R000_EXIT_GATE.md, governance/qualification/QUALIFICATION_EVIDENCE_INDEX.md, governance/qualification/R000_QUALIFICATION_BUNDLE.md, governance/source-provenance/DEPENDENCY_LICENSE_INVENTORY.md, governance/source-provenance/SOURCE_PROVENANCE_LEDGER.md, qualification/evidence/R000/, qualification/device-matrix/R000/, tools/qualify_r000_android.sh, tools/build_qualification_bundle.py, .github/workflows/ci.yml, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md, .agent/LEARNINGS.md, .agent/CURRENT.md, .agent/PROJECT_PROFILE.md, .agent/REPO_MAP.md
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering thirty-seven constituents - PASSED
+  - ./gradlew clean build covering all five modules and fifteen tests - PASSED
+  - ./gradlew :desktop-runner:run headless execution - PASSED
+  - ./gradlew :android-host:assembleDebug producing a byte-reproducible debug APK - PASSED
+  - tools/qualify_r000_android.sh on a physical Pixel 9 Pro XL covering install, cold launch, visible state, terminate and relaunch - PASSED
+- Remaining risks: The x86 Android emulator could not complete a run because the android-37.0 image crashes surfaceflinger on this host under all three rendering backends. R000 does not require it, but the canonical determinism matrix does require it for R001, so it must be resolved before R001 closes. The repository remains public while carrying a proprietary licence, because D005 excluded changing visibility, and an MIT grant was published for the earlier revisions. The R000 shell draws under the status bar, which is cosmetic and was left unfixed because presentation is governed by the empty PresentationContractCatalog.
+- Blockers: none
+- Follow-up directive: none

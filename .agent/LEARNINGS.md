@@ -105,3 +105,43 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: Any later session that needs to build this project on this machine, and any assumption that a toolchain is present.
 - Supersedes learning: none
+
+## L-0010
+
+- Learning ID: L-0010
+- Date: 2026-08-12
+- Fact or lesson: The android-37.0 google_apis x86_64 emulator image crashes surfaceflinger with SIGSEGV inside RegionSamplingThread::threadMain on this host, which takes down system_server and produces broken-pipe failures from the activity service. The fault reproduced under the swiftshader_indirect, guest and swangle_indirect rendering backends. No fatal exception was ever attributed to com.animusmachinae.dll17 during those runs.
+- Evidence location: qualification/device-matrix/R000/DEVICE_MATRIX.md, and the emulator crash buffer captured on 2026-08-12.
+- Confidence: VERIFIED
+- Scope: R001 determinism qualification, which requires the x86 Android emulator as a cross-architecture target in the canonical determinism matrix. It must be resolved before R001 closes.
+- Supersedes learning: none
+
+## L-0011
+
+- Learning ID: L-0011
+- Date: 2026-08-12
+- Fact or lesson: A crash check that greps the whole logcat buffer for FATAL EXCEPTION attributes unrelated system crashes to the application under test. The first qualification run reported eight failures that were caused by a uiautomator crash and by system_server instability, not by the shell. Crash detection must be scoped to the package under test by matching the Process line inside the crash block.
+- Evidence location: tools/qualify_r000_android.sh, crash_inspect function, and the first two recorded harness runs on 2026-08-12.
+- Confidence: VERIFIED
+- Scope: Any device qualification harness added in later phases.
+- Supersedes learning: none
+
+## L-0012
+
+- Learning ID: L-0012
+- Date: 2026-08-12
+- Fact or lesson: The debug APK is byte-identical across a clean rebuild on this toolchain. The same SHA-256 was produced for the artifact installed during device qualification and for the artifact rebuilt after gradlew clean build.
+- Evidence location: qualification/evidence/R000/toolchain_environment.txt and qualification/device-matrix/R000/qualification_run.log, both recording 8bc93994407648e72211da89c002421c03a4e9503ced49966c9e869e9f7c7784.
+- Confidence: VERIFIED
+- Scope: The release gate requirement that a release APK match the tested artifact hash. R000 evidence suggests that requirement is achievable on this toolchain, but it was observed for debug builds only.
+- Supersedes learning: none
+
+## L-0013
+
+- Learning ID: L-0013
+- Date: 2026-08-12
+- Fact or lesson: A target can report sys.boot_completed as 1 while system_server is still settling, and PackageManager can take time after a streamed install before the launcher activity resolves. Both produce failures that look like application defects: broken pipe from the activity service, and Activity class does not exist. Device harnesses must wait for the activity and package services and for launcher-activity resolution before recording any result.
+- Evidence location: tools/qualify_r000_android.sh, the wait_for_services function and the launcher resolution loop, added on 2026-08-12.
+- Confidence: VERIFIED
+- Scope: Any later automated device qualification.
+- Supersedes learning: none

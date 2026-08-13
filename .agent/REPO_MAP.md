@@ -38,8 +38,13 @@
 - `scripts/test_validate_governance.py` — validator self-test; exercises both validator modes with positive and rejection cases built from an isolated fixture.
 - `scripts/fixtures/governance_template/.agent/` — pristine unadopted governance files used as the fixture base for the self-test; never the live project state.
 - `tools/verify_project_identity.py` — checks the build files against the frozen project identity contract.
+- `tools/qualify_r000_android.sh` — installs, launches, verifies, terminates and relaunches the shell on a connected Android target and records the evidence.
+- `tools/build_qualification_bundle.py` — builds and verifies the hashed R000 qualification evidence bundle.
 - `.github/workflows/ci.yml` — GitHub Actions workflow running governance validation, the governance self-test, the identity check, module tests, the full build and the Android debug assembly.
-- `qualification/` — evidence directories for fixtures, replay, fault injection, longitudinal runs, the device matrix and red-team findings; empty in R000.
+- `qualification/` — evidence directories for fixtures, replay, fault injection, longitudinal runs, the device matrix and red-team findings.
+- `qualification/evidence/R000/` — recorded governance, identity, build, runner, Android assembly and toolchain evidence for the R000 gate.
+- `qualification/device-matrix/R000/` — device matrix and raw Android install, launch, visible-state, terminate and relaunch evidence including screenshots and logcat.
+- `governance/qualification/R000_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R000 qualification claim; verified in CI.
 
 ## Configuration
 

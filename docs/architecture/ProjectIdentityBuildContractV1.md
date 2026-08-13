@@ -65,24 +65,26 @@ decision.
 | JDK toolchain | `jvmToolchain(17)` in every module build script |
 | Contract conformance check | `tools/verify_project_identity.py` |
 
-## Unresolved conflict, recorded not resolved
+## Licence conflict, resolved under D005
 
 The contract freezes a **proprietary source licence with no redistribution**.
 The GitHub repository `SketchOTP/DLL17`, created by the repository owner before
-this contract was frozen, is **public** and carries an **MIT LICENSE** file at
-its root. MIT grants exactly the redistribution the contract withholds.
+this contract was frozen, carried an **MIT LICENSE** file at its root, which
+granted exactly the redistribution the contract withholds.
 
-The implementer did not resolve this. `LICENSE` is left exactly as the owner
-created it and the repository's visibility was not changed, because both are
-owner decisions with legal consequences. The architect must decide which of the
-two is authoritative and issue the correction:
+Architect directive D005 resolved this in favour of the frozen contract clause.
+The MIT grant was removed and the root `LICENSE` now states a proprietary,
+all-rights-reserved notice. Recorded as IMPL-0004.
 
-- keep MIT and public, and amend this contract's licensing clause; or
-- keep the proprietary clause, and replace `LICENSE` and the repository
-  visibility accordingly.
+Two facts remain true and are recorded, not resolved:
 
-Until then, the licensing row above states the architect's directive, and this
-section states the observed repository fact.
+- **The repository is still public.** D005 explicitly excluded changing
+  visibility. The notice states that public visibility is not a licence, but
+  the source is readable by anyone. Changing this remains an owner decision.
+- **The MIT grant was published** for the revisions between commit `96a1f07`
+  and the D005 commit. Whether that historical grant remains effective for
+  those revisions is a legal question for the copyright holder. See
+  `governance/source-provenance/DEPENDENCY_LICENSE_INVENTORY.md`.
 
 ## Implementation notes recorded at freeze time
 

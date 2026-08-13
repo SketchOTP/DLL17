@@ -3,7 +3,7 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last verified: `2026-08-12T20:21:55-04:00`
+- Last verified: `2026-08-13T01:20:00-04:00`
 
 ## Identity
 
@@ -11,7 +11,7 @@
 - Purpose: Implementation repository for the Digital Living Lifeform program. It holds the governance baseline and, from D-004, the R000 greenfield project skeleton. No organism behavior is implemented yet.
 - Repository root: `/home/sketch/Projects/DLL17`
 - Verified remote: `git@github.com:SketchOTP/DLL17.git`, set as origin under D-004. Local branch `main` tracks `origin/main`. Git provenance begins at baseline commit `f82e1b2f7c138a7c4238f109b45a6562b8b18a21`, created under D-003.
-- Maturity or current phase: R000 greenfield project initialization. Buildable project skeleton with no organism logic.
+- Maturity or current phase: R000 closed as PASS under D-005. Buildable project skeleton, qualified on physical Android hardware, with no organism logic. The next hard gate is the DeterminismContractV1 freeze followed by R001.
 
 ## Languages and runtimes
 
@@ -43,11 +43,13 @@
 - `./gradlew build` — compiles every module and runs every module test suite. Executed on 2026-08-12.
 - `./gradlew :desktop-runner:run` — runs the headless JVM runner. Executed on 2026-08-12.
 - `./gradlew :android-host:assembleDebug` — builds the debug APK. Executed on 2026-08-12.
+- `python3 tools/build_qualification_bundle.py --verify` — verifies the hashed R000 qualification evidence bundle against the working tree. Executed on 2026-08-12.
+- `tools/qualify_r000_android.sh` followed by the adb serial of a connected target — runs the Android install, launch, visible-state, terminate and relaunch qualification. Executed on 2026-08-12 against a physical Pixel 9 Pro XL.
 - Project-specific commands: the Gradle and Python commands listed above. No organism run, replay or qualification command exists in this repository at the last verified date.
 
 ## Constraints
 
-- Platform/compatibility: the program targets Android as host, sensor and evidence source, persistence environment and presentation surface, with a deterministic core required to reproduce byte-identical canonical results across the qualified JVM and Android hardware matrix. The build host carries no Java, Gradle or Android SDK by default; the toolchain used for D-004 was installed into the user home at `~/.local/toolchains` and `~/Android/Sdk`, and builds need `JAVA_HOME` and `ANDROID_HOME` pointed at those paths. No Android device or emulator is available on this host.
+- Platform/compatibility: the program targets Android as host, sensor and evidence source, persistence environment and presentation surface, with a deterministic core required to reproduce byte-identical canonical results across the qualified JVM and Android hardware matrix. The build host carries no Java, Gradle or Android SDK by default; the toolchain used for D-004 was installed into the user home at `~/.local/toolchains` and `~/Android/Sdk`, and builds need `JAVA_HOME` and `ANDROID_HOME` pointed at those paths. Android qualification uses a physical Pixel 9 Pro XL attached over USB and authorized by the owner. The android-37.0 x86_64 emulator image is unusable on this host because it crashes surfaceflinger under all three rendering backends.
 - Security: no credentials, secrets or personal data are stored in this repository. Raw logs, full source files, secrets and unsupported claims must be kept out of external memory systems.
 - Data handling: governance ledgers in `.agent/` are append-only for history and must not be rewritten. Local repository files remain authoritative for project directives and outcomes.
 - Deployment: no deployment, release or distribution mechanism exists in this repository. No deployment has occurred.

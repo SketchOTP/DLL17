@@ -1,0 +1,35 @@
+R000 toolchain environment record
+captured: 2026-08-13T01:09:21Z
+
+== java ==
+openjdk version "17.0.20" 2026-07-21
+OpenJDK Runtime Environment Temurin-17.0.20+8 (build 17.0.20+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.20+8 (build 17.0.20+8, mixed mode, sharing)
+
+== gradle ==
+Gradle 9.5.0
+Kotlin:        2.3.20
+Launcher JVM:  17.0.20 (Eclipse Adoptium 17.0.20+8)
+Daemon JVM:    /home/sketch/.local/toolchains/jdk-17.0.20+8 (no Daemon JVM specified, using current Java home)
+
+== android sdk ==
+compileSdk platform: android-37.0 
+build-tools: 36.0.0 37.0.0 
+
+== pinned versions (gradle/libs.versions.toml) ==
+kotlin = "2.4.10"
+agp = "9.3.1"
+composeBom = "2026.06.00"
+androidxCoreKtx = "1.19.0"
+androidxActivityCompose = "1.13.0"
+androidxLifecycleRuntimeKtx = "2.11.0"
+junit = "4.13.2"
+
+== built artifact ==
+apk: android-host/build/outputs/apk/debug/android-host-debug.apk
+apk_size_bytes: 29245211
+apk_sha256: 8bc93994407648e72211da89c002421c03a4e9503ced49966c9e869e9f7c7784
+
+Reproducibility: this SHA-256 was produced twice, once for the device
+qualification run and once after './gradlew clean build'. The debug APK is
+byte-identical across a clean rebuild on this toolchain.

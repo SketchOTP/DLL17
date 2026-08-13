@@ -1,0 +1,95 @@
+R000 Android qualification run
+started: 2026-08-13T01:18:01Z
+serial: 49121FDAS0025V
+apk: android-host/build/outputs/apk/debug/android-host-debug.apk
+
+target services ready (activity, package, boot_completed)
+screen kept awake for the run: stayon_changed=yes
+
+== target ==
+ro.build.version.release = 16
+ro.build.version.sdk = 36
+ro.product.cpu.abi = arm64-v8a
+ro.product.model = Pixel 9 Pro XL
+ro.product.device = komodo
+ro.build.fingerprint = google/komodo/komodo:16/CP1A.260505.005/15081906:user/release-keys
+ro.kernel.qemu = 
+ro.hardware = komodo
+
+== artifact ==
+apk_size_bytes = 29245211
+apk_sha256 = 8bc93994407648e72211da89c002421c03a4e9503ced49966c9e869e9f7c7784
+
+== install ==
+Performing Streamed Install
+Success
+  RESULT: install PASSED
+installed_path = /data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ==/base.apk
+launcher_activity_resolves = yes
+
+== launch 1 (cold) ==
+Starting: Intent { cmp=com.animusmachinae.dll17/.android.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.animusmachinae.dll17/.android.MainActivity
+TotalTime: 422
+WaitTime: 426
+Complete
+  total_time_ms = 422
+  wait_time_ms = 426
+activity_records_matching = 16
+top_resumed =     topResumedActivity=ActivityRecord{177539629 u0 com.animusmachinae.dll17/.android.MainActivity t11835}
+  visible: OK   "Digital Living Lifeform"
+  visible: OK   "R000 - greenfield project initialization"
+  visible: OK   "No organism exists yet. Canonical logic is gated on R001."
+  visible: OK   "core module: core-math"
+  visible: OK   "core module: core-crypto"
+  visible: OK   "core module: core-state"
+  RESULT: launch 1 (cold) visible state PASSED
+
+screenshot: qualification/device-matrix/R000/shell_launch1.png (63163 bytes)
+
+== measured baseline ==
+pid = 28124
+total_pss_kb = 84897
+top_line = 28124 u0_a778      20   0  16G 185M 134M S  0.0   1.1   0:01.52 com.animusmachinae.dll17
+app_data_dir_kb = unavailable-without-root
+installed_code_kb = 18743
+
+== crash inspection (launch 1) ==
+app_fatal_exceptions = 0
+app_anr_or_force_finish = 0
+other_fatal_exceptions_in_buffer = 0 (not attributed to com.animusmachinae.dll17)
+  RESULT: no crash or ANR for com.animusmachinae.dll17 PASSED
+
+== terminate ==
+  RESULT: terminate PASSED (no process remains)
+
+== launch 2 (relaunch after terminate) ==
+Starting: Intent { cmp=com.animusmachinae.dll17/.android.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.animusmachinae.dll17/.android.MainActivity
+TotalTime: 349
+WaitTime: 352
+Complete
+  total_time_ms = 349
+  wait_time_ms = 352
+activity_records_matching = 16
+top_resumed =     topResumedActivity=ActivityRecord{51648166 u0 com.animusmachinae.dll17/.android.MainActivity t11838}
+  visible: OK   "Digital Living Lifeform"
+  visible: OK   "R000 - greenfield project initialization"
+  visible: OK   "No organism exists yet. Canonical logic is gated on R001."
+  visible: OK   "core module: core-math"
+  visible: OK   "core module: core-crypto"
+  visible: OK   "core module: core-state"
+  RESULT: launch 2 (relaunch after terminate) visible state PASSED
+
+== crash inspection (launch 2 (relaunch)) ==
+app_fatal_exceptions = 0
+app_anr_or_force_finish = 0
+other_fatal_exceptions_in_buffer = 0 (not attributed to com.animusmachinae.dll17)
+  RESULT: no crash or ANR for com.animusmachinae.dll17 PASSED
+
+finished: 2026-08-13T01:18:40Z
+OVERALL: PASSED

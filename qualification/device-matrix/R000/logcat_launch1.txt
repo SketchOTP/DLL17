@@ -1,0 +1,142 @@
+# Filtered logcat for com.animusmachinae.dll17 (launch 1).
+# Full-buffer lines unrelated to this package are deliberately excluded:
+# they describe the owner's device, not this application.
+# Buffer totals: app_fatal_exceptions=0 app_anr_or_force_finish=0
+# other_fatal_exceptions_in_buffer=0
+
+08-12 21:18:09.091  1647  2271 I PasspointManager: No app ops listener found for com.animusmachinae.dll17
+08-12 21:18:09.119  1647  2271 W WifiService: Couldn't get PackageInfo for package:com.animusmachinae.dll17
+08-12 21:18:09.119  1647  2271 D WifiService: Remove settings for package:com.animusmachinae.dll17
+08-12 21:18:09.119  1647  2271 D WifiConfigManager: Remove all networks for app ApplicationInfo{4ee3e8d com.animusmachinae.dll17}
+08-12 21:18:09.119  1647  2271 I PasspointManager: No app ops listener found for com.animusmachinae.dll17
+08-12 21:18:09.122  1647  2860 I PackageRemovedReceiver: Package com.animusmachinae.dll17 (UID: 10777) fully removed for user UserHandle{0}
+08-12 21:18:09.184  9406  9406 I Finsky  : [2] AIM: AppInfoCacheUpdater -> invalidating apps: [com.animusmachinae.dll17]
+08-12 21:18:09.187  9406  9452 I Finsky  : [597] AIM: AppInfoManager-Perf > OnDeviceAppInfo > cacheHitCount=0, cacheMissCount=1. Missed  in cache (limit 10) : [com.animusmachinae.dll17]
+08-12 21:18:09.199  9406 27882 I Finsky  : [1084] Asset module storage cleared for package com.animusmachinae.dll17.
+08-12 21:18:09.249  9406  9406 W Finsky  : [2] STU: Failed to get storage stats for package 'com.animusmachinae.dll17' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+08-12 21:18:09.285 13558 27817 I NearbySharing: Got package event: PackageRemoved(packageName=com.animusmachinae.dll17)
+08-12 21:18:09.291 19975 19975 I Finsky:background: [2] Package no longer installed: com.animusmachinae.dll17
+08-12 21:18:09.304 19975 19975 I Finsky:background: [2] Package no longer installed: com.animusmachinae.dll17
+08-12 21:18:09.304  1647  1647 I Telecom : CarModeTracker: Package com.animusmachinae.dll17 is not tracked.: SSH.oR@aX4
+08-12 21:18:09.310 19975 19975 I Finsky:background: [2] Package no longer installed: com.animusmachinae.dll17
+08-12 21:18:09.318  1647  1647 I AppSearchManagerService: Handling android.intent.action.PACKAGE_FULLY_REMOVED broadcast on package: com.animusmachinae.dll17
+08-12 21:18:09.356 13558 27946 I ProximityAuth: [RecentAppsMediator] Package removed: (user=UserHandle{0}) com.animusmachinae.dll17
+08-12 21:18:09.377 19975 20058 I Finsky:background: [608] IQ:PSL: skipping onPackageRemoved(replacing=false) for untracked package=com.animusmachinae.dll17
+08-12 21:18:09.443  1647  1647 I ConditionProviders: Disallowing condition provider com.animusmachinae.dll17 (userSet: true)
+08-12 21:18:09.448 19524 27714 I Icing   : doRemovePackageData com.animusmachinae.dll17
+08-12 21:18:09.478 19524 27933 W RWIPackageIntentOps: Registries cleared for package: com.animusmachinae.dll17
+08-12 21:18:09.535 19524 27928 W SQLiteLog: (28) double-quoted string literal: "com.animusmachinae.dll17"
+08-12 21:18:09.620  9406  9406 I Finsky  : [2] Received an install/uninstall event for package com.animusmachinae.dll17
+08-12 21:18:09.712 18030 27980 I bvq     : Ignoring deleted package: com.animusmachinae.dll17
+08-12 21:18:09.772  4500 27974 D MediaProvider: Deleted 0 Android/media items belonging to com.animusmachinae.dll17 on /data/user/0/com.google.android.providers.media.module/databases/external.db
+08-12 21:18:09.788  4500 27974 I FuseDaemon: Successfully deleted rows in leveldb for owner_id:  and ownerPackageIdentifier: com.animusmachinae.dll17::0
+08-12 21:18:09.789  4500 27974 D MediaGrants: Removed 0 media_grants for 0 user for [com.animusmachinae.dll17]. Reason: Package orphaned
+08-12 21:18:10.102  2771  2771 D PersistedStoragePackageUninstalledReceiver: Received android.intent.action.PACKAGE_FULLY_REMOVED for com.animusmachinae.dll17 for u0
+08-12 21:18:10.330  9406  9406 I Finsky  : [2] VerifyApps: Install-time verification requested for package com.animusmachinae.dll17, PackageManager id = 197, Verifier id = cef01484-dc8d-4a43-bfef-5cfee1161d22
+08-12 21:18:10.395  1647  1855 D LauncherAppsService: onPackageRemoved: triggering onPackageRemoved for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:10.396  1647  1855 D LauncherAppsService: onPackageRemoved: triggering onPackageRemoved for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:10.396  1647  1855 D LauncherAppsService: onPackageRemoved: triggering onPackageRemoved for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:10.396  1647  1855 D LauncherAppsService: onPackageRemoved: triggering onPackageRemoved for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:10.397  2407  2438 D Bubbles : BubbleData.removeBubblesWithPackageName() package=com.animusmachinae.dll17
+08-12 21:18:10.397  1647  1855 D LauncherAppsService: onPackageRemoved: Skipping - profile not enabled or not accessible for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:10.397  1647  1855 D LauncherAppsService: onPackageRemoved: Skipping - profile not enabled or not accessible for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:10.398 22505 22522 D LauncherAppsCallbackImpl: onPackageRemoved triggered for packageName=com.animusmachinae.dll17, user=UserHandle{0}
+08-12 21:18:10.412  9406 27894 I Finsky  : [1086] VerifyApps: Anti-malware verification task started for package=com.animusmachinae.dll17
+08-12 21:18:10.417 22505 22522 D ModelWriter: removing items from db []. Reason: [removed because the corresponding package is removed. removedPackages=[com.animusmachinae.dll17]]
+08-12 21:18:10.495  9406 27894 I Finsky  : [1086] VerifyApps: chooseScanResult for package=com.animusmachinae.dll17 with timeout=15000ms
+08-12 21:18:10.497  9406  9451 I Finsky  : [596] VerifyApps: Starting APK Analysis scan for com.animusmachinae.dll17.
+08-12 21:18:10.497  9406  9451 I Finsky  : [596] Scanning package com.animusmachinae.dll17 contents with client side protections. File: [VrneZvcwmy94kgXOpVKWoxllK04fGGi8si7Mztp8CKA]
+08-12 21:18:10.678  9406 28033 I Finsky  : [1089] VerifyApps: Verification package=com.animusmachinae.dll17, id=197, response=0, upload_requested=false, enable_ecm=false
+08-12 21:18:10.682  9406 28033 I Finsky  : [1089] VerifyApps: PAM result saving to datastore delayed for package: com.animusmachinae.dll17
+08-12 21:18:10.683  9406 27894 I Finsky  : [1086] VerifyApps: firstScanResult for package=com.animusmachinae.dll17: 0
+08-12 21:18:13.244  9406  9450 I Finsky  : [595] VerifyApps: APK Analysis scan finished for com.animusmachinae.dll17. Verdict: 0
+08-12 21:18:13.245  9406 27894 I Finsky  : [1086] VerifyApps: overallScanResult for package=com.animusmachinae.dll17: 0
+08-12 21:18:13.245  9406 27894 I Finsky  : [1086] VerifyApps: chooseScanResult returning verdict 0 for package=com.animusmachinae.dll17
+08-12 21:18:13.258  9406  9406 I Finsky  : [2] VerifyApps: Install-time verification complete: id=197, package_name=com.animusmachinae.dll17
+08-12 21:18:13.783  1647  1896 D BackupManagerService: [UserID:0] restoreAtInstall pkg=com.animusmachinae.dll17 token=c3 restoreSet=3b18b2c420555b1b
+08-12 21:18:14.222  1647  1896 I PackageManager: installation completed for package:com.animusmachinae.dll17. Final code path: /data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ==
+08-12 21:18:14.224  1647  1896 I AppsFilter: interaction: PackageSetting{6c7d03c ai.drivepulse.app/10759} -> PackageSetting{7b783a6 com.animusmachinae.dll17/10778} BLOCKED
+08-12 21:18:14.224  1647  1896 I AppsFilter: interaction: PackageSetting{d0c971a com.google.android.microdroid.empty_payload/10281} -> PackageSetting{7b783a6 com.animusmachinae.dll17/10778} BLOCKED
+08-12 21:18:14.253  1647  2327 D ShortcutService: adding package: com.animusmachinae.dll17 userId=0
+08-12 21:18:14.254  1647  2339 I SdkSandboxManager: No SDKs used. Skipping SDK data reconcilation for CallingInfo{mUid=10778, mPackageName='com.animusmachinae.dll17, mAppProcessToken='null'}
+08-12 21:18:14.257  1407  1407 I adbd    : adbd service requested 'shell,v2,raw:pm path com.animusmachinae.dll17'
+08-12 21:18:14.261  2688  2688 D CarrierSvcBindHelper: onPackageAdded: com.animusmachinae.dll17
+08-12 21:18:14.279  2688  2929 I SatelliteAppTracker: onPackageAdded : com.animusmachinae.dll17
+08-12 21:18:14.289  1647  1647 D AS.AudioService: received android.intent.action.PACKAGE_ADDED replacing: false archival: false for package com.animusmachinae.dll17 with uid 10778
+08-12 21:18:14.293  2771  2771 I SafetyLabelChangedBroadcastReceiver: received broadcast packageName: com.animusmachinae.dll17, current user: UserHandle{0}, packageChangeEvent: NEW_INSTALL, intent user: UserHandle{0}
+08-12 21:18:14.294  1647  1855 D LauncherAppsService: onPackageAdded: user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:14.294  1647  1855 D LauncherAppsService: onPackageAdded: triggering onPackageAdded for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:14.294  1647  1855 D LauncherAppsService: onPackageAdded: triggering onPackageAdded for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:14.294  1647  1855 D LauncherAppsService: onPackageAdded: triggering onPackageAdded for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:14.294  2407  3435 D LauncherApps: onPackageAdded 0,com.animusmachinae.dll17
+08-12 21:18:14.295 26964 19970 D LauncherApps: onPackageAdded 0,com.animusmachinae.dll17
+08-12 21:18:14.296  1647  1855 D LauncherAppsService: onPackageAdded: triggering onPackageAdded for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:14.297  1647  1855 D LauncherAppsService: onPackageAdded: Skipping - profile not enabled or not accessible for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:14.297  1647  1855 D LauncherAppsService: onPackageAdded: Skipping - profile not enabled or not accessible for user=UserHandle{0}, packageName=com.animusmachinae.dll17
+08-12 21:18:14.297 22505 30360 D LauncherApps: onPackageAdded 0,com.animusmachinae.dll17
+08-12 21:18:14.297 29871 29885 D LauncherApps: onPackageAdded 0,com.animusmachinae.dll17
+08-12 21:18:14.298 22505 22522 D LauncherAppsCallbackImpl: onPackageAdded triggered for packageName=com.animusmachinae.dll17, user=UserHandle{0}
+08-12 21:18:14.305  1150  7560 D NativePermissionController: updatePackagesForUid, UidPackageState{uid: 10778, packageStates: [PackageState{packageName: com.animusmachinae.dll17, targetSdk: 37, isPlaybackCaptureAllowed: true}]}
+08-12 21:18:14.339  1407  1407 I adbd    : adbd service requested 'shell,v2,raw:cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.LAUNCHER com.animusmachinae.dll17'
+08-12 21:18:14.361  2688  3043 D ImsResolver: maybeAddedImsService, packageName: com.animusmachinae.dll17
+08-12 21:18:14.361  2688  3043 V ImsResolver: searchForImsServices: package=com.animusmachinae.dll17, users=[UserHandle{0}]
+08-12 21:18:14.361  2688  3043 V ImsResolver: searchForImsServices: package=com.animusmachinae.dll17, users=[UserHandle{0}]
+08-12 21:18:14.377  2688  2688 W VvmPkgInstalledRcvr: carrierVvmPkgAdded: carrier vvm packages doesn't contain com.animusmachinae.dll17
+08-12 21:18:14.396  1647  1647 I AppsFilter: interaction: PackageSetting{bacc8e5 ai.drivepulse.app/10759} -> PackageSetting{3e57fba com.animusmachinae.dll17/10778} BLOCKED
+08-12 21:18:14.396  1647  1647 I AppsFilter: interaction: PackageSetting{97e3e6b com.google.android.microdroid.empty_payload/10281} -> PackageSetting{3e57fba com.animusmachinae.dll17/10778} BLOCKED
+08-12 21:18:14.401  1647  2327 D ShortcutService: changing package: com.animusmachinae.dll17 userId=0
+08-12 21:18:14.402  2688  2929 I SatelliteAppTracker: onPackageModified : com.animusmachinae.dll17
+08-12 21:18:14.411  2688  2688 D CarrierSvcBindHelper: onPackageModified: com.animusmachinae.dll17
+08-12 21:18:14.416 13558 27981 I NearbySharing: Got package event: PackageAdded(packageName=com.animusmachinae.dll17)
+08-12 21:18:14.422 13558 27981 I NearbySharing: Got package event: PackageChanged(packageName=com.animusmachinae.dll17, changedComponents=[])
+08-12 21:18:14.461  2688  3043 D ImsResolver: maybeAddedImsService, packageName: com.animusmachinae.dll17
+08-12 21:18:14.461  2688  3043 V ImsResolver: searchForImsServices: package=com.animusmachinae.dll17, users=[UserHandle{0}]
+08-12 21:18:14.462  2688  3043 V ImsResolver: searchForImsServices: package=com.animusmachinae.dll17, users=[UserHandle{0}]
+08-12 21:18:14.466  9406  9450 I Finsky  : [595] AIM: AppInfoManager-Perf > OnDeviceAppInfo > cacheHitCount=0, cacheMissCount=1. Missed  in cache (limit 10) : [com.animusmachinae.dll17]
+08-12 21:18:14.472  2688  2688 D SatelliteController: packageStateChanged: package:com.animusmachinae.dll17 defaultSmsPackageName: com.google.android.apps.messaging satelliteGatewayServicePackageName: com.google.android.apps.stargate
+08-12 21:18:14.506 13558 27942 I ProximityAuth: [RecentAppsMediator] Package added: (user=UserHandle{0}) com.animusmachinae.dll17
+08-12 21:18:14.532  9406  9406 I Finsky  : [2] AIM: AppInfoCacheUpdater -> invalidating apps: [com.animusmachinae.dll17]
+08-12 21:18:14.533  9406  9451 I Finsky  : [596] AIM: AppInfoManager-Perf > OnDeviceAppInfo > cacheHitCount=0, cacheMissCount=1. Missed  in cache (limit 10) : [com.animusmachinae.dll17]
+08-12 21:18:14.560  9406  9406 I Finsky  : [2] AIM: AppInfoCacheUpdater -> invalidating apps: [com.animusmachinae.dll17]
+08-12 21:18:14.584  9406  9452 I Finsky  : [597] AIM: AppInfoManager-Perf > OnDeviceAppInfo > cacheHitCount=0, cacheMissCount=1. Missed  in cache (limit 10) : [com.animusmachinae.dll17]
+08-12 21:18:14.630 18030 27980 I bvq     : Handling installed or updated package: com.animusmachinae.dll17
+08-12 21:18:14.630 18030 27980 I cov     : Attempting to classify package: com.animusmachinae.dll17 using model: bll_1
+08-12 21:18:14.652  9406  9406 I Finsky  : [2] Received an install/uninstall event for package com.animusmachinae.dll17
+08-12 21:18:14.820 18030 27980 I cov     : Skipping package: com.animusmachinae.dll17, it was already classified as: NOT_HARMFUL, and rescan was disabled
+08-12 21:18:15.035  9406  9449 I Finsky  : [594] Installer package name of package com.animusmachinae.dll17 is 
+08-12 21:18:16.546  1407  1407 I adbd    : adbd service requested 'shell,v2,raw:am start -W -n com.animusmachinae.dll17/.android.MainActivity'
+08-12 21:18:16.666  1647  2222 V ActivityTaskManager: TaskLaunchParamsModifier: phase=3 task=Task{65d3b62 #11835 type=standard A=10778:com.animusmachinae.dll17} activity=ActivityRecord{177539629 u0 com.animusmachinae.dll17/.android.MainActivity t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@89749136 inherit-from-task=fullscreen non-freeform-task-display-area display-area=DefaultTaskDisplayArea@89749136 skip-bounds-fullscreen
+08-12 21:18:16.666  1647  2222 I ActivityTaskManager: START u0 {flg=0x10000000 xflg=0x5 cmp=com.animusmachinae.dll17/.android.MainActivity} with LAUNCH_MULTIPLE from uid 2000 (com.android.shell) (BAL_ALLOW_PERMISSION) result code=0
+08-12 21:18:16.667  2407  2438 V WindowManagerShell: Transition requested (#9630): android.os.BinderProxy@5be0c90 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=11835 effectiveUid=10778 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.animusmachinae.dll17/.android.MainActivity } baseActivity=ComponentInfo{com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity} topActivity=ComponentInfo{com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity} origActivity=null realActivity=ComponentInfo{com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity} realActivityIsAppLockEnabled=false numActivities=1 lastActiveTime=863608541 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.os.BinderProxy@11f6989} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 149 - 0, 0) topActivityInfo=ActivityInfo{57ddd8e com.animusmachinae.dll17.android.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null leafTaskBoundsFromOptions= false capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1008, 2244) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransitionInfo = null, displayChange = null, requestedLocation = null, userChange = null, windowingLayerChange = null, fullscreenRequestChange = null, flags = 0, debugId = 9630 }
+08-12 21:18:16.670  1647  4741 I AppsFilter: interaction: PackageSetting{bacc8e5 ai.drivepulse.app/10759} -> PackageSetting{da06199 com.animusmachinae.dll17/10778} BLOCKED
+08-12 21:18:16.670  1647  4741 I AppsFilter: interaction: PackageSetting{97e3e6b com.google.android.microdroid.empty_payload/10281} -> PackageSetting{da06199 com.animusmachinae.dll17/10778} BLOCKED
+08-12 21:18:16.681  1647  1860 I ActivityManager: Start proc 28124:com.animusmachinae.dll17/u0a778 for next-top-activity {com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity}
+08-12 21:18:16.692  1647  1842 V WindowManager: Sent Transition (#9630) createdAt=08-12 21:18:16.652 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=11835 effectiveUid=10778 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.animusmachinae.dll17/.android.MainActivity } baseActivity=ComponentInfo{com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity} topActivity=ComponentInfo{com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity} origActivity=null realActivity=ComponentInfo{com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity} realActivityIsAppLockEnabled=false numActivities=1 lastActiveTime=863608541 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{616ff4b Task{65d3b62 #11835 type=standard A=10778:com.animusmachinae.dll17}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 149 - 0, 0) topActivityInfo=ActivityInfo{895bd28 com.animusmachinae.dll17.android.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null leafTaskBoundsFromOptions= false capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1008, 2244) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransitionInfo = null, displayChange = null, requestedLocation = null, userChange = null, windowingLayerChange = null, fullscreenRequestChange = null, flags = 0, debugId = 9630 }
+08-12 21:18:16.692  1647  1842 V WindowManager:         {WCT{RemoteToken{616ff4b Task{65d3b62 #11835 type=standard A=10778:com.animusmachinae.dll17}}} m=OPEN f=NONE leash=Surface(name=Task=11835#105262)/@0x4459f2f sb=Rect(0, 0 - 1008, 2244) eb=Rect(0, 0 - 1008, 2244) epz=Point(1008, 2244) d=0 taskParent=-1 winMode=1 userId=0},
+08-12 21:18:16.692 28124 28124 I Zygote  : Process 28124 created for com.animusmachinae.dll17
+08-12 21:18:16.794 28124 28124 D nativeloader: Configuring clns-9 for other apk /data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ==/base.apk. target_sdk_version=37, uses_libraries=, library_path=/data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ==/lib/arm64:/data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.animusmachinae.dll17
+08-12 21:18:16.800 28124 28124 V GraphicsEnvironment: com.animusmachinae.dll17 is not listed in per-application setting
+08-12 21:18:16.817 28124 28139 D vulkan  : searching for layers in '/data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ==/lib/arm64'
+08-12 21:18:16.817 28124 28139 D vulkan  : searching for layers in '/data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ==/base.apk!/lib/arm64-v8a'
+08-12 21:18:16.874  1647  3248 D CoreBackPreview: Window{aa227a0 u0 com.animusmachinae.dll17/com.animusmachinae.dll17.android.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@1a94ab8, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+08-12 21:18:17.063  1647  1842 I ActivityTaskManager: Displayed com.animusmachinae.dll17/.android.MainActivity for user 0: +422ms
+08-12 21:18:17.083  1647  2226 I ImeTracker: com.animusmachinae.dll17:1e75c8aa: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false userId 0 displayId 0
+08-12 21:18:17.086 28124 28124 I ImeTracker: com.animusmachinae.dll17:1e75c8aa: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+08-12 21:18:17.087  1647  2222 I ImeTracker: com.animusmachinae.dll17:641cc624: onRequestHide at ORIGIN_SERVER reason HIDE_SOFT_INPUT fromUser false userId 0 displayId 0
+08-12 21:18:17.087  1647  2222 I ImeTracker: com.animusmachinae.dll17:641cc624: onCancelled at PHASE_SERVER_SHOULD_HIDE
+08-12 21:18:17.089  7580  7580 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1491 onStartInput(EditorInfo{EditorInfo{packageName=com.animusmachinae.dll17, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+08-12 21:18:17.090  1647  2222 W PackageConfigPersister: App-specific configuration not found for packageName: com.animusmachinae.dll17 and userId: 0
+08-12 21:18:22.283 28124 28189 D ProfileInstaller: Installing profile for com.animusmachinae.dll17
+08-12 21:18:24.501  1407  1407 I adbd    : adbd service requested 'shell,v2,raw:pidof com.animusmachinae.dll17'
+08-12 21:18:24.649  1407  1407 I adbd    : adbd service requested 'shell,v2,raw:dumpsys meminfo com.animusmachinae.dll17'
+08-12 21:18:25.099 20678 20678 W msgr.AppInfoCore: Install status cache EVICT for com.animusmachinae.dll17 (package changed)
+08-12 21:18:25.236 20678 20678 W msgr.AppInfoCore: Install status cache EVICT for com.animusmachinae.dll17 (package changed)
+08-12 21:18:25.237 20678 20678 W msgr.AppInfoCore: Install status cache EVICT for com.animusmachinae.dll17 (package changed)
+08-12 21:18:25.237 20678 20678 W msgr.AppInfoCore: Install status cache EVICT for com.animusmachinae.dll17 (package changed)
+08-12 21:18:25.488  1647  1842 V WindowManager:         {WCT{RemoteToken{616ff4b Task{65d3b62 #11835 type=standard A=10778:com.animusmachinae.dll17}}} m=TO_BACK f=NONE leash=Surface(name=Task=11835#105262)/@0x4459f2f sb=Rect(0, 0 - 1008, 2244) eb=Rect(0, 0 - 1008, 2244) epz=Point(1008, 2244) d=0 taskParent=-1 winMode=1 userId=0}
+08-12 21:18:27.305  1407  1407 I adbd    : adbd service requested 'shell,v2,raw:du -s -k /data/data/com.animusmachinae.dll17'
+08-12 21:18:27.339 28487 28487 W du      : type=1400 audit(0.0:391119): avc:  denied  { getattr } for  path="/data/data/com.animusmachinae.dll17" dev="dm-63" ino=1758918 scontext=u:r:shell:s0 tcontext=u:object_r:app_data_file:s0:c10,c259,c512,c768 tclass=dir permissive=0
+08-12 21:18:27.357  1407  1407 I adbd    : adbd service requested 'shell,v2,raw:du -s -k /data/app/~~F0LUwru_MRidpnq-AZUZWQ==/com.animusmachinae.dll17-gzoOQjt1C8P7ge9MXfL-PQ=='
+
+# Crash blocks present anywhere in the buffer, for attribution:
+# none

@@ -32,6 +32,20 @@ jobs:
       - name: Project identity contract
         run: python3 tools/verify_project_identity.py
 
+      - name: R000 qualification bundle
+        run: python3 tools/build_qualification_bundle.py --verify
+
+      - name: Upload R000 qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: r000-qualification-evidence
+          path: |
+            governance/qualification/R000_QUALIFICATION_BUNDLE.md
+            qualification/evidence/R000/
+            qualification/device-matrix/R000/
+          if-no-files-found: error
+
   build:
     name: Build and test
     runs-on: ubuntu-latest

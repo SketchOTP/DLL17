@@ -81,3 +81,17 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: new
 - Related directive: none
 - Status at issuance: ISSUED
+
+## D-005
+
+- Issued: 2026-08-12T20:40:16-04:00
+- Issuer: User
+- External directive: D005
+- Objective: Complete the remaining R000 work and close the R000 exit gate, using the buildable project created under D-004 as the baseline. This is the final R000 directive.
+- Scope: Resolve the repository licence conflict in favour of the frozen proprietary policy, obtain an Android execution target and produce actual install, launch, visible-state, terminate and relaunch evidence, measure and record the R000 runtime baseline from the current shell, produce a reproducible hashed R000 qualification evidence bundle, evaluate and close the R000 exit gate, and push the qualified commit with passing GitHub CI.
+- Exclusions: DeterminismContractV1 algorithms; fixed-point arithmetic; canonical serializer; canonical state hashing; PRNG and substreams; physiology; drives; action selection; learning; memory; relationships; development; persistence semantics; Torpor; A000 organism mechanisms; AR behavior; RouteEvidence behavior; any R001 implementation; changing repository visibility; beginning or proposing D006.
+- Acceptance: The MIT and proprietary conflict is resolved in favour of the frozen policy, the Android shell is installed and actually launched on an Android target, the visible R000 shell state is verified, terminate and relaunch succeed without crash, measured R000 runtime and resource baseline evidence exists, no future production budgets are fabricated, a hashed and reproducible R000 qualification evidence bundle exists, all existing governance, build and boundary tests still pass, GitHub CI passes for the qualified commit, every R000 exit-gate criterion is PASS, no R001 or organism functionality is introduced, local HEAD and origin/main match, and the final worktree is clean.
+- Risk class: NORMAL
+- Relationship: new
+- Related directive: none
+- Status at issuance: ISSUED

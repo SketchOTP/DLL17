@@ -1,0 +1,36 @@
+> Task :core-state:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-math:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :desktop-runner:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-crypto:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :desktop-runner:processResources NO-SOURCE
+> Task :core-math:compileKotlin UP-TO-DATE
+> Task :core-state:compileKotlin UP-TO-DATE
+> Task :core-crypto:compileKotlin UP-TO-DATE
+> Task :core-math:compileJava NO-SOURCE
+> Task :core-state:compileJava NO-SOURCE
+> Task :core-math:processResources NO-SOURCE
+> Task :core-crypto:compileJava NO-SOURCE
+> Task :core-math:classes UP-TO-DATE
+> Task :core-state:processResources NO-SOURCE
+> Task :core-state:classes UP-TO-DATE
+> Task :core-crypto:processResources NO-SOURCE
+> Task :core-crypto:classes UP-TO-DATE
+> Task :core-math:jar UP-TO-DATE
+> Task :core-state:jar UP-TO-DATE
+> Task :core-crypto:jar UP-TO-DATE
+> Task :desktop-runner:compileKotlin UP-TO-DATE
+> Task :desktop-runner:compileJava NO-SOURCE
+> Task :desktop-runner:classes UP-TO-DATE
+
+> Task :desktop-runner:run
+Digital Living Lifeform - desktop runner
+phase: R000 greenfield project initialization
+canonical logic: none; blocked until DeterminismContractV1 is frozen and R001 opens
+modules:
+  - core-math [pure-kotlin-jvm] canonicalLogicImplemented=false
+  - core-crypto [pure-kotlin-jvm] canonicalLogicImplemented=false
+  - core-state [pure-kotlin-jvm] canonicalLogicImplemented=false
+
+BUILD SUCCESSFUL in 1s
+8 actionable tasks: 1 executed, 7 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.0/userguide/configuration_cache_enabling.html

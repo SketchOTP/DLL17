@@ -21,9 +21,24 @@ Declared, exactly pinned dependencies. Versions are authoritative in
 Licence identifiers are recorded as published by each project. No dependency is
 redistributed in source form by this repository.
 
-The project's own source licence is unresolved. `ProjectIdentityBuildContractV1`
-freezes a proprietary, no-redistribution policy, while the repository root
-carries an MIT `LICENSE` created by the repository owner and the GitHub
-repository is public. See the unresolved-conflict section of the contract. No
-licence claim should be made for this project's own source until the architect
-settles it.
+## This project's own source licence
+
+Resolved under architect directive D005: **proprietary, all rights reserved, no
+redistribution**, matching the `ProjectIdentityBuildContractV1` licensing
+clause. The root `LICENSE` file states it.
+
+The repository previously carried an MIT `LICENSE`, applied by the repository
+owner in initial commit `96a1f07` before the contract was frozen. D005 directed
+that the MIT grant be removed and replaced; that was done, and recorded as
+IMPL-0004 in `docs/decisions/DECISION_LOG.md`.
+
+Two facts are recorded rather than claimed away:
+
+- The repository is public and its visibility was **not** changed under D005,
+  because the directive explicitly excluded that. Public visibility grants no
+  licence, and the notice says so, but the source remains readable by anyone.
+- An MIT grant was published for the commits between `96a1f07` and the D005
+  commit. Removing the file governs the project going forward; whether the
+  earlier published grant remains effective for those specific historical
+  revisions is a legal question for the copyright holder, not an implementation
+  decision. It is flagged here so it is not mistaken for a settled matter.
