@@ -1,5 +1,7 @@
 package com.animusmachinae.dll17.desktop
 
+import com.animusmachinae.dll17.core.continuity.CoreContinuityModule
+import com.animusmachinae.dll17.core.continuity.R002QualificationKernel
 import com.animusmachinae.dll17.core.crypto.CoreCryptoModule
 import com.animusmachinae.dll17.core.math.CoreMathModule
 import com.animusmachinae.dll17.core.state.CoreStateModule
@@ -41,13 +43,19 @@ public object DesktopRunner {
             CoreStateModule.RUNTIME_BOUNDARY,
             CoreStateModule.CANONICAL_LOGIC_IMPLEMENTED,
         ),
+        ModuleReport(
+            CoreContinuityModule.ID,
+            CoreContinuityModule.RUNTIME_BOUNDARY,
+            CoreContinuityModule.CANONICAL_LOGIC_IMPLEMENTED,
+        ),
     )
 
     public fun report(): String {
         val lines = mutableListOf(
             "Digital Living Lifeform - desktop runner",
-            "phase: R001 deterministic fixed-point spike",
-            "canonical logic: DeterminismContractV1 v1 frozen; deterministic core implemented",
+            "phase: R002 lifecycle, durability, trusted time and reconciliation",
+            "canonical logic: DeterminismContractV1 v1 and ContinuityDurabilityContractV1 v1 " +
+                "frozen; deterministic core and continuity foundation implemented",
             "organism behavior: none. Physiology, drives, learning, memory and " +
                 "relationships remain gated on R003 behind A001.",
             "modules:",
@@ -58,6 +66,8 @@ public object DesktopRunner {
         }
         lines += ""
         lines += R001QualificationKernel.renderReport(R001QualificationKernel.run())
+        lines += ""
+        lines += R002QualificationKernel.renderReport(R002QualificationKernel.run())
         return lines.joinToString(separator = "\n")
     }
 }

@@ -28,5 +28,8 @@ rootProject.name = "DLL17"
 include(":core-math")
 include(":core-crypto")
 include(":core-state")
+// R002 continuity and durability (directive D007). Pure Kotlin/JVM like every
+// other core-* module.
+include(":core-continuity")
 include(":desktop-runner")
 include(":android-host")

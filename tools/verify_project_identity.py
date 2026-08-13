@@ -25,7 +25,7 @@ WRAPPER = ROOT / "gradle/wrapper/gradle-wrapper.properties"
 ANDROID_BUILD = ROOT / "android-host/build.gradle.kts"
 SETTINGS = ROOT / "settings.gradle.kts"
 
-CORE_MODULES = ("core-math", "core-crypto", "core-state")
+CORE_MODULES = ("core-math", "core-crypto", "core-state", "core-continuity")
 JVM_MODULES = CORE_MODULES + ("desktop-runner",)
 ALL_MODULES = JVM_MODULES + ("android-host",)
 

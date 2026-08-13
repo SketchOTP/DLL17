@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Legacy Auto Backup rules for API 30 and lower, per
+  ContinuityDurabilityContractV1 section 14.1.
+
+  Canonical state is excluded from cloud backup entirely. A restored copy of an
+  active organism on another device is not a backup of a pet; it is a second
+  organism claiming the same identity, which is the condition
+  COPIED_STATE_QUARANTINE exists to refuse.
+-->
+<full-backup-content>
+    <exclude domain="database" path="." />
+    <exclude domain="file" path="canonical/" />
+    <exclude domain="file" path="journal/" />
+    <exclude domain="file" path="checkpoints/" />
+    <exclude domain="file" path="identity/" />
+    <exclude domain="file" path="keys/" />
+    <exclude domain="file" path="recovery/" />
+    <exclude domain="sharedpref" path="canonical_prefs.xml" />
+</full-backup-content>

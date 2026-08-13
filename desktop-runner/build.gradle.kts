@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":core-math"))
     implementation(project(":core-crypto"))
     implementation(project(":core-state"))
+    implementation(project(":core-continuity"))
     testImplementation(kotlin("test"))
 }
 

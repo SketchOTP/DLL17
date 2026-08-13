@@ -8,7 +8,7 @@ class DesktopRunnerTest {
     @Test
     fun reportsEveryCoreModule() {
         assertEquals(
-            listOf("core-math", "core-crypto", "core-state"),
+            listOf("core-math", "core-crypto", "core-state", "core-continuity"),
             DesktopRunner.moduleInventory().map { it.id },
         )
     }
@@ -29,6 +29,7 @@ class DesktopRunnerTest {
         val second = DesktopRunner.report()
         assertEquals(first, second, "the desktop reference runner must be byte-stable")
         assertTrue(first.contains("R001_EVIDENCE_DIGEST="))
+        assertTrue(first.contains("R002_EVIDENCE_DIGEST="))
     }
 
     @Test

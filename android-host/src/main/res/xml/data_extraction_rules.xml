@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Backup and device-transfer rules for API 31 and higher, per
+  ContinuityDurabilityContractV1 section 14.1.
+
+  Both sections are required. Excluding canonical state from cloud-backup while
+  leaving device-transfer open would let a phone-to-phone setup flow copy a live
+  organism, which is the same failure by a different route.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="database" path="." />
+        <exclude domain="file" path="canonical/" />
+        <exclude domain="file" path="journal/" />
+        <exclude domain="file" path="checkpoints/" />
+        <exclude domain="file" path="identity/" />
+        <exclude domain="file" path="keys/" />
+        <exclude domain="file" path="recovery/" />
+        <exclude domain="sharedpref" path="canonical_prefs.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="database" path="." />
+        <exclude domain="file" path="canonical/" />
+        <exclude domain="file" path="journal/" />
+        <exclude domain="file" path="checkpoints/" />
+        <exclude domain="file" path="identity/" />
+        <exclude domain="file" path="keys/" />
+        <exclude domain="file" path="recovery/" />
+        <exclude domain="sharedpref" path="canonical_prefs.xml" />
+    </device-transfer>
+</data-extraction-rules>
