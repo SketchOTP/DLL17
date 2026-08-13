@@ -17,6 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          # Full history is required: a closed phase's qualification bundle is
+          # verified against the commit that was qualified, and the default
+          # shallow clone does not contain it.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6

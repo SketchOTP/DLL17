@@ -15,7 +15,7 @@ bundle fails the build.
 
 | Binding | Value |
 |---|---|
-| Generated from commit | `43054d0a2a210bc48563cc81016d6083bff2a182` |
+| Generated from commit | `fa42bc0bc3fbb22b88b7404ec68a35415e664569` |
 | Branch | `main` |
 | Determinism contract | `DeterminismContractV1` (FROZEN, version 1) |
 | Identity contract | `ProjectIdentityBuildContractV1` (FROZEN) |

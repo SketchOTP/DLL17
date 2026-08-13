@@ -227,6 +227,26 @@ def git(*args: str) -> str:
         return ""
 
 
+def commit_present(commit: str) -> bool:
+    """True if `commit` is a real object in this clone.
+
+    Worth checking separately. A shallow clone does not contain the commit, and
+    without this the per-file lookup fails for every constituent and reports
+    them all as "absent from <commit>", which reads as evidence tampering rather
+    than as a clone-depth problem.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
+            cwd=ROOT,
+            capture_output=True,
+            check=False,
+        )
+    except OSError:
+        return False
+    return out.returncode == 0
+
+
 def git_blob(commit: str, rel: str) -> bytes | None:
     try:
         out = subprocess.run(
@@ -258,6 +278,15 @@ def collect(spec: PhaseSpec) -> tuple[list[tuple[str, str, str]], list[str]]:
     """Return (group, relative path, sha256) rows and a list of missing paths."""
     rows: list[tuple[str, str, str]] = []
     missing: list[str] = []
+
+    if spec.is_frozen and not commit_present(spec.frozen_at_commit or ""):
+        return [], [
+            f"commit {spec.frozen_at_commit} is not present in this clone, so the "
+            f"{spec.phase} bundle cannot be verified. This is almost always a shallow "
+            "checkout: fetch full history (actions/checkout with fetch-depth: 0). It is "
+            "not evidence that a constituent changed."
+        ]
+
     for group, paths in spec.constituents:
         for rel in paths:
             if spec.is_frozen:
