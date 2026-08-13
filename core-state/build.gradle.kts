@@ -11,6 +11,9 @@ kotlin {
 }
 
 dependencies {
+    api(project(":core-crypto"))
+    api(project(":core-math"))
+
     testImplementation(kotlin("test"))
 }
 

@@ -42,3 +42,24 @@ Two facts are recorded rather than claimed away:
   earlier published grant remains effective for those specific historical
   revisions is a legal question for the copyright holder, not an implementation
   decision. It is flagged here so it is not mistaken for a settled matter.
+
+## Algorithms implemented from published specifications (R001)
+
+R001 implements two published algorithms. Neither introduces a third-party
+licence obligation, because no third-party source was copied into this
+repository.
+
+| Algorithm | Source | Licence position | How it was implemented |
+|---|---|---|---|
+| SHA-256 | FIPS PUB 180-4 (NIST) | A US government publication; an algorithm specification is not copyrightable | Written from the published pseudocode and constants, verified against the document's own test vectors and differentially against `java.security.MessageDigest` |
+| SplitMix64 | Steele, Lea and Flood, *Fast Splittable Pseudorandom Number Generators*, OOPSLA 2014; Vigna's reference implementation | Vigna's reference is released to the public domain (CC0), so even copying would carry no obligation. Nothing was copied regardless | Written from the published mixing function and constants |
+| `GAMMA` = `0x9E3779B97F4A7C15` | Odd 64-bit approximation of the golden ratio, in wide public use | No licence claim attaches to a mathematical constant | Transcribed and asserted by test against its published unsigned hex |
+
+The distinction between *implementing a specification* and *copying an
+implementation* is deliberate and is what keeps the deterministic core
+first-party under this repository's proprietary licence.
+
+No new third-party Gradle dependency was added by R001 other than the AndroidX
+test-instrumentation artifacts required to execute the determinism matrix on a
+device; those are declared in `gradle/libs.versions.toml` as exact pins under the
+Apache License 2.0, consistent with the rest of the AndroidX rows above.

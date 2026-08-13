@@ -95,3 +95,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: new
 - Related directive: none
 - Status at issuance: ISSUED
+
+## D-006
+
+- Issued: 2026-08-13T05:30:00-04:00
+- Issuer: User
+- External directive: D006
+- Objective: Implement and qualify the R001 deterministic core as the foundation every later organism mechanism depends on, freezing DeterminismContractV1 before writing any dependent implementation and qualifying the result against the canonical R001 exit gate.
+- Scope: Freeze DeterminismContractV1 with every algorithm, format and version decision the canonical pages require; implement canonical fixed-point numeric semantics, saturation and diagnostics, canonical byte representation and serialization, canonical hashing, versioned domain-separated deterministic randomness and substreams, lookup-table generation and verification, golden vectors and replay fixtures, the reducer and replay kernel, durability classes and the Class W staged witnessed interaction, the commit visibility invariant, the panic witness, the assisted-payload zero-physics interface, and deterministic migration and version boundaries; update the mandatory registries with the R001 facts made real; prove identical canonical bytes and hashes across the required qualification targets; and push a qualified commit with passing GitHub CI.
+- Exclusions: Physiology; drives; action selection; learning; memory; relationships; development and evolution; Torpor; resource and care systems; R002 persistence semantics; AR behavior; RouteEvidence behavior; dialogue; all other R002 and later organism behavior; beginning R002; proposing D007.
+- Acceptance: DeterminismContractV1 is frozen and complete, the deterministic core conforms to it, numeric semantics and saturation and canonical bytes and hashing and deterministic randomness and lookup and version behavior and golden vectors and replay and migration all pass, the mandatory registries carry the R001 facts without speculative later entries, identical fixtures produce byte-identical canonical outputs and hashes across every target required by the canonical R001 matrix, R001 qualification evidence is reproducible and bound to the frozen contract and qualified commit, existing R000 and governance and build and CI qualifications remain green, every R001 exit-gate criterion is evaluated and passes, the work is pushed to SketchOTP/DLL17, local HEAD equals origin/main, GitHub CI passes, and the worktree is clean.
+- Risk class: HIGH
+- Relationship: new
+- Related directive: none
+- Status at issuance: ISSUED
+

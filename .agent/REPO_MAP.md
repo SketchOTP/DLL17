@@ -11,11 +11,11 @@
 
 ## Core modules
 
-- `core-math/` — pure Kotlin JVM module for fixed-point types, saturating arithmetic, bounded interpolation and lookup tables; an R000 marker only, no canonical logic.
-- `core-crypto/` — pure Kotlin JVM module for canonical hashing, byte codecs and deterministic random-domain derivation; an R000 marker only, no canonical logic.
-- `core-state/` — pure Kotlin JVM module for canonical state, the reducer, normalized events and migrations; an R000 marker only, no canonical logic.
-- `desktop-runner/` — pure Kotlin JVM headless runner; reports the module inventory and R000 readiness and exits.
-- `android-host/` — the only module that links the Android framework; a launchable Compose shell that displays build and phase identity.
+- `core-math/` — pure Kotlin JVM module holding `Fixed64` semantics, saturating arithmetic, bounded interpolation and decay, saturation diagnostics, and digest-verified lookup tables. Canonical logic since R001.
+- `core-crypto/` — pure Kotlin JVM module holding the canonical byte codec and envelope, the project's own SHA-256, the canonical state hash, and counter-based PRNG substreams with domain-separated derivation. Canonical logic since R001.
+- `core-state/` — pure Kotlin JVM module holding the canonical snapshot, the pure single-threaded reducer, normalized events, durability classes, the durable journal and replay kernel, the Class W staged protocol, the panic witness, the assisted-payload interface, schema migration, and the R001 qualification kernel. Canonical logic since R001; still no organism behaviour.
+- `desktop-runner/` — pure Kotlin JVM headless runner and the desktop determinism matrix target; runs the R001 qualification kernel and emits `R001_EVIDENCE_DIGEST`.
+- `android-host/` — the only module that links the Android framework; the unchanged R000 Compose shell plus the instrumented tests that qualify the determinism matrix on real ART.
 
 ## Interfaces and contracts
 
@@ -25,12 +25,14 @@
 - `.agent/LEARNINGS.md` — append-only durable, evidence-backed project knowledge.
 - `.agent/PROJECT_PROFILE.md` — verified identity, stack, tooling and command facts for this repository.
 - `docs/architecture/ProjectIdentityBuildContractV1.md` — frozen project identity, toolchain and dependency policy.
-- `docs/architecture/registries/` — the seven mandatory R000 registries; scaffolds with no invented organism entries.
+- `docs/architecture/DeterminismContractV1.md` — frozen canonical byte format, hashing, randomness, fixed-point and migration decisions, with the candidate decision record.
+- `docs/architecture/registries/` — the seven mandatory registries; populated with R001 determinism facts and no invented organism entries.
 - `docs/architecture/CANONICAL_SOURCES.md` — pointers to the authoritative external specifications.
 - `docs/invariants/INVARIANT_REGISTRY.md` — invariants and where each is enforced today.
 - `docs/decisions/DECISION_LOG.md` — implementation decisions that are not architect directives.
 - `governance/source-provenance/SOURCE_PROVENANCE_LEDGER.md` — proof that the repository is greenfield.
 - `governance/release-gates/R000_EXIT_GATE.md` — honest per-criterion status of the R000 exit gate.
+- `governance/release-gates/R001_EXIT_GATE.md` — per-criterion status of all three canonical R001 exit gates, including the one criterion resting on an architect waiver.
 
 ## Tests and validation
 
@@ -39,12 +41,19 @@
 - `scripts/fixtures/governance_template/.agent/` — pristine unadopted governance files used as the fixture base for the self-test; never the live project state.
 - `tools/verify_project_identity.py` — checks the build files against the frozen project identity contract.
 - `tools/qualify_r000_android.sh` — installs, launches, verifies, terminates and relaunches the shell on a connected Android target and records the evidence.
-- `tools/build_qualification_bundle.py` — builds and verifies the hashed R000 qualification evidence bundle.
+- `tools/build_qualification_bundle.py` — builds and verifies the hashed per-phase qualification bundles. Closed phases are pinned to their qualified commit and read through git, so a later phase cannot break a gate that already closed.
+- `tools/generate_lookup_tables.py` — generates the canonical lookup tables and, as an independent Python implementation of the codec and digest, cross-checks the Kotlin canonical encoder and SHA-256.
+- `tools/qualify_r001_determinism.sh` — runs the determinism matrix against a connected Android target and records what that target computed.
 - `.github/workflows/ci.yml` — GitHub Actions workflow running governance validation, the governance self-test, the identity check, module tests, the full build and the Android debug assembly.
 - `qualification/` — evidence directories for fixtures, replay, fault injection, longitudinal runs, the device matrix and red-team findings.
 - `qualification/evidence/R000/` — recorded governance, identity, build, runner, Android assembly and toolchain evidence for the R000 gate.
+- `qualification/evidence/R001/` — recorded governance, identity, build, runner, lookup-table and toolchain evidence for the R001 gate.
+- `qualification/fixtures/R001/` — frozen golden vectors and the desktop reference report for the R001 fixture set.
+- `qualification/replay/R001/` — replay equivalence and the eight-boundary crash recovery sweep.
 - `qualification/device-matrix/R000/` — device matrix and raw Android install, launch, visible-state, terminate and relaunch evidence including screenshots and logcat.
-- `governance/qualification/R000_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R000 qualification claim; verified in CI.
+- `qualification/device-matrix/R001/` — the cross-target determinism matrix and per-target records for the desktop JVM, the x86_64 emulator and Tensor hardware.
+- `governance/qualification/R000_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R000 qualification claim; verified in CI against its pinned commit.
+- `governance/qualification/R001_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R001 qualification claim; verified in CI.
 
 ## Configuration
 

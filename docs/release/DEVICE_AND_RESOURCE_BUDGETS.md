@@ -54,9 +54,38 @@ Reading these honestly:
 - Battery and thermal: **not measured.** A single sub-second launch produces no
   meaningful battery or thermal signal. Claiming one would be fabrication.
 
+## R001_MEASURED_BASELINE
+
+Determinism-phase measurements. Unlike the R000 launch figures, the determinism
+evidence itself is byte-identical on every target; only the timing rows below
+vary by hardware, and they are noncanonical.
+
+| ID | Measurement | Tensor G4 (Pixel 9 Pro XL) | x86_64 emulator (API 36) | Source |
+|---|---|---|---|---|
+| `R001_MEASURED_BASELINE.panic_witness_samples` | Benchmark sample count | 2,000 | 2,000 | `qualification/device-matrix/R001/` |
+| `R001_MEASURED_BASELINE.panic_witness_record_bytes` | Fixed record size | 24 | 24 | `PlatformPanicWitness.RECORD_SIZE` |
+| `R001_MEASURED_BASELINE.panic_witness_write_min_ns` | Fastest write | 6,795 | 5,584 | instrumented benchmark |
+| `R001_MEASURED_BASELINE.panic_witness_write_median_ns` | Median write | 7,487 | 7,214 | instrumented benchmark |
+| `R001_MEASURED_BASELINE.panic_witness_write_p95_ns` | p95 write | 9,562 | 12,257 | instrumented benchmark |
+| `R001_MEASURED_BASELINE.panic_witness_write_p99_ns` | p99 write | 12,614 | 16,215 | instrumented benchmark |
+| `R001_MEASURED_BASELINE.panic_witness_write_max_ns` | Slowest observed write | 222,412 | 196,376 | instrumented benchmark |
+| `R001_MEASURED_BASELINE.evidence_digest` | Cross-target canonical evidence digest | `54bc0447…adc1bd86` | `54bc0447…adc1bd86` | identical, which is the R001 claim |
+
+Reading these honestly:
+
+- The panic-witness write is microseconds, not milliseconds. The architect's
+  correction removing the assumed 2.0 ms constant was right in the direction it
+  suspected: the real cost is roughly two orders of magnitude smaller.
+- The `max` figures are two orders of magnitude above the median on both
+  targets. That is scheduling noise, not write cost, and it is precisely why a
+  deadline must not be derived from a healthy-process benchmark.
+- These were taken while the process was alive and unpressured. A real critical
+  suspend is the opposite situation. No attempt deadline is frozen from them.
+
 ## Deliberately unfrozen
 
-Every value below remains **`NOT ESTABLISHED`** by architect directive D005. No
+Every value below remains **`NOT ESTABLISHED`**, by architect directive D005 and
+unchanged at the close of R001. No
 number is assigned. Each is frozen only when the phase that owns the subsystem
 can state it against measured device evidence, and each then becomes a
 `PLATFORM_MEASURED` entry in `ParameterRegistry`.
@@ -77,6 +106,9 @@ can state it against measured device evidence, and each then becomes a
 | Local speech latency | `NOT ESTABLISHED` | later qualification |
 | Asset footprint | `NOT ESTABLISHED` | later qualification |
 | Warm startup | `NOT ESTABLISHED` | later qualification |
+| Class O batching cadence | `NOT ESTABLISHED` | R002 |
+| Maximum tolerated uncommitted window | `NOT ESTABLISHED` | R002 |
+| Panic-witness attempt deadline | `NOT ESTABLISHED` | the phase that first writes one in production |
 
 The distinction matters: a guessed ceiling written down today would be treated
 as a contract by later phases and would have to be unwound. Device evidence, not

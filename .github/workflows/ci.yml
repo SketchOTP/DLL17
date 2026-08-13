@@ -1,4 +1,4 @@
-name: R000 CI
+name: CI
 
 on:
   push:
@@ -32,18 +32,30 @@ jobs:
       - name: Project identity contract
         run: python3 tools/verify_project_identity.py
 
-      - name: R000 qualification bundle
+      # Verifies every phase bundle. R000 is pinned to its qualified commit and
+      # is read from git, so a later phase editing a shared file cannot break a
+      # gate that already closed.
+      - name: Qualification bundles (all phases)
         run: python3 tools/build_qualification_bundle.py --verify
 
-      - name: Upload R000 qualification evidence
+      # The generated lookup table must be exactly what the generator produces.
+      # This also cross-checks the Kotlin canonical codec and the project's own
+      # SHA-256 against an independent Python implementation, because the
+      # generator computes the embedded digest with hashlib.
+      - name: Generated lookup tables are reproducible
+        run: python3 tools/generate_lookup_tables.py --check
+
+      - name: Upload qualification evidence
         if: always()
         uses: actions/upload-artifact@v5
         with:
-          name: r000-qualification-evidence
+          name: qualification-evidence
           path: |
-            governance/qualification/R000_QUALIFICATION_BUNDLE.md
-            qualification/evidence/R000/
-            qualification/device-matrix/R000/
+            governance/qualification/
+            governance/release-gates/
+            qualification/evidence/
+            qualification/device-matrix/
+            qualification/fixtures/
           if-no-files-found: error
 
   build:
@@ -76,8 +88,25 @@ jobs:
           :desktop-runner:test
           --no-daemon
 
-      - name: Headless desktop runner
-        run: ./gradlew :desktop-runner:run --no-daemon --quiet
+      # The desktop JVM reference runner is a determinism matrix target. This
+      # step fails if CI's JVM does not reproduce the frozen golden digest,
+      # which makes every CI run a fourth determinism check.
+      - name: Headless desktop runner and determinism digest
+        run: |
+          ./gradlew :desktop-runner:run --no-daemon --quiet | tee runner.txt
+          GOLDEN=$(grep -A1 'GOLDEN_EVIDENCE_DIGEST: String' \
+            core-state/src/main/kotlin/com/animusmachinae/dll17/core/state/R001QualificationKernel.kt \
+            | grep -oE '[0-9a-f]{64}' | head -1)
+          ACTUAL=$(grep -oE 'R001_EVIDENCE_DIGEST=[0-9a-f]{64}' runner.txt | cut -d= -f2)
+          echo "golden: $GOLDEN"
+          echo "actual: $ACTUAL"
+          if [ "$GOLDEN" != "$ACTUAL" ]; then
+            echo "::error::CI runner did not reproduce the frozen R001 evidence digest"
+            exit 1
+          fi
+
+      - name: Android instrumented test assembly
+        run: ./gradlew :android-host:assembleDebugAndroidTest --no-daemon
 
       - name: Full build
         run: ./gradlew build --no-daemon

@@ -11,6 +11,11 @@ kotlin {
 }
 
 dependencies {
+    // Canonical hashing and the canonical codec are primitives that lookup-table
+    // verification depends on. core-crypto is itself pure Kotlin/JVM, so this
+    // does not weaken the runtime boundary.
+    api(project(":core-crypto"))
+
     testImplementation(kotlin("test"))
 }
 

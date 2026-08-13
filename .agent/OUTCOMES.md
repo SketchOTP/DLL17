@@ -111,3 +111,26 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The x86 Android emulator could not complete a run because the android-37.0 image crashes surfaceflinger on this host under all three rendering backends. R000 does not require it, but the canonical determinism matrix does require it for R001, so it must be resolved before R001 closes. The repository remains public while carrying a proprietary licence, because D005 excluded changing visibility, and an MIT grant was published for the earlier revisions. The R000 shell draws under the status bar, which is cosmetic and was left unfixed because presentation is governed by the empty PresentationContractCatalog.
 - Blockers: none
 - Follow-up directive: none
+
+## D-006 - COMPLETE
+
+- Outcome ID: O-0006
+- Supersedes outcome: none
+- Closed: 2026-08-13T10:40:00-04:00
+- Acceptance: MET
+- Summary: R001 is closed as PASS, with one exit-gate criterion resting on an architect waiver recorded under remaining risks. DeterminismContractV1 version 1 was frozen before any dependent implementation was written, fixing canonical byte order, integer widths and fixed-width length prefixes, boolean and enum encoding, collection ordering, an ASCII-only canonical identifier policy, the SHA-256 state hash with domain separation, counter-based SplitMix64 randomness with domain-separated substream derivation, the fixed-point scale and half-away-from-zero rounding, lookup-table generation and digest verification, and the migration policy. The deterministic core was implemented across core-crypto, core-math and core-state and covered by ninety-seven JVM tests plus five Android instrumented tests. Identical fixtures produced the byte-identical evidence digest 54bc044740a4c05b41b509a7160bff559e09421f2eaa55dc36c3d3ffadc1bd86 on the desktop JVM reference runner, on the x86_64 Android emulator and on Tensor G4 hardware, spanning both a HotSpot-to-ART boundary and an x86-to-arm64 boundary. All three canonical R001 exit gates were evaluated criterion by criterion and every criterion passed. No organism behavior was implemented.
+- Changed areas: docs/architecture/DeterminismContractV1.md, docs/architecture/CANONICAL_SOURCES.md, docs/architecture/registries/, docs/decisions/DECISION_LOG.md, docs/invariants/INVARIANT_REGISTRY.md, docs/release/DEVICE_AND_RESOURCE_BUDGETS.md, core-crypto/, core-math/, core-state/, desktop-runner/, android-host/, governance/release-gates/R001_EXIT_GATE.md, governance/qualification/R001_QUALIFICATION_BUNDLE.md, governance/source-provenance/, qualification/, tools/generate_lookup_tables.py, tools/build_qualification_bundle.py, tools/qualify_r001_determinism.sh, gradle/libs.versions.toml, .github/workflows/ci.yml, .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering R000 at its pinned commit and R001 with fifty-five constituents - PASSED
+  - python3 tools/generate_lookup_tables.py --check - PASSED
+  - ./gradlew clean build covering all five modules and ninety-seven JVM tests - PASSED
+  - ./gradlew :desktop-runner:run reproducing the frozen golden digest - PASSED
+  - tools/qualify_r001_determinism.sh on the x86_64 Android emulator - PASSED
+  - tools/qualify_r001_determinism.sh on a physical Pixel 9 Pro XL with Tensor G4 - PASSED
+- Remaining risks: The Snapdragon row of the canonical determinism matrix was waived by the architect during execution and is recorded as WAIVED BY ARCHITECT rather than PASS. The canonical architecture page still lists Snapdragon as required without the when-available qualifier that Exynos carries, so the matrix and the specification disagree until the canonical page is amended; that amendment is the architect's act. No Snapdragon or Exynos evidence exists in either direction. The panic-witness attempt deadline, the Class O batching cadence and the maximum tolerated uncommitted window are all deliberately NOT ESTABLISHED, because each would be a commitment derived from a healthy-process benchmark or from persistence semantics that belong to R002. R001's durable medium is an in-process append-only byte log rather than a database, which is sufficient for every R001 invariant but means storage-layer failure modes are untested. The repository remains public while carrying a proprietary licence.
+- Blockers: none
+- Follow-up directive: none
+

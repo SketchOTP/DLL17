@@ -1,0 +1,3 @@
+Governance validation PASSED (ADOPTED)
+- checked 17 required files
+- checked 6 Cursor rules

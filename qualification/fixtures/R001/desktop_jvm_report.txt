@@ -1,0 +1,57 @@
+Digital Living Lifeform - desktop runner
+phase: R001 deterministic fixed-point spike
+canonical logic: DeterminismContractV1 v1 frozen; deterministic core implemented
+organism behavior: none. Physiology, drives, learning, memory and relationships remain gated on R003 behind A001.
+modules:
+  - core-math [pure-kotlin-jvm] canonicalLogicImplemented=true
+  - core-crypto [pure-kotlin-jvm] canonicalLogicImplemented=true
+  - core-state [pure-kotlin-jvm] canonicalLogicImplemented=true
+
+R001 determinism qualification
+fixture set: R001-FIXTURES-V1 v1
+determinism contract version: 1
+
+fixture FX-ARITHMETIC-01
+  direct state hash : db48cfbc775d9d632506033e908dfa1844cdaa00c46e96195c4116a8abd74f34
+  replay state hash : db48cfbc775d9d632506033e908dfa1844cdaa00c46e96195c4116a8abd74f34
+  replay matches    : true
+  frames applied    : 5
+  journal digest    : 1e24ddb41a619365aaacb8dc9b2efd59da3929de449bb44530b8e5b7ed252756
+  saturations       : 0
+fixture FX-RANDOM-01
+  direct state hash : 64a6d7799bd82eb7b7f6584fa8afd40bc6170b0fab44fce97553adc9d42b3d4c
+  replay state hash : 64a6d7799bd82eb7b7f6584fa8afd40bc6170b0fab44fce97553adc9d42b3d4c
+  replay matches    : true
+  frames applied    : 5
+  journal digest    : 65c26acc5632c97b37f757e67e242582beb8f16fa92f3d9c3a3610c5a45154e9
+  saturations       : 0
+fixture FX-DECAY-01
+  direct state hash : be3815ff9a6ace14c49cef8bed764c1f653322e8d9f99a24fd19f277fdec9989
+  replay state hash : be3815ff9a6ace14c49cef8bed764c1f653322e8d9f99a24fd19f277fdec9989
+  replay matches    : true
+  frames applied    : 6
+  journal digest    : b2d09b92192e064770a0bfd467482d7fba33889227619ffc0484a3b02b2f2159
+  saturations       : 0
+fixture FX-WITNESSED-01
+  direct state hash : 2401c0518ec8712c33a7d40233a4cace4868a7187e7dd2720437025f7f0e4b53
+  replay state hash : 2401c0518ec8712c33a7d40233a4cace4868a7187e7dd2720437025f7f0e4b53
+  replay matches    : true
+  frames applied    : 4
+  journal digest    : 50a517b5d3cf24e5fb615b37e7020b1f7a27a949329b5ff50cd2bfb33709fc68
+  saturations       : 0
+fixture FX-BOUNDARY-01
+  direct state hash : b5c4db23664b3aa0d66b6822cc43b303cc7a5c3ccfe6952bd7c61551dd4ea729
+  replay state hash : b5c4db23664b3aa0d66b6822cc43b303cc7a5c3ccfe6952bd7c61551dd4ea729
+  replay matches    : true
+  frames applied    : 4
+  journal digest    : a9de6225c44c02072be297f99dd3e60165d0bac4b610561be6a81ae8ce22329e
+  saturations       : 1
+
+fixed-point digest   : 1cb3b944aa46e05f322c91d3f724ab4f0094bb59c03e333577b9cb9a9f00d967
+random digest        : b3ba5f87e4f0fd3a9f932f83ed6752a1e051dcfac2ffaeef041e9bacabc34017
+lookup digest        : 951d66b7863bbf706dcedec396b02032bbf5d34dc2b17f2438bf5f4ef6eb19ab
+serialization digest : 552473e9afb48fbe61921bceedf1096aa1213dd98eb714c380bfc8bae79a43f5
+domain isolation     : true
+all replays match    : true
+
+R001_EVIDENCE_DIGEST=54bc044740a4c05b41b509a7160bff559e09421f2eaa55dc36c3d3ffadc1bd86

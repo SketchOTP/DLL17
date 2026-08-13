@@ -1,0 +1,11 @@
+R001 toolchain environment
+
+date (UTC): 2026-08-13T09:59:52Z
+java: openjdk version "17.0.20" 2026-07-21
+gradle: Gradle 9.5.0
+python: Python 3.14.4
+kotlin pin: kotlin = "2.4.10"
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+agp pin: agp = "9.3.1"

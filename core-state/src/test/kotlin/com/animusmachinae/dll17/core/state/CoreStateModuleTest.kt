@@ -2,7 +2,6 @@ package com.animusmachinae.dll17.core.state
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class CoreStateModuleTest {
@@ -13,10 +12,10 @@ class CoreStateModuleTest {
     }
 
     @Test
-    fun declaresNoCanonicalLogicYet() {
-        assertFalse(
+    fun declaresCanonicalLogicSinceR001() {
+        assertTrue(
             CoreStateModule.CANONICAL_LOGIC_IMPLEMENTED,
-            "R000 is structural only; canonical logic requires a frozen DeterminismContractV1.",
+            "R001 implemented this module's canonical logic under a frozen DeterminismContractV1.",
         )
     }
 

@@ -145,3 +145,54 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: Any later automated device qualification.
 - Supersedes learning: none
+
+
+## L-0014
+
+- Learning ID: L-0014
+- Date: 2026-08-13
+- Fact or lesson: When an Android emulator image is unusable because of its graphics stack, an AOSP ATD image is the first alternative to try rather than the last. The android-37.0 google_apis x86_64 image crashed surfaceflinger under all three rendering backends, while system-images android-36 aosp_atd x86_64 booted headless in fifty-seven seconds on the same host with zero fatal exceptions. ATD images strip SystemUI and much of the graphics path because they are built for automated testing, so a workload that needs ART but not a rendered surface loses nothing by moving to one.
+- Evidence location: qualification/device-matrix/R001/x86_emulator.txt; contrast with the blocked-target section of qualification/device-matrix/R000/DEVICE_MATRIX.md.
+- Confidence: VERIFIED
+- Scope: Any Android qualification on this build host that needs execution rather than presentation.
+- Supersedes learning: none
+
+## L-0015
+
+- Learning ID: L-0015
+- Date: 2026-08-13
+- Fact or lesson: java.lang.Math.multiplyHigh is the obvious way to obtain a 128-bit intermediate and compiles cleanly against compileSdk 37, but it reached Android only at API 31 while the frozen minSdk is 29. The failure mode is a NoSuchMethodError on a supported device that no desktop test can reach, so a fully green host test suite proves nothing about it. Determinism-critical arithmetic uses explicit 32-bit limbs instead, and the prohibition is written into the contract rather than left to reviewer memory.
+- Evidence location: docs/architecture/DeterminismContractV1.md section 9.3; core-math FixedPoint.multiplyThenDivideRounded; the structural assertion in FixedPointOracleTest that FixedPoint does not reference java.lang.Math.
+- Confidence: VERIFIED
+- Scope: Any JDK method used in shared core code whose introducing API level is above minSdk.
+- Supersedes learning: none
+
+## L-0016
+
+- Learning ID: L-0016
+- Date: 2026-08-13
+- Fact or lesson: Where a primitive is owned rather than taken from the platform, a second independent implementation is worth more than another test against the first. The lookup-table generator computes the embedded digest in Python with hashlib and an independently written canonical encoder, and the Kotlin runtime recomputes it with the project's own SHA-256 and codec. Making the build's own code-generation step the second implementation turns a routine generator into a continuous cross-implementation check of both the codec and the digest at no extra maintenance cost.
+- Evidence location: tools/generate_lookup_tables.py; core-math LookupTable.verify; the CI step that runs the generator with --check.
+- Confidence: VERIFIED
+- Scope: Any owned primitive in this repository whose correctness cannot be delegated to a platform library.
+- Supersedes learning: none
+
+## L-0017
+
+- Learning ID: L-0017
+- Date: 2026-08-13
+- Fact or lesson: A qualification bundle is a claim about a past commit and must be verified against that commit, not against the working tree. The R000 bundle originally hashed the working tree, so R001's legitimate edits to shared build files and registries would have failed a gate that had already closed, for reasons unrelated to R000. Reading blobs through git show makes a closed gate immune to later phases and costs nothing, while working-tree verification quietly turns every shared file into a tripwire that later work is guaranteed to hit.
+- Evidence location: tools/build_qualification_bundle.py, the PhaseSpec frozen_at_commit mechanism; DEC-0016.
+- Confidence: VERIFIED
+- Scope: Every future phase gate in this repository.
+- Supersedes learning: none
+
+## L-0018
+
+- Learning ID: L-0018
+- Date: 2026-08-13
+- Fact or lesson: Filtering device evidence to the package or logging tag under test is a correctness control as well as a privacy control. An unfiltered logcat buffer mixes unrelated system and third-party failures into the evidence and invites the same false attribution that made the first R000 harness run report eight failures the shell did not have, while also inventorying the device owner's applications and account activity into a public repository.
+- Evidence location: tools/qualify_r001_determinism.sh, the DLL17-R001 tag filter; qualification/device-matrix/R001/, which contains zero matches for account, token or telephony patterns while carrying the complete kernel output.
+- Confidence: VERIFIED
+- Scope: Every harness in this repository that reads device logs into committed evidence.
+- Supersedes learning: none

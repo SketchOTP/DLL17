@@ -3,10 +3,10 @@ package com.animusmachinae.dll17.core.math
 /**
  * R000 module marker for `core-math`.
  *
- * The module exists so that the runtime boundary, build wiring and test harness
- * are provable before any canonical logic is written. Fixed-point types,
- * saturating arithmetic, bounded interpolation and lookup tables belong to R001
- * and may only be implemented after `DeterminismContractV1` is frozen.
+ * R001 implemented the canonical numeric foundation named below, under the
+ * frozen `DeterminismContractV1`: `Fixed64` semantics, saturating arithmetic,
+ * bounded interpolation and decay, digest-verified lookup tables and saturation
+ * diagnostics. No organism parameter, equation or threshold lives here.
  */
 public object CoreMathModule {
     public const val ID: String = "core-math"
@@ -18,6 +18,6 @@ public object CoreMathModule {
     /** Declared runtime boundary. `core-*` modules never link the Android framework. */
     public const val RUNTIME_BOUNDARY: String = "pure-kotlin-jvm"
 
-    /** True only once R001 canonical numeric logic exists in this module. */
-    public const val CANONICAL_LOGIC_IMPLEMENTED: Boolean = false
+    /** True since R001: canonical numeric logic exists in this module. */
+    public const val CANONICAL_LOGIC_IMPLEMENTED: Boolean = true
 }

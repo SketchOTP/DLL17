@@ -1,7 +1,7 @@
 # RandomDomainRegistry
 
 - Registry version: `V1`
-- Status: `SCAFFOLD_EMPTY`
+- Status: `POPULATED_R001`
 - Created: R000 (directive D004)
 - Owner gate: `DeterminismContractV1` freeze, then R001
 
@@ -20,6 +20,26 @@ subsystem's consumption cannot shift another's stream.
 
 ## Entries
 
-None. R000 draws no random values and derives no substreams.
+Domain IDs are immutable integers and are never reused. A domain's substream seed
+is a pure function of `(masterSeed, contractVersion, domainId)` and of nothing
+else, so registering a new domain cannot perturb any existing stream. That is a
+structural property of `SUBSTREAM_DERIVE_V1`, not a test result.
 
-Entries may not be added until `DeterminismContractV1` is frozen and R001 opens.
+| Domain ID | Name | Algorithm / version | Persisted state requirements | Derivation contract |
+|---|---|---|---|---|
+| 1 | `DOMAIN_QUALIFICATION_PRIMARY` | `PRNG_SPLITMIX64_V1` | `seed` and `counter`, 16 bytes, canonical | `SUBSTREAM_DERIVE_V1(masterSeed, contractVersion, 1)` |
+| 2 | `DOMAIN_QUALIFICATION_SECONDARY` | `PRNG_SPLITMIX64_V1` | `seed` and `counter`, 16 bytes, canonical | `SUBSTREAM_DERIVE_V1(masterSeed, contractVersion, 2)` |
+| 3 | `DOMAIN_QUALIFICATION_LATE_INSERT` | `PRNG_SPLITMIX64_V1` | `seed` and `counter`, 16 bytes, canonical | `SUBSTREAM_DERIVE_V1(masterSeed, contractVersion, 3)` |
+
+All three are **qualification domains**, not organism domains. R001 draws
+randomness only to prove that substreams are isolated, reproducible and
+recoverable. Domain 3 exists specifically to be inserted after domains 1 and 2
+have been consumed, which is the only way to demonstrate that insertion leaves
+prior streams untouched.
+
+No organism domain may be registered until the phase that owns the behaviour
+opens. Adding one is additive and safe by construction, but it is still a
+canonical-architecture change rather than an implementation detail.
+
+Executable form: `core-crypto`, `RandomDomainRegistry`. The serialized layout is
+frozen in `DeterminismContractV1` section 7.3.

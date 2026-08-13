@@ -129,3 +129,54 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: D005 prohibited inventing future target values. A guessed ceiling recorded now would be treated as a contract by later phases and would have to be unwound. Device evidence, not guessed constants, freezes production limits.
 - Affected areas: docs/release/DEVICE_AND_RESOURCE_BUDGETS.md, governance/release-gates/R000_EXIT_GATE.md
 - Supersedes record: none
+
+
+## DEC-0012
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0012
+- Status: ACTIVE
+- Decision or event: DeterminismContractV1 version 1 was frozen under D-006 before any dependent implementation was written. It fixes canonical byte order, integer widths and fixed-width length prefixes, boolean and enum encoding, collection ordering, canonical text policy, the state-hash algorithm and digest size, the PRNG algorithm and serialized state layout, the substream seed mixer, the fixed-point scale and rounding mode, lookup-table generation and verification, and the algorithm and version migration policy.
+- Rationale: Implementation Plan E2E work package R001.0 blocks R001 implementation until this artifact exists, so that a determinism-relevant algorithm cannot be selected silently inside implementation code. Changing any clause now requires a new contract version rather than an edit.
+- Affected areas: docs/architecture/DeterminismContractV1.md, docs/architecture/CANONICAL_SOURCES.md, core-crypto/, core-math/, core-state/
+- Supersedes record: none
+
+## DEC-0013
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0013
+- Status: ACTIVE
+- Decision or event: Identical fixtures produced the identical canonical evidence digest 54bc044740a4c05b41b509a7160bff559e09421f2eaa55dc36c3d3ffadc1bd86 on the desktop JVM reference runner, the x86_64 Android emulator and Tensor G4 hardware, closing the R001 exit gate.
+- Rationale: The qualified target set spans HotSpot and ART, and x86_64 and arm64-v8a, at the same time. Those are the two boundaries most likely to expose a floating-point dependency, an endianness assumption, an API-level-dependent intrinsic or a hash-iteration-order leak. This is the first technical evidence the program requires before expanding into lifecycle and later organism systems.
+- Affected areas: governance/release-gates/R001_EXIT_GATE.md, qualification/device-matrix/R001/, qualification/fixtures/R001/, qualification/replay/R001/
+- Supersedes record: none
+
+## DEC-0014
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0014
+- Status: ACTIVE
+- Decision or event: The x86 Android emulator target that R000 recorded as blocked was recovered by switching from the android-37.0 google_apis image to system-images android-36 aosp_atd x86_64.
+- Rationale: The ATD image boots headless in under a minute on this host and does not exhibit the surfaceflinger SIGSEGV that made the google_apis image unusable under all three rendering backends. The canonical determinism matrix requires the x86 Android emulator for R001 cross-architecture proof, so the blocked target carried forward from R000 had to be resolved rather than waived.
+- Affected areas: qualification/device-matrix/R001/, tools/qualify_r001_determinism.sh, .agent/PROJECT_PROFILE.md
+- Supersedes record: none
+
+## DEC-0015
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0015
+- Status: ACTIVE
+- Decision or event: The Snapdragon row of the canonical determinism matrix was waived by the architect during D-006 execution and is recorded as WAIVED BY ARCHITECT, deliberately not as PASS. No claim is made that Snapdragon silicon executed anything.
+- Rationale: The canonical matrix lists Snapdragon without the when-available qualifier that Exynos carries, and D006 instructed that an unqualifiable target must not weaken the matrix. The architect was asked directly and answered that the Pixel 9 hardware is sufficient. The architect outranks the directive text, but a waiver given in a working session is not an amendment to a frozen specification, so the canonical page and the matrix disagree until the page is amended.
+- Affected areas: qualification/device-matrix/R001/DETERMINISM_MATRIX.md, governance/release-gates/R001_EXIT_GATE.md
+- Supersedes record: none
+
+## DEC-0016
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0016
+- Status: ACTIVE
+- Decision or event: The qualification bundle tool now pins a closed phase to its qualified commit and reads that commit's blobs through git, instead of verifying constituents against the working tree. R000 is pinned to commit 43054d0a2a210bc48563cc81016d6083bff2a182, and its manifest hash is unchanged at 501880933649bc80c618141fb064ba6d80ee1e7a38df4d25cc59c80e4411aa13.
+- Rationale: A defect in the R000 tooling, found during D-006. R001 legitimately edited shared build files and every registry, which would have failed R000 verification and reopened a gate that had already closed for reasons unrelated to R000. Evidence of a past qualification must not depend on the present state of the repository.
+- Affected areas: tools/build_qualification_bundle.py, governance/qualification/, .github/workflows/ci.yml
+- Supersedes record: none
