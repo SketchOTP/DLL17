@@ -65,6 +65,25 @@ decision.
 | JDK toolchain | `jvmToolchain(17)` in every module build script |
 | Contract conformance check | `tools/verify_project_identity.py` |
 
+## Unresolved conflict, recorded not resolved
+
+The contract freezes a **proprietary source licence with no redistribution**.
+The GitHub repository `SketchOTP/DLL17`, created by the repository owner before
+this contract was frozen, is **public** and carries an **MIT LICENSE** file at
+its root. MIT grants exactly the redistribution the contract withholds.
+
+The implementer did not resolve this. `LICENSE` is left exactly as the owner
+created it and the repository's visibility was not changed, because both are
+owner decisions with legal consequences. The architect must decide which of the
+two is authoritative and issue the correction:
+
+- keep MIT and public, and amend this contract's licensing clause; or
+- keep the proprietary clause, and replace `LICENSE` and the repository
+  visibility accordingly.
+
+Until then, the licensing row above states the architect's directive, and this
+section states the observed repository fact.
+
 ## Implementation notes recorded at freeze time
 
 - AGP 9 supplies built-in Kotlin support and rejects the standalone

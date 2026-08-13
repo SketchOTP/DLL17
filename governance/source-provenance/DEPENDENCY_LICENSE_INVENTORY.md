@@ -19,6 +19,11 @@ Declared, exactly pinned dependencies. Versions are authoritative in
 | `org.jetbrains.kotlin:kotlin-test` | 2.4.10 | Apache-2.0 | JVM module tests. |
 
 Licence identifiers are recorded as published by each project. No dependency is
-redistributed in source form by this repository. The project's own source
-licence is proprietary with no redistribution licence, per
-`ProjectIdentityBuildContractV1`.
+redistributed in source form by this repository.
+
+The project's own source licence is unresolved. `ProjectIdentityBuildContractV1`
+freezes a proprietary, no-redistribution policy, while the repository root
+carries an MIT `LICENSE` created by the repository owner and the GitHub
+repository is public. See the unresolved-conflict section of the contract. No
+licence claim should be made for this project's own source until the architect
+settles it.
