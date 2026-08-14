@@ -241,3 +241,23 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Affected areas: tools/build_qualification_bundle.py, governance/qualification/R002_QUALIFICATION_BUNDLE.md
 - Supersedes record: none
 
+## DEC-0023
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0023
+- Status: ACTIVE
+- Decision or event: The architect chose the mechanism path over the threshold path for the empty A000 curiosity feasible region, and the thresholds were not altered.
+- Rationale: CuriosityEnvelopeFeasibilityV1 permits one threshold-only revision for the life of the programme. Remediating the organism under the existing thresholds returned twenty-seven of twenty-seven feasible grid points on the identical grid and seed matrix that returned zero, which settles the question the empty result posed and leaves the revision unspent.
+- Affected areas: research/aliveness-spike/study-protocol/CuriosityBalanceEnvelopeV1.md, research/aliveness-spike/cohorts/, governance/release-gates/A000_EXIT_GATE.md
+- Supersedes record: none
+
+## DEC-0024
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0024
+- Status: ACTIVE
+- Decision or event: Episodic history influence is removed from the A000 FULL candidate, and the human leave-one-out ablation family is reduced from three arms to two.
+- Rationale: A revised context-conditioned salience-retained form, measured across a five-seed matrix in a habitat given circadian structure specifically so the mechanism had a conjunction to learn, still did not increase history-dependent individuality. The canonical multiplicity plan corrects across the comparisons actually tested, so Holm-Bonferroni now runs over two. Adding a replacement third arm requires a new preregistered plan and is not the implementer's decision.
+- Affected areas: research/aliveness-spike/cohorts/DecisionTrace.kt, research/aliveness-spike/cohorts/Organism.kt, research/aliveness-spike/study-protocol/, governance/release-gates/A000_EXIT_GATE.md
+- Supersedes record: none
+

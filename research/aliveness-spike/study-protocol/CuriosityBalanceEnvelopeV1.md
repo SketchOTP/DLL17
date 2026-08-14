@@ -2,9 +2,15 @@
 
 - Status: `FROZEN`
 - Version: 1
-- Attribution version: `SpontaneousActionAttributionV1` v1 / `CoalitionValueFunctionV1` v1
-- Feasibility result: `EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE`
+- **Thresholds unchanged since D008.** The programme's single allowed
+  threshold-only revision has not been spent and remains available.
+- Attribution version: `SpontaneousActionAttributionV1` (thresholds unchanged) /
+  `MechanismCoalitionSetV2` / `CoalitionValueFunctionV1` v1
+- Feasibility result: `NON_EMPTY_FEASIBLE_REGION`
+- Selected parameter hash: `8dcecc7b0adb4a52`
 - Evidence: `research/aliveness-spike/evidence/CURIOSITY_ENVELOPE_SEARCH.txt`
+- Superseded result: `EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE` under the D008
+  candidate, retained in `research/aliveness-spike/evidence/negative/D008/`
 
 The curiosity oscillator is both the anti-convergence mechanism and the most
 likely source of hollow pseudo-spontaneity. This contract binds both constraints
@@ -60,22 +66,60 @@ vanishes under a one-step perturbation is not an operating region.
 ## Result
 
 ```
-feasiblePoints  = 0 / 27
-robustPoints    = 0
+feasiblePoints  = 27 / 27
+robustPoints    = 27
 attributionOnly = 27 / 27
-antiConvergenceOnly = 0 / 27
+antiConvergenceOnly = 27 / 27
 
-CURIOSITY_ENVELOPE_FEASIBILITY_RESULT = EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE
+CURIOSITY_ENVELOPE_FEASIBILITY_RESULT = NON_EMPTY_FEASIBLE_REGION
 ```
 
-The failure is uniform and specific. Attribution passed at every point with wide
-margin. Anti-convergence failed at every point on exactly two of its five
-criteria — maximum single-action occupancy (measured 0.462–0.477 against a 0.450
-ceiling) and cycle regularity (0.803–0.876 against a 0.550 ceiling) — while
-entropy, distinct objects per day and revisitation passed at every point.
+Every grid point satisfies both requirements on every seed, and every point is
+robust under the one-step perturbation rule. The feasible region is the whole
+searched space rather than an isolated corner of it, which is the difference
+between a parameterization that works and one that was found by looking.
 
-Under `CuriosityEnvelopeFeasibilityV1` an empty set does not by itself decide
-between an incompatible threshold pair and a mechanism failure. That decision
-belongs to the independent gate reviewer, so the search reports the candidate
-result and stops. The thresholds have not been altered, and altering them is not
-the implementer's decision to make.
+| Measure | Range across the grid | Requirement |
+|---|---|---|
+| Action-type entropy (bits) | 2.723 – 2.895 | ≥ 1.600 |
+| Distinct objects inspected / day | 9.27 – 9.88 | ≥ 2.500 |
+| Maximum single-action occupancy | 0.219 – 0.338 | ≤ 0.450 |
+| Revisitation bouts / day | 112 – 166 | ≥ 3.000 |
+| Cycle regularity | 0.254 – 0.345 | ≤ 0.550 |
+| `SubstantiveSpontaneityRate` | 0.885 – 0.921 | ≥ 0.700 |
+| `OscillatorTieBreakOnlyRate` | 0.024 – 0.048 | ≤ 0.200 |
+
+The two criteria that failed at every point under D008 — maximum single-action
+occupancy and cycle regularity — now clear their thresholds by wide margins, and
+they did so without either threshold moving. The failure was in the mechanism.
+
+## Selected parameterization
+
+```
+baseFloor           = 0.020000
+contextAmplitude    = 0.080000
+amplitudeSlew       = 0.002000
+inhibitionDepth     = 0.060000
+inhibitionRetention = 0.998600
+periods             = 1009, 1493, 2161, 2909, 3701
+parameterHash       = 8dcecc7b0adb4a52
+```
+
+Chosen as the most central robust point by distance from the grid edges, so the
+operating point sits inside its region rather than on a boundary. With the whole
+grid feasible this is a formality, but the rule is the one that would have
+mattered had it not been.
+
+## What made the difference
+
+Not the oscillator. The curiosity parameters that were searched are the same
+ones searched under D008, over the same grid and the same seed matrix. What
+changed is the organism around them: rest stopped outranking everything at
+night, activity acquired a metabolic cost and a satiation term, engagement with
+one object became bounded, and a resumption defect that spent the budget
+re-entering a known harm was fixed.
+
+The D008 result was recorded as `EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE`
+because an implementer may not decide between the threshold path and the
+mechanism path. The architect took the mechanism path. It was the right call:
+the thresholds were reachable.

@@ -242,7 +242,7 @@ public class Controller(private val fx: Fx) {
         c[MechanismGroup.LEARNED_PREFERENCE.groupOrdinal] =
             learnedValence(action, target, state)
         c[MechanismGroup.EPISODIC_OR_HISTORY.groupOrdinal] =
-            episodic(action, target, state, tick)
+            episodic(action, target, state, habitat, tick)
         c[MechanismGroup.HABIT_OR_EXPECTANCY.groupOrdinal] =
             habitExpectancy(action, target, state)
         c[MechanismGroup.SOCIAL_OR_RELATIONSHIP_HISTORY.groupOrdinal] =
@@ -287,19 +287,58 @@ public class Controller(private val fx: Fx) {
                 } else {
                     FixedPoint.ZERO
                 }
-                fx.add(social, epistemicDrive(s, W_EPISTEMIC_APPROACH))
+                fx.add(
+                    social,
+                    epistemicDrive(s, W_EPISTEMIC_APPROACH, inverse(s.traits.caution)),
+                )
             }
-            SpikeAction.OBSERVE -> epistemicDrive(s, W_EPISTEMIC_OBSERVE)
-            SpikeAction.ORIENT -> epistemicDrive(s, W_EPISTEMIC_ORIENT)
-            SpikeAction.EXPLORE -> epistemicDrive(s, W_EPISTEMIC_EXPLORE)
-            SpikeAction.PLAY -> fx.add(
-                epistemicDrive(s, W_EPISTEMIC_PLAY),
-                fx.mul(s.traits.sociability, W_PLAY_SOCIAL),
-            )
+            // Each epistemic action is modulated by a different part of the
+            // organism's state, so which one wins changes over a day instead of
+            // being a fixed ranking. A fixed ranking made one action the
+            // successor of everything, which is what the cycle-regularity
+            // measure was reporting.
+            SpikeAction.OBSERVE ->
+                // Cheap. Preferred when the organism is depleted or stressed.
+                // Watching is what a cautious, curious organism does.
+                fx.mul(
+                    epistemicDrive(
+                        s, W_EPISTEMIC_OBSERVE, blend(s.traits.curiosity, s.traits.caution),
+                    ),
+                    fx.sub(FixedPoint.of(1L, 400_000L), fx.mul(s.energy, W_OBSERVE_ENERGY_TAPER)),
+                )
+            SpikeAction.ORIENT ->
+                // Attentional. Rises with arousal.
+                fx.mul(
+                    epistemicDrive(s, W_EPISTEMIC_ORIENT, s.traits.curiosity),
+                    fx.add(FixedPoint.of(0L, 600_000L), s.arousal),
+                )
+            SpikeAction.EXPLORE ->
+                // Costly. Requires energy to be worth it.
+                // Going and finding out is what a bold, curious organism does.
+                fx.mul(
+                    epistemicDrive(
+                        s, W_EPISTEMIC_EXPLORE, blend(s.traits.curiosity, inverse(s.traits.caution)),
+                    ),
+                    s.energy,
+                )
+            SpikeAction.PLAY ->
+                // Requires rest and appetite, and carries a social component.
+                fx.mul(
+                    fx.add(
+                        epistemicDrive(
+                            s, W_EPISTEMIC_PLAY, blend(s.traits.curiosity, s.traits.sociability),
+                        ),
+                        fx.mul(s.traits.sociability, W_PLAY_SOCIAL),
+                    ),
+                    fx.mul(s.rest, fx.add(FixedPoint.of(0L, 550_000L), s.arousal)),
+                )
             SpikeAction.RETRY -> fx.mul(s.traits.persistence, W_RETRY)
             SpikeAction.RESUME_INTERRUPTED -> fx.mul(s.traits.persistence, W_RESUME)
             SpikeAction.IDLE_VARIATION -> fx.mul(fx.sub(FixedPoint.ONE, s.arousal), W_IDLE)
         }
+
+        // Doing the same kind of thing over and over is worth less each time.
+        v = fx.sub(v, fx.mul(s.actionSatiation[action.ordinal], W_SATIATION))
 
         // Cost and risk, per the canonical bounded utility model.
         //
@@ -321,8 +360,22 @@ public class Controller(private val fx: Fx) {
         return fx.signed(v)
     }
 
-    private fun epistemicDrive(s: OrganismState, weight: Long): Long =
-        fx.mul(fx.mul(s.traits.curiosity, weight), fx.sub(FixedPoint.ONE, s.stress))
+    /**
+     * Trait-blended epistemic drive.
+     *
+     * Scaling every epistemic action by curiosity alone shifted how *much* an
+     * organism investigated but never *how*, so two individuals with different
+     * personalities still spent their days on the same mix of action types and
+     * the closest pair of organisms was nearly indistinguishable. Each action
+     * now draws on a different blend, so a cautious watcher and a bold explorer
+     * have visibly different budgets.
+     */
+    private fun epistemicDrive(s: OrganismState, weight: Long, disposition: Long): Long =
+        fx.mul(fx.mul(disposition, weight), fx.sub(FixedPoint.ONE, s.stress))
+
+    private fun blend(a: Long, b: Long): Long = (a + b) / 2L
+
+    private fun inverse(v: Long): Long = fx.sub(FixedPoint.ONE, v)
 
     private fun learnedValence(
         action: SpikeAction,
@@ -351,38 +404,100 @@ public class Controller(private val fx: Fx) {
         return fx.signed(v)
     }
 
+    /**
+     * Context-conditioned episodic recall, revised under D009.
+     *
+     * The D008 form averaged recent outcomes for the target regardless of
+     * context, which is exactly what `preference` already computes. Two copies
+     * of one estimate cannot differentiate anything, and the measurement agreed:
+     * removing the mechanism *increased* history divergence.
+     *
+     * This form recalls only episodes whose context matches the present one and
+     * contributes the **residual** over the context-free preference. It can
+     * therefore only carry what preference does not: "this goes well here, in
+     * the mornings, even though I am lukewarm about it in general."
+     */
     private fun episodic(
         action: SpikeAction,
         target: HabitatObject?,
         s: OrganismState,
+        habitat: Habitat,
         tick: Long,
     ): Long {
         if (!s.has(Mechanism.EPISODIC_HISTORY) || target == null) return FixedPoint.ZERO
+        val context = MechanismUpdates.contextBucket(habitat, tick)
         var sum = 0L
         var count = 0
         for (e in s.episodes) {
             if (e == null) continue
             if (e.target != target) continue
+            if (e.context != context) continue
             if (tick - e.tick > SpikeContract.EPISODIC_RECENCY_WINDOW_TICKS) continue
-            val sameAction = e.action == action
-            val weight = if (sameAction) FixedPoint.ONE else FixedPoint.of(0L, 450_000L)
+            val weight = if (e.action == action) FixedPoint.ONE else FixedPoint.of(0L, 350_000L)
             sum = fx.add(sum, fx.mul(e.valence, weight))
             count += 1
         }
         if (count == 0) return FixedPoint.ZERO
         val mean = fx.div(sum, FixedPoint.fromInt(count))
-        return fx.signed(fx.mul(mean, SpikeContract.EPISODIC_WEIGHT))
+        val baseline = if (s.has(Mechanism.PREFERENCE_LEARNING)) {
+            s.preference[target.ordinal0]
+        } else {
+            FixedPoint.ZERO
+        }
+        val residual = fx.sub(mean, baseline)
+        return fx.signed(fx.mul(residual, SpikeContract.EPISODIC_WEIGHT))
     }
 
+    /**
+     * Habit, competence and information value. All three are statements about
+     * what *doing this here* is worth, which is why they share a coalition
+     * group: separating them would push the frozen group set past the
+     * exact-enumeration ceiling for no analytic gain.
+     */
     private fun habitExpectancy(
         action: SpikeAction,
         target: HabitatObject?,
         s: OrganismState,
     ): Long {
-        if (!s.has(Mechanism.HABIT_EXPECTANCY) || target == null) return FixedPoint.ZERO
-        val h = s.habit[s.index(action, target)]
-        val expectancyBoost = fx.mul(h, fx.mul(s.rewardExpectancy, W_EXPECTANCY))
-        return fx.signed(fx.add(fx.mul(h, W_HABIT), expectancyBoost))
+        if (target == null) return FixedPoint.ZERO
+        val k = s.index(action, target)
+        var v = FixedPoint.ZERO
+
+        if (s.has(Mechanism.HABIT_EXPECTANCY)) {
+            val h = s.habit[k]
+            v = fx.add(v, fx.mul(h, W_HABIT))
+            v = fx.add(v, fx.mul(h, fx.mul(s.rewardExpectancy, W_EXPECTANCY)))
+        }
+        if (s.has(Mechanism.SKILL_PROFICIENCY)) {
+            // Competence makes an organism better at what it has practised, and
+            // therefore more inclined to do it. Two organisms that practised
+            // different things end up spending their days differently, which is
+            // the only individuality a homeostatic drive model leaves room for.
+            v = fx.add(v, fx.mul(s.skill[k], W_SKILL))
+        }
+        if (s.has(Mechanism.OUTCOME_UNCERTAINTY)) {
+            // Directed exploration. A stale or contradicted estimate is worth
+            // refreshing; a stressed organism has less appetite for it, and a
+            // disappointed one has more. The second half is what turns a
+            // devalued option into an actual switch rather than a slow drift:
+            // when what used to work stops working, alternatives get checked.
+            val frustration = fx.sub(FixedPoint.ONE, s.rewardExpectancy)
+            val appetite = fx.mul(
+                fx.sub(FixedPoint.ONE, s.stress),
+                fx.add(FixedPoint.of(0L, 550_000L), frustration),
+            )
+            // Curiosity about something frightening is not worth acting on.
+            val safeToInvestigate = if (s.has(Mechanism.CONDITIONED_FEAR)) {
+                fx.sub(FixedPoint.ONE, s.fear[target.ordinal0])
+            } else {
+                FixedPoint.ONE
+            }
+            v = fx.add(
+                v,
+                fx.mul(fx.mul(fx.mul(s.uncertainty[k], W_INFORMATION), appetite), safeToInvestigate),
+            )
+        }
+        return fx.signed(v)
     }
 
     private fun relationship(
@@ -444,6 +559,11 @@ public class Controller(private val fx: Fx) {
         tick: Long,
     ): Boolean {
         if (tick < s.refractoryUntilTick[action.ordinal]) return false
+        if (Controller.epistemic(action) &&
+            tick < s.engagementRefractoryUntil[target.ordinal0]
+        ) {
+            return false
+        }
         if (tick < s.suppressedUntilTick[s.index(action, target)]) return false
         if (habitat.safetyOf(target) == Safety.BLOCKED && action != SpikeAction.OBSERVE &&
             action != SpikeAction.RETRY
@@ -453,10 +573,14 @@ public class Controller(private val fx: Fx) {
         // Conditioned avoidance: an object above the fear threshold stops being
         // approachable, which is what makes avoidance observable rather than a
         // hidden number.
+        // Avoidance covers attending, not only approaching. Leaving observation
+        // eligible let directed exploration walk the organism back into a known
+        // harm dozens of times a day: uncertainty about the feared object kept
+        // growing precisely because it was being avoided, which made it the most
+        // information-rich thing in the habitat.
         if (s.has(Mechanism.CONDITIONED_FEAR) &&
-            s.fear[target.ordinal0] >= SpikeContract.FEAR_AVOIDANCE_THRESHOLD &&
-            (action == SpikeAction.APPROACH || action == SpikeAction.PLAY ||
-                action == SpikeAction.EXPLORE)
+            s.fear[target.ordinal0] >= s.traits.avoidanceThreshold &&
+            Controller.epistemic(action)
         ) {
             return false
         }
@@ -493,10 +617,10 @@ public class Controller(private val fx: Fx) {
         if (action == SpikeAction.RESPOND_TO_TOUCH) return 2
         if (action == SpikeAction.EAT) return 3
         if (action == SpikeAction.SEEK_INTERACTION || action == SpikeAction.VOCALIZE) {
-            return if (s.social < SpikeContract.LOW_SOCIAL) 3 else 4
+            return if (s.social < s.traits.socialNeedThreshold) 3 else 4
         }
         if (action == SpikeAction.APPROACH) {
-            return if (s.social < SpikeContract.LOW_SOCIAL &&
+            return if (s.social < s.traits.socialNeedThreshold &&
                 target.kind == ObjectKind.SOCIAL
             ) 3 else 4
         }
@@ -509,20 +633,39 @@ public class Controller(private val fx: Fx) {
      * forever from an object it is no longer near; the durable expression of
      * that fear is the ineligibility of approach, not perpetual retreat.
      */
+    /**
+     * Withdrawal is a bounded reaction to a live threat, on every route into it.
+     *
+     * Damaged safety is not on its own grounds for retreat from everything
+     * present, and it is not grounds for retreat that outlasts the event: a
+     * single punishment used to license Tier 0 withdrawal for as long as safety
+     * took to recover, which was most of a day. The durable expression of a
+     * learned fear is that approach stays ineligible, not that the organism
+     * spends its life backing away.
+     */
     private fun withdrawalWarranted(target: HabitatObject, s: OrganismState, tick: Long): Boolean {
-        if (s.safety < SpikeContract.CRITICAL_SAFETY) return true
+        val window = SpikeContract.WITHDRAW_REACTION_TICKS
+        if (s.lastThreatTarget == target && tick - s.lastThreatTick <= window) return true
         if (!s.has(Mechanism.CONDITIONED_FEAR)) return false
-        // Only a fear strong enough to constitute avoidance justifies Tier 0.
-        // A faded residual is a memory, not an emergency.
-        if (s.fear[target.ordinal0] < SpikeContract.FEAR_AVOIDANCE_THRESHOLD) return false
-        return tick - s.lastInspectedTick[target.ordinal0] <= SpikeContract.WITHDRAW_REACTION_TICKS
+        if (s.fear[target.ordinal0] < s.traits.avoidanceThreshold) return false
+        return tick - s.lastInspectedTick[target.ordinal0] <= window
     }
 
-    private fun tierForRest(s: OrganismState): Int =
-        if (s.rest < SpikeContract.CRITICAL_REST) 1 else 3
+    /**
+     * Rest is a Tier 3 concern only when rest is actually low. Promoting it for
+     * the whole night regardless of need was the single largest cause of the
+     * D008 anti-convergence failure: Tier 3 outranks Tier 4, so every organism
+     * spent every night asleep, one action took nearly half the tick budget,
+     * and the successor of any action was almost always the same one.
+     * A nocturnal preference belongs in the utility term, where it competes.
+     */
+    private fun tierForRest(s: OrganismState): Int = when {
+        s.rest < SpikeContract.CRITICAL_REST -> 1
+        s.rest < SpikeContract.LOW_REST -> 3
+        else -> 4
+    }
 
-    private fun tierForSleep(s: OrganismState): Int =
-        if (s.rest < SpikeContract.CRITICAL_REST) 1 else 3
+    private fun tierForSleep(s: OrganismState): Int = tierForRest(s)
 
     private fun physiologyComfortable(s: OrganismState): Boolean =
         s.energy > SpikeContract.LOW_ENERGY &&
@@ -541,7 +684,7 @@ public class Controller(private val fx: Fx) {
         }
 
         private const val SPONTANEITY_QUIET_TICKS = 3L
-        private const val RESUMPTION_WINDOW_TICKS = 20L
+        private const val RESUMPTION_WINDOW_TICKS = 8L
 
         private val IDLE_BASE = FixedPoint.of(0L, 12_000L)
         private val OPPORTUNITY_MARGIN = FixedPoint.of(0L, 90_000L)
@@ -561,9 +704,11 @@ public class Controller(private val fx: Fx) {
         private val W_EPISTEMIC_PLAY = FixedPoint.of(0L, 220_000L)
         private val W_EPISTEMIC_APPROACH = FixedPoint.of(0L, 120_000L)
         private val W_PLAY_SOCIAL = FixedPoint.of(0L, 150_000L)
+        private val W_OBSERVE_ENERGY_TAPER = FixedPoint.of(0L, 600_000L)
         private val W_RETRY = FixedPoint.of(0L, 140_000L)
         private val W_RESUME = FixedPoint.of(0L, 300_000L)
         private val W_IDLE = FixedPoint.of(0L, 60_000L)
+        private val W_SATIATION = FixedPoint.of(0L, 380_000L)
         private val W_RISK = FixedPoint.of(0L, 600_000L)
         private val W_MOVEMENT_COST = FixedPoint.of(0L, 45_000L)
 
@@ -573,6 +718,8 @@ public class Controller(private val fx: Fx) {
         private val W_SENSITIZATION = FixedPoint.of(0L, 300_000L)
         private val W_HABIT = FixedPoint.of(0L, 450_000L)
         private val W_EXPECTANCY = FixedPoint.of(0L, 200_000L)
+        private val W_SKILL = FixedPoint.of(0L, 330_000L)
+        private val W_INFORMATION = FixedPoint.of(0L, 400_000L)
         private val W_RELATIONSHIP = FixedPoint.of(0L, 400_000L)
         private val W_RELATIONSHIP_STRONG = FixedPoint.of(0L, 620_000L)
         private val W_RELATIONSHIP_WEAK = FixedPoint.of(0L, 80_000L)

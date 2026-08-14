@@ -1,17 +1,17 @@
 # A000 exit gate
 
 - Track: A000 — disposable aliveness spike research track
-- Directive: D008
-- Fixture set: `A000-FIXTURES-V1` version 1
+- Directives: D008 (build), D009 (mechanism remediation)
+- Fixture set: `A000-FIXTURES-V1` version 2
 - Golden evidence digest:
-  `4765e6d587347688841d34c95b5b9caede8cbf44084335302e1475c7aeaa8fc9`
+  `65efd37541b66a5bd30bacb5c8176abd8cba7832f00029ab3e9afd8589dc81fc`
 - Evaluated: 2026-08-13
 
-A000 is a research track, not a production phase. It has no pass/fail exit gate
-in the sense R000, R001 and R002 do: its job is to find out whether the organism
-hypothesis is worth testing on humans, and a negative answer is a successful
-A000. What follows is therefore a record of what the track produced and what it
-established, not a list of criteria that had to pass.
+A000 is a research track, not a production phase. Its job is to find out whether
+the organism hypothesis is worth testing on people, and a negative answer is a
+successful A000. D008 built the track and returned five negative findings and an
+empty curiosity feasible region. D009 revised the candidate against those
+findings under **unchanged** thresholds.
 
 ---
 
@@ -19,114 +19,120 @@ established, not a list of criteria that had to pass.
 
 | Artifact | Status |
 |---|---|
-| Accelerated simulator | Built. `research/aliveness-spike/accelerated-sim/`. Deterministic, seeded, 22 named fixtures over roughly 2,900 virtual days per full run. |
-| Real-time observer viewer | Built. `research/aliveness-spike/realtime-viewer/`. Swing, blinded, fixed-duration, one shared presentation contract, normalized study-event log. |
-| Abstract habitat | Built. 12 abstract affordances covering resource, shelter, two social identities, four play objects, one aversive object, one blocked affordance and one controlled-novelty slot. |
+| Accelerated simulator | Built. 24 named fixtures over roughly 3,400 virtual days per run. |
+| Real-time observer viewer | Built. Blinded, fixed-duration, one shared presentation contract, normalized study-event log. |
+| Abstract habitat | 12 abstract affordances, now with circadian structure so context-conditioned memory has something to condition on. |
 | Cohorts | Six, all runnable. |
 | Decision traces | `SpikeDecisionTraceV1`, emitted for every scored autonomous action. |
 | Coalition attribution | Exact Shapley over six groups, 64 coalitions per scored action. |
-| Curiosity balance envelope | Evaluated. 27 grid points × 4 seeds. |
+| Curiosity balance envelope | Evaluated twice: 27 grid points × 4 seeds, before and after remediation. |
 
 ---
 
 ## Accelerated findings
 
-22 findings. 17 held, 5 did not. Every readout is in
-`qualification/fixtures/A000/A000_REPORT.txt` and every one contributes to the
-digest above.
+**24 findings, 24 held.** Every readout is in
+`qualification/fixtures/A000/A000_REPORT.txt` and contributes to the digest.
 
-### Held
+### The four D008 failures, resolved
+
+| Requirement | D008 | D009 |
+|---|---|---|
+| Mean population differentiation | 0.052 | **0.163** |
+| Closest-pair differentiation | 0.019, below the 0.050 floor | **0.074**, above it |
+| Final-window diversity | 0.034, below the 0.050 floor | **0.103**, above it |
+| History-derived divergence | 0.325 | **0.610** |
+| Re-sampling a rejected option | never | **0.13 → 32.5 eats/day**, first return 20 ticks after reversal |
+| Episodic contribution | reduced divergence | mechanism **removed** from FULL |
+| Curiosity feasible region | `EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE`, 0 of 27 | **`NON_EMPTY_FEASIBLE_REGION`, 27 of 27 robust** |
+| Anti-convergence, occupancy | 0.468, above the 0.450 ceiling | **0.357** |
+| Anti-convergence, cycle regularity | 0.924, above the 0.550 ceiling | **0.369** |
+| Anti-convergence, entropy | 1.589, below the 1.600 floor | **2.714** |
+
+### Full finding list
 
 | Finding | Result |
 |---|---|
-| `AX-BOUNDEDNESS-01` | 365 virtual days × 3 habitat conditions: zero arithmetic overflow, constant 751-slot state footprint, every learned value inside its bound. |
-| `AX-DETERMINISM-01` | Two runs of the identical configuration agree on state signature, per-tick action sequence and attribution counts. |
-| `AX-DIFFERENTIATION-01` | Mean pairwise total-variation distance 0.052 over six seeds; 6/6 distinct final state signatures. |
-| `AX-PREFERENCE-01` | Under matched forced exposure, preference tracks payoff: 0.791 for the high-payoff object against 0.000 for the null-payoff object. |
-| `AX-PREFERENCE-REVERSAL-01` | The adopted preference falls from 0.208 to 0.090 once its contingency reverses. |
-| `AX-AVOIDANCE-01` | Conditioned avoidance acquired to a peak fear of 0.447, with 1,632 ticks spent above the avoidance threshold. |
-| `AX-EXTINCTION-01` | Fear declines once the object becomes safe, bounded below by the extinction residual and then by slow forgetting. |
-| `AX-HABITUATION-01` | Trace builds to 0.940, sits at 0.400 at the end of exposure, recovers to 0.071 after five days of non-exposure. |
-| `AX-DISHABITUATION-01` | A causal environmental change releases the remaining trace. |
-| `AX-SENSITIZATION-01` | A strong negative event raises responsiveness from 0.000 to 0.320. |
-| `AX-HABIT-01` | Habit follows the contingency: the source that becomes reliable gains (0.291 → 0.572) and the one that stops being reliable does not. |
-| `AX-EPISODIC-01` | Divergent histories change later behaviour under matched present stimuli: 32.5% of probe ticks differ in action, 40.2% in target. |
-| `AX-ANTICONVERGENCE-02` | The anti-convergence mechanism is load-bearing on objective measures: 5.06 distinct objects per day with it, 1.00 without; 32.1 revisitation bouts per day with it, 0.00 without. |
-| `AX-NOVELTY-SATURATION-01` | No permanent novelty saturation over 180 static days. |
-| `AX-ATTRIBUTION-01` | `SubstantiveSpontaneityRate` 0.946 against a 0.700 floor; `OscillatorTieBreakOnlyRate` 0.010 against a 0.200 ceiling, over 1,363 scored spontaneous actions. |
-| `AX-TRACE-01` | Every scored spontaneous action carries a trace with a causal attribution. |
-| `AX-COHORT-PARITY-01` | All six cohorts render through the frozen contract using only its vocabulary. |
-
-### Did not hold
-
-These are results, not defects. Each is preserved with its configuration.
-
-| Finding | Result | Reading |
-|---|---|---|
-| `AX-DIFFERENTIATION-02` | Closest pair of organisms differs by only 0.019 total variation, against a 0.050 floor. Widest pair differs by 0.103. | Individuality is a property of the population, not a guarantee about any two organisms. Two seeds can land on nearly the same action budget. |
-| `AX-PREFERENCE-REVERSAL-02` | The devalued preference falls, but the alternative source is never re-sampled: it stays at −0.010 across the reversal. | Devaluation works; **switching** does not follow from it. Nothing in the candidate set drives re-exploration of an option already written off. This is a real gap in the mechanism set. |
-| `AX-EPISODIC-02` | Removing episodic history *increases* history-dependent divergence, 0.403 against FULL's 0.325. | Episodic recall is acting as a stabiliser rather than a differentiator. Under Principle 11 this is evidence to simplify or remove the mechanism, not to protect it. |
-| `AX-ANTICONVERGENCE-01` | Over 180 static days: entropy 1.589 against a 1.600 floor, maximum single-action occupancy 0.468 against a 0.450 ceiling, cycle regularity 0.924 against a 0.550 ceiling. Distinct objects per day (5.06) and revisitations per day (32.1) passed. | The organism does not die behaviourally, but it becomes highly regular. Two of the five criteria are the same two that fail across the entire envelope grid. |
-| `AX-CONVERGENCE-01` | Mean final-window total variation across eight organisms is 0.034 against a 0.050 floor; the closest pair is 0.006. | The population partially converges toward a common long-run policy. Combined with `AX-DIFFERENTIATION-02` this is the clearest limitation A000 found. |
+| `AX-BOUNDEDNESS-01` | 365 days × 3 conditions: zero overflow, constant 1,150-slot footprint, all values in bounds |
+| `AX-DETERMINISM-01` | Two identical runs agree on signature, per-tick actions and attribution |
+| `AX-DIFFERENTIATION-01` | mean pairwise TV 0.163, 6/6 distinct signatures |
+| `AX-DIFFERENTIATION-02` | closest pair 0.074, widest 0.319 |
+| `AX-PREFERENCE-01` | pooled over 4 seeds: mean preference 0.399 for the high-payoff object, 0.000 for the null-payoff one |
+| `AX-PREFERENCE-REVERSAL-01` | adopted preference 0.723 → 0.037 across the reversal |
+| `AX-PREFERENCE-REVERSAL-02` | the alternative rises 0.000 → 0.653 |
+| `AX-AVOIDANCE-01` | peak fear 0.697, 18,612 ticks above the avoidance threshold |
+| `AX-EXTINCTION-01` | 0.483 → 0.209 once the object becomes safe |
+| `AX-HABITUATION-01` | 0.400 at exposure end, 0.071 after five days of non-exposure |
+| `AX-DISHABITUATION-01` | a causal change releases the remaining trace |
+| `AX-SENSITIZATION-01` | 0.000 → 0.320 on one strong negative event |
+| `AX-HABIT-01` | habit follows contingency: 0.740 → 0.004 on the source that stops paying, 0.000 → 0.676 on the one that starts |
+| `AX-REEXPLORATION-01` | 0.13 → 32.5 eats/day at the rejected source; first return 20 ticks after the reversal |
+| `AX-REEXPLORATION-02` | a real reallocation: 31.1 → 0.0 at the devalued source, and preference follows |
+| `AX-EPISODIC-01` | mean action divergence 0.610 over 5 seeds under matched present stimuli |
+| `AX-EPISODIC-02` | adding episodic recall back does not help; disposition `REMOVED` |
+| `AX-ANTICONVERGENCE-01` | all five criteria pass: entropy 2.714, 9.74 objects/day, occupancy 0.357, 139.8 revisits/day, regularity 0.369 |
+| `AX-ANTICONVERGENCE-02` | mechanism load-bearing: 9.74 objects/day with it, 6.03 without |
+| `AX-NOVELTY-SATURATION-01` | no permanent saturation over 180 static days |
+| `AX-CONVERGENCE-01` | mean final-window TV 0.103 |
+| `AX-ATTRIBUTION-01` | substantive 0.877 against a 0.700 floor; oscillator/tie-break-only 0.027 against a 0.200 ceiling, over 2,089 scored actions |
+| `AX-TRACE-01` | every scored spontaneous action carries a causal trace |
+| `AX-COHORT-PARITY-01` | all six cohorts render through the frozen contract using only its vocabulary |
 
 ---
 
 ## Curiosity balance envelope
 
-`CURIOSITY_ENVELOPE_FEASIBILITY_RESULT = EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE`
+`CURIOSITY_ENVELOPE_FEASIBILITY_RESULT = NON_EMPTY_FEASIBLE_REGION`
 
-27 grid points over curiosity base floor, context amplitude and inspection
-inhibition depth, each evaluated on a four-seed matrix, each producing both
-readouts **from the same run**.
+27 of 27 grid points jointly feasible on every seed; 27 robust under the
+one-step perturbation rule. **No threshold was changed.** The searched grid, the
+seed matrix, the fixture and the requirements are identical to D008's. What
+changed is the organism.
 
-| Outcome | Count |
-|---|---|
-| Jointly feasible | 0 / 27 |
-| Robustly feasible | 0 |
-| Attribution requirement satisfied | 27 / 27 |
-| Anti-convergence requirement satisfied | 0 / 27 |
-
-The failure is uniform and specific. Attribution passed everywhere with wide
-margin (substantive 0.922–0.966, oscillator-only 0.005–0.029). Anti-convergence
-failed everywhere on exactly two of five criteria — maximum single-action
-occupancy 0.462–0.477 against a 0.450 ceiling, and cycle regularity 0.803–0.876
-against a 0.550 ceiling — while entropy, distinct objects per day and
-revisitation passed at every point.
-
-Under `CuriosityEnvelopeFeasibilityV1` an empty set does not by itself
-distinguish an incompatible threshold pair from a mechanism failure, and that
-determination belongs to the independent gate reviewer. The thresholds were
-frozen in source before the search ran and have not been altered. No
-parameterization was selected.
+The programme's single allowed threshold-only revision has not been spent.
 
 ---
 
-## What A000 did not establish
+## Episodic history: removed
 
-1. **No human evidence exists.** No participant has seen either cohort. Nothing
-   here says FULL appears more alive than the scripted baseline; A000 cannot
-   answer that question and did not try.
-2. **The scripted baseline is not competence-qualified.** It is implemented,
-   frozen and objectively stronger than the degraded control, but its
-   competence endpoint requires a pilot rater pool and an independent owner.
-3. **No reviewer is assigned.** `IndependentReviewRosterV1` is
-   `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` on all three roles.
+Revised first, then removed on evidence. The revision made it
+context-conditioned, changed it to contribute only the residual over the
+context-free preference, gave it salience-based rather than recency-based
+retention, and gave the habitat circadian structure so a context-conditioned
+memory had something to learn. Measured across a five-seed matrix, adding it
+back to FULL still did not increase history-dependent individuality.
+
+History dependence itself is unaffected and much stronger than under D008:
+preference, habit, skill, fear, relationship value and outcome uncertainty are
+all history-derived, and matched-stimulus divergence rose from 0.325 to 0.610.
+
+The human leave-one-out family is now two arms. Canonical multiplicity correction
+runs across the comparisons actually tested, so Holm-Bonferroni corrects over
+two. A replacement third arm requires a new preregistered plan.
+
+---
+
+## What A000 still has not established
+
+1. **No human evidence exists.** Nothing here says FULL appears more alive than
+   the scripted baseline.
+2. **The scripted baseline is not competence-qualified**, and was not weakened:
+   its measures are within noise of D008 and it remains far stronger than the
+   degraded control.
+3. **No reviewer is assigned.** All three roster roles are blank.
 4. **The habitat is abstract.** Twelve affordances, no space, no navigation, no
-   sensors. Behaviour observed here is behaviour in that habitat.
+   sensors.
 5. **The measures are the ones chosen.** Cycle regularity and single-action
-   occupancy in particular are constructs invented for this track, and the
-   envelope result turns on both of them.
+   occupancy are constructs invented for this track, and the envelope result
+   turns on both — in both directions, now.
 
 ---
 
-## A000 = COMPLETE, with a decision required before A001
+## A000 = COMPLETE
 
-Both required artifacts exist, all six cohorts run through one presentation
-contract, exact coalition attribution is executable and evidenced, the
-accelerated histories produced a documented viability result including five
-negative findings, and the curiosity envelope was actually evaluated rather than
-asserted.
+Both required artifacts exist, six cohorts run through one presentation
+contract, exact coalition attribution is executable and evidenced, all 24
+accelerated findings hold, and the joint curiosity envelope is non-empty under
+unchanged thresholds.
 
-A001 cannot begin. Two blockers are structural rather than technical: the
-reviewer roster is unassigned, and the empty curiosity-envelope feasible set
-requires the independent reviewer's threshold-versus-mechanism determination.
+A001 cannot begin: the reviewer roster is unassigned.

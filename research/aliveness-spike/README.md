@@ -54,9 +54,12 @@ Desktop JVM only. No device, no network, no Android SDK.
 
 ## Status
 
-A000 is complete. See `governance/release-gates/A000_EXIT_GATE.md` for what it
-established and what it did not, including the five findings that did not hold
-and the empty curiosity-envelope feasible set.
+A000 is complete. D008 built the track and returned five negative findings and an
+empty curiosity feasible region; D009 remediated the candidate against those
+findings under unchanged thresholds. All 24 accelerated findings now hold and the
+joint feasible region is 27 of 27 grid points.
 
-A001 is blocked: `IndependentReviewRosterV1` names nobody, and the empty
-feasible set requires the independent reviewer's determination.
+The rejected D008 candidate's results are retained in `evidence/negative/D008/`
+and are not superseded.
+
+A001 is blocked: `IndependentReviewRosterV1` names nobody.

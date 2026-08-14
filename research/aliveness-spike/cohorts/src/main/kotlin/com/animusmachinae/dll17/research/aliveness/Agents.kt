@@ -52,13 +52,23 @@ public class OrganismAgent(
         val decision = controller.select(proposals, state, habitat, tick, tieBreak)
         val winner = decision.winner
         if (!decision.commitmentContinuation && state.has(Mechanism.TIERED_COMMITMENT)) {
-            if (state.committedAction != null && state.commitmentRemaining > 0) {
+            // Only a voluntary activity is worth resuming. Recording a retreat or
+            // a reflex as resumable created a punishment loop: the organism
+            // withdrew from the aversive object, was interrupted, "resumed" the
+            // withdrawal by engaging the object again, and was punished for it —
+            // eighty-seven times a virtual day.
+            val resumable = state.committedAction != null &&
+                state.commitmentRemaining > 0 &&
+                state.committedTier >= 3 &&
+                state.committedAction !in NON_RESUMABLE
+            if (resumable) {
                 state.interruptedAction = state.committedAction
                 state.interruptedTarget = state.committedTarget
                 state.interruptedAtTick = tick
             }
             state.committedAction = winner.action
             state.committedTarget = winner.target
+            state.committedTier = decision.winningTier
             state.commitmentRemaining = when (winner.action) {
                 SpikeAction.SLEEP -> SpikeContract.COMMITMENT_TICKS_SLEEP
                 else -> SpikeContract.COMMITMENT_TICKS_DEFAULT
@@ -144,6 +154,13 @@ public class OrganismAgent(
         )
     }
 }
+
+private val NON_RESUMABLE = setOf(
+    SpikeAction.WITHDRAW,
+    SpikeAction.RESPOND_TO_TOUCH,
+    SpikeAction.RESUME_INTERRUPTED,
+    SpikeAction.RETRY,
+)
 
 /**
  * `ScriptedPetBaselineV1` — the primary external comparator.

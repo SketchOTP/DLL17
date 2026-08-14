@@ -1,155 +1,186 @@
-Starting a Gradle Daemon (subsequent builds will be faster)
-> Task :research:aliveness-spike:realtime-viewer:clean
-> Task :desktop-runner:clean
-> Task :research:aliveness-spike:analysis:clean
-> Task :core-crypto:clean
-> Task :research:aliveness-spike:cohorts:clean
-> Task :core-math:clean
+> Task :research:aliveness-spike:realtime-viewer:clean UP-TO-DATE
 > Task :research:aliveness-spike:realtime-viewer:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :desktop-runner:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :core-crypto:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :core-math:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :research:aliveness-spike:cohorts:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :research:aliveness-spike:accelerated-sim:clean
-> Task :research:aliveness-spike:analysis:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :core-continuity:clean
-> Task :core-state:clean
+> Task :core-continuity:clean UP-TO-DATE
+> Task :desktop-runner:clean UP-TO-DATE
+> Task :core-state:clean UP-TO-DATE
 > Task :core-continuity:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :research:aliveness-spike:accelerated-sim:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :core-state:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :desktop-runner:processResources NO-SOURCE
-> Task :research:aliveness-spike:cohorts:processResources NO-SOURCE
-> Task :core-state:processResources NO-SOURCE
-> Task :core-math:processResources NO-SOURCE
-> Task :research:aliveness-spike:analysis:processResources NO-SOURCE
-> Task :core-continuity:processResources NO-SOURCE
-> Task :research:aliveness-spike:realtime-viewer:processResources NO-SOURCE
-> Task :research:aliveness-spike:accelerated-sim:processResources NO-SOURCE
-> Task :core-continuity:processTestResources NO-SOURCE
-> Task :desktop-runner:processTestResources NO-SOURCE
-> Task :core-state:processTestResources NO-SOURCE
-> Task :research:aliveness-spike:cohorts:processTestResources NO-SOURCE
-> Task :core-math:processTestResources NO-SOURCE
-> Task :research:aliveness-spike:analysis:processTestResources NO-SOURCE
-> Task :research:aliveness-spike:realtime-viewer:processTestResources NO-SOURCE
-> Task :research:aliveness-spike:accelerated-sim:processTestResources NO-SOURCE
-> Task :android-host:clean
+> Task :desktop-runner:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :android-host:clean UP-TO-DATE
 > Task :android-host:preBuild UP-TO-DATE
 > Task :android-host:preDebugBuild UP-TO-DATE
+> Task :research:aliveness-spike:cohorts:clean
+> Task :research:aliveness-spike:accelerated-sim:clean
+> Task :core-math:clean
+> Task :research:aliveness-spike:cohorts:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :research:aliveness-spike:analysis:clean
+> Task :core-state:processResources NO-SOURCE
+> Task :research:aliveness-spike:analysis:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-math:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-crypto:clean
+> Task :research:aliveness-spike:realtime-viewer:processResources NO-SOURCE
 > Task :android-host:mergeDebugNativeDebugMetadata NO-SOURCE
-> Task :android-host:generateDebugResources FROM-CACHE
-> Task :android-host:packageDebugResources FROM-CACHE
-> Task :core-crypto:compileKotlin FROM-CACHE
-> Task :core-crypto:compileJava NO-SOURCE
+> Task :research:aliveness-spike:cohorts:processResources NO-SOURCE
+> Task :research:aliveness-spike:accelerated-sim:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :desktop-runner:processResources NO-SOURCE
+> Task :core-state:processTestResources NO-SOURCE
+> Task :core-continuity:processResources NO-SOURCE
+> Task :core-crypto:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-math:processResources NO-SOURCE
+> Task :research:aliveness-spike:analysis:processResources NO-SOURCE
+> Task :research:aliveness-spike:realtime-viewer:processTestResources NO-SOURCE
+> Task :desktop-runner:processTestResources NO-SOURCE
+> Task :core-math:processTestResources NO-SOURCE
+> Task :research:aliveness-spike:accelerated-sim:processResources NO-SOURCE
+> Task :research:aliveness-spike:analysis:processTestResources NO-SOURCE
+> Task :research:aliveness-spike:cohorts:processTestResources NO-SOURCE
+> Task :core-continuity:processTestResources NO-SOURCE
+> Task :research:aliveness-spike:accelerated-sim:processTestResources NO-SOURCE
 > Task :core-crypto:processResources NO-SOURCE
+> Task :core-crypto:processTestResources NO-SOURCE
+> Task :android-host:generateDebugResources
+> Task :android-host:packageDebugResources
+> Task :core-crypto:compileKotlin
+> Task :core-crypto:compileJava NO-SOURCE
 > Task :core-crypto:classes UP-TO-DATE
 > Task :core-crypto:jar
 > Task :core-crypto:assemble
-> Task :core-math:compileKotlin FROM-CACHE
+> Task :core-math:compileKotlin
 > Task :core-math:compileJava NO-SOURCE
 > Task :core-math:classes UP-TO-DATE
-> Task :core-crypto:compileTestKotlin FROM-CACHE
 > Task :core-math:jar
 > Task :core-math:assemble
-> Task :core-crypto:compileTestJava NO-SOURCE
-> Task :core-crypto:processTestResources NO-SOURCE
-> Task :core-crypto:testClasses UP-TO-DATE
-> Task :android-host:processDebugNavigationResources FROM-CACHE
-> Task :android-host:parseDebugLocalResources FROM-CACHE
-> Task :android-host:generateDebugRFile FROM-CACHE
-> Task :core-state:compileKotlin FROM-CACHE
-> Task :android-host:javaPreCompileDebug FROM-CACHE
-> Task :core-state:compileJava NO-SOURCE
-> Task :android-host:generateDebugAssets UP-TO-DATE
-> Task :core-state:classes UP-TO-DATE
-> Task :core-crypto:test FROM-CACHE
-> Task :core-crypto:check UP-TO-DATE
-> Task :core-crypto:build
-> Task :core-math:compileTestKotlin FROM-CACHE
-> Task :core-math:compileTestJava NO-SOURCE
-> Task :core-math:testClasses UP-TO-DATE
-> Task :core-state:jar
-> Task :core-state:assemble
 > Task :research:aliveness-spike:cohorts:compileKotlin FROM-CACHE
-> Task :core-math:test FROM-CACHE
-> Task :core-math:check UP-TO-DATE
-> Task :core-math:build
 > Task :research:aliveness-spike:cohorts:compileJava NO-SOURCE
 > Task :research:aliveness-spike:cohorts:classes UP-TO-DATE
 > Task :research:aliveness-spike:cohorts:jar
 > Task :research:aliveness-spike:cohorts:assemble
-> Task :core-state:compileTestKotlin FROM-CACHE
-> Task :core-state:compileTestJava NO-SOURCE
-> Task :core-state:testClasses UP-TO-DATE
-> Task :core-state:test FROM-CACHE
-> Task :core-state:check UP-TO-DATE
-> Task :core-state:build
-> Task :core-continuity:compileKotlin FROM-CACHE
-> Task :android-host:mergeDebugAssets
-> Task :core-continuity:compileJava NO-SOURCE
-> Task :core-continuity:classes UP-TO-DATE
-> Task :android-host:compressDebugAssets FROM-CACHE
 > Task :research:aliveness-spike:accelerated-sim:compileKotlin FROM-CACHE
 > Task :research:aliveness-spike:accelerated-sim:compileJava NO-SOURCE
 > Task :research:aliveness-spike:accelerated-sim:classes UP-TO-DATE
-> Task :android-host:generateDebugGlobalSynthetics FROM-CACHE
-> Task :research:aliveness-spike:realtime-viewer:compileKotlin FROM-CACHE
-> Task :research:aliveness-spike:realtime-viewer:compileJava NO-SOURCE
-> Task :research:aliveness-spike:realtime-viewer:classes UP-TO-DATE
 > Task :research:aliveness-spike:accelerated-sim:jar
-> Task :research:aliveness-spike:cohorts:compileTestKotlin FROM-CACHE
-> Task :research:aliveness-spike:realtime-viewer:jar
-> Task :research:aliveness-spike:cohorts:compileTestJava NO-SOURCE
-> Task :research:aliveness-spike:cohorts:testClasses UP-TO-DATE
-> Task :core-continuity:jar
-> Task :core-continuity:assemble
-> Task :research:aliveness-spike:cohorts:test FROM-CACHE
-> Task :research:aliveness-spike:cohorts:check UP-TO-DATE
-> Task :research:aliveness-spike:cohorts:build
-> Task :research:aliveness-spike:analysis:compileKotlin FROM-CACHE
+> Task :research:aliveness-spike:accelerated-sim:startScripts
+> Task :research:aliveness-spike:accelerated-sim:distTar
+> Task :research:aliveness-spike:accelerated-sim:distZip
+> Task :research:aliveness-spike:accelerated-sim:assemble
+> Task :research:aliveness-spike:analysis:compileKotlin
 > Task :research:aliveness-spike:analysis:compileJava NO-SOURCE
 > Task :research:aliveness-spike:analysis:classes UP-TO-DATE
-> Task :android-host:checkDebugDuplicateClasses
 > Task :research:aliveness-spike:analysis:jar
-> Task :core-continuity:compileTestKotlin FROM-CACHE
-> Task :core-continuity:compileTestJava NO-SOURCE
-> Task :core-continuity:testClasses UP-TO-DATE
-> Task :desktop-runner:compileKotlin FROM-CACHE
+> Task :research:aliveness-spike:analysis:startScripts
+> Task :research:aliveness-spike:analysis:distTar
+> Task :research:aliveness-spike:analysis:distZip
+> Task :research:aliveness-spike:analysis:assemble
+> Task :research:aliveness-spike:accelerated-sim:compileTestKotlin
+> Task :research:aliveness-spike:accelerated-sim:compileTestJava NO-SOURCE
+> Task :research:aliveness-spike:accelerated-sim:testClasses UP-TO-DATE
+> Task :core-state:compileKotlin
+> Task :core-state:compileJava NO-SOURCE
+> Task :core-state:classes UP-TO-DATE
+> Task :core-state:jar
+> Task :core-math:compileTestKotlin
+> Task :core-math:compileTestJava NO-SOURCE
+> Task :core-math:testClasses UP-TO-DATE
+> Task :research:aliveness-spike:cohorts:compileTestKotlin
+> Task :core-state:assemble
+> Task :research:aliveness-spike:cohorts:compileTestJava NO-SOURCE
+> Task :research:aliveness-spike:cohorts:testClasses UP-TO-DATE
+> Task :research:aliveness-spike:analysis:compileTestKotlin
+> Task :research:aliveness-spike:analysis:compileTestJava NO-SOURCE
+> Task :research:aliveness-spike:analysis:testClasses UP-TO-DATE
+> Task :research:aliveness-spike:realtime-viewer:compileKotlin
+> Task :research:aliveness-spike:realtime-viewer:compileJava NO-SOURCE
+> Task :research:aliveness-spike:realtime-viewer:classes UP-TO-DATE
+> Task :research:aliveness-spike:realtime-viewer:jar
+> Task :research:aliveness-spike:realtime-viewer:startScripts
+> Task :research:aliveness-spike:realtime-viewer:distTar
+> Task :core-crypto:compileTestKotlin
+> Task :core-crypto:compileTestJava NO-SOURCE
+> Task :core-crypto:testClasses UP-TO-DATE
+> Task :research:aliveness-spike:realtime-viewer:distZip
+> Task :research:aliveness-spike:realtime-viewer:assemble
+> Task :core-state:compileTestKotlin
+> Task :core-state:compileTestJava NO-SOURCE
+> Task :core-state:testClasses UP-TO-DATE
+> Task :research:aliveness-spike:realtime-viewer:compileTestKotlin
+> Task :research:aliveness-spike:realtime-viewer:compileTestJava NO-SOURCE
+> Task :research:aliveness-spike:realtime-viewer:testClasses UP-TO-DATE
+> Task :core-math:test
+> Task :core-math:check
+> Task :core-math:build
+> Task :research:aliveness-spike:analysis:test
+> Task :research:aliveness-spike:analysis:check
+> Task :research:aliveness-spike:analysis:build
+> Task :android-host:processDebugNavigationResources
+> Task :research:aliveness-spike:cohorts:test
+> Task :research:aliveness-spike:cohorts:check
+> Task :research:aliveness-spike:cohorts:build
+> Task :core-crypto:test
+> Task :core-crypto:check
+> Task :core-crypto:build
+> Task :core-state:test
+> Task :core-state:check
+> Task :core-state:build
+> Task :android-host:generateDebugAssets UP-TO-DATE
+> Task :android-host:javaPreCompileDebug
+> Task :core-continuity:compileKotlin
+> Task :core-continuity:compileJava NO-SOURCE
+> Task :core-continuity:classes UP-TO-DATE
+> Task :android-host:mergeDebugAssets
+> Task :android-host:compressDebugAssets
+> Task :android-host:parseDebugLocalResources
+> Task :core-continuity:jar
+> Task :core-continuity:assemble
+> Task :research:aliveness-spike:realtime-viewer:test
+> Task :research:aliveness-spike:realtime-viewer:check
+> Task :research:aliveness-spike:realtime-viewer:build
+> Task :desktop-runner:compileKotlin
 > Task :desktop-runner:compileJava NO-SOURCE
 > Task :desktop-runner:classes UP-TO-DATE
 > Task :desktop-runner:jar
-> Task :core-continuity:test FROM-CACHE
-> Task :core-continuity:check UP-TO-DATE
+> Task :desktop-runner:startScripts
+> Task :desktop-runner:distTar
+> Task :desktop-runner:distZip
+> Task :desktop-runner:assemble
+> Task :research:aliveness-spike:accelerated-sim:test
+> Task :desktop-runner:compileTestKotlin
+> Task :desktop-runner:compileTestJava NO-SOURCE
+> Task :desktop-runner:testClasses UP-TO-DATE
+> Task :android-host:generateDebugGlobalSynthetics
+> Task :android-host:generateDebugRFile
+
+> Task :core-continuity:compileTestKotlin
+w: file:///home/sketch/Projects/DLL17/core-continuity/src/test/kotlin/com/animusmachinae/dll17/core/continuity/DurabilityAndJournalTest.kt:214:37 Unnecessary non-null assertion (!!) on a non-null receiver of type 'Checkpoint'.
+
+> Task :core-continuity:compileTestJava NO-SOURCE
+> Task :core-continuity:testClasses UP-TO-DATE
+> Task :android-host:checkDebugDuplicateClasses
+> Task :research:aliveness-spike:accelerated-sim:check
+> Task :research:aliveness-spike:accelerated-sim:build
+> Task :desktop-runner:test
+> Task :desktop-runner:check
+> Task :desktop-runner:build
+> Task :android-host:desugarDebugFileDependencies
+> Task :core-continuity:test
+> Task :core-continuity:check
 > Task :core-continuity:build
-> Task :android-host:compileDebugKotlin FROM-CACHE
+> Task :android-host:compileDebugKotlin
+> Task :android-host:mergeExtDexDebug
 > Task :android-host:compileDebugJavaWithJavac NO-SOURCE
 > Task :android-host:processDebugJavaRes
-> Task :android-host:desugarDebugFileDependencies FROM-CACHE
-> Task :android-host:mergeExtDexDebug FROM-CACHE
-> Task :android-host:mergeLibDexDebug FROM-CACHE
 > Task :android-host:checkDebugAarMetadata
 > Task :android-host:mapDebugSourceSetPaths
-> Task :android-host:compileDebugNavigationResources FROM-CACHE
-> Task :android-host:mergeDebugResources FROM-CACHE
+> Task :android-host:mergeLibDexDebug
+> Task :android-host:mergeDebugJavaResource
+> Task :android-host:compileDebugNavigationResources
 > Task :android-host:createDebugCompatibleScreenManifests
-> Task :android-host:extractDeepLinksDebug FROM-CACHE
-> Task :android-host:processDebugMainManifest FROM-CACHE
-> Task :android-host:processDebugManifest FROM-CACHE
-> Task :android-host:processDebugManifestForPackage FROM-CACHE
-> Task :android-host:processDebugResources FROM-CACHE
-> Task :android-host:dexBuilderDebug FROM-CACHE
-> Task :android-host:mergeProjectDexDebug FROM-CACHE
+> Task :android-host:extractDeepLinksDebug
+> Task :android-host:mergeDebugResources
+> Task :android-host:processDebugMainManifest
+> Task :android-host:processDebugManifest
 > Task :android-host:mergeDebugJniLibFolders
-> Task :desktop-runner:startScripts
-> Task :research:aliveness-spike:analysis:startScripts
-> Task :research:aliveness-spike:realtime-viewer:startScripts
-> Task :research:aliveness-spike:accelerated-sim:startScripts
 > Task :android-host:mergeDebugNativeLibs
-> Task :research:aliveness-spike:realtime-viewer:distTar
-> Task :research:aliveness-spike:accelerated-sim:distTar
 > Task :android-host:validateSigningDebug
-> Task :desktop-runner:distTar
-> Task :research:aliveness-spike:analysis:distTar
 > Task :android-host:writeDebugAppMetadata
 
 > Task :android-host:stripDebugDebugSymbols
@@ -157,119 +188,92 @@ Unable to strip the following libraries, packaging them as they are: libandroidx
 
 > Task :android-host:writeDebugSigningConfigVersions
 > Task :android-host:preReleaseBuild UP-TO-DATE
-> Task :research:aliveness-spike:accelerated-sim:distZip
-> Task :research:aliveness-spike:accelerated-sim:assemble
 > Task :android-host:mergeReleaseJniLibFolders
-> Task :android-host:mergeDebugJavaResource
-> Task :research:aliveness-spike:accelerated-sim:compileTestKotlin FROM-CACHE
-> Task :research:aliveness-spike:realtime-viewer:distZip
-> Task :research:aliveness-spike:realtime-viewer:assemble
-> Task :research:aliveness-spike:accelerated-sim:compileTestJava NO-SOURCE
-> Task :research:aliveness-spike:accelerated-sim:testClasses UP-TO-DATE
 > Task :android-host:mergeReleaseNativeLibs
-> Task :research:aliveness-spike:analysis:distZip
-> Task :research:aliveness-spike:analysis:assemble
-> Task :desktop-runner:distZip
-> Task :desktop-runner:assemble
-> Task :research:aliveness-spike:accelerated-sim:test FROM-CACHE
-> Task :research:aliveness-spike:accelerated-sim:check UP-TO-DATE
-> Task :research:aliveness-spike:accelerated-sim:build
-> Task :research:aliveness-spike:realtime-viewer:compileTestKotlin FROM-CACHE
-> Task :research:aliveness-spike:realtime-viewer:compileTestJava NO-SOURCE
-> Task :research:aliveness-spike:realtime-viewer:testClasses UP-TO-DATE
-> Task :desktop-runner:compileTestKotlin FROM-CACHE
-> Task :research:aliveness-spike:analysis:compileTestKotlin FROM-CACHE
-> Task :research:aliveness-spike:analysis:compileTestJava NO-SOURCE
-> Task :research:aliveness-spike:analysis:testClasses UP-TO-DATE
-> Task :desktop-runner:compileTestJava NO-SOURCE
-> Task :desktop-runner:testClasses UP-TO-DATE
-> Task :research:aliveness-spike:realtime-viewer:test FROM-CACHE
-> Task :research:aliveness-spike:realtime-viewer:check UP-TO-DATE
-> Task :research:aliveness-spike:realtime-viewer:build
-> Task :research:aliveness-spike:analysis:test FROM-CACHE
-> Task :desktop-runner:test FROM-CACHE
-> Task :research:aliveness-spike:analysis:check UP-TO-DATE
-> Task :desktop-runner:check UP-TO-DATE
-> Task :research:aliveness-spike:analysis:build
-> Task :desktop-runner:build
+> Task :android-host:generateReleaseResources FROM-CACHE
 
 > Task :android-host:stripReleaseDebugSymbols
 Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
 
-> Task :android-host:extractReleaseNativeSymbolTables FROM-CACHE
-> Task :android-host:mergeReleaseNativeDebugMetadata NO-SOURCE
-> Task :android-host:generateReleaseResources FROM-CACHE
 > Task :android-host:checkReleaseDuplicateClasses
-> Task :android-host:packageReleaseResources FROM-CACHE
+> Task :android-host:packageReleaseResources
 > Task :android-host:processReleaseNavigationResources FROM-CACHE
 > Task :android-host:parseReleaseLocalResources FROM-CACHE
 > Task :android-host:generateReleaseRFile FROM-CACHE
-> Task :android-host:compileReleaseKotlin FROM-CACHE
+> Task :android-host:extractReleaseNativeSymbolTables
+> Task :android-host:mergeReleaseNativeDebugMetadata NO-SOURCE
 > Task :android-host:javaPreCompileRelease FROM-CACHE
-> Task :android-host:compileReleaseJavaWithJavac NO-SOURCE
 > Task :android-host:mapReleaseSourceSetPaths
 > Task :android-host:checkReleaseAarMetadata
 > Task :android-host:compileReleaseNavigationResources FROM-CACHE
-> Task :android-host:mergeReleaseResources FROM-CACHE
 > Task :android-host:createReleaseCompatibleScreenManifests
 > Task :android-host:extractDeepLinksRelease FROM-CACHE
-> Task :android-host:processReleaseMainManifest FROM-CACHE
-> Task :android-host:processReleaseManifest FROM-CACHE
-> Task :android-host:processReleaseManifestForPackage FROM-CACHE
-> Task :android-host:processReleaseResources FROM-CACHE
-> Task :android-host:dexBuilderRelease FROM-CACHE
-> Task :android-host:desugarReleaseFileDependencies FROM-CACHE
-> Task :android-host:mergeReleaseStartupProfile UP-TO-DATE
-> Task :android-host:mergeExtDexRelease FROM-CACHE
-> Task :android-host:mergeDexRelease FROM-CACHE
-> Task :android-host:mergeReleaseArtProfile
-> Task :android-host:mergeReleaseGlobalSynthetics FROM-CACHE
-> Task :android-host:compileReleaseArtProfile FROM-CACHE
+> Task :android-host:processReleaseMainManifest
+> Task :android-host:processReleaseManifest
+> Task :android-host:desugarReleaseFileDependencies
+> Task :android-host:mergeReleaseStartupProfile
+> Task :android-host:mergeReleaseResources
+> Task :android-host:compileReleaseKotlin
+> Task :android-host:processDebugManifestForPackage
+> Task :android-host:processReleaseManifestForPackage
+> Task :android-host:mergeExtDexRelease
+> Task :android-host:compileReleaseJavaWithJavac NO-SOURCE
 > Task :android-host:generateReleaseAssets UP-TO-DATE
+> Task :android-host:mergeReleaseArtProfile
 > Task :android-host:mergeReleaseAssets
-> Task :android-host:compressReleaseAssets FROM-CACHE
+> Task :android-host:compressReleaseAssets
 > Task :android-host:extractReleaseVersionControlInfo
 > Task :android-host:extractProguardFiles
 > Task :android-host:generateReleaseLintVitalReportModel
-> Task :android-host:lintVitalAnalyzeRelease FROM-CACHE
-> Task :android-host:lintVitalReportRelease SKIPPED
-> Task :android-host:lintVitalRelease SKIPPED
 > Task :android-host:processReleaseJavaRes
-> Task :android-host:packageDebug
-> Task :android-host:createDebugApkListingFileRedirect
-> Task :android-host:assembleDebug
-> Task :android-host:optimizeReleaseResources FROM-CACHE
 > Task :android-host:collectReleaseDependencies
-> Task :android-host:mergeReleaseJavaResource
 > Task :android-host:sdkReleaseDependencyData
 > Task :android-host:writeReleaseAppMetadata
 > Task :android-host:writeReleaseSigningConfigVersions
 > Task :android-host:preDebugAndroidTestBuild SKIPPED
-> Task :android-host:bundleDebugClassesToCompileJar
 > Task :android-host:generateDebugLintReportModel
-> Task :android-host:generateDebugAndroidTestLintModel
 > Task :android-host:preDebugUnitTestBuild UP-TO-DATE
-> Task :android-host:generateDebugUnitTestLintModel
-> Task :android-host:lintAnalyzeDebug FROM-CACHE
-> Task :android-host:lintAnalyzeDebugAndroidTest FROM-CACHE
-> Task :android-host:lintAnalyzeDebugUnitTest FROM-CACHE
-> Task :android-host:bundleDebugClassesToRuntimeJar
-> Task :android-host:compileDebugUnitTestKotlin FROM-CACHE
 > Task :android-host:javaPreCompileDebugUnitTest FROM-CACHE
+> Task :android-host:mergeReleaseJavaResource
+> Task :android-host:processReleaseResources
+> Task :android-host:processDebugResources
+> Task :android-host:dexBuilderRelease
+> Task :android-host:dexBuilderDebug
+> Task :android-host:mergeProjectDexDebug
+> Task :android-host:mergeReleaseGlobalSynthetics
+> Task :android-host:bundleDebugClassesToRuntimeJar
+> Task :android-host:bundleDebugClassesToCompileJar
+> Task :android-host:generateDebugAndroidTestLintModel
+> Task :android-host:generateDebugUnitTestLintModel
+> Task :android-host:packageDebug
+> Task :android-host:createDebugApkListingFileRedirect
+> Task :android-host:assembleDebug
+> Task :android-host:optimizeReleaseResources
+> Task :android-host:compileDebugUnitTestKotlin
 > Task :android-host:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :android-host:processDebugUnitTestJavaRes
-> Task :android-host:testDebugUnitTest FROM-CACHE
-> Task :android-host:test UP-TO-DATE
+> Task :android-host:mergeDexRelease
+> Task :android-host:lintVitalAnalyzeRelease
+> Task :android-host:testDebugUnitTest
+> Task :android-host:test
+> Task :android-host:compileReleaseArtProfile
+> Task :android-host:lintVitalReportRelease SKIPPED
+> Task :android-host:lintVitalRelease SKIPPED
 > Task :android-host:packageRelease
 > Task :android-host:createReleaseApkListingFileRedirect
 > Task :android-host:assembleRelease
 > Task :android-host:assemble
+> Task :android-host:lintAnalyzeDebugUnitTest
+> Task :android-host:lintAnalyzeDebugAndroidTest
+> Task :android-host:lintAnalyzeDebug
 > Task :android-host:lintReportDebug
 > Task :android-host:lintDebug
 > Task :android-host:lint
 > Task :android-host:check
 > Task :android-host:build
 
-BUILD SUCCESSFUL in 29s
-153 actionable tasks: 74 executed, 78 from cache, 1 up-to-date
+[Incubating] Problems report is available at: file:///home/sketch/Projects/DLL17/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 3m 33s
+153 actionable tasks: 138 executed, 10 from cache, 5 up-to-date
 Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.0/userguide/configuration_cache_enabling.html

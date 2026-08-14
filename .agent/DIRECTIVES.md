@@ -139,3 +139,17 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Related directive: none
 - Status at issuance: ISSUED
 
+## D-009
+
+- Issued: 2026-08-13T19:10:00-04:00
+- Issuer: User
+- External directive: D009
+- Objective: Revise the disposable A000 FULL candidate in response to the accepted D008 negative evidence, so the organism is ready for A001, without altering the curiosity-envelope thresholds and without consuming the programme's single allowed threshold-only revision.
+- Scope: Resolve the long-run population convergence and closest-pair differentiation failures; give the organism bounded reconsideration and re-sampling of a previously rejected option after outcome evidence changes; either materially revise the episodic mechanism so it demonstrably contributes to history-dependent individuality or remove it from FULL and update the ablation family; revise curiosity and anti-convergence behaviour so at least one common configuration returns NON_EMPTY_FEASIBLE_REGION under the existing frozen thresholds; re-run the complete accelerated qualification suite and the complete joint envelope search; add targeted fixtures where necessary; preserve all D008 failed results and configurations as durable negative evidence; and push a commit with passing GitHub CI.
+- Exclusions: Altering the curiosity-envelope thresholds; consuming the threshold-only revision; weakening, removing or redefining existing technical floors; weakening ScriptedPetBaselineV1 or DegradedScriptedControlV1 or SpikeExpressionContractV1; baseline human competence qualification; BlindVariancePilotV1 execution; A001 recruitment; A001 scored sessions; A001 result analysis; R003 through R009 production implementation; beginning D010.
+- Acceptance: The revised candidate remains bounded and numerically stable, existing long-run differentiation and diversity floors pass, previously rejected alternatives can be boundedly re-explored after contingency or devaluation changes, the episodic mechanism either demonstrates a positive contribution or is removed from FULL, CuriosityBalanceEnvelopeV1 returns NON_EMPTY_FEASIBLE_REGION, curiosity thresholds remain unchanged, substantive-spontaneity attribution still passes, all prior negative evidence remains preserved, research and production isolation remains intact, a reproducible revised A000 evidence bundle exists, R000 and R001 and R002 qualification remains green, GitHub CI passes, the work is committed and pushed to main, local HEAD equals origin/main, the final worktree is clean, and no R003 through R009 production mechanism is introduced.
+- Risk class: NORMAL
+- Relationship: amends
+- Related directive: D-008
+- Status at issuance: ISSUED
+

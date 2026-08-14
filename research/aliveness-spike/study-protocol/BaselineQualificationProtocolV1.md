@@ -24,10 +24,11 @@ before it is used to judge FULL. The FULL team may not self-certify it.
 ## Objective pre-evidence
 
 Not a substitute for the human endpoint, but recorded because it is available
-now. Over 40 virtual days on a matched seed and habitat, the strong baseline
-produced 9.0 distinct objects inspected per day, 2.66 bits of action entropy and
-a 0.39 inactivity share; the degraded control produced 1.0, 1.36 bits and 0.70.
-The intended competence gap is real in the objective measures.
+now. Over 40 virtual days on a matched seed and habitat under the D009 habitat,
+the strong baseline produced 9.18 distinct objects inspected per day, 2.63 bits
+of action entropy and a 0.39 inactivity share; the degraded control produced
+1.00, 1.38 bits and 0.70. The intended competence gap is real in the objective
+measures, and unchanged from D008.
 
 ## Blocked
 

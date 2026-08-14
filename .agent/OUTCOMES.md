@@ -179,3 +179,25 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: A001 cannot begin. Two blockers are structural rather than technical: the reviewer roster is unassigned, and the empty feasible set requires the reviewer's determination.
 - Follow-up directive: none
 
+## D-009 - COMPLETE
+
+- Outcome ID: O-0009
+- Supersedes outcome: none
+- Closed: 2026-08-13T20:40:00-04:00
+- Acceptance: MET
+- Summary: All four accepted D008 failures are resolved under unchanged curiosity thresholds, and the programme's single allowed threshold-only revision remains unspent. Mean population differentiation rose from 0.052 to 0.163, the closest pair from 0.019 to 0.074, final-window diversity from 0.034 to 0.103 and matched-stimulus history divergence from 0.325 to 0.610. A controlled reversal protocol shows a rejected food source re-sampled twenty ticks after the contingency flipped, rising from 0.13 to 32.5 uses a day while the devalued source fell from 31.1 to zero. The episodic mechanism was revised into a context-conditioned salience-retained form, given circadian habitat structure to learn from, measured across a five-seed matrix, and then removed from FULL because it still did not contribute; the ablation family is now two arms and the cohort is retained inverted so the negative result stays reproducible. The joint curiosity envelope returns NON_EMPTY_FEASIBLE_REGION with twenty-seven of twenty-seven grid points feasible and robust, against zero of twenty-seven under D008, on the identical grid, seed matrix, fixture and thresholds. All twenty-four accelerated findings hold. The two scripted comparators and the presentation contract are unchanged and the baseline is within noise of its D008 measures.
+- Changed areas: research/aliveness-spike/, governance/release-gates/A000_EXIT_GATE.md, governance/qualification/, docs/decisions/DECISION_LOG.md, docs/invariants/INVARIANT_REGISTRY.md, qualification/fixtures/A000/, qualification/longitudinal/A000/, qualification/evidence/A000/, tools/build_qualification_bundle.py, .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py covering six production modules - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering R000 and R001 and R002 at their pinned commits and A000 live - PASSED
+  - python3 tools/generate_lookup_tables.py --check - PASSED
+  - ./gradlew clean build covering ten modules - PASSED
+  - ./gradlew :desktop-runner:run reproducing both frozen production digests - PASSED
+  - ./gradlew :research:aliveness-spike:accelerated-sim:run reproducing the revised A000 digest - PASSED
+  - ./gradlew :research:aliveness-spike:analysis:run returning NON_EMPTY_FEASIBLE_REGION - PASSED
+- Remaining risks: A001 remains blocked because IndependentReviewRosterV1 names nobody in any of its three roles, which no amount of code resolves. The human leave-one-out family is now two arms rather than three, and choosing a replacement third arm requires a new preregistered plan. The scripted baseline still has no human competence qualification. Substantive spontaneity attribution fell from 0.946 to 0.877 while staying well clear of its 0.700 floor, which is the expected direction for an organism spending far more time in genuinely optional behaviour but is worth watching. Two learning laws and one memory mechanism were changed on the strength of accelerated measures alone, with no human data. The habitat remains abstract with twelve affordances and no space, navigation or sensors, and now carries circadian structure that was added specifically to make a mechanism testable. Cycle regularity and single-action occupancy remain constructs invented for this track, and the envelope result has now turned on both in both directions.
+- Blockers: A001 cannot begin while the reviewer roster is unassigned.
+- Follow-up directive: none
+

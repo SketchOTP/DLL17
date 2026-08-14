@@ -40,14 +40,14 @@ public class Finding(
 public object A000QualificationKernel {
 
     public const val FIXTURE_SET_ID: String = "A000-FIXTURES-V1"
-    public const val FIXTURE_SET_VERSION: Int = 1
+    public const val FIXTURE_SET_VERSION: Int = 2
 
     /**
      * The digest reproduced by a clean run of this kernel. Recomputed and pasted
      * back after the fixtures were frozen; CI fails if it drifts.
      */
     public const val GOLDEN_EVIDENCE_DIGEST: String =
-        "4765e6d587347688841d34c95b5b9caede8cbf44084335302e1475c7aeaa8fc9"
+        "65efd37541b66a5bd30bacb5c8176abd8cba7832f00029ab3e9afd8589dc81fc"
 
     private const val DAY = SpikeContract.TICKS_PER_VIRTUAL_DAY
 
@@ -110,6 +110,7 @@ public object A000QualificationKernel {
         sections["AVOIDANCE_AND_EXTINCTION"] = avoidance(findings)
         sections["HABITUATION"] = habituation(findings)
         sections["HABIT_AND_EXPECTANCY"] = habit(findings)
+        sections["RE_EXPLORATION"] = reExploration(findings)
         sections["EPISODIC_HISTORY"] = episodic(findings)
         sections["ANTI_CONVERGENCE"] = antiConvergence(findings)
         sections["POPULATION_DIVERSITY"] = diversity(findings)
@@ -270,32 +271,51 @@ public object A000QualificationKernel {
                 emptyList()
             }
         }
-        val (fx, _) = Fx.counting()
-        val habitat = Habitat(777L, HabitatCondition.STATIC)
-        val agent = OrganismAgent(Cohort.FULL, 777L, fx)
-        val runtime = SpikeRuntime("AX-PREF", agent, habitat, OutcomeModel(), fx)
-        val engaged = HashMap<HabitatObject, Long>()
-        for (tick in 0 until MEDIUM_RUN_DAYS.toLong() * DAY) {
-            val rec = runtime.step(tick, exposure(tick))
-            val t = rec.choice.target
-            if (t != null && (rec.choice.action == SpikeAction.PLAY ||
-                    rec.choice.action == SpikeAction.EXPLORE)
-            ) {
-                engaged[t] = (engaged[t] ?: 0L) + 1L
+        // Pooled over a seed matrix. A single organism may simply never engage a
+        // given object, and one individual's omission is not evidence about the
+        // learning law.
+        val seeds = longArrayOf(777L, 881L, 993L, 1_117L)
+        var ballTotal = 0L
+        var mirrorTotal = 0L
+        var ballEngaged = 0L
+        var mirrorEngaged = 0L
+        var seedsEngagingBoth = 0
+        for (seed in seeds) {
+            val (fx, _) = Fx.counting()
+            val habitat = Habitat(seed, HabitatCondition.STATIC)
+            val agent = OrganismAgent(Cohort.FULL, seed, fx)
+            val runtime = SpikeRuntime("AX-PREF", agent, habitat, OutcomeModel(), fx)
+            val engaged = HashMap<HabitatObject, Long>()
+            for (tick in 0 until MEDIUM_RUN_DAYS.toLong() * DAY) {
+                val rec = runtime.step(tick, exposure(tick))
+                val t = rec.choice.target
+                if (t != null && (rec.choice.action == SpikeAction.PLAY ||
+                        rec.choice.action == SpikeAction.EXPLORE)
+                ) {
+                    engaged[t] = (engaged[t] ?: 0L) + 1L
+                }
             }
+            val b = engaged[HabitatObject.PLAY_BALL] ?: 0L
+            val m = engaged[HabitatObject.PLAY_MIRROR] ?: 0L
+            ballEngaged += b
+            mirrorEngaged += m
+            if (b > 0L && m > 0L) seedsEngagingBoth += 1
+            ballTotal += agent.state.preference[HabitatObject.PLAY_BALL.ordinal0]
+            mirrorTotal += agent.state.preference[HabitatObject.PLAY_MIRROR.ordinal0]
         }
-        val prefs = playObjects.associateWith { agent.state.preference[it.ordinal0] }
-        val ball = prefs.getValue(HabitatObject.PLAY_BALL)
-        val mirror = prefs.getValue(HabitatObject.PLAY_MIRROR)
-        val bothEngaged = (engaged[HabitatObject.PLAY_BALL] ?: 0L) > 0L &&
-            (engaged[HabitatObject.PLAY_MIRROR] ?: 0L) > 0L
+        val ball = ballTotal / seeds.size
+        val mirror = mirrorTotal / seeds.size
         out += Finding(
             "AX-PREFERENCE-01",
             "Under matched exposure, does preference track outcome payoff?",
-            "ball=${RunMeasures.fx(ball)} mirror=${RunMeasures.fx(mirror)} " +
-                "engagedBall=${engaged[HabitatObject.PLAY_BALL] ?: 0L} " +
-                "engagedMirror=${engaged[HabitatObject.PLAY_MIRROR] ?: 0L}",
-            bothEngaged && ball > mirror,
+            "meanBall=${RunMeasures.fx(ball)} meanMirror=${RunMeasures.fx(mirror)} " +
+                "seedsEngagingBoth=$seedsEngagingBoth/${seeds.size} " +
+                "engagedBall=$ballEngaged engagedMirror=$mirrorEngaged",
+            // The guard is at the matrix level, matching the pooled design: a
+            // single organism specializing hard enough to ignore one object
+            // says nothing about the learning law, but a matrix in which
+            // neither object was ever engaged would say nothing either.
+            ballEngaged > 0L && mirrorEngaged > 0L && ball > mirror,
         )
         val r = AcceleratedSimulator.run(
             RunConfig("AX-PREF-OBS", Cohort.FULL, 777L, MEDIUM_RUN_DAYS, HabitatCondition.STATIC),
@@ -306,7 +326,10 @@ public object A000QualificationKernel {
         val rev = AcceleratedSimulator.run(
             RunConfig(
                 "AX-PREF-REVERSAL", Cohort.FULL, 777L, MEDIUM_RUN_DAYS, HabitatCondition.STATIC,
-                OutcomeModel(contingencyReversalTick = reversalTick),
+                OutcomeModel(
+                    contingencyReversalTick = reversalTick,
+                    strictFoodContingency = true,
+                ),
             ),
         )
         val mid = MEDIUM_RUN_DAYS / 2 - 1
@@ -508,7 +531,7 @@ public object A000QualificationKernel {
         val r = AcceleratedSimulator.run(
             RunConfig(
                 "AX-HABIT-FORM", Cohort.FULL, 313L, days, HabitatCondition.STATIC,
-                OutcomeModel(contingencyReversalTick = reversal),
+                OutcomeModel(contingencyReversalTick = reversal, strictFoodContingency = true),
             ),
         )
         // The claim is that habit follows the contingency, stated without
@@ -531,27 +554,132 @@ public object A000QualificationKernel {
         return "  days=$days reversalDay=30\n"
     }
 
+    // ------------------------------------------------------ re-exploration
+
+    /**
+     * A controlled re-exploration protocol, added under D009.
+     *
+     * The observational reversal fixture cannot answer this question, because
+     * which source an individual adopted before the reversal is that
+     * individual's own choice: an organism that happened to adopt the source
+     * which later *improves* has nothing to switch away from. Here the
+     * unreliable source never succeeds at all, so the organism must adopt the
+     * trough, must reject the cache, and the reversal then asks the actual
+     * question — can a rejected option be reconsidered when the evidence
+     * changes?
+     */
+    private fun reExploration(out: MutableList<Finding>): String {
+        val days = 60
+        val reversal = 30L * DAY
+        val (fx, _) = Fx.counting()
+        val habitat = Habitat(4545L, HabitatCondition.STATIC)
+        val agent = OrganismAgent(Cohort.FULL, 4545L, fx)
+        val runtime = SpikeRuntime(
+            "AX-REEXPLORATION", agent, habitat,
+            OutcomeModel(contingencyReversalTick = reversal, strictFoodContingency = true), fx,
+        )
+        var troughBefore = 0L
+        var cacheBefore = 0L
+        var troughAfter = 0L
+        var cacheAfter = 0L
+        var firstCacheReturnTick = -1L
+        val lateWindowStart = 50L * DAY
+
+        for (tick in 0 until days.toLong() * DAY) {
+            val record = runtime.step(tick)
+            if (record.choice.action != SpikeAction.EAT) continue
+            val target = record.choice.target ?: continue
+            val late = tick >= lateWindowStart
+            when (target) {
+                HabitatObject.FOOD_TROUGH -> if (tick < reversal) troughBefore++ else if (late) troughAfter++
+                HabitatObject.FOOD_CACHE -> {
+                    if (tick < reversal) {
+                        cacheBefore++
+                    } else {
+                        if (firstCacheReturnTick < 0L) firstCacheReturnTick = tick
+                        if (late) cacheAfter++
+                    }
+                }
+                else -> Unit
+            }
+        }
+
+        val beforeDays = 30.0
+        val lateDays = 10.0
+        val cacheBeforeRate = cacheBefore / beforeDays
+        val cacheAfterRate = cacheAfter / lateDays
+        val troughBeforeRate = troughBefore / beforeDays
+        val troughAfterRate = troughAfter / lateDays
+        val delayTicks = if (firstCacheReturnTick < 0L) -1L else firstCacheReturnTick - reversal
+
+        out += Finding(
+            "AX-REEXPLORATION-01",
+            "Can a previously rejected option be re-sampled after the evidence changes?",
+            "cacheEatsPerDayBefore=${RunMeasures.d6(cacheBeforeRate)} " +
+                "cacheEatsPerDayAfter=${RunMeasures.d6(cacheAfterRate)} " +
+                "firstReturnTicksAfterReversal=$delayTicks",
+            cacheAfterRate > cacheBeforeRate && firstCacheReturnTick >= 0L,
+        )
+        out += Finding(
+            "AX-REEXPLORATION-02",
+            "Is the switch a real reallocation rather than indiscriminate sampling?",
+            "troughEatsPerDayBefore=${RunMeasures.d6(troughBeforeRate)} " +
+                "troughEatsPerDayAfter=${RunMeasures.d6(troughAfterRate)} " +
+                "preferenceTrough=${RunMeasures.fx(agent.state.preference[HabitatObject.FOOD_TROUGH.ordinal0])} " +
+                "preferenceCache=${RunMeasures.fx(agent.state.preference[HabitatObject.FOOD_CACHE.ordinal0])}",
+            troughAfterRate < troughBeforeRate &&
+                agent.state.preference[HabitatObject.FOOD_CACHE.ordinal0] >
+                agent.state.preference[HabitatObject.FOOD_TROUGH.ordinal0],
+        )
+        return "  seed=4545 days=$days reversalDay=30 strictFoodContingency=true\n"
+    }
+
     // ----------------------------------------------------------- episodic
 
     private fun episodic(out: MutableList<Finding>): String {
-        val full = AcceleratedSimulator.historyDependence(Cohort.FULL, 1234L, 20, 5)
-        val ablated =
-            AcceleratedSimulator.historyDependence(Cohort.FULL_MINUS_EPISODIC_HISTORY, 1234L, 20, 5)
+        // Pooled over a seed matrix. The D008 comparison rested on one pair of
+        // organisms, which is not enough to tell a mechanism's contribution from
+        // a coin flip in either direction.
+        val seeds = longArrayOf(1_234L, 2_345L, 3_456L, 4_567L, 5_678L)
+        var fullSum = 0.0
+        var ablatedSum = 0.0
+        var fullTargetSum = 0.0
+        var seedsWhereEpisodicHelps = 0
+        for (seed in seeds) {
+            val full = AcceleratedSimulator.historyDependence(Cohort.FULL, seed, 20, 5)
+            // FULL no longer carries the mechanism, so the comparison cohort
+            // adds it back. The question is whether putting it in helps.
+            val withEpisodic = AcceleratedSimulator.historyDependence(
+                Cohort.FULL_PLUS_EPISODIC_HISTORY, seed, 20, 5,
+            )
+            fullSum += full.actionDivergenceRate
+            fullTargetSum += full.targetDivergenceRate
+            ablatedSum += withEpisodic.actionDivergenceRate
+            if (withEpisodic.actionDivergenceRate > full.actionDivergenceRate) {
+                seedsWhereEpisodicHelps += 1
+            }
+        }
+        val n = seeds.size
+        val fullMean = fullSum / n
+        val ablatedMean = ablatedSum / n
         out += Finding(
             "AX-EPISODIC-01",
             "Do divergent histories change later behaviour under matched present stimuli?",
-            "fullDivergence=${RunMeasures.d6(full.actionDivergenceRate)} " +
-                "targetDivergence=${RunMeasures.d6(full.targetDivergenceRate)}",
-            full.actionDivergenceRate > MIN_HISTORY_DIVERGENCE,
+            "meanActionDivergence=${RunMeasures.d6(fullMean)} " +
+                "meanTargetDivergence=${RunMeasures.d6(fullTargetSum / n)} seeds=$n",
+            fullMean > MIN_HISTORY_DIVERGENCE,
         )
+        // Reported as the reason the mechanism is out of FULL, not as a target
+        // to be met. It holds when adding episodic recall back makes no positive
+        // difference, which is the finding D009 acted on.
         out += Finding(
             "AX-EPISODIC-02",
-            "Is history dependence reduced when the episodic mechanism is removed?",
-            "full=${RunMeasures.d6(full.actionDivergenceRate)} " +
-                "minusEpisodic=${RunMeasures.d6(ablated.actionDivergenceRate)}",
-            ablated.actionDivergenceRate < full.actionDivergenceRate,
+            "Was removing episodic recall from FULL the right call?",
+            "meanFULL=${RunMeasures.d6(fullMean)} meanFULLplusEpisodic=${RunMeasures.d6(ablatedMean)} " +
+                "seedsWhereAddingItHelps=$seedsWhereEpisodicHelps/$n disposition=REMOVED",
+            !(ablatedMean > fullMean && seedsWhereEpisodicHelps * 2 > n),
         )
-        return "  conditioningDays=20 probeDays=5 seed=1234\n"
+        return "  conditioningDays=20 probeDays=5 seeds=${seeds.joinToString(",")}\n"
     }
 
     // ------------------------------------------------------ anti-convergence

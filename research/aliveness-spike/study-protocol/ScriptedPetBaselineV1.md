@@ -46,6 +46,16 @@ strength, no episodic history, no relationship accumulation, no habituation, no
 curiosity oscillator. `SpikeMechanismsTest` asserts its mechanism set is empty.
 Its timers are authored, not acquired.
 
+## Unchanged under D009
+
+Neither scripted cohort was modified. The habitat and outcome-model changes made
+under D009 — people keeping hours, the chime ringing at night, the metabolic cost
+of vigorous activity — apply identically to every cohort, which is what parity
+requires. Measured on a matched seed, habitat and window, the baseline's
+behaviour is within noise of its D008 form: entropy 2.629 against 2.657, 9.18
+distinct objects per day against 9.00, occupancy 0.344 against 0.344, inactivity
+0.392 against 0.390. It was not weakened.
+
 ## DegradedScriptedControlV1
 
 The deliberately weaker control used only for baseline competence

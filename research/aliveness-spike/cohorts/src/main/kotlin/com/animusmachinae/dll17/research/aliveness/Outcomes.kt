@@ -26,6 +26,19 @@ public class OutcomeModel(
     public val contingencyReversalTick: Long = Long.MAX_VALUE,
     /** After this tick the neglectful person becomes attentive. */
     public val betaBecomesAttentiveTick: Long = Long.MAX_VALUE,
+    /**
+     * When true the currently unreliable food source never succeeds at all,
+     * so which source an individual adopts is a property of the protocol
+     * rather than of that individual's early tie-breaks.
+     */
+    public val strictFoodContingency: Boolean = false,
+    /**
+     * Swaps which half of the day each person keeps. Two conditioning histories
+     * that differ only in *when* someone responds produce identical context-free
+     * preferences and different context-conditioned memories, which is the only
+     * way to measure what episodic recall contributes over preference alone.
+     */
+    public val socialHoursShifted: Boolean = false,
 ) {
 
     public fun resolve(
@@ -59,8 +72,11 @@ public class OutcomeModel(
         }
         // Even a reliable source fails occasionally, on a fixed schedule, so
         // "reliable" is a learnable statistic rather than a constant.
-        val cadence = if (reliable) 7L else 3L
-        val success = if (reliable) tick % cadence != 0L else tick % cadence == 0L
+        val success = when {
+            reliable -> tick % 7L != 0L
+            strictFoodContingency -> false
+            else -> tick % 3L == 0L
+        }
         return Outcome(
             success = success,
             valence = if (success) STRONG_POSITIVE else MILD_NEGATIVE,
@@ -76,10 +92,28 @@ public class OutcomeModel(
         tick: Long,
         state: OrganismState,
     ): Outcome {
+        // People keep hours. Alpha responds mostly in the first half of the day
+        // and beta mostly in the second, which gives context-conditioned memory
+        // something real to condition on. Without any circadian structure in the
+        // habitat, an episodic mechanism has no conjunction to learn and can
+        // only duplicate the context-free preference — which is exactly what the
+        // D008 measurement showed it doing.
+        val quarter = ((tick % SpikeContract.TICKS_PER_VIRTUAL_DAY) *
+            4L / SpikeContract.TICKS_PER_VIRTUAL_DAY).toInt()
+        val alphaHours = if (socialHoursShifted) {
+            quarter == 0 || quarter == 3
+        } else {
+            quarter == 1 || quarter == 2
+        }
+        val betaHours = !alphaHours
         val attentive = when (target) {
-            HabitatObject.PERSON_ALPHA -> (tick / 37L) % 4L != 3L
+            HabitatObject.PERSON_ALPHA -> alphaHours && (tick / 37L) % 5L != 4L
             HabitatObject.PERSON_BETA ->
-                if (tick >= betaBecomesAttentiveTick) (tick / 37L) % 4L != 3L else (tick / 37L) % 5L == 0L
+                if (tick >= betaBecomesAttentiveTick) {
+                    betaHours && (tick / 37L) % 5L != 4L
+                } else {
+                    betaHours && (tick / 37L) % 5L == 0L
+                }
             else -> false
         }
         return when (action) {
@@ -120,7 +154,17 @@ public class OutcomeModel(
         val payoff = when (target) {
             HabitatObject.PLAY_BALL -> STRONG_POSITIVE
             HabitatObject.PLAY_CUBE -> MILD_POSITIVE
-            HabitatObject.PLAY_CHIME -> if ((tick / 211L) % 2L == 0L) MILD_POSITIVE else NEUTRAL
+            // The chime only rings in the small hours, so an organism that
+            // learned "the chime is worth visiting at night" knows something its
+            // context-free preference cannot express.
+            HabitatObject.PLAY_CHIME ->
+                if ((tick % SpikeContract.TICKS_PER_VIRTUAL_DAY) * 4L /
+                    SpikeContract.TICKS_PER_VIRTUAL_DAY == 3L
+                ) {
+                    STRONG_POSITIVE
+                } else {
+                    NEUTRAL
+                }
             HabitatObject.PLAY_MIRROR -> NEUTRAL
             else -> MILD_POSITIVE
         }

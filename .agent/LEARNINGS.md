@@ -277,3 +277,43 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Scope: Any future causal attribution over this organism's action selection.
 - Supersedes learning: none
 
+## L-0027
+
+- Learning ID: L-0027
+- Date: 2026-08-13
+- Fact or lesson: A tier promotion that fires on a schedule rather than on a need silently owns the whole schedule. Promoting rest to Tier 3 for the entire night, regardless of whether the organism was tired, meant Tier 3 outranked Tier 4 every night; one action took nearly half the tick budget and the successor of almost any action was that action. A circadian preference belongs in the utility term where it competes, not in the tier where it wins by construction.
+- Evidence location: research/aliveness-spike/cohorts/Controller.kt tierForRest; occupancy 0.468 to 0.357 and cycle regularity 0.924 to 0.369; IMPL-0037.
+- Confidence: VERIFIED
+- Scope: Every future use of the canonical tier model, including the R004 production controller.
+- Supersedes learning: none
+
+## L-0028
+
+- Learning ID: L-0028
+- Date: 2026-08-13
+- Fact or lesson: One suppression term cannot prevent behavioural lock-in, because under continuous engagement it saturates and a uniformly saturated term stops discriminating. Three small bounds acting on different things worked where one large one did not: satiation on the kind of activity, a refractory on the object, and a metabolic cost on the body. Each is individually gentle, and the organism still cannot spend its life on one thing.
+- Evidence location: research/aliveness-spike/cohorts/Mechanisms.kt and Controller.kt; single-action occupancy from 0.593 through 0.468 to 0.357 across the three additions; IMPL-0041.
+- Confidence: VERIFIED
+- Scope: Any future anti-convergence or attention-allocation mechanism.
+- Supersedes learning: none
+
+## L-0029
+
+- Learning ID: L-0029
+- Date: 2026-08-13
+- Fact or lesson: Directed exploration must be damped by fear or it becomes a mechanism for walking into known harm. Uncertainty about an avoided object keeps growing precisely because it is avoided, which made the aversive object the most information-rich thing in the habitat and drew the organism back into it dozens of times a day. Avoidance also has to cover attending, not only approaching.
+- Evidence location: research/aliveness-spike/cohorts/Controller.kt habitExpectancy and eligible; threat count per thirty virtual days from 2,610 to 14; IMPL-0039.
+- Confidence: VERIFIED
+- Scope: Any future curiosity or information-seeking term that coexists with a threat model.
+- Supersedes learning: none
+
+## L-0030
+
+- Learning ID: L-0030
+- Date: 2026-08-13
+- Fact or lesson: A single-organism comparison cannot tell a mechanism's contribution from a coin flip. Two of the D008 findings rested on one pair of organisms; pooled over a proper seed matrix, one reversed sign and the other turned out to be a tie. Specialization makes this worse rather than better: a healthy candidate produces individuals that ignore whole parts of the habitat, so one individual's omission says nothing about the learning law.
+- Evidence location: A000QualificationKernel preference and episodic sections; AX-PREFERENCE-01 and AX-EPISODIC-02 before and after pooling; DEC-0024.
+- Confidence: VERIFIED
+- Scope: Every mechanism-contribution claim in this programme.
+- Supersedes learning: none
+

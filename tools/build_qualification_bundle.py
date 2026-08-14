@@ -274,7 +274,8 @@ SPIKE_CONTRACTS = [
     "research/aliveness-spike/study-protocol/README.md",
     "research/aliveness-spike/study-protocol/SpikeExpressionContractV1.md",
     "research/aliveness-spike/study-protocol/SpikeDecisionTraceV1.md",
-    "research/aliveness-spike/study-protocol/MechanismCoalitionSetV1.md",
+    "research/aliveness-spike/study-protocol/MechanismCoalitionSetV2.md",
+    "research/aliveness-spike/study-protocol/MechanismRevisionD009.md",
     "research/aliveness-spike/study-protocol/CoalitionValueFunctionV1.md",
     "research/aliveness-spike/study-protocol/SpontaneousActionAttributionV1.md",
     "research/aliveness-spike/study-protocol/CuriosityBalanceEnvelopeV1.md",
@@ -309,6 +310,14 @@ A000_CONSTITUENTS: list[tuple[str, list[str]]] = [
             "qualification/fixtures/A000/GOLDEN_VECTORS.md",
             "qualification/fixtures/A000/A000_REPORT.txt",
             "qualification/longitudinal/A000/ACCELERATED_FINDINGS.md",
+        ],
+    ),
+    (
+        "Preserved negative evidence",
+        [
+            "research/aliveness-spike/evidence/negative/D008/NEGATIVE_EVIDENCE.md",
+            "research/aliveness-spike/evidence/negative/D008/A000_REPORT_D008.txt",
+            "research/aliveness-spike/evidence/negative/D008/CURIOSITY_ENVELOPE_SEARCH_D008.txt",
         ],
     ),
     (
@@ -395,8 +404,8 @@ PHASES: dict[str, PhaseSpec] = {
     "A000": PhaseSpec(
         phase="A000",
         title="disposable aliveness spike research track",
-        directive="D008",
-        bundle_version="A000-QB-1",
+        directive="D008, D009",
+        bundle_version="A000-QB-2",
         bundle_path="governance/qualification/A000_QUALIFICATION_BUNDLE.md",
         constituents=A000_CONSTITUENTS,
         frozen_at_commit=None,

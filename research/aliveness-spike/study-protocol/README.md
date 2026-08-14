@@ -16,10 +16,11 @@ Each document carries one of three statuses:
 |---|---|
 | [SpikeExpressionContractV1](SpikeExpressionContractV1.md) | `FROZEN` |
 | [SpikeDecisionTraceV1](SpikeDecisionTraceV1.md) | `FROZEN` |
-| [MechanismCoalitionSetV1](MechanismCoalitionSetV1.md) | `FROZEN` |
+| [MechanismCoalitionSetV2](MechanismCoalitionSetV2.md) | `FROZEN` (v2 under D009; membership changed, groups and value function unchanged) |
 | [CoalitionValueFunctionV1](CoalitionValueFunctionV1.md) | `FROZEN` |
 | [SpontaneousActionAttributionV1](SpontaneousActionAttributionV1.md) | `FROZEN` |
-| [CuriosityBalanceEnvelopeV1](CuriosityBalanceEnvelopeV1.md) | `FROZEN` |
+| [CuriosityBalanceEnvelopeV1](CuriosityBalanceEnvelopeV1.md) | `FROZEN` — thresholds unchanged since D008; result now `NON_EMPTY_FEASIBLE_REGION` |
+| [MechanismRevisionD009](MechanismRevisionD009.md) | `FROZEN` |
 | [ScriptedPetBaselineV1](ScriptedPetBaselineV1.md) | `FROZEN` (implementation); competence unqualified |
 | [MaterialChangeEligibilityV1](MaterialChangeEligibilityV1.md) | `FROZEN` |
 | [AlivenessGovernanceAuditV1](AlivenessGovernanceAuditV1.md) | `FROZEN` |

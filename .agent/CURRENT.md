@@ -3,33 +3,35 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-13T18:05:00-04:00`
+- Last updated: `2026-08-13T20:40:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-008
-- External directive ID: D008
-- Objective: Build and qualify the complete disposable A000 Aliveness Spike, isolated from production, so the programme can begin establishing whether the organism hypothesis itself is any good.
+- Local directive ID: D-009
+- External directive ID: D009
+- Objective: Revise the disposable A000 FULL candidate against the accepted D008 negative evidence, under unchanged curiosity-envelope thresholds and without consuming the programme’s single allowed threshold-only revision.
 - Current status: `COMPLETE`
-- Acceptance: A buildable, runnable, isolated A000 research project using only the authorized R001 dependency; a deterministic accelerated simulator and a real-time viewer; all six cohorts running through one presentation contract; the full authorized candidate mechanism set in FULL; SpikeDecisionTraceV1 for autonomous actions; executable and evidenced exact coalition attribution; an actually evaluated CuriosityBalanceEnvelopeV1; a documented viability or failure result from accelerated histories; bounded long-run behaviour; no fabricated human result; pre-A001 contracts frozen where legitimately possible and explicitly blocked where real evidence is required; a reproducible A000 evidence bundle; R000, R001 and R002 still green; CI passing; HEAD matching origin/main; a clean worktree; and no R003 through R009 production mechanism introduced.
-- Current phase: A000 complete. A001 is the next gate and cannot begin. R003 through R009 remain blocked behind A001.
+- Acceptance: The revised candidate stays bounded and numerically stable; the long-run differentiation and diversity floors pass; rejected alternatives can be boundedly re-explored after contingency or devaluation change; the episodic mechanism either contributes or is removed from FULL; CuriosityBalanceEnvelopeV1 returns NON_EMPTY_FEASIBLE_REGION with thresholds unchanged; substantive-spontaneity attribution still passes; all prior negative evidence remains preserved; research and production isolation remains intact; a reproducible revised A000 evidence bundle exists; R000, R001 and R002 remain green; CI passes; HEAD matches origin/main; the worktree is clean; and no R003 through R009 production mechanism is introduced.
+- Current phase: A000 complete and remediated. A001 is the next gate and cannot begin. R003 through R009 remain blocked behind A001.
 - Expected or actual touched areas: research/aliveness-spike/, settings.gradle.kts, governance/release-gates/, governance/qualification/, docs/decisions/, docs/invariants/, docs/architecture/, qualification/fixtures/A000/, qualification/longitudinal/A000/, qualification/evidence/A000/, tools/build_qualification_bundle.py, .github/workflows/ci.yml, .agent/
-- Immediate next action: Hold for architect review of the D-008 completion report; this snapshot is awaiting reset to IDLE once that review closes. Two decisions belong to the architect, namely the empty curiosity-envelope feasible set and the unassigned reviewer roster. Do not begin D009.
+- Immediate next action: Hold for architect review of the D-009 completion report; this snapshot is awaiting reset to IDLE once that review closes. The outstanding architect decisions are the reviewer roster, the aliveness success floor and whether to preregister a replacement third ablation arm. Do not begin D010.
 
 ## Temporary task-relevant facts
 
-- The A000 evidence digest is 4765e6d587347688841d34c95b5b9caede8cbf44084335302e1475c7aeaa8fc9, compiled into A000QualificationKernel.GOLDEN_EVIDENCE_DIGEST and checked by CI.
-- Of twenty-two accelerated findings, seventeen held and five did not, and all five negative findings are preserved with their configurations rather than tuned away.
-- The five negative findings are that the closest pair of organisms is barely distinguishable, that preference devaluation works but switching to the alternative does not follow from it, that removing episodic history increased history dependence rather than reducing it, that the static habitat produces high behavioural regularity over one hundred and eighty days, and that the population partially converges toward a common long-run policy.
-- The curiosity balance envelope search returned EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE. Zero of twenty-seven grid points were jointly feasible. Attribution passed at every point with wide margin; anti-convergence failed at every point on exactly two of five criteria, namely maximum single-action occupancy and cycle regularity.
-- No threshold was altered. CuriosityEnvelopeFeasibilityV1 permits one threshold-only revision ever and reserves the choice to the independent reviewer.
-- Fifteen research contracts exist, of which nine are FROZEN, three are READY_FOR_HUMAN_EVIDENCE and three are blocked. The blocked ones are A001FeasibilityBudgetV1 on BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, IndependentReviewRosterV1 on BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, and the programme success floor inside AlivenessProgramGateV1 on BLOCKED_SPEC_ALIVENESS_SUCCESS_FLOOR.
-- Research isolation is enforced at source level rather than by Gradle, because core-math publishes core-crypto as api and therefore puts it on the compile classpath regardless. SpikeIsolationTest reads every spike source's import list.
-- Two learning laws were rewritten during the track from accumulators to error-corrected estimates. The accumulator form cannot represent reliability at all, which is recorded as a mechanism-design finding.
-- Two hundred and thirty-three JVM tests pass across ten modules, of which one hundred and eighty-nine are production and forty-four are research.
-- R002's qualification bundle is now pinned to its qualified commit 7f6f37fabba6a5ad4af2fd517e62cb4c08dbfeb2, because A000 edits settings.gradle.kts.
-- No production organism behaviour exists. R003 through R009 remain unimplemented, and nothing under research/ is depended on by any production module.
-- D-001 remains recorded as nonconforming, and D-002 through D-007 remain recorded as accepted and complete.
+- The revised A000 evidence digest is 65efd37541b66a5bd30bacb5c8176abd8cba7832f00029ab3e9afd8589dc81fc for fixture set version 2, compiled into A000QualificationKernel.GOLDEN_EVIDENCE_DIGEST and checked by CI.
+- All twenty-four accelerated findings hold. Under D008 five did not.
+- The joint curiosity envelope returns NON_EMPTY_FEASIBLE_REGION with twenty-seven of twenty-seven grid points feasible and robust, against zero of twenty-seven under D008, on the identical grid and seed matrix.
+- No curiosity threshold was altered and the programme's single allowed threshold-only revision remains unspent. Recorded as DEC-0023.
+- Mean population differentiation rose from 0.052 to 0.163, closest-pair from 0.019 to 0.074, final-window diversity from 0.034 to 0.103 and matched-stimulus history divergence from 0.325 to 0.610.
+- Re-exploration is evidenced by a controlled reversal protocol in which a rejected food source went from 0.13 to 32.5 uses a day while the devalued source went from 31.1 to zero, with the first return twenty ticks after the flip.
+- Episodic history was revised and then removed from FULL because the revision still did not contribute. The cohort is retained inverted as FULL+episodic-history so the negative result stays reproducible. Recorded as DEC-0024.
+- The human leave-one-out ablation family is two arms rather than three, and Holm-Bonferroni now corrects across two.
+- Anti-convergence is enforced by three small independent bounds rather than one large one, namely action satiation, a per-object engagement refractory and a metabolic cost for vigorous activity.
+- Substantive spontaneity attribution fell from 0.946 to 0.877 against an unchanged 0.700 floor, which is the expected direction for an organism spending far more time in genuinely optional behaviour.
+- The two scripted comparators and the presentation contract are unchanged, and the baseline is within noise of its D008 measures while remaining far stronger than the degraded control.
+- All D008 failed results and the rejected configuration are preserved in research/aliveness-spike/evidence/negative/D008/ and are bundle constituents.
+- No production organism behaviour exists. Nothing under research/ is depended on by any production module.
+- D-001 remains recorded as nonconforming, and D-002 through D-008 remain recorded as accepted and complete.
 
 ## Last validation after adoption
 
@@ -38,27 +40,25 @@
 
 ## Risks
 
-- The joint curiosity envelope feasible set is empty everywhere. Whether that is an incompatible threshold pair or a mechanism failure is the independent reviewer's determination, and there is no reviewer.
-- IndependentReviewRosterV1 names nobody in any of its three roles, which blocks A001 outright and cannot be resolved by writing code.
-- The scripted baseline is implemented and objectively stronger than the degraded control, but its human competence qualification has not been run and is not claimed.
-- Over a short observation window the scripted baseline produces far more surface variety than FULL, because it rotates a broad authored script while FULL commits to actions and sleeps. Whether variety or coherent motivation reads as more alive is exactly what A001 exists to answer, but the primary comparison will not be an easy win.
-- The A000 habitat is abstract, with twelve affordances and no space, navigation or sensors. Behaviour observed here is behaviour in that habitat.
-- Cycle regularity and single-action occupancy are constructs invented for this track, and the envelope result turns on both of them.
-- The accelerated kernel takes about three minutes and the envelope search about five. The kernel runs in CI; the envelope search does not, and its result is committed evidence rather than a reproduced check.
+- A001 remains blocked because IndependentReviewRosterV1 names nobody in any of its three roles, which no amount of code resolves.
+- The human ablation family is now two arms. Choosing a replacement third arm requires a new preregistered plan and is not the implementer's decision.
+- The scripted baseline still has no human competence qualification, and none is claimed.
+- Two learning laws and one memory mechanism were changed on the strength of accelerated measures alone, with no human data.
+- The habitat remains abstract, and now carries circadian structure that was added specifically to make the episodic mechanism testable.
+- Cycle regularity and single-action occupancy remain constructs invented for this track, and the envelope result has now turned on both in both directions.
+- The accelerated kernel takes about three minutes and the envelope search about eight. The kernel runs in CI; the envelope search does not, and its result is committed evidence rather than a reproduced check.
 - The repository is public while carrying a proprietary licence, and an MIT grant was published for the revisions between the initial commit and the D-005 commit.
 - Governance history contains a permanent nonconformance at D-001 that must not be rewritten by later work. Recorded as DEC-0002.
 
 ## Blockers
 
-- A001 cannot begin. Both blockers are structural rather than technical, namely that the reviewer roster is unassigned and that the empty curiosity-envelope feasible set requires the reviewer's threshold-versus-mechanism determination.
+- A001 cannot begin while IndependentReviewRosterV1 is unassigned. The curiosity-envelope blocker is cleared: the feasible region is non-empty under unchanged thresholds.
 
 ## Pending decisions
 
-- Whether the empty curiosity-envelope feasible set is a threshold incompatibility or a mechanism failure. One threshold-only revision is available, ever.
+- Whether to preregister a replacement third human ablation arm now that the episodic arm has been retired.
 - Who fills PrimaryIndependentAlivenessGateReviewer, AlternateIndependentAlivenessGateReviewer and BaselineIndependentOwner.
 - The programme-level aliveness success floor, which is a value judgement about what complexity is worth and is not derivable from A000 evidence.
-- Whether episodic history should be simplified or removed, given that removing it increased history dependence.
-- Whether the mechanism set needs a re-exploration drive, given that devaluation does not lead to switching.
 - When to freeze RecoveryCryptographyContractV1, which unblocks R002.12 recovery cryptography and the identity-epoch authority.
 - Which production storage provider to select, and which storage engine adopts the durable medium interface.
 - Whether the repository should remain public now that the licence is proprietary.

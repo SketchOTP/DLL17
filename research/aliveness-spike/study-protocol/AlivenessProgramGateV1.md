@@ -15,6 +15,7 @@
 | Consequence of stop | R003–R018 organism and product progression remain blocked; R000–R002 engineering evidence remains valid as infrastructure evidence; no Attempt 4 inside this hypothesis |
 | Floor direction | the program-level success floor may become stricter or stay equivalent, never easier, after Attempt 1 begins |
 | Current program state | `ALIVENESS_UNTESTED`, attempts consumed 0 |
+| Human leave-one-out family | Two arms after D009: `FULL − curiosity anti-convergence` and `FULL − preference learning`. The episodic arm was retired when the mechanism left FULL. Holm-Bonferroni corrects across the comparisons actually tested, so the family-wise correction now runs over two. Adding a replacement third arm requires a new preregistered plan. |
 
 ## Blocked
 

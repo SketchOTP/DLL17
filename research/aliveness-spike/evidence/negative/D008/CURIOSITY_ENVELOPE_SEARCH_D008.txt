@@ -1,0 +1,44 @@
+CURIOSITY_ENVELOPE_CONTRACT=CuriosityBalanceEnvelopeV1
+CURIOSITY_ENVELOPE_VERSION=1
+ATTRIBUTION_CONTRACT=SpontaneousActionAttributionV1 / CoalitionValueFunctionV1
+SEED_MATRIX=1001,2003,3005,4007
+SEARCH_DAYS=40 WINDOW_DAYS=15 HABITAT=STATIC
+GRID_POINTS=27
+
+Requirements, frozen before the search:
+  anti-convergence: entropy>=1.600000 distinctObjects/day>=2.500000 maxOccupancy<=0.450000 revisits/day>=3.000000 cycleRegularity<=0.550000
+  attribution: substantive>=0.700000 oscillatorOrTieBreakOnly<=0.200000
+
+Grid (each row is the mean over the whole seed matrix):
+    0 floor=0.020000 amp=0.080000 inhib=0.060000 | H=1.788903+ obj=5.593750+ occ=0.473137- rev=50.643750+ reg=0.834024- | sub=0.928492+ osc=0.022920+ | anti=n attr=Y joint=no
+    1 floor=0.020000 amp=0.080000 inhib=0.120000 | H=1.766030+ obj=6.225000+ occ=0.475428- rev=34.275000+ reg=0.842134- | sub=0.938301+ osc=0.014760+ | anti=n attr=Y joint=no
+    2 floor=0.020000 amp=0.080000 inhib=0.220000 | H=1.717378+ obj=6.306250+ occ=0.473333- rev=20.781250+ reg=0.857221- | sub=0.951157+ osc=0.009167+ | anti=n attr=Y joint=no
+    3 floor=0.020000 amp=0.150000 inhib=0.060000 | H=1.918960+ obj=6.387500+ occ=0.471389- rev=57.787500+ reg=0.802731- | sub=0.931773+ osc=0.020236+ | anti=n attr=Y joint=no
+    4 floor=0.020000 amp=0.150000 inhib=0.120000 | H=1.796177+ obj=6.531250+ occ=0.471667- rev=35.762500+ reg=0.852771- | sub=0.935845+ osc=0.019686+ | anti=n attr=Y joint=no
+    5 floor=0.020000 amp=0.150000 inhib=0.220000 | H=1.798969+ obj=7.181250+ occ=0.474560- rev=22.637500+ reg=0.830384- | sub=0.945990+ osc=0.008127+ | anti=n attr=Y joint=no
+    6 floor=0.020000 amp=0.260000 inhib=0.060000 | H=1.878162+ obj=6.650000+ occ=0.474861- rev=52.862500+ reg=0.806671- | sub=0.924160+ osc=0.018011+ | anti=n attr=Y joint=no
+    7 floor=0.020000 amp=0.260000 inhib=0.120000 | H=1.841095+ obj=7.225000+ occ=0.472847- rev=36.062500+ reg=0.823264- | sub=0.941483+ osc=0.013139+ | anti=n attr=Y joint=no
+    8 floor=0.020000 amp=0.260000 inhib=0.220000 | H=1.923484+ obj=7.250000+ occ=0.462037- rev=21.168750+ reg=0.844425- | sub=0.943681+ osc=0.007294+ | anti=n attr=Y joint=no
+    9 floor=0.040000 amp=0.080000 inhib=0.060000 | H=1.778021+ obj=5.618750+ occ=0.474491- rev=52.187500+ reg=0.834212- | sub=0.921907+ osc=0.020154+ | anti=n attr=Y joint=no
+   10 floor=0.040000 amp=0.080000 inhib=0.120000 | H=1.785411+ obj=6.200000+ occ=0.470139- rev=34.175000+ reg=0.842927- | sub=0.939002+ osc=0.016852+ | anti=n attr=Y joint=no
+   11 floor=0.040000 amp=0.080000 inhib=0.220000 | H=1.708987+ obj=6.306250+ occ=0.474954- rev=20.968750+ reg=0.857715- | sub=0.949415+ osc=0.006434+ | anti=n attr=Y joint=no
+   12 floor=0.040000 amp=0.150000 inhib=0.060000 | H=1.831446+ obj=6.312500+ occ=0.475266- rev=50.418750+ reg=0.822127- | sub=0.925372+ osc=0.026512+ | anti=n attr=Y joint=no
+   13 floor=0.040000 amp=0.150000 inhib=0.120000 | H=1.780465+ obj=6.162500+ occ=0.468981- rev=34.643750+ reg=0.858199- | sub=0.945388+ osc=0.019441+ | anti=n attr=Y joint=no
+   14 floor=0.040000 amp=0.150000 inhib=0.220000 | H=1.852559+ obj=6.812500+ occ=0.471528- rev=21.125000+ reg=0.837891- | sub=0.954539+ osc=0.006112+ | anti=n attr=Y joint=no
+   15 floor=0.040000 amp=0.260000 inhib=0.060000 | H=1.873249+ obj=6.818750+ occ=0.473993- rev=55.162500+ reg=0.804451- | sub=0.925958+ osc=0.029232+ | anti=n attr=Y joint=no
+   16 floor=0.040000 amp=0.260000 inhib=0.120000 | H=1.851105+ obj=7.275000+ occ=0.476979- rev=36.362500+ reg=0.814828- | sub=0.936258+ osc=0.015318+ | anti=n attr=Y joint=no
+   17 floor=0.040000 amp=0.260000 inhib=0.220000 | H=1.852925+ obj=7.218750+ occ=0.464954- rev=21.725000+ reg=0.844047- | sub=0.943619+ osc=0.007158+ | anti=n attr=Y joint=no
+   18 floor=0.080000 amp=0.080000 inhib=0.060000 | H=1.751430+ obj=4.743750+ occ=0.472419- rev=44.612500+ reg=0.851339- | sub=0.935563+ osc=0.018890+ | anti=n attr=Y joint=no
+   19 floor=0.080000 amp=0.080000 inhib=0.120000 | H=1.714941+ obj=5.350000+ occ=0.473113- rev=29.193750+ reg=0.863401- | sub=0.949869+ osc=0.013952+ | anti=n attr=Y joint=no
+   20 floor=0.080000 amp=0.080000 inhib=0.220000 | H=1.685095+ obj=5.631250+ occ=0.472708- rev=18.037500+ reg=0.876021- | sub=0.965703+ osc=0.005112+ | anti=n attr=Y joint=no
+   21 floor=0.080000 amp=0.150000 inhib=0.060000 | H=1.862265+ obj=6.143750+ occ=0.473542- rev=53.906250+ reg=0.821526- | sub=0.925650+ osc=0.026228+ | anti=n attr=Y joint=no
+   22 floor=0.080000 amp=0.150000 inhib=0.120000 | H=1.794157+ obj=6.400000+ occ=0.466331- rev=36.556250+ reg=0.863265- | sub=0.954623+ osc=0.014397+ | anti=n attr=Y joint=no
+   23 floor=0.080000 amp=0.150000 inhib=0.220000 | H=1.761839+ obj=7.012500+ occ=0.471296- rev=21.843750+ reg=0.857100- | sub=0.955011+ osc=0.006438+ | anti=n attr=Y joint=no
+   24 floor=0.080000 amp=0.260000 inhib=0.060000 | H=1.908393+ obj=6.887500+ occ=0.467199- rev=51.312500+ reg=0.806529- | sub=0.923055+ osc=0.022502+ | anti=n attr=Y joint=no
+   25 floor=0.080000 amp=0.260000 inhib=0.120000 | H=1.827770+ obj=7.412500+ occ=0.476655- rev=36.206250+ reg=0.815783- | sub=0.938025+ osc=0.015323+ | anti=n attr=Y joint=no
+   26 floor=0.080000 amp=0.260000 inhib=0.220000 | H=1.885354+ obj=7.318750+ occ=0.464537- rev=21.918750+ reg=0.844230- | sub=0.944949+ osc=0.007996+ | anti=n attr=Y joint=no
+
+feasiblePoints=0 robustPoints=0
+antiConvergenceOnly=0 attributionOnly=27
+CURIOSITY_ENVELOPE_FEASIBILITY_RESULT=EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE
+

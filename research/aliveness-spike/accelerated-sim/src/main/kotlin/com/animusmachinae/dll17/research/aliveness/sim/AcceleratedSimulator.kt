@@ -184,6 +184,7 @@ public object AcceleratedSimulator {
                 aversiveSafeFromTick = 0L,
                 contingencyReversalTick = 0L,
                 betaBecomesAttentiveTick = 0L,
+                socialHoursShifted = true,
             ),
             fxB,
         )

@@ -44,7 +44,20 @@ public object SpikeContract {
     public val ENERGY_DECAY_PER_TICK: Long = FixedPoint.of(0L, 260L)
     public val REST_DECAY_PER_TICK: Long = FixedPoint.of(0L, 190L)
     public val SOCIAL_DECAY_PER_TICK: Long = FixedPoint.of(0L, 150L)
-    public val SAFETY_RECOVERY_PER_TICK: Long = FixedPoint.of(0L, 400L)
+    /**
+     * A scare should pass in a couple of virtual hours. At the D008 rate a single
+     * punishment took most of a day to clear, so an organism that explored the
+     * aversive object at all spent most of its life below the safety threshold.
+     */
+    public val SAFETY_RECOVERY_PER_TICK: Long = FixedPoint.of(0L, 4_000L)
+
+    /**
+     * Vigorous activity costs energy. Without this, play is free and an organism
+     * that enjoys it can play for half of its life; with it, a long bout makes
+     * the organism hungry and the day organizes itself into a cycle.
+     */
+    public val PLAY_ENERGY_COST_PER_TICK: Long = FixedPoint.of(0L, 1_300L)
+    public val EXPLORE_ENERGY_COST_PER_TICK: Long = FixedPoint.of(0L, 700L)
 
     public val EAT_ENERGY_GAIN: Long = FixedPoint.of(0L, 34_000L)
     public val SLEEP_REST_GAIN_PER_TICK: Long = FixedPoint.of(0L, 2_600L)
@@ -56,10 +69,16 @@ public object SpikeContract {
     public val CRITICAL_REST: Long = FixedPoint.of(0L, 120_000L)
     public val CRITICAL_SAFETY: Long = FixedPoint.of(0L, 250_000L)
 
-    /** Tier 3 ordinary-need thresholds. */
+    /**
+     * Tier 3 ordinary-need thresholds. `LOW_SOCIAL` is scaled per organism by
+     * sociability (see `Traits.socialNeedThreshold`): metabolic needs are
+     * species-level, but how much company an individual needs is not, and
+     * identical thresholds across a population force identical time budgets.
+     */
     public val LOW_ENERGY: Long = FixedPoint.of(0L, 520_000L)
     public val LOW_REST: Long = FixedPoint.of(0L, 480_000L)
     public val LOW_SOCIAL: Long = FixedPoint.of(0L, 500_000L)
+    public val SOCIAL_THRESHOLD_TRAIT_SPAN: Long = FixedPoint.of(0L, 900_000L)
 
     // ------------------------------------------------------- modulators
 
@@ -124,12 +143,55 @@ public object SpikeContract {
     public val HABIT_DECAY_RETENTION_PER_TICK: Long = FixedPoint.of(0L, 999_880L)
     public val HABIT_MAX: Long = FixedPoint.of(0L, 900_000L)
 
+    // -------------------------------------------------- skill proficiency
+
+    /**
+     * Canonical §9 item 8: repeated validated attempts improve bounded
+     * competence. Added under D009. Skill is what makes two organisms that
+     * lived different lives end up *good at different things*, which is the
+     * only route to long-run individuality that survives a homeostatic drive
+     * model — every organism must eat and sleep about as much as every other.
+     */
+    public val SKILL_MAX: Long = FixedPoint.of(0L, 850_000L)
+    public val SKILL_GAIN_ON_SUCCESS: Long = FixedPoint.of(0L, 55_000L)
+    public val SKILL_DECAY_RETENTION_PER_TICK: Long = FixedPoint.of(0L, 999_940L)
+
+    // --------------------------------------- outcome uncertainty / re-sampling
+
+    /**
+     * Per action-and-object uncertainty about what an option is currently
+     * worth. It falls when the option is sampled, rises slowly while it is
+     * neglected, and jumps when an outcome contradicts the expectation.
+     *
+     * This is the directed-exploration term canonical §9 names alongside
+     * prediction error and affordance validity. It is deliberately *not*
+     * random action noise: an option is re-sampled because the organism's
+     * estimate of it has gone stale or been contradicted, and the trace says so.
+     */
+    public val UNCERTAINTY_INITIAL: Long = FixedPoint.ONE
+    public val UNCERTAINTY_DROP_ON_SAMPLE: Long = FixedPoint.of(0L, 340_000L)
+    public val UNCERTAINTY_GROWTH_PER_TICK: Long = FixedPoint.of(0L, 130L)
+    public val UNCERTAINTY_SURPRISE_GAIN: Long = FixedPoint.of(0L, 900_000L)
+    public val UNCERTAINTY_SURPRISE_THRESHOLD: Long = FixedPoint.of(0L, 250_000L)
+
     // ------------------------------------------------------------ episodic
 
     /** Bounded autobiographical ring. Bounded by construction, not by policy. */
     public const val EPISODIC_CAPACITY: Int = 64
-    public val EPISODIC_WEIGHT: Long = FixedPoint.of(0L, 260_000L)
-    public const val EPISODIC_RECENCY_WINDOW_TICKS: Int = 12 * TICKS_PER_VIRTUAL_HOUR
+
+    /**
+     * Revised under D009. The D008 form recalled a context-free mean valence
+     * for the target, which is what `preference` already is, so it acted as a
+     * second copy of the same estimate and measurably *reduced* history
+     * divergence. The revised form recalls only episodes whose context matches
+     * the present one, and contributes the **residual** over the context-free
+     * preference — by construction it can only carry what preference cannot.
+     */
+    public val EPISODIC_WEIGHT: Long = FixedPoint.of(0L, 520_000L)
+    public const val EPISODIC_RECENCY_WINDOW_TICKS: Int = 36 * TICKS_PER_VIRTUAL_HOUR
+
+    /** Circadian quarter granularity for episodic context matching. */
+    public const val EPISODIC_CONTEXT_BUCKETS: Int = 4
 
     // --------------------------------------------------------- relationship
 
@@ -176,6 +238,26 @@ public object SpikeContract {
     public const val REFRACTORY_TICKS_VOCALIZE: Int = 45
     public const val REFRACTORY_TICKS_SEEK_INTERACTION: Int = 90
     public const val OPPORTUNITY_WINDOW_TICKS: Int = 20
+
+    /**
+     * Bounded engagement. Canonical §7 lists refractory periods among the
+     * stability mechanisms; this is the one that keeps a single well-liked
+     * object from taking the whole day. Recent-inspection inhibition alone
+     * cannot do it: under continuous engagement every object saturates, and a
+     * uniformly saturated term stops discriminating between them.
+     */
+    public const val MAX_ENGAGEMENT_TICKS: Int = 15
+
+    /**
+     * Action satiation. Diminishing marginal utility for *doing the same kind of
+     * thing*, as distinct from doing it to the same object. Without it, an
+     * organism whose personality favours one activity spends half its life on
+     * that activity across every object in the habitat, which the per-object
+     * engagement bound cannot reach.
+     */
+    public val ACTION_SATIATION_PER_TICK: Long = FixedPoint.of(0L, 22_000L)
+    public val ACTION_SATIATION_RETENTION_PER_TICK: Long = FixedPoint.of(0L, 997_000L)
+    public const val ENGAGEMENT_REFRACTORY_TICKS: Int = 90
 
     // ----------------------------------------------------------- attribution
 

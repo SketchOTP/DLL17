@@ -125,29 +125,48 @@ public enum class Cohort(public val cohortId: String, public val blindedLabel: S
     DEGRADED_SCRIPTED_CONTROL("DegradedScriptedControlV1", "CREATURE"),
     FULL_MINUS_CURIOSITY_ANTICONVERGENCE("FULL-curiosity-anticonvergence", "CREATURE"),
     FULL_MINUS_PREFERENCE_LEARNING("FULL-preference-learning", "CREATURE"),
-    FULL_MINUS_EPISODIC_HISTORY("FULL-episodic-history", "CREATURE");
+
+    /**
+     * FULL **plus** episodic history, not minus.
+     *
+     * The mechanism was removed from FULL under D009 after a revised form still
+     * failed to add history-dependent individuality across a five-seed matrix.
+     * The cohort is retained inverted so the negative result stays reproducible
+     * and the mechanism can be re-tested if a later design gives it something to
+     * contribute.
+     */
+    FULL_PLUS_EPISODIC_HISTORY("FULL+episodic-history", "CREATURE");
 
     /** The mechanism set this cohort carries. Scripted cohorts carry none. */
     public val mechanisms: Set<Mechanism>
         get() = when (this) {
-            FULL -> Mechanism.FULL_SET
+            FULL -> Mechanism.QUALIFIED_SET
             SCRIPTED_PET_BASELINE, DEGRADED_SCRIPTED_CONTROL -> emptySet()
             FULL_MINUS_CURIOSITY_ANTICONVERGENCE ->
-                Mechanism.FULL_SET - Mechanism.CURIOSITY_PHASE_DRIFT -
+                Mechanism.QUALIFIED_SET - Mechanism.CURIOSITY_PHASE_DRIFT -
                     Mechanism.RECENT_INSPECTION_INHIBITION
-            FULL_MINUS_PREFERENCE_LEARNING -> Mechanism.FULL_SET - Mechanism.PREFERENCE_LEARNING
-            FULL_MINUS_EPISODIC_HISTORY -> Mechanism.FULL_SET - Mechanism.EPISODIC_HISTORY
+            FULL_MINUS_PREFERENCE_LEARNING ->
+                Mechanism.QUALIFIED_SET - Mechanism.PREFERENCE_LEARNING
+            FULL_PLUS_EPISODIC_HISTORY ->
+                Mechanism.QUALIFIED_SET + Mechanism.EPISODIC_HISTORY
         }
 
     public val scripted: Boolean
         get() = this == SCRIPTED_PET_BASELINE || this == DEGRADED_SCRIPTED_CONTROL
 
     public companion object {
-        /** The three preregistered human-rated leave-one-out arms. */
+        /**
+         * The preregistered human-rated leave-one-out arms.
+         *
+         * Two, not three: the episodic arm was retired under D009 when the
+         * mechanism left FULL. The canonical multiplicity plan corrects across
+         * the comparisons *actually tested in the attempt*, so Holm-Bonferroni
+         * now runs over two. Adding a replacement third arm requires a new
+         * preregistered plan and is not the implementer's decision.
+         */
         public val HUMAN_ABLATION_FAMILY: List<Cohort> = listOf(
             FULL_MINUS_CURIOSITY_ANTICONVERGENCE,
             FULL_MINUS_PREFERENCE_LEARNING,
-            FULL_MINUS_EPISODIC_HISTORY,
         )
     }
 }

@@ -17,6 +17,8 @@ public enum class Mechanism {
     CONDITIONED_FEAR,
     FEAR_EXTINCTION,
     HABIT_EXPECTANCY,
+    SKILL_PROFICIENCY,
+    OUTCOME_UNCERTAINTY,
     EPISODIC_HISTORY,
     RELATIONSHIP_DIFFERENTIATION,
     CURIOSITY_PHASE_DRIFT,
@@ -24,7 +26,20 @@ public enum class Mechanism {
     TIERED_COMMITMENT;
 
     public companion object {
+        /** Every mechanism the A000 track has implemented. */
         public val FULL_SET: Set<Mechanism> = entries.toSet()
+
+        /**
+         * The mechanisms FULL actually carries after D009.
+         *
+         * `EPISODIC_HISTORY` is excluded. A revised, context-conditioned,
+         * salience-retained form was measured against a five-seed matrix and
+         * still did not add history-dependent individuality, so it was removed
+         * rather than kept because episodic memory is theoretically desirable.
+         * History dependence itself is unaffected — preference, habit, skill,
+         * fear, relationship value and outcome uncertainty are all history-derived.
+         */
+        public val QUALIFIED_SET: Set<Mechanism> = FULL_SET - EPISODIC_HISTORY
     }
 }
 
@@ -59,7 +74,11 @@ public enum class MechanismGroup(public val groupOrdinal: Int) {
             -> LEARNED_PREFERENCE
 
             Mechanism.EPISODIC_HISTORY -> EPISODIC_OR_HISTORY
-            Mechanism.HABIT_EXPECTANCY -> HABIT_OR_EXPECTANCY
+
+            Mechanism.HABIT_EXPECTANCY,
+            Mechanism.SKILL_PROFICIENCY,
+            Mechanism.OUTCOME_UNCERTAINTY,
+            -> HABIT_OR_EXPECTANCY
             Mechanism.RELATIONSHIP_DIFFERENTIATION -> SOCIAL_OR_RELATIONSHIP_HISTORY
 
             Mechanism.CURIOSITY_PHASE_DRIFT,
@@ -78,6 +97,11 @@ public data class Episode(
     public val target: HabitatObject?,
     public val person: HabitatObject?,
     public val valence: Long,
+    /**
+     * The context this episode happened in. Recall matches on it, which is what
+     * separates episodic memory from a second copy of `preference`.
+     */
+    public val context: Int,
 )
 
 /**
@@ -91,15 +115,29 @@ public class Traits(seed: Long) {
     public val caution: Long = derive(seed, 3)
     public val persistence: Long = derive(seed, 4)
 
+    /**
+     * How much company this individual needs before company becomes a Tier 3
+     * concern. Metabolic thresholds stay species-level; this one does not,
+     * because identical thresholds across a population force identical time
+     * budgets and therefore near-identical action distributions.
+     */
+    public val socialNeedThreshold: Long =
+        SpikeContract.LOW_SOCIAL * (500_000L + sociability * SpikeContract.SOCIAL_THRESHOLD_TRAIT_SPAN /
+            FixedPoint.SCALE) / FixedPoint.SCALE
+
+    /** A cautious individual writes something off as dangerous sooner. */
+    public val avoidanceThreshold: Long =
+        SpikeContract.FEAR_AVOIDANCE_THRESHOLD * (1_400_000L - caution) / FixedPoint.SCALE
+
     private companion object {
-        /** Uniform in `[0.25, 0.85]` so no organism is degenerate on any axis. */
+        /** Uniform in `[0.15, 0.90]` so no organism is degenerate on any axis. */
         fun derive(seed: Long, index: Int): Long {
             var z = seed * 0x9E3779B97F4A7C15uL.toLong() + index * 0x632BE59BD9B4E019L
             z = (z xor (z ushr 30)) * -0x40A7B892E31B1A47L
             z = (z xor (z ushr 27)) * -0x6B2FB644ECCEEE15L
             z = z xor (z ushr 31)
-            val unit = (z and Long.MAX_VALUE) % 600_001L
-            return FixedPoint.of(0L, 250_000L + unit)
+            val unit = (z and Long.MAX_VALUE) % 750_001L
+            return FixedPoint.of(0L, 150_000L + unit)
         }
     }
 }
@@ -142,8 +180,19 @@ public class OrganismState(
         LongArray(HabitatObject.COUNT) { curiosity.contextAmplitude }
     public val lastInspectedTick: LongArray = LongArray(HabitatObject.COUNT) { Long.MIN_VALUE / 4 }
 
+    /** Consecutive engagement budget and its refractory deadline, per object. */
+    public val engagementTicks: IntArray = IntArray(HabitatObject.COUNT)
+    public val engagementRefractoryUntil: LongArray = LongArray(HabitatObject.COUNT)
+
     /** Habit strength per (action, object). Fixed-size matrix; never grows. */
     public val habit: LongArray = LongArray(SpikeAction.ALL.size * HabitatObject.COUNT)
+
+    /** Bounded competence per (action, object). Grows with validated practice. */
+    public val skill: LongArray = LongArray(SpikeAction.ALL.size * HabitatObject.COUNT)
+
+    /** How stale or contradicted this option's value estimate is. */
+    public val uncertainty: LongArray =
+        LongArray(SpikeAction.ALL.size * HabitatObject.COUNT) { SpikeContract.UNCERTAINTY_INITIAL }
 
     /** Bounded retry/futility accounting per (action, object). */
     public val failureCount: IntArray = IntArray(SpikeAction.ALL.size * HabitatObject.COUNT)
@@ -152,20 +201,26 @@ public class OrganismState(
 
     /** Bounded episodic ring buffer. */
     public val episodes: Array<Episode?> = arrayOfNulls(SpikeContract.EPISODIC_CAPACITY)
-    public var episodeWriteIndex: Int = 0
-        private set
     public var episodeCount: Int = 0
         private set
 
     // ---------------------------------------------------------- commitment
     public var committedAction: SpikeAction? = null
     public var committedTarget: HabitatObject? = null
+    public var committedTier: Int = 5
     public var commitmentRemaining: Int = 0
     public var interruptedAction: SpikeAction? = null
     public var interruptedTarget: HabitatObject? = null
     public var interruptedAtTick: Long = Long.MIN_VALUE / 4
     public val refractoryUntilTick: LongArray = LongArray(SpikeAction.ALL.size)
+
+    /** Diminishing marginal utility per action kind. */
+    public val actionSatiation: LongArray = LongArray(SpikeAction.ALL.size)
     public var opportunityWindowUntilTick: Long = 0L
+
+    /** When and at what a threatening outcome last occurred. */
+    public var lastThreatTick: Long = Long.MIN_VALUE / 4
+    public var lastThreatTarget: HabitatObject? = null
 
     /** Set by the runtime when a normalized user input arrives. */
     public var pendingTouchFrom: HabitatObject? = null
@@ -176,10 +231,40 @@ public class OrganismState(
     public fun index(action: SpikeAction, target: HabitatObject): Int =
         action.ordinal * HabitatObject.COUNT + target.ordinal0
 
+    /**
+     * Bounded episodic admission by salience, not recency.
+     *
+     * A pure ring buffer of the last N events cannot hold history: in a matched
+     * probe both organisms refill it with the same present, so the mechanism
+     * converges them instead of distinguishing them — which is what the D008
+     * measurement showed. Evicting the least consequential episode instead lets
+     * a strongly-valenced early experience persist and stay individual.
+     */
     public fun recordEpisode(e: Episode) {
-        episodes[episodeWriteIndex] = e
-        episodeWriteIndex = (episodeWriteIndex + 1) % SpikeContract.EPISODIC_CAPACITY
-        if (episodeCount < SpikeContract.EPISODIC_CAPACITY) episodeCount += 1
+        if (episodeCount < SpikeContract.EPISODIC_CAPACITY) {
+            episodes[episodeCount] = e
+            episodeCount += 1
+            return
+        }
+        val salience = if (e.valence < 0L) -e.valence else e.valence
+        var weakestIndex = -1
+        var weakestSalience = Long.MAX_VALUE
+        var weakestTick = Long.MAX_VALUE
+        for (index in episodes.indices) {
+            val candidate = episodes[index] ?: continue
+            val candidateSalience =
+                if (candidate.valence < 0L) -candidate.valence else candidate.valence
+            if (candidateSalience < weakestSalience ||
+                (candidateSalience == weakestSalience && candidate.tick < weakestTick)
+            ) {
+                weakestIndex = index
+                weakestSalience = candidateSalience
+                weakestTick = candidate.tick
+            }
+        }
+        if (weakestIndex >= 0 && salience >= weakestSalience) {
+            episodes[weakestIndex] = e
+        }
     }
 
     /** Total bytes of mutable state. Constant by construction; measured, not assumed. */
@@ -187,8 +272,10 @@ public class OrganismState(
         habituation.size + habituationCeiling.size + sensitization.size + preference.size +
             fear.size + relationship.size + inhibition.size + absoluteShift.size +
             absoluteShiftReservoir.size + contextAmplitude.size + lastInspectedTick.size +
-            habit.size + failureCount.size + suppressedUntilTick.size +
-            SpikeContract.EPISODIC_CAPACITY + refractoryUntilTick.size
+            engagementTicks.size + engagementRefractoryUntil.size +
+            habit.size + skill.size + uncertainty.size +
+            failureCount.size + suppressedUntilTick.size +
+            SpikeContract.EPISODIC_CAPACITY + refractoryUntilTick.size + actionSatiation.size
 
     /** Canonical-ish digest of the behavioural state, used for determinism checks. */
     public fun stateSignature(): Long {
@@ -205,7 +292,10 @@ public class OrganismState(
         for (a in relationship) mix(a)
         for (a in inhibition) mix(a)
         for (a in habit) mix(a)
+        for (a in skill) mix(a)
+        for (a in uncertainty) mix(a)
         for (a in absoluteShift) mix(a)
+        for (a in actionSatiation) mix(a)
         mix(episodeCount.toLong())
         for (e in episodes) mix(e?.valence ?: 0L)
         return h

@@ -46,6 +46,10 @@ where it is enforced today.
 | INV-0038 | A losing or tied coalition contributes exactly zero attribution mass. | `CoalitionValueFunctionV1` | `v(S) = max(0, margin(S))` with equality at zero counting as a tie; tie-breaking is held outside the utility game entirely. |
 | INV-0039 | Spontaneity attribution uses exact enumeration, never sampling. | `MechanismCoalitionSetV1` | Six frozen groups, `2^6 = 64` coalitions evaluated per scored action; a seventh group would require a separate reviewed approximation contract. |
 
+| INV-0040 | Every re-sampling of a previously rejected option has a citable non-random cause. | `MechanismRevisionD009` | Directed exploration is driven by per-option outcome uncertainty and prediction error; the only random domain reaches selection at near-equal utility and is recorded separately in the trace. |
+| INV-0041 | No single action or object can take an unbounded share of the organism's time. | `MechanismRevisionD009` | Three independent bounds: action satiation, a per-object engagement refractory, and a metabolic cost for vigorous activity. |
+| INV-0042 | A mechanism that does not measurably earn its place is removed from the candidate, not retained. | Canonical Principle 11 | Episodic history was revised, measured over a five-seed matrix, and removed when the revision still did not contribute. |
+
 ### R002 note
 
 INV-0016 through INV-0033 are continuity invariants. None of them is a
@@ -58,4 +62,9 @@ INV-0034 through INV-0039 are research-track invariants. They constrain the
 boundary between disposable research and production, and the integrity of the
 blinding and attribution machinery. None of them asserts anything about organism
 behaviour, and none of them is evidence that a mechanism works.
+
+### D009 note
+
+INV-0040 through INV-0042 constrain the A000 research candidate. They are not
+production invariants and do not authorize any R003–R009 mechanism.
 

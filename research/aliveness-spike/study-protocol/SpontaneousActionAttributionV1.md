@@ -2,7 +2,8 @@
 
 - Status: `FROZEN`
 - Version: 1
-- Depends on: `MechanismCoalitionSetV1` v1, `CoalitionValueFunctionV1` v1
+- Depends on: `MechanismCoalitionSetV2`, `CoalitionValueFunctionV1` v1
+- Thresholds unchanged since D008
 
 ## Classes
 
@@ -54,10 +55,24 @@ OscillatorTieBreakOnlyRate =
   / all spontaneous scored actions
 ```
 
-## Measured on the A000 candidate
+## Measured on the D008 candidate, rejected
 
-Over 1,363 scored spontaneous actions (60 virtual days, static habitat,
-1-in-5 sampling): `SubstantiveSpontaneityRate = 0.946`,
-`OscillatorTieBreakOnlyRate = 0.010`. Across the whole 27-point envelope grid
-and 4-seed matrix the substantive rate ranged 0.922–0.966 and the
-oscillator/tie-break-only rate 0.005–0.029.
+Over 1,363 scored spontaneous actions: `SubstantiveSpontaneityRate = 0.946`,
+`OscillatorTieBreakOnlyRate = 0.010`. Retained in
+`research/aliveness-spike/evidence/negative/D008/`.
+
+## Measured on the D009 candidate
+
+Over 2,089 scored spontaneous actions (60 virtual days, static habitat, 1-in-5
+sampling): `SubstantiveSpontaneityRate = 0.877`,
+`OscillatorTieBreakOnlyRate = 0.027`.
+
+The substantive rate fell and remains well clear of its 0.700 floor. That is the
+expected direction and worth stating plainly: the revised candidate spends far
+more of its time in genuinely optional behaviour, so more of its spontaneous
+actions are close calls between comparable options. The oscillator and
+tie-break-only share stayed near one in forty.
+
+Across the 27-point envelope grid and 4-seed matrix the substantive rate ranged
+0.886–0.921 and the oscillator/tie-break-only rate 0.026–0.046, so no
+parameterization in the feasible region approaches either bound.

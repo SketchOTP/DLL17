@@ -149,7 +149,10 @@ class SpikeMechanismsTest {
     @Test
     fun `an ablated cohort does not carry the removed mechanism`() {
         assertTrue(Mechanism.PREFERENCE_LEARNING !in Cohort.FULL_MINUS_PREFERENCE_LEARNING.mechanisms)
-        assertTrue(Mechanism.EPISODIC_HISTORY !in Cohort.FULL_MINUS_EPISODIC_HISTORY.mechanisms)
+        // Episodic history left FULL under D009; the cohort that carries it is
+        // the one that adds it back.
+        assertTrue(Mechanism.EPISODIC_HISTORY !in Cohort.FULL.mechanisms)
+        assertTrue(Mechanism.EPISODIC_HISTORY in Cohort.FULL_PLUS_EPISODIC_HISTORY.mechanisms)
         assertTrue(
             Mechanism.CURIOSITY_PHASE_DRIFT !in
                 Cohort.FULL_MINUS_CURIOSITY_ANTICONVERGENCE.mechanisms,
@@ -159,9 +162,10 @@ class SpikeMechanismsTest {
                 Cohort.FULL_MINUS_CURIOSITY_ANTICONVERGENCE.mechanisms,
         )
         // Each ablation removes exactly what it names and nothing else.
-        assertEquals(11, Cohort.FULL_MINUS_PREFERENCE_LEARNING.mechanisms.size)
-        assertEquals(11, Cohort.FULL_MINUS_EPISODIC_HISTORY.mechanisms.size)
-        assertEquals(10, Cohort.FULL_MINUS_CURIOSITY_ANTICONVERGENCE.mechanisms.size)
+        val full = Cohort.FULL.mechanisms.size
+        assertEquals(full - 1, Cohort.FULL_MINUS_PREFERENCE_LEARNING.mechanisms.size)
+        assertEquals(full - 2, Cohort.FULL_MINUS_CURIOSITY_ANTICONVERGENCE.mechanisms.size)
+        assertEquals(full + 1, Cohort.FULL_PLUS_EPISODIC_HISTORY.mechanisms.size)
     }
 
     @Test

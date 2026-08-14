@@ -61,6 +61,10 @@ public object MechanismUpdates {
                     fx.decay(s.inhibition[i], s.curiosity.inhibitionRetentionPerTick),
                 )
             }
+            // Engagement budget recovers while the organism is doing other things.
+            if (s.lastInspectedTick[i] != tick - 1L && s.engagementTicks[i] > 0) {
+                s.engagementTicks[i] -= 1
+            }
 
             // Bounded absolute salience shift and its per-object reservoir.
             s.absoluteShift[i] = fx.unit(
@@ -109,6 +113,29 @@ public object MechanismUpdates {
                 s.habit[k] = fx.decay(s.habit[k], SpikeContract.HABIT_DECAY_RETENTION_PER_TICK)
             }
         }
+        // Competence fades slowly without practice, so a specialization has to
+        // be maintained rather than acquired once and kept for free.
+        if (s.has(Mechanism.SKILL_PROFICIENCY)) {
+            for (k in s.skill.indices) {
+                s.skill[k] = fx.decay(s.skill[k], SpikeContract.SKILL_DECAY_RETENTION_PER_TICK)
+            }
+        }
+        // A value estimate goes stale while its option is neglected. This is the
+        // whole re-exploration mechanism: nothing here is random, an option
+        // simply becomes worth checking again once the organism's information
+        // about it is old enough.
+        if (s.has(Mechanism.OUTCOME_UNCERTAINTY)) {
+            for (k in s.uncertainty.indices) {
+                s.uncertainty[k] = fx.unit(
+                    fx.add(s.uncertainty[k], SpikeContract.UNCERTAINTY_GROWTH_PER_TICK),
+                )
+            }
+        }
+
+        for (a in s.actionSatiation.indices) {
+            s.actionSatiation[a] =
+                fx.decay(s.actionSatiation[a], SpikeContract.ACTION_SATIATION_RETENTION_PER_TICK)
+        }
 
         if (s.commitmentRemaining > 0) s.commitmentRemaining -= 1
         if (s.commitmentRemaining == 0) {
@@ -135,15 +162,33 @@ public object MechanismUpdates {
                 }
             SpikeAction.SLEEP -> s.rest = fx.unit(fx.add(s.rest, SpikeContract.SLEEP_REST_GAIN_PER_TICK))
             SpikeAction.REST -> s.rest = fx.unit(fx.add(s.rest, SpikeContract.REST_REST_GAIN_PER_TICK))
-            SpikeAction.SEEK_INTERACTION, SpikeAction.RESPOND_TO_TOUCH, SpikeAction.PLAY ->
+            SpikeAction.SEEK_INTERACTION, SpikeAction.RESPOND_TO_TOUCH ->
                 if (outcome.success) {
                     s.social = fx.unit(fx.add(s.social, SpikeContract.SOCIAL_GAIN_PER_INTERACTION))
                 }
             else -> Unit
         }
+        s.actionSatiation[action.ordinal] = fx.unit(
+            fx.add(s.actionSatiation[action.ordinal], SpikeContract.ACTION_SATIATION_PER_TICK),
+        )
+
+        // Vigorous activity is metabolically expensive.
+        when (action) {
+            SpikeAction.PLAY -> {
+                if (outcome.success) {
+                    s.social = fx.unit(fx.add(s.social, SpikeContract.SOCIAL_GAIN_PER_INTERACTION))
+                }
+                s.energy = fx.unit(fx.sub(s.energy, SpikeContract.PLAY_ENERGY_COST_PER_TICK))
+            }
+            SpikeAction.EXPLORE ->
+                s.energy = fx.unit(fx.sub(s.energy, SpikeContract.EXPLORE_ENERGY_COST_PER_TICK))
+            else -> Unit
+        }
 
         // Modulators respond to outcome magnitude, not to action identity.
         if (outcome.strongNegative) {
+            s.lastThreatTick = tick
+            s.lastThreatTarget = target
             s.stress = fx.unit(fx.add(s.stress, FixedPoint.of(0L, 260_000L)))
             s.arousal = fx.unit(fx.add(s.arousal, FixedPoint.of(0L, 340_000L)))
             s.safety = fx.unit(fx.sub(s.safety, FixedPoint.of(0L, 520_000L)))
@@ -180,7 +225,11 @@ public object MechanismUpdates {
         // wrong law: anything with a net-positive outcome eventually pins at the
         // bound, so a reliable food source and an unreliable one become
         // indistinguishable and no reversal can ever be observed.
-        if (s.has(Mechanism.PREFERENCE_LEARNING)) {
+        // Only a consequential outcome is evidence about value. Updating on
+        // neutral outcomes too made preference an average over mostly-neutral
+        // glances: once the revised candidate looked at things far more often
+        // than it ate them, a reliably good food source scored zero.
+        if (s.has(Mechanism.PREFERENCE_LEARNING) && outcome.valence != FixedPoint.ZERO) {
             val error = fx.sub(outcome.valence, s.preference[i])
             s.preference[i] = fx.signed(
                 fx.add(s.preference[i], fx.mul(error, SpikeContract.PREFERENCE_LEARNING_RATE)),
@@ -199,8 +248,37 @@ public object MechanismUpdates {
             s.fear[i] = maxOf(residual, fx.sub(s.fear[i], SpikeContract.FEAR_EXTINCTION_RATE))
         }
 
-        // Habit and futility accounting.
+        // Habit, competence, uncertainty and futility accounting.
         val k = s.index(action, target)
+
+        // Prediction error, computed before the estimates move. A contradicted
+        // expectation is what makes an option worth re-checking, and it is also
+        // what makes a devalued option's *alternatives* worth re-checking.
+        if (s.has(Mechanism.OUTCOME_UNCERTAINTY)) {
+            val expected = if (s.has(Mechanism.HABIT_EXPECTANCY)) s.habit[k] else FixedPoint.ZERO
+            val observed = if (outcome.success) SpikeContract.HABIT_MAX else FixedPoint.ZERO
+            val surprise = fx.sub(observed, expected).let { if (it < 0L) -it else it }
+            s.uncertainty[k] = if (surprise >= SpikeContract.UNCERTAINTY_SURPRISE_THRESHOLD) {
+                fx.unit(
+                    fx.add(
+                        s.uncertainty[k],
+                        fx.mul(surprise, SpikeContract.UNCERTAINTY_SURPRISE_GAIN),
+                    ),
+                )
+            } else {
+                // Sampling an option that behaved as expected settles it.
+                fx.unit(fx.sub(s.uncertainty[k], SpikeContract.UNCERTAINTY_DROP_ON_SAMPLE))
+            }
+        }
+
+        if (s.has(Mechanism.SKILL_PROFICIENCY) && outcome.success) {
+            val error = fx.sub(SpikeContract.SKILL_MAX, s.skill[k])
+            s.skill[k] = fx.clamp(
+                fx.add(s.skill[k], fx.mul(error, SpikeContract.SKILL_GAIN_ON_SUCCESS)),
+                FixedPoint.ZERO,
+                SpikeContract.SKILL_MAX,
+            )
+        }
         // Habit tracks how often this action works here, for the same reason
         // preference tracks value rather than accumulating it. Failure moves it
         // down faster than success moves it up.
@@ -245,15 +323,22 @@ public object MechanismUpdates {
 
         // Recent-inspection inhibition and the inspection timestamp.
         if (Controller.epistemic(action)) {
-            // Inhibition is per *bout*, not per tick. Charging it on every tick of
-            // a committed inspection drove every object to full suppression after
-            // one visit, which is a different mechanism from the one intended.
-            val continuingBout = s.lastInspectedTick[i] == tick - 1L
+            // Inhibition accrues at a per-tick rate that sums to one full depth
+            // over a nominal bout. Charging it only on the first tick of a bout
+            // meant an organism that never stopped engaging one object never
+            // accrued any inhibition at all, which is how a single play object
+            // reached fifty-nine per cent of the tick budget under D008.
             s.lastInspectedTick[i] = tick
-            if (s.has(Mechanism.RECENT_INSPECTION_INHIBITION) && !continuingBout) {
-                s.inhibition[i] = fx.unit(
-                    fx.add(s.inhibition[i], s.curiosity.inhibitionDepth),
-                )
+            if (s.has(Mechanism.RECENT_INSPECTION_INHIBITION)) {
+                val perTick = s.curiosity.inhibitionDepth / BOUT_TICKS
+                s.inhibition[i] = fx.unit(fx.add(s.inhibition[i], perTick))
+            }
+            // Bounded engagement: a long enough bout with one object ends it and
+            // makes that object refractory for a while.
+            s.engagementTicks[i] += 1
+            if (s.engagementTicks[i] >= SpikeContract.MAX_ENGAGEMENT_TICKS) {
+                s.engagementTicks[i] = 0
+                s.engagementRefractoryUntil[i] = tick + SpikeContract.ENGAGEMENT_REFRACTORY_TICKS
             }
         }
 
@@ -265,9 +350,22 @@ public object MechanismUpdates {
                     target = target,
                     person = outcome.personResponded,
                     valence = outcome.valence,
+                    context = contextBucket(habitat, tick),
                 ),
             )
         }
+    }
+
+    /**
+     * The context an episode is filed under. Circadian quarter is the coarsest
+     * context that still distinguishes "this went well in the morning" from
+     * "this went badly at night", which is the kind of conjunction a
+     * context-free preference cannot represent.
+     */
+    public fun contextBucket(habitat: Habitat, tick: Long): Int {
+        val phase = habitat.circadianPhase(tick)
+        return ((phase * SpikeContract.EPISODIC_CONTEXT_BUCKETS) / FixedPoint.SCALE).toInt()
+            .coerceIn(0, SpikeContract.EPISODIC_CONTEXT_BUCKETS - 1)
     }
 
     /** Relationship value accrues from attempted interaction, not from looking. */
@@ -277,6 +375,9 @@ public object MechanismUpdates {
         SpikeAction.PLAY,
         SpikeAction.RESPOND_TO_TOUCH,
     )
+
+    /** Nominal engagement bout, in ticks. One bout accrues one inhibition depth. */
+    private const val BOUT_TICKS = 6L
 
     private const val RETRY_BUDGET = 4
     private const val RETRY_BUDGET_MAX = 64
