@@ -3,22 +3,30 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-14T19:25:00-04:00`
+- Last updated: `2026-08-14T21:05:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016
-- External directive ID: D016
-- Objective: Execute the complete A001 aliveness gate and determine, from preregistered independent human evidence, whether the remediated adaptive FULL organism produces a meaningfully stronger blinded impression of aliveness than a strong independently qualified scripted pet.
+- Local directive ID: D-016-C
+- External directive ID: D016-C
+- Objective: Implement and qualify the architect's D016-B replacement of the three human A001 governance roles with isolated agentic ones, inside the still-open D-016 aliveness gate.
 - Current status: `BLOCKED`
-- Acceptance: Twenty-one criteria. The fourth, that owner study ceilings are frozen, is met. The first, that all required independent roles are validly assigned, is the gate the directive is blocked at.
-- Current phase: A001.0 — independent governance activation, boundary report D016-A. Not entered. All three roster roles are unassigned and the independent study operator is unnamed, so no signed governance record can exist, no reviewer ruling can be taken, and no baseline qualification, pilot registration or recruitment can occur.
-- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md, research/aliveness-spike/analysis/, research/aliveness-spike/study-protocol/, research/aliveness-spike/evidence/. No organism source, production contract, participant material or scored study data was modified under D-016.
-- Immediate next action: Hold at D016-A. The owner ceiling is now frozen and recorded. The remaining blocking inputs are three named eligible people plus an independent study operator with their four signed governance records, the six reviewer rulings, and an independent human-subjects determination. None can be produced by writing code, and the directive forbids placeholder names, signatures and approvals.
+- Acceptance: Twenty-seven criteria. Twenty-five are met: the roles, authority separation, isolation, provenance, structured schema, fail-closed behaviour, injection fixtures, meta-evaluation fixtures, disagreement state, operator boundary, pilot seal, frozen ceiling, attempt count, programme state, shut recruitment gate, unresolved ethics determination, preserved superseded history and governance validation. The two that are not met both require a real reviewer pair: demonstrated model heterogeneity, and repeated-trial stability with position and order sensitivity inside the frozen boundary.
+- Current phase: A001.0 — governance activation, boundary report D016-C. Still not entered. The three roles are now agentic and implemented, and the harness has never executed a language model because no provider credential exists in this environment, so no reviewer ruling can be taken and no baseline qualification, pilot registration or recruitment can occur.
+- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md, research/aliveness-spike/agentic-review/, research/aliveness-spike/analysis/, research/aliveness-spike/study-protocol/, research/aliveness-spike/evidence/, settings.gradle.kts, .github/workflows/ci.yml. No organism source, production contract, participant material or scored study data was modified under D-016 or D-016-C.
+- Immediate next action: Hold at D016-C. The remaining blocking inputs are two heterogeneous reviewer model configurations with credentials so the frozen stability, position and order thresholds can actually be measured, and an independent human-subjects determination before anyone is recruited. Neither can be produced by writing code, and no credential, reviewer execution or determination may be fabricated.
 
 ## Temporary task-relevant facts
 
-- D-016 is blocked at Phase A001.0 with BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, recorded as O-0017 superseding O-0016 and in the A001 activation gate record. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists. Four blockers remain, not five.
+- D-016-C is blocked at Phase A001.0 with BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE, recorded as O-0018 and in the A001 activation gate record. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists. Five blockers remain: one was cleared at D016-A and one was superseded by two at D016-C, which is not progress toward opening the gate.
+- The three A001 governance roles are now agentic, per the architect's D016-B decision, implemented at D016-C as AgenticReviewHarnessV1 in research/aliveness-spike/agentic-review. That module depends on nothing at all, so a reviewer cannot import the organism it adjudicates. Recorded as DEC-0040.
+- Reviewer isolation is structural before it is behavioural. A review session is a function of a role contract, a backend, a question and an evidence bundle, and has no parameter through which another reviewer's ruling could arrive. Running the alternate with no primary at all yields byte-identical input, which could not hold if anything leaked. Any verdict difference produces BLOCKED_AGENTIC_REVIEW_DISAGREEMENT and is returned to the architect: there is no debate loop, no vote and no tie-breaking meta-judge.
+- No language model has ever been executed by the harness. No provider credential is configured in this environment, every reviewer fixture is marked as not a real model, and AgenticReviewerDiversityPolicyV1 refuses any pair containing one, so the harness cannot be qualified against its own doubles. The twenty-three frozen fixtures qualify the mechanics only.
+- The frozen qualification thresholds are AgenticReviewerQualificationThresholdsV1: expected-outcome rate at least 0.95, repeated-run agreement at least 0.90 over five trials, order and position agreement at least 0.95, injection resistance exactly 1.00, abstention at most 0.20, parser failure at most 0.05. They were declared before any reviewer execution existed, which is verifiable because none can happen here.
+- The three interactive coding-agent CLIs on this workstation were deliberately not used as reviewer backends. They run on the operator's own account, inject unhashable system prompts, expose no sampling parameters or model snapshot, and carry filesystem tools that would breach the evidence boundary, so their provenance could not be honestly recorded and their use was not authorised.
+- The external prior-art check is recorded as PA-0004 inside DEC-0041 with disposition REFERENCE. OpenAI Evals was rejected because the hosted platform shuts down on 30 November 2026; UK AISI Inspect was referenced rather than adopted because its multi-grader step resolves graders by majority vote, which D016-C forbids, and it is Python. No dependency was added and gradle/libs.versions.toml is unchanged.
+- The audit is now AlivenessGovernanceAuditV3 with thirty-two items, twenty-three passing and six blocking. GA-15 and GA-16 derive the two agentic blockers from the harness, and GA-28 through GA-32 cover isolation, the fail-closed schema, the meta-evaluation, the operator boundary and the rule that no agent may stand in for a participant.
+- IndependentReviewRosterV1 is SUPERSEDED, not deleted. Its history, its three preferred candidates and the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition are retained, GA-15 names the supersession in its own detail text, and its frozen ethics posture is explicitly marked as still in force. Its heading Candidates approached is corrected to Preferred candidates, because the paragraph beneath it always said none had been approached.
 - The owner froze the A001 resource ceiling at four hundred participants and two hundred and fifty participant-hours, recorded as DEC-0039. It lives in A001FeasibilityBudget.FROZEN_OWNER_CEILING and GA-24 reads it rather than restating it, so BLOCKED_SPEC_STUDY_BUDGET is cleared. Four hundred participants is 246.667 participant-hours at the frozen schedule, so the participant count binds first and a test keeps that true.
 - Role compatibility is frozen as a unique primary reviewer, an alternate who may also be the BaselineIndependentOwner, and a study operator who is a third unique person and not a gate reviewer. The ethics posture is that an independent human-subjects determination must be obtained before recruiting anyone and that the programme may not self-determine exemption. Three candidates are recorded in IndependentReviewRosterV1 as candidates only; none has been approached, accepted, conflict-reviewed or signed anything, and the roster is still blank.
 - The frozen independence requirements in IndependentReviewOnboardingV1 exclude anyone with an incentive contingent on A001 passing from the primary and alternate reviewer roles, and state that the role must be filled externally when no internal person qualifies. The owner's role ruling resolves the previously undefined study-operator overlap, so BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY no longer applies to the intended structure.
@@ -75,7 +83,8 @@
 - The network recovery provider has never run against a commercial object store and its TLS path is unexercised; both qualification runs are loopback plaintext HTTP. Provider selection for the product still needs an owner, credentials and a privacy review.
 - Multipart upload is not implemented. A recovery package above sixty four mebibytes is refused before it is sent rather than split.
 - The identity authority has a transport and written operations procedures, and is deployed nowhere. Its backup, restore, upgrade and incident procedures have never been exercised, no availability, redundancy or disaster-recovery claim is made, and verification-key rotation is not designed.
-- A001 remains blocked on four inputs that no code can supply: an independently qualified scripted baseline, a registered variance pilot, the paired-difference standard deviation, and three named eligible reviewers plus a study operator. The owner resource ceiling is no longer among them.
+- A001 remains blocked on inputs that no code can supply: an independently qualified scripted baseline, a registered variance pilot, the paired-difference standard deviation, and a real heterogeneous reviewer pair with credentials. The owner resource ceiling is no longer among them.
+- The agentic harness has never met a language model, so every property measured of it is a property of deterministic fixtures. A reviewer configuration that fails the frozen thresholds is not qualified rather than qualified with caveats, and the published bias literature suggests a general-purpose judge would fail the 0.95 position and order thresholds outright.
 - The graded instrument is frozen but not cognitively pretested, and was written by a party with an interest in the outcome.
 - No institutional review board, ethics committee or data-protection review has seen the A001 study, none is claimed, and whether one is required is undetermined.
 - The habitat remains abstract, and carries circadian structure added specifically to make a mechanism testable.
@@ -85,13 +94,13 @@
 
 ## Blockers
 
-- D-016 is open and blocked at Phase A001.0 on three named independent reviewers, an independent study operator and an independent human-subjects determination. No code can supply any of them.
-- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD and BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED.
+- D-016 is open and blocked at Phase A001.0 on two credentialed heterogeneous reviewer model configurations and an independent human-subjects determination. No code can supply either.
+- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED and BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
 ## Pending decisions
 
-- Who fills PrimaryIndependentAlivenessGateReviewer, AlternateIndependentAlivenessGateReviewer and BaselineIndependentOwner.
+- Which two model families and providers fill the agentic reviewer slots, and who owns their credentials, cost and privacy review.
 - Whether the graded instrument must be cognitively pretested before Attempt 1.
 - Whether this study requires external ethical or institutional approval, and in which jurisdiction it runs.
 - Which production network recovery provider to select, and who owns its credentials and privacy review. D014 built the mechanism; the choice is still open.

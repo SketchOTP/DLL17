@@ -409,3 +409,29 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The roster is still blank and the three candidates have not been approached, so the programme has intent rather than reviewers. If a candidate declines, the roster stays blank rather than falling through to whoever is available. The graded instrument is frozen but not cognitively pretested and was written by a party with an interest in the outcome. No independent human-subjects determination exists yet. The powered requirement is still unknown, so whether four hundred participants is enough is genuinely undetermined and A001_NOT_FEASIBLE remains a real possible outcome.
 - Blockers: BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
 - Follow-up directive: none
+
+
+## D-016-C - BLOCKED
+
+- Outcome ID: O-0018
+- Supersedes outcome: none
+- Closed: 2026-08-14T21:05:00-04:00
+- Acceptance: NOT MET
+- Summary: The agentic governance architecture is implemented, machine-checked, audited and pushed, and it is not qualified. AgenticReviewHarnessV1 lives in a new research module that depends on nothing at all, so a reviewer cannot import the organism it adjudicates. The three role contracts exist with reviewer authority separated from operator authority, and ten capabilities including creation of human evidence, simulation of a participant, overriding a reviewer and issuing an ethics determination are refused by the role constructor. Reviewer isolation is structural before it is behavioural, disagreement produces BLOCKED_AGENTIC_REVIEW_DISAGREEMENT rather than a resolution, rulings use AgenticRulingSchemaV1 with five verdicts of which exactly one is a pass, and ten failure modes fail closed because the failed outcome type carries no verdict field. Twenty-three frozen meta-evaluation fixtures all hold, covering the eighteen enumerated situations plus unsupported conclusions, self-contradicting rulings, evidence omission and two regression cases replaying this programme's own adjudicated dispositions. The audit is AlivenessGovernanceAuditV3 with thirty-two items, twenty-three passing and six blocking, and five outstanding blockers. No language model has ever been executed by this harness: no provider credential is configured, the diversity policy refuses any pair containing an in-repository fixture, and the qualification therefore returns BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE rather than a weakened pass. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, human scored recruitment is still refused, no ethics determination exists or is claimed, and no human outcome data exists anywhere in the repository.
+- Changed areas: research/aliveness-spike/agentic-review/, research/aliveness-spike/analysis/, research/aliveness-spike/study-protocol/, research/aliveness-spike/evidence/, governance/release-gates/, settings.gradle.kts, .github/workflows/ci.yml, .agent/
+- Validation:
+  - gradlew research aliveness-spike agentic-review test covering fifty new cases across isolation, fail-closed parsing, retry accounting, role authority, operator boundary, evidence neutralization, diversity and derived state - PASSED
+  - gradlew research aliveness-spike analysis test covering the thirty-two-item audit and the new derived agentic items - PASSED
+  - gradlew build covering every module - PASSED
+  - Regeneration and byte comparison of A001_ACTIVATION_DRY_RUN.txt, GOVERNANCE_AUDIT.txt and AGENTIC_REVIEW_QUALIFICATION.txt - PASSED
+  - CI A001 activation package step reproduced locally including both diff comparisons - PASSED
+  - Human recruitment gate still refused, pilot release schema unchanged, sealed pilot channel still identical in both directions - PASSED
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering ten bundles - PASSED
+  - python3 tools/verify_project_identity.py - PASSED
+  - Repeated-run stability, position and order sensitivity, abstention rate and injection resistance against real reviewer models - BLOCKED, no provider credential is configured in this environment and no language model was executed
+  - Every A001 phase from A001.1 through A001.15 - NOT RUN, unreachable while activation is refused
+- Remaining risks: The harness has never met a real language model, so every measured property is a property of deterministic fixtures and the frozen thresholds have nothing yet to be applied to. Two heterogeneous providers, credentials and a real stability run are needed before the reviewers may govern anything, and a configuration that fails the frozen thresholds is not qualified rather than qualified with caveats. The three interactive coding-agent CLIs present on this workstation were deliberately not used as reviewer backends: they run on the operator's own account, inject their own unhashable system prompts, expose no sampling parameters or model snapshot, and carry filesystem tools that would breach the evidence boundary, so using them would have produced provenance this harness could not honestly record. A001 still measures human perception and its human arms are still blocked on real participants and on an independent human-subjects determination. The graded instrument remains frozen but not cognitively pretested. The powered requirement is still unknown, so A001_NOT_FEASIBLE remains a real possible outcome.
+- Blockers: BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE, BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED, BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+- Follow-up directive: none

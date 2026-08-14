@@ -47,6 +47,7 @@ R003–R009 production equivalent.
 ./gradlew :research:aliveness-spike:accelerated-sim:run --args=--traces
 ./gradlew :research:aliveness-spike:analysis:run                     # ~5 min, envelope feasibility
 ./gradlew :research:aliveness-spike:analysis:governanceAudit
+./gradlew :research:aliveness-spike:agentic-review:agenticReviewQualification
 ./gradlew :research:aliveness-spike:realtime-viewer:run --args=--pair
 ```
 

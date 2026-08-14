@@ -1,5 +1,8 @@
 package com.animusmachinae.dll17.research.aliveness.analysis
 
+import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
+import com.animusmachinae.dll17.research.aliveness.agentic.FORBIDDEN_TO_EVERY_ROLE
+import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -13,7 +16,8 @@ class GovernanceAuditTest {
 
     @Test
     fun `the audit covers every canonical activation prerequisite`() {
-        assertEquals(27, items.size)
+        // 27 through D016-A; five agentic-governance items added by D016-C.
+        assertEquals(32, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
     }
 
@@ -67,7 +71,8 @@ class GovernanceAuditTest {
                 "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
                 "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
-                "BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED",
+                "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
+                "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -82,18 +87,68 @@ class GovernanceAuditTest {
 
         val oneLeft = unblocked + items.first { it.id == "GA-15" }
         assertEquals(
-            "BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED",
+            "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
             AlivenessGovernanceAudit.activationState(oneLeft),
         )
         assertFalse(AlivenessGovernanceAudit.recruitmentPermitted(oneLeft))
     }
 
     @Test
-    fun `the roster item stays blocked and carries no placeholder name`() {
-        val roster = items.single { it.id == "GA-15" }
-        assertEquals(AuditState.BLOCKED, roster.state)
-        assertEquals("BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED", roster.blockingState)
-        assertTrue(roster.detail.contains("unassigned"))
+    fun `the gate-review item is blocked on the agentic harness and preserves what it superseded`() {
+        val review = items.single { it.id == "GA-15" }
+        assertEquals(AuditState.BLOCKED, review.state)
+        assertEquals("BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED", review.blockingState)
+        // The three roles are the agentic ones...
+        assertTrue(review.detail.contains("PrimaryAgenticAlivenessGateReviewer"))
+        assertTrue(review.detail.contains("AlternateAgenticAlivenessGateReviewer"))
+        assertTrue(review.detail.contains("IndependentAgenticStudyOperator"))
+        // ...and the human-roster requirement they replaced is recorded as
+        // superseded rather than deleted, with its historical disposition named.
+        assertTrue(review.detail.contains("SUPERSEDED"))
+        assertTrue(review.detail.contains("BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED"))
+    }
+
+    @Test
+    fun `reviewer diversity is blocked because no real reviewer pair exists`() {
+        val diversity = items.single { it.id == "GA-16" }
+        assertEquals(AuditState.BLOCKED, diversity.state)
+        assertEquals("BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE", diversity.blockingState)
+    }
+
+    @Test
+    fun `the agentic governance items are read from the harness rather than restated`() {
+        // GA-30 must report the harness's own fixture counts. If the suite grows,
+        // shrinks or starts failing and the audit keeps reporting the old
+        // numbers, the audit has stopped being derived and this fails.
+        val meta = items.single { it.id == "GA-30" }
+        val results = MetaEvaluationSuite.run()
+        assertTrue(meta.detail.contains("${results.size} fixtures"))
+        assertTrue(meta.detail.contains("${results.count { it.held }} held"))
+        assertEquals(
+            if (results.all { it.held }) AuditState.PASS else AuditState.BLOCKED,
+            meta.state,
+        )
+
+        // GA-31 must report the harness's own boundary result, not a constant.
+        val operator = items.single { it.id == "GA-31" }
+        assertTrue(
+            operator.detail.contains(
+                "authorityBoundaryHolds=${AgenticRoleContracts.authorityBoundaryHolds()}",
+            ),
+        )
+    }
+
+    @Test
+    fun `no agentic role may stand in for a human participant`() {
+        val participants = items.single { it.id == "GA-32" }
+        assertEquals(AuditState.PASS, participants.state)
+        assertTrue(participants.detail.contains("real blinded participants"))
+        for (contract in AgenticRoleContracts.ALL) {
+            assertTrue(
+                contract.authorities.intersect(FORBIDDEN_TO_EVERY_ROLE).isEmpty(),
+                "${contract.role.roleId} holds a forbidden capability",
+            )
+        }
     }
 
     @Test

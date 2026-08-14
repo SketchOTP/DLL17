@@ -50,6 +50,9 @@ include(":research:aliveness-spike:cohorts")
 include(":research:aliveness-spike:accelerated-sim")
 include(":research:aliveness-spike:analysis")
 include(":research:aliveness-spike:realtime-viewer")
+// D016-C agentic A001 governance/review harness. Depends on nothing at all, so
+// a reviewer cannot import the organism it adjudicates.
+include(":research:aliveness-spike:agentic-review")
 
 // D011 persistence backend evaluation harness. Isolated like `research/`:
 // nothing under `benchmarks/` is depended on by any production module, and it is

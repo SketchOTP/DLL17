@@ -39,7 +39,7 @@ has been run, and nothing in this repository may claim otherwise.
 
 27 items. As evaluated at D010 on 2026-08-13: 17 `PASS`, 1
 `NOT_APPLICABLE_PRE_ATTEMPT`, 2 `REQUIRES_SIGNED_GOVERNANCE_EVIDENCE`, 7
-`BLOCKED`. The current counts are in the D016-A resumption record below.
+`BLOCKED`. The audit is now 32 items; the current counts are in the D016-C record below.
 
 Current output: `research/aliveness-spike/evidence/GOVERNANCE_AUDIT.txt`.
 
@@ -56,7 +56,9 @@ None of these can be cleared by writing code.
 | 1 | `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` | 40 participants and an assigned `BaselineIndependentOwner` |
 | 2 | `BLOCKED_VARIANCE_PILOT_NOT_REGISTERED` | An independent operator and a reviewer to register the pilot |
 | 3 | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` | The pilot to have run and released its one number |
-| 4 | `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` | Three real, eligible people |
+| 6 | `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` | The agentic reviewers to be meta-evaluated against real models at the frozen thresholds |
+| 7 | `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE` | A configured, credentialed, heterogeneous reviewer pair |
+| ~~4~~ | ~~`BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`~~ | **Superseded 2026-08-14.** The human reviewer roles were replaced with isolated agentic ones at D016-B/D016-C. Replaced by blockers 6 and 7. |
 | ~~5~~ | ~~`BLOCKED_SPEC_STUDY_BUDGET`~~ | **Cleared 2026-08-14.** The owner froze 400 participants and 250 participant-hours. See the D016-A resumption below. |
 
 Two further items require signed human judgement rather than an artifact:
@@ -79,7 +81,8 @@ ethics-board approval exists, and none is claimed.**
 
 The order below is not a preference; each step needs the one before it.
 
-1. Assign the roster. Everything else is gated on it.
+1. ~~Assign the roster.~~ Superseded at D016-B/D016-C: the roles are agentic.
+   Qualify the agentic reviewers against real heterogeneous models instead.
 2. Reviewer decides on the baseline, the instrument and any external approval.
 3. Run the baseline qualification: 40 participants, +15.0 margin.
 4. Register and run the variance pilot: 36 pairs, sealed.
@@ -92,7 +95,8 @@ The order below is not a preference; each step needs the one before it.
 
 **`A001_ACTIVATION = BLOCKED`.** Not started, and correctly so.
 
-Four blockers now, not five: see the D016-A resumption record below.
+Five blockers now: see the D016-C record below. One was cleared and one was
+superseded by two, which is not progress toward opening the gate.
 
 ---
 
@@ -193,3 +197,72 @@ conflict-reviewed, none signed. No placeholder name was entered into the roster.
 Attempts consumed remains `0 / 3`. Programme state remains
 `ALIVENESS_UNTESTED`. No participant was recruited, no session was run, and no
 human outcome data exists. Recorded as O-0017, superseding O-0016.
+
+---
+
+## D016-C — the agentic governance/review harness
+
+- Directive: D016, boundary `D016-C`, under the D016-B architect decision
+- Recorded: 2026-08-14
+- Disposition: **`BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE`**
+- Machine state: 32 items, 23 `PASS`, 1 `NOT_APPLICABLE_PRE_ATTEMPT`, 2
+  `REQUIRES_SIGNED_GOVERNANCE_EVIDENCE`, 6 blocking, `OUTSTANDING_BLOCKERS=5`
+
+The three human governance roles were replaced with isolated agentic ones and the
+architecture is implemented, machine-checked and audited. It is **not qualified**,
+and the gate is no closer to opening than it was at D016-A. What changed is the
+identity of the obstacle: it is no longer the availability of three academics.
+
+### What was built
+
+`AgenticReviewHarnessV1` in `research/aliveness-spike/agentic-review/`, which
+depends on nothing at all — a reviewer that could import the organism it
+adjudicates would not be isolated from it. Contract:
+[AgenticReviewHarnessV1](../../research/aliveness-spike/study-protocol/AgenticReviewHarnessV1.md).
+
+Three roles, with the authority boundary enforced by the role constructor rather
+than described: both reviewers hold `ADJUDICATE_GATE`, the operator does not, and
+ten capabilities — including `CREATE_HUMAN_EVIDENCE`, `SIMULATE_HUMAN_PARTICIPANT`,
+`OVERRIDE_REVIEWER` and `ISSUE_ETHICS_DETERMINATION` — are refused to every role.
+
+Isolation is structural first: a review session is a function of a role contract,
+a backend, a question and an evidence bundle, and has no parameter through which
+another reviewer's ruling could arrive. Running the alternate with no primary at
+all produces byte-identical input, which it could not if anything leaked. Any
+verdict difference produces `BLOCKED_AGENTIC_REVIEW_DISAGREEMENT` and is returned
+to the architect: no debate loop, no vote, no tie-breaking meta-judge.
+
+### What it is not
+
+**No language model has ever been executed by this harness.** No provider
+credential is configured in this environment, and the diversity policy refuses
+any pair containing an in-repository fixture, so the harness cannot be qualified
+against its own doubles. The 23 frozen fixtures qualify the *mechanics* —
+fail-closed parsing, retry accounting, ordering determinism, isolation, the
+authority boundary, disagreement surfacing. They cannot qualify any property of a
+model: repeated-run stability, position and order sensitivity, abstention rate or
+real injection resistance.
+
+The qualification thresholds were frozen before any reviewer execution existed,
+which is trivially verifiable here — none can happen — and is the reason they
+cannot have been fitted to a result.
+
+### Preserved, not deleted
+
+`BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` was the real state of the programme at
+D016-A and its record above stands unaltered. `IndependentReviewRosterV1` is
+marked `SUPERSEDED` with its history and its three preferred candidates retained;
+its heading "Candidates approached" is corrected to "Preferred candidates",
+because the paragraph beneath it always said none had been approached. `GA-15`
+names the supersession and the superseded blocker in its own detail text, so the
+provenance survives in the machine-readable audit and not only in prose.
+
+### Unchanged
+
+Attempts consumed remains `0 / 3`. Programme state remains `ALIVENESS_UNTESTED`.
+The owner ceiling remains 400 participants and 250 participant-hours. The +10
+floor, the scripted comparator, the frozen instrument, the multiplicity
+correction, the exclusion ordering and the sealed pilot channel are all untouched
+and still checked by CI. No participant was recruited, no session was run, and no
+human outcome data exists anywhere in this repository. `GA-26` still reports that
+no ethics determination exists and none is claimed. Recorded as O-0018.

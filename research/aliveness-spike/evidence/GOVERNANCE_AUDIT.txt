@@ -1,4 +1,4 @@
-GOVERNANCE_AUDIT=AlivenessGovernanceAuditV2 v2
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV3 v3
 SCOPE=research governance only; no organism runtime behaviour is exercised
 
 GA-01  PASS
@@ -20,7 +20,7 @@ GA-05  BLOCKED
    blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 GA-06  BLOCKED
    requirement: BlindVariancePilotV1 was prospectively registered variance-only/non-scored
-   detail:      the pilot is operationally ready (VARIANCE_ONLY, NON_SCORED, n=36) but registration requires an independent operator and a reviewer, neither of whom is named
+   detail:      the pilot is operationally ready (VARIANCE_ONLY, NON_SCORED, n=36) but registration requires the independent study operator to run it and a qualified reviewer to register it; both roles are now agentic and the harness is not yet qualified
    blocks:      BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
 GA-07  PASS
    requirement: Variance-pilot and baseline participants can never enter scored pools
@@ -48,13 +48,13 @@ GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
    requirement: MaterialChangeEligibilityV1 and independent adjudication exist for Attempts 2/3
    detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
 GA-15  BLOCKED
-   requirement: IndependentReviewRosterV1 names primary/alternate/baseline-owner before Attempt 1
-   detail:      all three roles are unassigned; the onboarding package is complete and the roster carries no placeholder names
-   blocks:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+   requirement: The gate-review roles are validly filled and qualified before Attempt 1
+   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
+   blocks:      BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
 GA-16  BLOCKED
-   requirement: Reviewer independence/conflict declarations and any replacement cause are present
-   detail:      the declaration forms and the signed-acceptance record are prepared, but no reviewer is named so no declaration can be signed
-   blocks:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+   requirement: The two reviewers are meaningfully heterogeneous rather than one configuration twice
+   detail:      reviewer heterogeneity is machine-enforced by AgenticReviewerDiversityPolicyV1: identical models, same-family pairs and in-repository fixtures are all refused; no reviewer model or credential is configured in this environment, so no real pair exists to enforce it against and none is invented
+   blocks:      BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
 GA-17  PASS
    requirement: Viewer/expression/interaction contract hashes match across cohorts
    detail:      every cohort renders through SpikeExpressionContractV1 v1; the contract has no cohort parameter and the viewer has no reference to Cohort
@@ -65,8 +65,8 @@ GA-19  PASS
    requirement: Spontaneity attribution thresholds/classifier version are frozen
    detail:      substantiveFloor=700000e-6 oscillatorCeiling=200000e-6 dominantShare=500000e-6 mixedMin=150000e-6
 GA-20  PASS
-   requirement: A001 is blocked while any required governance role is unassigned
-   detail:      asserted from GA-15: the activation state is derived from the blocking items rather than declared, so it cannot drift out of agreement with them
+   requirement: A001 is blocked while any required governance role is unfilled or unqualified
+   detail:      asserted from GA-15 and GA-16: the activation state is derived from the blocking items rather than declared, so it cannot drift out of agreement with them
 GA-21  PASS
    requirement: Participant-facing instrument wording and anchors are frozen
    detail:      GradedAlivenessInstrumentV1 v1: one scored item, 5 labelled anchors spanning 0-100, wording frozen verbatim (not cognitively pretested; recorded as a limitation)
@@ -88,14 +88,30 @@ GA-26  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
 GA-27  PASS
    requirement: The scored analysis pipeline is preregistered and tested before data
    detail:      A001AnalysisV1 v1 exercised on synthetic fixtures covering pass, statistically-significant-but-not-meaningful, large-but-imprecise, negative, and corrected ablation significance and non-significance
+GA-28  PASS
+   requirement: The two reviewers judge in isolation, with no debate, vote or tie-break
+   detail:      structural: a review session is a function of (role contract, backend, question, bundle) and has no parameter through which another reviewer's ruling could arrive; ReviewerIsolationTest also shows the alternate's prompt is byte-identical whether or not the primary ran first, and that any verdict difference becomes BLOCKED_AGENTIC_REVIEW_DISAGREEMENT rather than being resolved by the harness
+GA-29  PASS
+   requirement: Gate rulings use a validated schema and every failure mode fails closed
+   detail:      AgenticRulingSchemaV1 parserVersion=1 with 5 permitted verdicts of which exactly one is a pass; 10 failure modes — malformed output, missing fields, unparseable verdict, question mismatch, refusal, transport failure, timeout after permitted retries, evidence omission, unsupported conclusion and ruling/prose inconsistency — none of which can produce a pass, because the failed outcome type has no verdict field to set
+GA-30  PASS
+   requirement: The reviewers are meta-evaluated against frozen fixtures and frozen thresholds
+   detail:      AgenticReviewMetaEvaluationV1: 23 fixtures, 23 held, 0 not held, covering obvious pass and fail, insufficient evidence, specification ambiguity, unfair and fair comparators, material and non-material change, evidence-order reversal, position swap, verbosity distraction, injection inside evidence, conflicting evidence, malformed output, refusal, timeout, retry, disagreement, and two regression cases replaying this programme's own adjudicated history; thresholds are AgenticReviewerQualificationThresholdsV1, frozen before any reviewer execution existed
+GA-31  PASS
+   requirement: The study operator administers the protocol and cannot adjudicate or invent evidence
+   detail:      authorityBoundaryHolds=true: both reviewers hold ADJUDICATE_GATE and the operator does not; ten capabilities including CREATE_HUMAN_EVIDENCE, SIMULATE_HUMAN_PARTICIPANT, MODIFY_PARTICIPANT_RESPONSE, CHANGE_ANALYSIS_AFTER_OUTCOMES, REVEAL_SEALED_PILOT_DIRECTION and OVERRIDE_REVIEWER are forbidden to every role and the role constructor refuses them; the operator's public surface contains no operation that returns participant data it was not handed
+GA-32  PASS
+   requirement: Agents govern and operate the study; they never stand in for its participants
+   detail:      A001 measures whether people perceive the organism as more alive, so the human arms — baseline qualification, the variance pilot, Attempt 1 and the human ablations — still require real blinded participants and are still blocked on them; no model-generated score exists anywhere and no agentic role may create one
 
-PASS=18 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
+PASS=23 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
 A001_PROGRAM_STATE=ALIVENESS_UNTESTED
 A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 HUMAN_SCORED_RECRUITMENT=BLOCKED
-OUTSTANDING_BLOCKERS=4
+OUTSTANDING_BLOCKERS=5
   BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
   BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
-  BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+  BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
+  BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
 

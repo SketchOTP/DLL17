@@ -11,6 +11,10 @@ kotlin {
 dependencies {
     implementation(project(":research:aliveness-spike:accelerated-sim"))
     implementation(project(":research:aliveness-spike:cohorts"))
+    // D016-C: the activation audit derives its agentic-governance items from the
+    // harness itself rather than restating them, so the audit cannot report a
+    // qualification the harness does not have.
+    implementation(project(":research:aliveness-spike:agentic-review"))
     implementation(project(":core-math"))
     testImplementation(kotlin("test"))
 }

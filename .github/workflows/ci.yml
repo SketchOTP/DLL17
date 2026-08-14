@@ -102,6 +102,7 @@ jobs:
           :research:aliveness-spike:accelerated-sim:test
           :research:aliveness-spike:analysis:test
           :research:aliveness-spike:realtime-viewer:test
+          :research:aliveness-spike:agentic-review:test
           --no-daemon
 
       # The desktop JVM reference runner is a matrix target for both phases.
@@ -215,6 +216,29 @@ jobs:
             || { echo '::error::the variance-pilot release schema changed'; exit 1; }
           grep -q 'identicalRelease=true' a001_dry_run.txt \
             || { echo '::error::the variance-pilot channel leaks the direction of the result'; exit 1; }
+
+      # D016-C agentic governance/review harness. Regenerated and diffed like the
+      # A001 package, and checked for the two properties that matter most: that
+      # no reviewer double has quietly been promoted to a real model, and that a
+      # harness which has never executed a real reviewer cannot report itself
+      # qualified. If this step ever prints AGENTIC_REVIEW_HARNESS_QUALIFIED
+      # without a configured, credentialed, heterogeneous reviewer pair, that is
+      # the alarm.
+      - name: Agentic review harness qualification
+        run: |
+          ./gradlew :research:aliveness-spike:agentic-review:agenticReviewQualification \
+            --no-daemon --quiet > agentic_review.txt
+          diff -u research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt \
+            agentic_review.txt
+          grep -q 'AGENTIC_REVIEW_STATE=BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE' \
+            agentic_review.txt \
+            || { echo '::error::the agentic review harness changed its qualification state'; exit 1; }
+          grep -q 'authorityBoundaryHolds=true' agentic_review.txt \
+            || { echo '::error::the study operator/reviewer authority boundary broke'; exit 1; }
+          grep -q 'notHeld=0' agentic_review.txt \
+            || { echo '::error::an agentic meta-evaluation fixture no longer holds'; exit 1; }
+          grep -q 'HUMAN_PARTICIPANT_DATA=0 records' agentic_review.txt \
+            || { echo '::error::human participant data appeared in the agentic harness'; exit 1; }
 
       - name: Android instrumented test assembly
         run: ./gradlew :android-host:assembleDebugAndroidTest --no-daemon

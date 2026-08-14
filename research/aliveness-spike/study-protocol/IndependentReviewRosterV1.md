@@ -1,7 +1,43 @@
 # IndependentReviewRosterV1
 
-- Status: `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`
-- Version: 1 (draft; not activated)
+- Status: **SUPERSEDED** by [AgenticReviewHarnessV1](AgenticReviewHarnessV1.md)
+- Superseded: 2026-08-14, by the D016-B architect decision, implemented at D016-C
+- Historical status: `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`
+- Version: 1 (draft; never activated)
+
+## Supersession notice
+
+The three governance roles this document describes are no longer filled by
+people. D016-B replaced them with isolated agentic roles, and D016-C implements
+and machine-checks that architecture:
+
+| This document's role | Replaced by |
+|---|---|
+| `PrimaryIndependentAlivenessGateReviewer` | `PrimaryAgenticAlivenessGateReviewer` |
+| `AlternateIndependentAlivenessGateReviewer` | `AlternateAgenticAlivenessGateReviewer` |
+| `BaselineIndependentOwner` | folded into the alternate agentic reviewer |
+| Independent human-study operator | `IndependentAgenticStudyOperator` |
+
+The A001 activation audit no longer reports
+`BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`. It now reports
+`BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` and
+`BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE` in its place.
+
+**Everything below this notice is retained as superseded planning history and is
+not a current requirement.** It is kept rather than deleted because the earlier
+blocker was a real state of the programme with a real disposition, and deleting
+the requirement would leave the D016-A record referring to a blocker with no
+provenance. Nothing below has been altered to agree with the new architecture,
+and the one correction made is marked as a correction.
+
+Two things this supersession does **not** change: A001 still measures human
+perception and still needs real blinded participants, and an independent
+human-subjects determination is still required before anyone is recruited. See
+[AgenticReviewHarnessV1](AgenticReviewHarnessV1.md).
+
+---
+
+## Historical record (superseded)
 
 ```
 IndependentReviewRosterV1
@@ -10,9 +46,9 @@ IndependentReviewRosterV1
 - BaselineIndependentOwner:                  <unassigned>
 ```
 
-A001 remains `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` while any required name is
-blank. All three are blank. This is the single most consequential blocker on the
-A-track, and it cannot be resolved by writing code.
+A001 remained `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` while any required name
+was blank. All three stayed blank for the whole life of this document. No
+placeholder name was ever entered.
 
 ## Frozen role-compatibility ruling
 
@@ -32,9 +68,16 @@ Three distinct people minimum. The pre-existing condition on the permitted
 overlap still stands: it must not make one person the only check on the
 comparison, which is why the primary is required to be unique.
 
-## Candidates approached — not appointments
+## Preferred candidates — not appointments
 
-The owner has identified preferred candidates. **None of them has been
+> **Correction, 2026-08-14 (D016-C).** This heading previously read "Candidates
+> approached — not appointments", which contradicted the paragraph directly
+> beneath it: none of these people was ever approached. The heading was wrong and
+> is corrected here rather than left standing. Nothing else in this section has
+> been changed, and the candidate names are retained as superseded planning
+> history now that the roles are agentic.
+
+The owner identified preferred candidates. **None of them has been
 approached, none has accepted, none has completed conflict review, and none has
 signed anything.** They are recorded here as intent, and this table confers no
 role, no authority and no ruling. The roster above stays blank until a real
@@ -55,6 +98,11 @@ whoever is available. Eligibility conditions 1–4 of
 replacement candidate equally.
 
 ## Frozen ethics posture
+
+> **Still in force.** This is the one section below the supersession notice that
+> the agentic architecture does not supersede. D016-C §13 leaves the ethics
+> requirement exactly as it was: the agentic reviewers are not an IRB or HRPP,
+> and `ISSUE_ETHICS_DETERMINATION` is forbidden to every agentic role.
 
 Decided by the programme owner on 2026-08-14, recorded as DEC-0039.
 

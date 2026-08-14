@@ -33,10 +33,17 @@ Each document carries one of three statuses:
 | [ParticipantInformationAndConsentV1](ParticipantInformationAndConsentV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [DataHandlingAndPrivacyV1](DataHandlingAndPrivacyV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [IndependentReviewOnboardingV1](IndependentReviewOnboardingV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
-| [IndependentReviewRosterV1](IndependentReviewRosterV1.md) | `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` |
+| [IndependentReviewRosterV1](IndependentReviewRosterV1.md) | `SUPERSEDED` by AgenticReviewHarnessV1 (D016-C); history retained |
+| [AgenticReviewHarnessV1](AgenticReviewHarnessV1.md) | `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE` — implemented, not qualified |
 
 Under D010 the attempt-specific protocol, the instrument, the participant
 materials and the reviewer onboarding package were authored and frozen. What
-remains blocked needs people or money, not code: three named reviewers, a
-registered variance pilot, the SD it releases, an independent baseline
-qualification, and an owner resource ceiling.
+remains blocked still needs something other than code: a registered variance
+pilot, the SD it releases, an independent baseline qualification, and — since
+D016-B replaced the human reviewer roles with agentic ones — two credentialed
+heterogeneous reviewer models against which the frozen qualification thresholds
+can actually be measured. The owner resource ceiling was frozen at D016-A.
+
+The agentic roles govern and operate the study. They do not replace the people
+whose perception A001 measures, and every human arm is still blocked on real
+blinded participants and on an independent human-subjects determination.

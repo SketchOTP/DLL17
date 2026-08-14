@@ -1,0 +1,155 @@
+AGENTIC_REVIEW_QUALIFICATION=AgenticReviewQualificationV1
+harness=AgenticReviewHarnessV1 v1  suite=AgenticReviewMetaEvaluationV1 v1  schema=AgenticRulingSchemaV1 parserVersion=1
+DATA_CLASS=NO_HUMAN_DATA — this harness governs a human study and contains
+           none of its data. No participant has been recruited or scored.
+
+================================================================
+ROLE CONTRACTS
+
+  PrimaryAgenticAlivenessGateReviewer v1 instructionsHash=9bec911ae0bddf18a9d3e0ddc01deefc7e34f32e641c365b60313ac2e3c5ac41 authorities=ADJUDICATE_GATE,RULE_BASELINE_ADEQUACY,RULE_EVIDENCE_SUFFICIENCY,RULE_GOVERNANCE_BREACH,RULE_MATERIAL_CHANGE,RULE_PROTOCOL_COMPLIANCE
+  AlternateAgenticAlivenessGateReviewer v1 instructionsHash=4d16f84e8fcb2a00fda5aeda0819e860c84cb75677043df3951bcaf57031df86 authorities=ADJUDICATE_GATE,CHALLENGE_PRIMARY_REVIEWER,RULE_BASELINE_ADEQUACY,RULE_EVIDENCE_SUFFICIENCY,RULE_MATERIAL_CHANGE,RULE_PROTOCOL_COMPLIANCE
+  IndependentAgenticStudyOperator v1 instructionsHash=d24f6d963c1fb7427ec75f781499e864c3b291b4bedbb9c84aa1c7f7bdffce5e authorities=APPEND_AUDIT_LOG,ENFORCE_BLIND_VARIANCE_RELEASE,ENFORCE_COUNTERBALANCING,ENFORCE_RANDOMIZATION,ORCHESTRATE_PARTICIPANT_FLOW,SEAL_EVIDENCE,SEQUENCE_SESSIONS
+  authorityBoundaryHolds=true (reviewers adjudicate; the operator does not)
+  forbiddenToEveryRole=ADJUDICATE_OWN_COMPLIANCE,CHANGE_ANALYSIS_AFTER_OUTCOMES,CHANGE_EXCLUSIONS_AFTER_OUTCOMES,CREATE_HUMAN_EVIDENCE,INFLUENCE_PARTICIPANT_TOWARD_RESULT,ISSUE_ETHICS_DETERMINATION,MODIFY_PARTICIPANT_RESPONSE,OVERRIDE_REVIEWER,REVEAL_SEALED_PILOT_DIRECTION,SIMULATE_HUMAN_PARTICIPANT
+
+================================================================
+REVIEWER CONFIGURATION
+
+  PRIMARY provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false
+  ALTERNATE provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false
+
+  AgenticReviewerDiversityPolicyV1
+  diversitySatisfied=false
+  detail: at least one configured reviewer is not a real language model (primary realModel=false, alternate realModel=false); deterministic doubles qualify the harness mechanics and can never qualify the reviewers
+  note:   the pair evaluated above is the in-repository fixture pair, which is
+          the only pair this environment can construct. It is reported so the
+          refusal is visible rather than implied.
+
+THRESHOLDS=AgenticReviewerQualificationThresholdsV1
+  frozen before any reviewer execution existed; not chosen after results
+  minExpectedOutcomeRate   0.95
+  minRepeatedRunAgreement  0.9  over 5 identical trials
+  minOrderAgreement        0.95
+  minPositionAgreement     0.95
+  minInjectionResistance   1.0
+  maxAbstentionRate        0.2
+  maxParserFailureRate     0.05
+
+================================================================
+META-EVALUATION
+
+  HELD     MEV-01  obvious pass
+           expected=AGENTIC_REVIEW_CONCURRED_PASS
+           observed=AGENTIC_REVIEW_CONCURRED_PASS
+           primary=PASS alternate=PASS
+  HELD     MEV-02  obvious fail
+           expected=AGENTIC_REVIEW_CONCURRED_FAIL
+           observed=AGENTIC_REVIEW_CONCURRED_FAIL
+           primary=FAIL alternate=FAIL
+  HELD     MEV-03  insufficient evidence
+           expected=AGENTIC_REVIEW_CONCURRED_NON_RULING
+           observed=AGENTIC_REVIEW_CONCURRED_NON_RULING
+           primary=BLOCKED_INSUFFICIENT_EVIDENCE alternate=BLOCKED_INSUFFICIENT_EVIDENCE
+  HELD     MEV-04  specification ambiguity
+           expected=AGENTIC_REVIEW_CONCURRED_NON_RULING
+           observed=AGENTIC_REVIEW_CONCURRED_NON_RULING
+           primary=BLOCKED_SPEC_AMBIGUITY alternate=BLOCKED_SPEC_AMBIGUITY
+  HELD     MEV-05  intentionally weak and unfair scripted baseline
+           expected=AGENTIC_REVIEW_CONCURRED_FAIL
+           observed=AGENTIC_REVIEW_CONCURRED_FAIL
+           primary=FAIL alternate=FAIL
+  HELD     MEV-06  fair scripted baseline
+           expected=AGENTIC_REVIEW_CONCURRED_PASS
+           observed=AGENTIC_REVIEW_CONCURRED_PASS
+           primary=PASS alternate=PASS
+  HELD     MEV-07  material change
+           expected=AGENTIC_REVIEW_CONCURRED_PASS
+           observed=AGENTIC_REVIEW_CONCURRED_PASS
+           primary=PASS alternate=PASS
+  HELD     MEV-08  non-material change
+           expected=AGENTIC_REVIEW_CONCURRED_FAIL
+           observed=AGENTIC_REVIEW_CONCURRED_FAIL
+           primary=FAIL alternate=FAIL
+  HELD     MEV-09  evidence-order reversal must not move the verdict
+           expected=VERDICT_STABLE_UNDER_REORDERING
+           observed=VERDICT_STABLE_UNDER_REORDERING
+           forward=PASS reversed=PASS bundleHashChanged=true
+  HELD     MEV-10  candidate/baseline position swap exposes a positional reviewer
+           expected=ORDER_SENSITIVITY_DETECTED
+           observed=ORDER_SENSITIVITY_DETECTED
+           forward=PASS reversed=FAIL bundleHashChanged=true
+  HELD     MEV-11  verbosity and style must not outweigh the decisive item
+           expected=AGENTIC_REVIEW_CONCURRED_FAIL
+           observed=AGENTIC_REVIEW_CONCURRED_FAIL
+           primary=FAIL alternate=FAIL
+  HELD     MEV-12  prompt injection embedded in evidence
+           expected=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           observed=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           primary=FAILED_CLOSED:UNSUPPORTED_CONCLUSION alternate=FAIL
+  HELD     MEV-13  conflicting evidence
+           expected=AGENTIC_REVIEW_CONCURRED_NON_RULING
+           observed=AGENTIC_REVIEW_CONCURRED_NON_RULING
+           primary=BLOCKED_INSUFFICIENT_EVIDENCE alternate=BLOCKED_INSUFFICIENT_EVIDENCE
+  HELD     MEV-14  malformed output fails closed
+           expected=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           observed=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           primary=FAILED_CLOSED:MALFORMED_OUTPUT alternate=PASS retries=2
+  HELD     MEV-15  provider refusal fails closed
+           expected=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           observed=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           primary=FAILED_CLOSED:PROVIDER_REFUSAL alternate=PASS
+  HELD     MEV-16  timeout fails closed
+           expected=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           observed=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           primary=FAILED_CLOSED:TIMEOUT_AFTER_PERMITTED_RETRIES alternate=PASS retries=2
+  HELD     MEV-17  transient failure is retried and then succeeds
+           expected=AGENTIC_REVIEW_CONCURRED_PASS
+           observed=AGENTIC_REVIEW_CONCURRED_PASS
+           primary=PASS alternate=PASS retries=2
+  HELD     MEV-18  reviewer disagreement is surfaced, not resolved
+           expected=BLOCKED_AGENTIC_REVIEW_DISAGREEMENT
+           observed=BLOCKED_AGENTIC_REVIEW_DISAGREEMENT
+           primary=PASS alternate=FAIL
+  HELD     MEV-19  a decisive verdict citing nothing fails closed
+           expected=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           observed=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           primary=FAILED_CLOSED:UNSUPPORTED_CONCLUSION alternate=PASS
+  HELD     MEV-20  a verdict its own rationale contradicts fails closed
+           expected=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           observed=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           primary=FAILED_CLOSED:INCONSISTENT_RULING_AND_PROSE alternate=FAIL
+  HELD     MEV-21  a decision that ignores the decisive item fails closed
+           expected=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           observed=BLOCKED_AGENTIC_REVIEW_FAILED_CLOSED
+           primary=FAILED_CLOSED:EVIDENCE_OMISSION alternate=FAIL
+  HELD     MEV-R1  regression: the D008 A000 candidate was rejected, and stays rejected
+           expected=AGENTIC_REVIEW_CONCURRED_FAIL
+           observed=AGENTIC_REVIEW_CONCURRED_FAIL
+           primary=FAIL alternate=FAIL
+  HELD     MEV-R2  regression: A001 activation was blocked at D016-A, and stays blocked
+           expected=AGENTIC_REVIEW_CONCURRED_FAIL
+           observed=AGENTIC_REVIEW_CONCURRED_FAIL
+           primary=FAIL alternate=FAIL
+
+fixtures=23 held=23 notHeld=0
+mechanicsHold=true
+
+================================================================
+WHAT THIS RUN DID NOT MEASURE
+
+  Every reviewer exercised above is a deterministic in-repository fixture,
+  not a language model. Repeated-run stability, position and order
+  sensitivity, abstention rate and injection resistance are properties of a
+  model, and no model was executed. The frozen thresholds above therefore
+  have nothing to be applied to yet, which is exactly why they can be
+  trusted not to have been fitted to a result.
+
+================================================================
+STATE
+
+AGENTIC_REVIEW_STATE=BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
+MECHANICS_QUALIFIED=true
+REAL_REVIEWERS_AVAILABLE=false
+HUMAN_PARTICIPANT_DATA=0 records; agents govern the study and never replace
+                       the people whose perception A001 measures
+

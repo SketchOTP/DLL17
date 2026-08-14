@@ -3,6 +3,14 @@ package com.animusmachinae.dll17.research.aliveness.analysis
 import com.animusmachinae.dll17.research.aliveness.Cohort
 import com.animusmachinae.dll17.research.aliveness.MechanismGroup
 import com.animusmachinae.dll17.research.aliveness.SpikeContract
+import com.animusmachinae.dll17.research.aliveness.agentic.AgenticReviewHarness
+import com.animusmachinae.dll17.research.aliveness.agentic.AgenticReviewQualification
+import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
+import com.animusmachinae.dll17.research.aliveness.agentic.FailureMode
+import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
+import com.animusmachinae.dll17.research.aliveness.agentic.QualificationThresholds
+import com.animusmachinae.dll17.research.aliveness.agentic.RulingParser
+import com.animusmachinae.dll17.research.aliveness.agentic.RulingVerdict
 
 /** The state of one audited item. */
 public enum class AuditState {
@@ -48,8 +56,23 @@ public class AuditItem(
  */
 public object AlivenessGovernanceAudit {
 
-    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV2"
-    public const val AUDIT_VERSION: Int = 2
+    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV3"
+    public const val AUDIT_VERSION: Int = 3
+
+    /**
+     * The agentic-governance facts, read from the harness rather than restated.
+     *
+     * D016-B replaced the external human reviewer and study-operator roles with
+     * isolated agentic ones; D016-C implements them. Every GA item below that
+     * concerns agentic review computes its state from these values, so the audit
+     * cannot claim a qualification the harness does not have.
+     */
+    private val agenticResults = MetaEvaluationSuite.run()
+    private val agenticState = AgenticReviewQualification.state(System::getenv, agenticResults)
+    private val agenticQualified =
+        agenticState == AgenticReviewQualification.STATE_QUALIFIED
+    private val realReviewersAvailable =
+        AgenticReviewQualification.realReviewersAvailable(System::getenv)
 
     @JvmStatic
     public fun main(args: Array<String>) {
@@ -104,7 +127,8 @@ public object AlivenessGovernanceAudit {
             AuditState.BLOCKED,
             "the pilot is operationally ready (${BlindVariancePilot.REGISTRATION}, " +
                 "n=${A001StudyContract.VARIANCE_PILOT_PARTICIPANTS}) but registration requires " +
-                "an independent operator and a reviewer, neither of whom is named",
+                "the independent study operator to run it and a qualified reviewer to " +
+                "register it; both roles are now agentic and the harness is not yet qualified",
             blockingState = "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
         ),
         AuditItem(
@@ -173,19 +197,36 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-15",
-            "IndependentReviewRosterV1 names primary/alternate/baseline-owner before Attempt 1",
-            AuditState.BLOCKED,
-            "all three roles are unassigned; the onboarding package is complete and the " +
-                "roster carries no placeholder names",
-            blockingState = "BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED",
+            "The gate-review roles are validly filled and qualified before Attempt 1",
+            if (agenticQualified) AuditState.PASS else AuditState.BLOCKED,
+            "the three roles are now agentic (${AgenticRoleContracts.ALL.joinToString(", ") {
+                it.role.roleId
+            }}), per D016-B; the previous requirement for three named human " +
+                "reviewers is SUPERSEDED and its history is preserved in " +
+                "IndependentReviewRosterV1 and in the A001 activation gate record, where " +
+                "the earlier BLOCKED_GOVERNANCE_" + "REVIEWER_UNASSIGNED disposition stands " +
+                "unaltered as the state of the programme at D016-A; the harness reports " +
+                agenticState,
+            blockingState = if (agenticQualified) {
+                null
+            } else {
+                "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED"
+            },
         ),
         AuditItem(
             "GA-16",
-            "Reviewer independence/conflict declarations and any replacement cause are present",
-            AuditState.BLOCKED,
-            "the declaration forms and the signed-acceptance record are prepared, but no " +
-                "reviewer is named so no declaration can be signed",
-            blockingState = "BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED",
+            "The two reviewers are meaningfully heterogeneous rather than one configuration twice",
+            if (realReviewersAvailable) AuditState.PASS else AuditState.BLOCKED,
+            "reviewer heterogeneity is machine-enforced by " +
+                "${com.animusmachinae.dll17.research.aliveness.agentic.DiversityPolicy.POLICY_ID}: " +
+                "identical models, same-family pairs and in-repository fixtures are all " +
+                "refused; no reviewer model or credential is configured in this environment, " +
+                "so no real pair exists to enforce it against and none is invented",
+            blockingState = if (realReviewersAvailable) {
+                null
+            } else {
+                "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE"
+            },
         ),
         AuditItem(
             "GA-17",
@@ -215,10 +256,10 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-20",
-            "A001 is blocked while any required governance role is unassigned",
+            "A001 is blocked while any required governance role is unfilled or unqualified",
             AuditState.PASS,
-            "asserted from GA-15: the activation state is derived from the blocking items " +
-                "rather than declared, so it cannot drift out of agreement with them",
+            "asserted from GA-15 and GA-16: the activation state is derived from the blocking " +
+                "items rather than declared, so it cannot drift out of agreement with them",
         ),
         AuditItem(
             "GA-21",
@@ -300,6 +341,78 @@ public object AlivenessGovernanceAudit {
                 "synthetic fixtures covering pass, statistically-significant-but-not-" +
                 "meaningful, large-but-imprecise, negative, and corrected ablation " +
                 "significance and non-significance",
+        ),
+
+        // D016-C. The agentic governance architecture. Every state below is
+        // computed from the harness, never declared next to it.
+        AuditItem(
+            "GA-28",
+            "The two reviewers judge in isolation, with no debate, vote or tie-break",
+            AuditState.PASS,
+            "structural: a review session is a function of (role contract, backend, question, " +
+                "bundle) and has no parameter through which another reviewer's ruling could " +
+                "arrive; ReviewerIsolationTest also shows the alternate's prompt is byte-" +
+                "identical whether or not the primary ran first, and that any verdict " +
+                "difference becomes ${AgenticReviewHarness.STATE_DISAGREEMENT} rather than " +
+                "being resolved by the harness",
+        ),
+        AuditItem(
+            "GA-29",
+            "Gate rulings use a validated schema and every failure mode fails closed",
+            AuditState.PASS,
+            "${RulingParser.SCHEMA_ID} parserVersion=${RulingParser.PARSER_VERSION} with " +
+                "${RulingVerdict.entries.size} permitted verdicts of which exactly one is a " +
+                "pass; ${FailureMode.entries.size} failure modes — malformed output, missing " +
+                "fields, unparseable verdict, question mismatch, refusal, transport failure, " +
+                "timeout after permitted retries, evidence omission, unsupported conclusion " +
+                "and ruling/prose inconsistency — none of which can produce a pass, because " +
+                "the failed outcome type has no verdict field to set",
+        ),
+        AuditItem(
+            "GA-30",
+            "The reviewers are meta-evaluated against frozen fixtures and frozen thresholds",
+            if (AgenticReviewQualification.mechanicsHold(agenticResults)) {
+                AuditState.PASS
+            } else {
+                AuditState.BLOCKED
+            },
+            "${MetaEvaluationSuite.SUITE_ID}: ${agenticResults.size} fixtures, " +
+                "${agenticResults.count { it.held }} held, " +
+                "${agenticResults.count { !it.held }} not held, covering obvious pass and " +
+                "fail, insufficient evidence, specification ambiguity, unfair and fair " +
+                "comparators, material and non-material change, evidence-order reversal, " +
+                "position swap, verbosity distraction, injection inside evidence, conflicting " +
+                "evidence, malformed output, refusal, timeout, retry, disagreement, and two " +
+                "regression cases replaying this programme's own adjudicated history; " +
+                "thresholds are ${QualificationThresholds.THRESHOLDS_ID}, frozen before any " +
+                "reviewer execution existed",
+            blockingState = if (AgenticReviewQualification.mechanicsHold(agenticResults)) {
+                null
+            } else {
+                "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED"
+            },
+        ),
+        AuditItem(
+            "GA-31",
+            "The study operator administers the protocol and cannot adjudicate or invent evidence",
+            AuditState.PASS,
+            "authorityBoundaryHolds=${AgenticRoleContracts.authorityBoundaryHolds()}: both " +
+                "reviewers hold ADJUDICATE_GATE and the operator does not; ten capabilities " +
+                "including CREATE_HUMAN_EVIDENCE, SIMULATE_HUMAN_PARTICIPANT, " +
+                "MODIFY_PARTICIPANT_RESPONSE, CHANGE_ANALYSIS_AFTER_OUTCOMES, " +
+                "REVEAL_SEALED_PILOT_DIRECTION and OVERRIDE_REVIEWER are forbidden to every " +
+                "role and the role constructor refuses them; the operator's public surface " +
+                "contains no operation that returns participant data it was not handed",
+        ),
+        AuditItem(
+            "GA-32",
+            "Agents govern and operate the study; they never stand in for its participants",
+            AuditState.PASS,
+            "A001 measures whether people perceive the organism as more alive, so the human " +
+                "arms — baseline qualification, the variance pilot, Attempt 1 and the human " +
+                "ablations — still require real blinded participants and are still blocked on " +
+                "them; no model-generated score exists anywhere and no agentic role may " +
+                "create one",
         ),
     )
 
