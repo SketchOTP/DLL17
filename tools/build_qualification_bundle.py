@@ -524,6 +524,56 @@ R012_CONSTITUENTS: list[tuple[str, list[str]]] = [
 ]
 
 
+# D012: the Android device half of the R012 substrate. Deliberately a separate
+# bundle rather than an extension of R012-QB-1. The substrate bundle is closed
+# and pinned; this one covers the Android adapter, the device qualification
+# suite and the evidence a target produced, and it can close on its own schedule
+# — which matters, because it cannot close at all until a physical device is
+# available.
+R012DEV_CONSTITUENTS: list[tuple[str, list[str]]] = [
+    (
+        "Android production adapter",
+        [
+            "android-host/build.gradle.kts",
+            "android-host/src/main/AndroidManifest.xml",
+            "android-host/src/main/kotlin/com/animusmachinae/dll17/android/persistence/AndroidKeystoreDeviceKeyContainer.kt",
+            "android-host/src/main/kotlin/com/animusmachinae/dll17/android/persistence/AndroidPersistenceLocations.kt",
+            "android-host/src/main/kotlin/com/animusmachinae/dll17/android/persistence/AndroidLocalKeyBootstrap.kt",
+        ],
+    ),
+    (
+        "Backup and device-transfer exclusion",
+        [
+            "android-host/src/main/res/xml/data_extraction_rules.xml",
+            "android-host/src/main/res/xml/backup_rules.xml",
+            "android-host/src/test/kotlin/com/animusmachinae/dll17/android/BackupExclusionTest.kt",
+            "tools/verify_backup_exclusion.py",
+        ],
+    ),
+    (
+        "Device qualification suite",
+        [
+            "android-host/src/debug/AndroidManifest.xml",
+            "android-host/src/debug/kotlin/com/animusmachinae/dll17/android/persistence/DeviceCrashService.kt",
+            "android-host/src/androidTest/kotlin/com/animusmachinae/dll17/android/persistence/R012DeviceQualificationKernel.kt",
+            "android-host/src/androidTest/kotlin/com/animusmachinae/dll17/android/persistence/R012DeviceQualificationInstrumentedTest.kt",
+            "android-host/src/androidTest/kotlin/com/animusmachinae/dll17/android/persistence/R012DeviceMeasurementsInstrumentedTest.kt",
+            "android-host/src/test/kotlin/com/animusmachinae/dll17/android/AndroidLocalKeyBootstrapTest.kt",
+        ],
+    ),
+    (
+        "Target evidence",
+        [
+            "qualification/device-matrix/R012/DEVICE_MATRIX.md",
+            "qualification/device-matrix/R012/x86_emulator_qualification.txt",
+            "qualification/device-matrix/R012/x86_emulator_performance.txt",
+            "qualification/evidence/R012/backup_exclusion.txt",
+        ],
+    ),
+    ("Gate record", ["governance/release-gates/R012_DEVICE_GATE.md"]),
+]
+
+
 class PhaseSpec:
     def __init__(
         self,
@@ -605,6 +655,21 @@ PHASES: dict[str, PhaseSpec] = {
         bundle_version="R012-QB-1",
         bundle_path="governance/qualification/R012_SUBSTRATE_BUNDLE.md",
         constituents=R012_CONSTITUENTS,
+        # Closed under D011 and accepted by the architect at this commit. Pinned
+        # for the fifth time for the reason IMPL-0014 identified: D012 runs the
+        # performance harness on Android, where `Files.getFileStore` is refused
+        # by the platform, and fixing that portability defect edits a constituent
+        # of a gate that has already passed. The pin means the R012 substrate
+        # bundle is still verified against exactly what was qualified.
+        frozen_at_commit="afd0ecdb21bd20a00d4f3b6ae69d31e61890707c",
+    ),
+    "R012DEV": PhaseSpec(
+        phase="R012DEV",
+        title="R012 substrate on Android hardware",
+        directive="D012",
+        bundle_version="R012DEV-QB-1",
+        bundle_path="governance/qualification/R012_DEVICE_BUNDLE.md",
+        constituents=R012DEV_CONSTITUENTS,
         frozen_at_commit=None,
     ),
     "A001PRE": PhaseSpec(

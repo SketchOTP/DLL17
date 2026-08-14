@@ -201,6 +201,19 @@ jobs:
       - name: Android debug assembly
         run: ./gradlew :android-host:assembleDebug --no-daemon
 
+      # D012: backup and device-transfer exclusion, read from the *built*
+      # packages rather than from the source tree. The source rules can be
+      # correct while the merged manifest fails to reference them, and Auto
+      # Backup is opt-out by default — so the failure mode is a package that
+      # quietly backs up a live organism. Both variants are checked, and the
+      # release variant is also checked for the absence of the debug crash
+      # process. The script exits 2 rather than 0 if the tooling or the package
+      # is missing, so an unrun check can never read as a pass.
+      - name: Backup and device-transfer exclusion (built packages)
+        run: |
+          ./gradlew :android-host:assembleRelease --no-daemon
+          python3 tools/verify_backup_exclusion.py
+
       - name: Record build environment
         if: always()
         run: |

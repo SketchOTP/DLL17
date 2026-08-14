@@ -63,6 +63,8 @@ where it is enforced today.
 | INV-0052 | No storage provider is canonical authority beyond confirming the bytes and sequence of a package, and ordinary local operation never depends on one. | `RecoveryPackageStoreContractV1` | Enforced by qualification with the provider refusing every call. |
 | INV-0053 | The identity authority stores identity metadata only, and normal local runtime never calls it. | `IdentityAuthorityProtocolV1` | Enforced structurally: the service is outside the organism core dependency graph and a test asserts its absence from the core classpath. |
 | INV-0054 | Canonical serialized bytes and canonical state hashes are independent of backend, key, ciphertext, nonce, storage location, recovery package and provider. | `DeterminismContractV1` | Encryption sits below the canonical byte layer; qualification proves the hash is identical under different keys and different ciphertext. |
+| INV-0055 | Opening a device key container never generates missing material, and an organism may be created only when both the key state and the container material are absent. | `LocalStorageCryptographyContractV1` | Enforced by `AndroidLocalKeyBootstrap` and its decision-table test; every other combination opens or quarantines. |
+| INV-0056 | Canonical state on Android lives only in app-private storage under a path the shipped backup and device-transfer rules exclude. | `ContinuityDurabilityContractV1` s14.1 | Enforced by `AndroidPersistenceLocations`, by a layout-coverage fixture, and by `tools/verify_backup_exclusion.py` reading the built package. |
 
 ### R002 note
 
@@ -81,6 +83,12 @@ behaviour, and none of them is evidence that a mechanism works.
 
 INV-0040 through INV-0042 constrain the A000 research candidate. They are not
 production invariants and do not authorize any R003–R009 mechanism.
+
+### D012 note
+
+INV-0055 and INV-0056 constrain the Android half of the R012 substrate: what may
+justify creating an organism on a device, and where canonical state may live.
+Both are about refusing an action, not about organism behaviour.
 
 ### D011 note
 

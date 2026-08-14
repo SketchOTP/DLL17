@@ -1,0 +1,11 @@
+aapt2: /home/sketch/Android/Sdk/build-tools/37.0.0/aapt2
+package: android-host/build/outputs/apk/debug/android-host-debug.apk
+  android-host-debug.apk cloud-backup: 8 exclusions -> ., canonical/, journal/, checkpoints/, identity/, keys/, recovery/, canonical_prefs.xml
+  android-host-debug.apk device-transfer: 8 exclusions -> ., canonical/, journal/, checkpoints/, identity/, keys/, recovery/, canonical_prefs.xml
+  android-host-debug.apk full-backup-content: 8 exclusions -> ., canonical/, journal/, checkpoints/, identity/, keys/, recovery/, canonical_prefs.xml
+package: android-host/build/outputs/apk/release/android-host-release-unsigned.apk
+  android-host-release-unsigned.apk cloud-backup: 8 exclusions -> ., canonical/, journal/, checkpoints/, identity/, keys/, recovery/, canonical_prefs.xml
+  android-host-release-unsigned.apk device-transfer: 8 exclusions -> ., canonical/, journal/, checkpoints/, identity/, keys/, recovery/, canonical_prefs.xml
+  android-host-release-unsigned.apk full-backup-content: 8 exclusions -> ., canonical/, journal/, checkpoints/, identity/, keys/, recovery/, canonical_prefs.xml
+
+PASSED: every built package excludes canonical state from backup and device transfer

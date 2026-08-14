@@ -249,3 +249,30 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: The device half of the R012 substrate cannot close without an Android device or emulator. A001 cannot begin without three named reviewers, an independently qualified baseline, a registered variance pilot, the released paired-difference standard deviation and an owner resource ceiling.
 - Follow-up directive: none
 
+
+## D-012 - BLOCKED
+
+- Outcome ID: O-0012
+- Supersedes outcome: none
+- Closed: 2026-08-14T16:40:00-04:00
+- Acceptance: NOT MET
+- Summary: The Android production adapter for the R012 substrate is implemented against the D011-frozen contracts and the device qualification suite is complete, but no physical Android device was reachable, so D012 closes as BLOCKED_DEVICE_UNAVAILABLE rather than PASS. The Keystore container is an AndroidKeyStore HMAC-SHA256 key whose root secret is a derived value over a fixed label, chosen because an AES key cannot supply a secret that is stable across restarts. Opening never generates missing material and a birth requires both the key state and the container material to be absent, so a lost keystore quarantines instead of producing a second organism. Canonical state resolves to app-private storage under a path the shipped backup and device-transfer rules exclude, and that exclusion is now verified from the built debug and release packages by following the merged manifest's own resource references. A forty-five fixture device kernel covers the Keystore lifecycle, device persistence, a fault matrix driven by a real Android process killed with Runtime.halt in its own process, installed-package backup exclusion, and canonical determinism across persistence, process death, restart and cold recovery. It ran on an x86 emulator with forty-four of forty-five fixtures held. The one that did not hold records a contradiction between two frozen contracts rather than a defect in this directive's code, and is declared rather than silenced.
+- Changed areas: android-host/, core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/R012PerformanceHarness.kt, tools/build_qualification_bundle.py, tools/verify_backup_exclusion.py, docs/decisions/DECISION_LOG.md, docs/invariants/INVARIANT_REGISTRY.md, governance/release-gates/R012_DEVICE_GATE.md, governance/qualification/, qualification/device-matrix/R012/, qualification/evidence/R012/, .github/workflows/ci.yml, .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py covering eight modules - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering seven bundles - PASSED
+  - python3 tools/generate_lookup_tables.py --check - PASSED
+  - python3 tools/verify_backup_exclusion.py against the built debug and release packages - PASSED
+  - ./gradlew clean build covering fourteen modules and three hundred and seventy seven JVM tests - PASSED
+  - ./gradlew :desktop-runner:run reproducing both frozen production digests - PASSED
+  - ./gradlew :desktop-runner:r012Qualification with forty-two of forty-two fixtures held - PASSED
+  - ./gradlew :desktop-runner:r012Performance - PASSED
+  - ./gradlew :research:aliveness-spike:accelerated-sim:run reproducing the A000 digest - PASSED
+  - ./gradlew :research:aliveness-spike:analysis:a001DryRun byte identical to the committed evidence - PASSED
+  - ./gradlew :android-host:connectedDebugAndroidTest on an x86 emulator, twelve tests, forty-four of forty-five device fixtures held - PASSED on an emulator, which is supplementary coverage and not physical-device evidence
+  - Physical-device Keystore, storage, latency and restart qualification - BLOCKED
+- Remaining risks: No physical Android device was reachable, so Keystore hardware or StrongBox backing, real device flash behaviour, physical-device latency and on-hardware restart are unqualified; the emulator reported software-backed key material and its storage is not device flash. Sudden power-loss durability remains unproven and unclaimed, because killing a process leaves the operating system page cache intact. No production threshold is derived from any measurement. Fixture DV-KS-ROTATION-READBACK-01 records that after a wrapping-epoch rotation the existing journal does not open, which contradicts the rotation promise in LocalStorageCryptographyContractV1 and needs a versioned amendment and architect review rather than a device-side patch. A001 remains blocked on the same five external inputs.
+- Blockers: No physical Android device is reachable to this environment. The frozen-contract contradiction recorded by DV-KS-ROTATION-READBACK-01 requires an architect decision.
+- Follow-up directive: none

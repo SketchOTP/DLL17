@@ -1,0 +1,128 @@
+R012 DEVICE QUALIFICATION — R012-DEVICE-FIXTURES-V1 v1
+========================================================================
+device model=Android ATD built for x86_64 device=emu64x manufacturer=unknown
+soc=ranchu board=goldfish_x86_64 hardware=ranchu
+abis=x86_64
+android=16 api=36
+fingerprint=Android/sdk_slim_x86_64/emu64x:16/BE2A.250530.027/13847098:userdebug/test-keys
+emulated=true
+filesDirFilesystem=ext4
+
+
+[KEYSTORE]
+  container alias=dll17.qual.wrap.v1 backing=SOFTWARE
+  keyBacking=SOFTWARE exportable=false
+  epochAdvance 1 -> 2, dataKey unchanged
+  destroyedMaterial -> QUARANTINED (CONTAINER_UNAVAILABLE)
+
+[PERSISTENCE]
+  filesDir filesystem=ext4
+  layout=canonical/journal,canonical/checkpoints,canonical/keys,canonical/recovery,canonical/identity
+  appended=40 checkpoint=30 compactedTo=10 restarts=8
+
+[FAULT_MATRIX]
+  rewrap interrupted at epoch 1, resolved to 2
+  writeRefusal exercised by permission revocation, not by filling device storage
+
+[BACKUP_EXCLUSION]
+  installedPackage=com.animusmachinae.dll17 flags=0x20e83e46
+  cloud-backup excludes=8 device-transfer excludes=8 legacy excludes=8
+
+[DETERMINISM]
+  canonicalHash before=e6f48c4f1db19584820c4d7f5f51c5298a22544fe6622a6bb8b50df840064899
+  ciphertextDiffers=true recoveryOutcome=RECOVERED epoch=2
+
+FIXTURES
+  HELD     DV-KS-CREATE-01  Does wrapping-key creation produce usable container material on this device?
+           available=true rootSecretBytes=32
+  HELD     DV-KS-LOOKUP-01  Does looking the key up again yield a byte-identical root secret and fingerprint?
+           stableSecret=true
+  HELD     DV-KS-NONEXPORT-01  Does the platform refuse to export the container key material?
+           encodedIsNull=true
+  HELD     DV-KS-BACKING-01  Does the platform report where the key lives, without that report becoming a requirement?
+           reported=true
+  HELD     DV-KS-WRAPPED-DEK-01  Is a random data key wrapped under Keystore-derived material and unwrapped intact?
+           unwrapMatches=true epoch=1
+  HELD     DV-KS-EPOCH-01  Does advancing the key epoch leave the data key unchanged?
+           epoch=2 dataKeyUnchanged=true
+  HELD     DV-KS-DESTROYED-01  When container material is destroyed under existing key state, is the result a refusal rather than a birth?
+           outcome=QUARANTINED fault=CONTAINER_UNAVAILABLE mayCreateOrganism=false
+  HELD     DV-KS-DELETE-01  Does deleting container material actually remove it from the platform keystore?
+           aliasPresentAfterDelete=false
+  HELD     DV-KS-NO-SILENT-01  Does opening absent container material return nothing rather than generating a replacement?
+           openedNull=true generatedNothing=true
+  HELD     DV-KS-QUARANTINE-STATE-01  Is the key state retained through the quarantine, so a later recovery has something to verify against?
+           quarantined=true keyStateRetained=true
+  HELD     DV-KS-BIRTH-01  Is a birth permitted only when neither key state nor container material exists?
+           outcome=BIRTH_PERMITTED
+  HELD     DV-PS-LOCATION-01  Does every canonical directory resolve inside app-private storage?
+           allPrivate=true allCreated=true
+  HELD     DV-PS-CREATE-APPEND-01  Does the journal exist on device and read back every acknowledged record?
+           journalExists=true recordsRead=40
+  HELD     DV-PS-FORCE-01  Is the acknowledged commit a metadata-inclusive force, and is the file length visible to a second opener?
+           forceMetadata=true lengthVisible=true secondOpenerRecords=40
+  HELD     DV-PS-SNAPSHOT-01  Does a checkpoint written on device reopen and verify against its own hash?
+           through=30 selfVerified=true
+  HELD     DV-PS-REPLAY-01  Does a full replay after reopening return byte-identical records in the same order?
+           replayIdentical=true count=40
+  HELD     DV-PS-COMPACT-01  Does compaction below the checkpoint survive a reopen with exactly the survivors?
+           afterCompaction=10 afterRestart=10
+  HELD     DV-PS-RESTART-01  Do eight consecutive application restarts recover identical history on device?
+           restartCounts=10,10,10,10,10,10,10,10
+  HELD     DV-PS-SELFTEST-01  Does the durability self-test write, force, read back and remove a probe on device storage?
+           selfTest=true
+  HELD     DV-FLT-DEATH-AFTER-ACK-01  Does every record acknowledged before an Android process was killed survive?
+           recovered=25/25 payloadsIntact=true
+  HELD     DV-FLT-DEATH-BEFORE-ACK-01  Is an unacknowledged partial write absent from history after the process is killed?
+           recovered=12 tornFrameDropped=true
+  HELD     DV-FLT-KILL-DURING-JOURNAL-01  After a kill mid-frame, does the next append land on a clean boundary?
+           recordsAfterAppend=13 lastSequence=99
+  HELD     DV-FLT-MATERIAL-RULE-01  Does no unacknowledged material mutation survive as historical truth?
+           unacknowledgedSequencePresent=false
+  HELD     DV-FLT-INTERRUPTED-COMPACTION-01  Is an unrenamed compaction staging file discarded rather than adopted?
+           records=15 stagingRemoved=true
+  HELD     DV-FLT-INTERRUPTED-SNAPSHOT-01  Does an interrupted checkpoint leave the previous checkpoint authoritative?
+           checkpointThrough=7 unchanged=true
+  HELD     DV-FLT-PENDING-REWRAP-01  Does a rotation interrupted by process death resolve deterministically at the next open?
+           inFlightBefore=true inFlightAfter=false epoch=2
+  HELD     DV-KS-RESTART-01  Are records written by a now-dead process still decryptable under Keystore material after restart?
+           decryptedAfterProcessDeath=5/5
+  NOT HELD DV-KS-ROTATION-READBACK-01  After the wrapping epoch advances, are records written under the previous epoch still readable?
+           readableAfterRotation=0/5 refusal=StorageFault
+  HELD     DV-FLT-CORRUPT-FIRST-01  Is a corrupt first frame reported as corruption rather than as an empty journal?
+           detected=true
+  HELD     DV-FLT-CORRUPT-LATER-01  Is corruption before the tail reported as a fault rather than silently truncated?
+           detected=true
+  HELD     DV-FLT-CORRUPT-RECORD-01  Is a deliberately corrupted encrypted record refused rather than returned?
+           refused=true
+  HELD     DV-FLT-QUARANTINE-PERSIST-01  Does a quarantine marker survive repeated reopening rather than living in memory?
+           quarantinedOnEveryOpen=true markerIsAFile=true
+  HELD     DV-FLT-RESTART-CLEAN-01  Do eight restarts after a clean shutdown recover identical history?
+           counts=30,30,30,30,30,30,30,30
+  HELD     DV-FLT-RESTART-TORN-01  Do eight restarts after a recoverable torn tail converge on the same history?
+           counts=13,13,13,13,13,13,13,13
+  HELD     DV-FLT-RECOVER-LAST-VALID-01  Does recovery resume from the last acknowledged record rather than from the torn one?
+           highestSequence=99 records=13
+  HELD     DV-FLT-WRITE-REFUSED-01  Is a refused write reported as a refusal with existing history still readable?
+           refused=true survivors=5
+  HELD     DV-BK-FLAG-01  Does the installed package have Auto Backup disabled in its own ApplicationInfo?
+           allowBackup=false
+  HELD     DV-BK-CLOUD-01  Does the installed cloud-backup rule set exclude every canonical path?
+           missing=none databaseExcluded=true
+  HELD     DV-BK-TRANSFER-01  Does the installed device-transfer rule set exclude every canonical path?
+           missing=none databaseExcluded=true
+  HELD     DV-BK-LEGACY-01  Does the installed full-backup-content rule set exclude every canonical path?
+           missing=none databaseExcluded=true
+  HELD     DV-BK-LAYOUT-01  Is every directory the code writes to covered by the installed exclusions?
+           uncovered=none
+  HELD     DV-DT-PERSISTENCE-01  Are canonical bytes and hash identical before and after encrypted device persistence?
+           match=true
+  HELD     DV-DT-RESTART-01  Are canonical bytes and hash identical after reopening the store in a new store instance?
+           match=true
+  HELD     DV-DT-RECOVERY-01  Are the recovered records byte-identical to the originals after cold recovery on device?
+           outcome=RECOVERED recoveredTail=8/8 identical=true
+  HELD     DV-DT-INDEPENDENCE-01  Is the canonical result independent of Keystore key, data key, ciphertext, nonce and path?
+           ciphertextDiffers=true fingerprintDiffers=true canonicalIdentical=true
+
+held=44/45
+evidenceDigest=ac38a91d98d5e422a1e1077be151e5a90b290efa89f91fa217435461797196a9

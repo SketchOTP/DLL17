@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Debug-variant additions only.
+
+  `DeviceCrashService` runs in its own process so that an instrumented test can
+  kill a real Android process mid-write and then inspect what survived from a
+  process that is still alive. It is declared here rather than in the main
+  manifest so that it does not exist in the release package: a component whose
+  entire purpose is to die abruptly while holding canonical storage open has no
+  business shipping.
+
+  `android:process=":crash"` makes it a private process of this application, so
+  it gets the same app-private storage, the same UID and the same filesystem
+  view as the organism would.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <service
+            android:name="com.animusmachinae.dll17.android.persistence.DeviceCrashService"
+            android:exported="false"
+            android:process=":crash" />
+    </application>
+
+</manifest>

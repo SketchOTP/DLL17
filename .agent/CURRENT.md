@@ -3,44 +3,47 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-14T11:40:00-04:00`
+- Last updated: `2026-08-14T16:40:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-011
-- External directive ID: D011
-- Objective: Advance the bounded R012 persistence, recovery and identity substrate authorized by the parallel-execution amendment while A001 remains blocked on people and money.
-- Current status: `COMPLETE`
-- Acceptance: The five R012 substrate contracts are frozen before dependent behaviour is treated as qualified; the persistence backend is selected from measured evidence and preserves the frozen R002 durability semantics; local encrypted persistence, rotation and interrupted rewrap are qualified; corruption produces detection or quarantine rather than a silent reset; a concrete recovery-package provider exists and end-to-end cold recovery succeeds; corrupt, stale, duplicate and unauthorized recovery paths are refused; identity epoch and authority semantics pass; copied-state quarantine works; provider failure cannot strand local operation; canonical bytes and hashes are independent of persistence, encryption and recovery; real latency and storage measurements are recorded; prior qualifications remain green; a reproducible bundle exists; CI passes; HEAD matches origin/main; and the worktree is clean.
-- Current phase: A000 complete and remediated; the A001 activation package is prepared and its gate is correctly shut; the R012 substrate authorized by the parallel amendment is qualified. R003 through R009 remain blocked behind A001.
-- Expected or actual touched areas: core-persistence/, core-recovery/, services/identity-authority/, core-crypto/, desktop-runner/, benchmarks/persistence-bench/, docs/architecture/, docs/decisions/, docs/invariants/, governance/release-gates/, governance/qualification/, qualification/fixtures/R012/, qualification/evidence/R012/, settings.gradle.kts, gradle/libs.versions.toml, tools/, .github/workflows/ci.yml, .agent/
-- Immediate next action: Hold for architect review of the D-011 completion report; this snapshot is awaiting reset to IDLE once that review closes. The A001 external inputs are unchanged: three eligible reviewer and baseline-owner names, and the maximum human-study participant and resource budget. An Android device or emulator is now also needed to close the device half of the R012 substrate. Do not begin D012.
+- Local directive ID: D-012
+- External directive ID: D012
+- Objective: Close the Android-device half of the R012 persistence and cryptography substrate by implementing the Keystore adapter and app-private storage integration against the D011-frozen contracts and qualifying them on physical Android hardware.
+- Current status: `BLOCKED`
+- Acceptance: Keystore integration implemented against the frozen contracts; app-private persistence on the frozen backend; the Keystore key lifecycle survives process death and restart; interrupted rewrap qualified; key destruction never silently creates a fresh organism; device journal and snapshot recovery pass; death before acknowledgement creates no history and death after it preserves history; corrupt records detected and quarantined; canonical bytes and hashes identical before and after device persistence and recovery; backup and device-transfer exclusion verified from the built or installed package; real physical-device performance evidence exists; prior qualifications green; a reproducible D012 bundle exists; CI passes; HEAD matches origin/main; the worktree is clean.
+- Current phase: A000 complete and remediated; the A001 activation package is prepared and its gate is correctly shut; the R012 substrate is qualified on the desktop and its Android adapter is implemented but unqualified on hardware. R003 through R009 remain blocked behind A001.
+- Expected or actual touched areas: android-host/, core-persistence/src/main/kotlin/.../R012PerformanceHarness.kt, tools/, docs/decisions/, docs/invariants/, governance/release-gates/, governance/qualification/, qualification/device-matrix/R012/, qualification/evidence/R012/, .github/workflows/ci.yml, .agent/
+- Immediate next action: Hold for architect review of the D-012 completion report. Two external inputs are now outstanding: a physical Android device reachable to adb, and an architect decision on the frozen-contract contradiction recorded by DV-KS-ROTATION-READBACK-01. The A001 inputs are unchanged. Do not begin D013.
 
 ## Temporary task-relevant facts
 
-- Five R012 contracts are frozen: PersistenceBackendContractV1, LocalStorageCryptographyContractV1, RecoveryCryptographyContractV1, IdentityAuthorityProtocolV1 and RecoveryPackageStoreContractV1. Recorded as DEC-0029.
-- The selected backend is SEGMENTED_APPEND_LOG_V1, a single-writer append-only log with one metadata-inclusive fsync per acknowledged commit, chosen over direct SQLite in two modes, a synchronous random-access file and a whole-file rewrite. Recorded as DEC-0028.
-- SQLite in write-ahead-logging mode cost 5.3 times the p99 commit latency and 4.4 times the storage of the selected backend on ext4 over NVMe.
+- Five R012 contracts are frozen: PersistenceBackendContractV1, LocalStorageCryptographyContractV1, RecoveryCryptographyContractV1, IdentityAuthorityProtocolV1 and RecoveryPackageStoreContractV1. Recorded as DEC-0029. None was changed by D-012.
+- The selected backend is SEGMENTED_APPEND_LOG_V1, a single-writer append-only log with one metadata-inclusive fsync per acknowledged commit. Recorded as DEC-0028.
 - The R012 kernel is R012-FIXTURES-V1 version 1 with digest 48bd44a31a3a952cf884b358c5e587b93a24875f1d36d7625e6b4b7d5f62127f, forty-two fixtures, all held, checked by CI.
-- The fault matrix uses real child JVMs killed with Runtime.halt. Process death after commit, torn frames, interrupted compaction and snapshot writes, corruption, full storage, refused writes and eight consecutive restarts are all covered.
+- The R012 substrate bundle is R012-QB-1 with manifest hash 644ee8e99d6192aee59aab7497c3532f90a06d61bc20eae5871216147bccf9f7 over forty constituents, now pinned to commit afd0ecdb21bd20a00d4f3b6ae69d31e61890707c. Recorded as IMPL-0071.
+- The Android device bundle is R012DEV-QB-1 with manifest hash 851005132d78a9d92fd653d2081f1f17ca9304b494dfb0d2445efd9fdb44274b over twenty constituents.
+- The device kernel is R012-DEVICE-FIXTURES-V1 version 1 with digest ac38a91d98d5e422a1e1077be151e5a90b290efa89f91fa217435461797196a9, forty-five fixtures, forty-four held on an x86 emulator.
+- No physical Android device is reachable. The emulator run is supplementary API-path coverage and is filed as such, not as device evidence. Recorded as DEC-0031.
+- The emulator reported SOFTWARE key backing, so hardware-backed and StrongBox Keystore behaviour is unqualified.
+- The Android key container is an AndroidKeyStore HMAC-SHA256 key, because an AES key cannot supply a root secret that is stable across restarts. Recorded as IMPL-0066 and L-0039.
+- Opening the container never generates missing material, and a birth requires both the key state and the container material to be absent. Recorded as IMPL-0067 and INV-0055.
+- Backup and device-transfer exclusion is verified from the built debug and release packages by following the merged manifest's own resource references, and is now a CI step. Recorded as IMPL-0068 and INV-0056.
+- Fixture DV-KS-ROTATION-READBACK-01 does not hold: after a wrapping-epoch rotation the existing journal does not open, contradicting the rotation promise in LocalStorageCryptographyContractV1. Escalated rather than patched. Recorded as DEC-0032 and L-0037.
+- The R012 performance harness could not run on Android at all until its filesystem probe stopped depending on Files.getFileStore, which Android refuses. Recorded as IMPL-0070 and L-0038.
 - Killing a process leaves the page cache intact, so power loss is not proven by any test here and is disclosed as unproven. Recorded as L-0035.
-- The worst defect found and fixed was a corrupt first frame being reported as an empty journal, which would have presented a corrupt installation as a device with no organism on it. Recorded as L-0036 and INV-0048.
-- The first backend benchmark landed on tmpfs and reported two-microsecond fsyncs; both harnesses now refuse to run there. Recorded as L-0034.
-- Cold recovery works end to end from package plus secret alone, restoring twenty tail records under a new identity epoch on a destination device with new local key material, and declaring a recovery gap rather than inventing one.
-- The identity authority is separately deployable and structurally absent from the organism core classpath, asserted by ModuleBoundaryTest rather than by convention. Recorded as DEC-0030.
-- No Android device or emulator was reachable, so the Android Keystore container and device-level backend qualification are BLOCKED_DEVICE_UNAVAILABLE.
-- The R012 substrate bundle is R012-QB-1 with manifest hash 3461b5c3cbec01a0acaa47e4b6e840a6ba7dcfb9eca65d35c161f61279583d2d over forty constituents.
 - No human outcome data exists anywhere in the repository and no R003 through R009 organism mechanism exists.
-- D-001 remains recorded as nonconforming, and D-002 through D-010 remain recorded as accepted and complete.
+- D-001 remains recorded as nonconforming, and D-002 through D-011 remain recorded as accepted and complete.
 
 ## Last validation after adoption
 
-- Command or check: python3 scripts/validate_governance.py --mode ADOPTED, python3 scripts/test_validate_governance.py, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify, python3 tools/generate_lookup_tables.py --check, ./gradlew clean build, ./gradlew :desktop-runner:run, ./gradlew :desktop-runner:r012Qualification, ./gradlew :desktop-runner:r012Performance, ./gradlew :benchmarks:persistence-bench:run, ./gradlew :research:aliveness-spike:accelerated-sim:run, and ./gradlew :research:aliveness-spike:analysis:a001DryRun
+- Command or check: python3 scripts/validate_governance.py --mode ADOPTED, python3 scripts/test_validate_governance.py, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify, python3 tools/generate_lookup_tables.py --check, python3 tools/verify_backup_exclusion.py, ./gradlew clean build, ./gradlew :desktop-runner:run, ./gradlew :desktop-runner:r012Qualification, ./gradlew :desktop-runner:r012Performance, ./gradlew :research:aliveness-spike:accelerated-sim:run, ./gradlew :research:aliveness-spike:analysis:a001DryRun, and ./gradlew :android-host:connectedDebugAndroidTest on an x86 emulator
 - Result: `PASSED`
 
 ## Risks
 
-- No Android device or emulator was reachable under D011, so the Android Keystore key container and device-level backend, corruption and full-storage qualification remain outstanding.
+- No physical Android device is reachable, so Keystore hardware or StrongBox backing, real device flash behaviour, physical-device latency and on-hardware restart are unqualified. The emulator run does not substitute for them.
+- Two frozen contracts contradict each other on what a wrapping-epoch rotation does to existing records. Until the architect resolves it, a rotation in production would make the journal unreadable.
 - Power-loss durability is not proven by any test here. It rests on the force-per-commit policy, which is stated rather than measured.
 - The measured latencies are reference-machine figures on a desktop NVMe device. No production threshold is derived from them and none may be until device evidence exists.
 - The qualifying recovery provider is filesystem-backed. A network provider is a product decision needing an owner, credentials and a privacy review, and must pass the same conformance suite.
@@ -56,7 +59,8 @@
 ## Blockers
 
 - A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED and BLOCKED_SPEC_STUDY_BUDGET.
-- The device half of the R012 substrate cannot close without an Android device or emulator: BLOCKED_DEVICE_UNAVAILABLE.
+- The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
+- Fixture DV-KS-ROTATION-READBACK-01 needs an architect decision on which frozen contract is amended.
 
 ## Pending decisions
 
@@ -66,6 +70,7 @@
 - Whether this study requires external ethical or institutional approval, and in which jurisdiction it runs.
 - Which production network recovery provider to select, which requires an owner, credentials and a privacy review.
 - Where the identity authority is deployed, and who owns its backup and incident procedures.
+- Whether key-epoch rotation re-encrypts history or the wrapping epoch is separated from the record key epoch.
 - Whether the repository should remain public now that the licence is proprietary.
 
 ## Status vocabulary

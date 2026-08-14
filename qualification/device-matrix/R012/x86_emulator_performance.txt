@@ -1,0 +1,56 @@
+R012 DEVICE PERFORMANCE
+========================================================================
+model=Android ATD built for x86_64 device=emu64x manufacturer=unknown
+soc=ranchu board=goldfish_x86_64 hardware=ranchu
+abis=x86_64
+android=16 api=36
+fingerprint=Android/sdk_slim_x86_64/emu64x:16/BE2A.250530.027/13847098:userdebug/test-keys
+emulated=true
+storage=app-private filesDir, filesystem=ext4
+NOTE: measurements only. No production threshold is derived from these figures.
+
+R012_PERFORMANCE=measured
+backend=SEGMENTED_APPEND_LOG_V1
+os=Linux arch=x86_64
+jvm=Dalvik 0
+filesystem=ext4 mountPoint=/data/user/0
+commits=1500 recordBytes=256 warmup=150 repetitions=3
+
+NOTE: these are measurements of the machine named above and nothing more.
+      They are not production thresholds. No threshold is derived from
+      them; see PersistenceBackendContractV1 for why.
+
+== CLASS W — witnessed commit, one fsync per record
+  run      mean_us    p50_us    p90_us    p99_us    max_us
+  1       1487.296      1410      1891      4601      7598
+  2       1207.938       980      2099      4061     10021
+  3       1368.599      1059      2158      7161     18703
+
+== CLASS O — ordinary progress, batched with one fsync per batch
+  batch     perRecord_us_mean   batch_us_mean
+  1                   809.254         809.254
+  4                   180.677         722.708
+  16                   62.741        1003.856
+  64                   27.994        1791.594
+  Batching is a durability *class* decision, not a storage trick: Class O may
+  be batched because losing the tail of it is recoverable, and Class W may not.
+
+== ENCRYPTED-RECORD OVERHEAD
+  rawPayloadBytes=384000
+  unencryptedJournalBytes=420000
+  encryptedJournalBytes=531000
+  overheadPerRecordBytes=74
+  overheadRatio=1.264
+
+== SNAPSHOT, COMPACTION AND REPLAY
+  snapshotWrite_us mean=2731.400 p50=2466 max=6123
+  replay_ms=253.665 records=1500
+  compaction_ms=33.882 survivors=750
+  journalBytesAfterCompaction=265500
+
+== COLD RECOVERY PACKAGE
+  tailRecords=750
+  packageSizeBytes=205456
+  createPackage_ms=264.155
+  openPackage_ms=54.666
+

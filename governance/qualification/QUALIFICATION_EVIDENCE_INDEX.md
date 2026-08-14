@@ -8,6 +8,7 @@
 | A000 | Aliveness spike | `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | `COMPLETE` under D008 and D009. Research track, not a production gate. D008 returned five negative findings and an empty curiosity feasible region; D009 remediated the candidate under unchanged thresholds and all 24 findings now hold. Gate record: `governance/release-gates/A000_EXIT_GATE.md`. Pinned to `4a2b1e4c7ce1326b5c8d5b08d873df7f581186d7`. |
 | A001-PRE | Activation package | `governance/qualification/A001_ACTIVATION_PACKAGE_BUNDLE.md` | `COMPLETE` under D010. The study protocol, instrument, comparator manifest, sealed pilot, feasibility calculator, analysis pipeline, participant materials and reviewer onboarding, all prepared without human data. Gate record: `governance/release-gates/A001_ACTIVATION_GATE.md`. |
 | R012-SUB | Persistence, recovery and identity substrate | `governance/qualification/R012_SUBSTRATE_BUNDLE.md` | `COMPLETE` for the scope the 2026-08-14 parallel amendment authorized, under D011. Not the R012 product exit gate. Gate record: `governance/release-gates/R012_SUBSTRATE_GATE.md`. |
+| R012-DEV | R012 substrate on Android hardware | `governance/qualification/R012_DEVICE_BUNDLE.md` | `BLOCKED_DEVICE_UNAVAILABLE` under D012. The Android Keystore adapter, the app-private storage adapter and the 45-fixture device suite are complete and ran on an emulator (44 / 45 held); no physical device was reachable, and an emulator does not substitute for one. Gate record: `governance/release-gates/R012_DEVICE_GATE.md`. |
 | A001 | Aliveness gate | none | `BLOCKED`. Five outstanding blockers, none clearable by code: unqualified baseline, unregistered variance pilot, no released paired-difference SD, three unassigned reviewer roles, no owner resource ceiling. |
 
 ## R000 evidence layout
@@ -116,8 +117,22 @@ points. Both records stand; the second does not erase the first.
 | `qualification/evidence/R012/` | Governance validation, identity check, build, toolchain environment. |
 
 R012 substrate evidence is desktop-JVM evidence against a real ext4/NVMe
-filesystem. **No Android device evidence exists**, and the Android Keystore
-implementation of `DeviceKeyContainer` is `BLOCKED_DEVICE_UNAVAILABLE`.
+filesystem. The Android half is a separate bundle, below.
+
+## R012 device evidence layout
+
+| Path | Contents |
+|---|---|
+| `governance/qualification/R012_DEVICE_BUNDLE.md` | Hashed manifest binding the Android adapter, the exclusion rules and verifier, the device suite and the target evidence. |
+| `qualification/device-matrix/R012/DEVICE_MATRIX.md` | Per-target results, what the emulator row does and does not establish, and the declared fixture failure. |
+| `qualification/device-matrix/R012/x86_emulator_qualification.txt` | The complete 45-fixture device kernel report the emulator produced. |
+| `qualification/device-matrix/R012/x86_emulator_performance.txt` | Measured latency distributions on the emulator target. Measurements only; no threshold is derived. |
+| `qualification/evidence/R012/backup_exclusion.txt` | Backup and device-transfer exclusion read from the built debug and release packages. |
+
+D012 closed as `BLOCKED_DEVICE_UNAVAILABLE`: the Android Keystore adapter and the
+device suite exist and run, and **no physical Android device was reachable**, so
+Keystore hardware backing, real device flash, physical-device latency and
+on-hardware restart remain unqualified.
 
 ## A001 pre-activation evidence layout
 

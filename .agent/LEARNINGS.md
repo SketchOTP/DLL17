@@ -377,3 +377,33 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Scope: Every recovery path that has to distinguish an absent organism from an unreadable one.
 - Supersedes learning: none
 
+
+## L-0037
+
+- Learning ID: L-0037
+- Date: 2026-08-14
+- Fact or lesson: A frozen contract can be internally consistent and still contradict another frozen contract, and the contradiction only appears when a fixture crosses both. LocalStorageCryptographyContractV1 promises that a wrapping rotation leaves existing records readable; the frozen EncryptedRecordStore refuses any record whose header key epoch differs from the container's current epoch and derives its nonce and associated data from that epoch. After a rotation the journal does not open at all. D011 did not find this because its rotation fixture checked that the data key was unchanged and never then read a record back. The lesson is that a lifecycle fixture must end at the user-visible consequence, not at the internal state it produced.
+- Evidence location: qualification/device-matrix/R012/x86_emulator_qualification.txt, fixture DV-KS-ROTATION-READBACK-01; governance/release-gates/R012_DEVICE_GATE.md.
+- Confidence: VERIFIED
+- Scope: Every frozen contract pair that shares a field name across a module boundary.
+- Supersedes learning: none
+
+## L-0038
+
+- Learning ID: L-0038
+- Date: 2026-08-14
+- Fact or lesson: Portability failures in qualification harnesses are invisible until the harness runs somewhere new, and they fail in the direction of no evidence rather than wrong evidence. The R012 performance harness could not run on Android at all, because Android refuses java.nio.file.Files.getFileStore with a SecurityException: enumerating mount points is not something an application may do. The call existed only to name the filesystem so a tmpfs result could never be filed as a durability measurement, which is a safety check, so removing it was not an option and neither was ignoring its failure.
+- Evidence location: core-persistence/R012PerformanceHarness.kt; IMPL-0070; qualification/device-matrix/R012/x86_emulator_performance.txt.
+- Confidence: VERIFIED
+- Scope: Every harness intended to run on more than one platform.
+- Supersedes learning: none
+
+## L-0039
+
+- Learning ID: L-0039
+- Date: 2026-08-14
+- Fact or lesson: The Android Keystore cannot supply a stable secret through an AES key, because Cipher in GCM mode generates its own initialization vector and pinning it would be nonce reuse on a long-lived key. An HMAC-SHA256 keystore key supplies one: the raw key never leaves the keystore and the exported value is a derived secret over a fixed label, which is deterministic across restarts and exactly as strong as the key. A second label yields the device fingerprint without needing a second key. This is the property the whole local key hierarchy depends on, because a root secret that changes after a restart makes every record ever written unreadable.
+- Evidence location: android-host/AndroidKeystoreDeviceKeyContainer.kt; fixtures DV-KS-LOOKUP-01 and DV-KS-RESTART-01; IMPL-0066.
+- Confidence: VERIFIED
+- Scope: Any device-bound key container behind LocalStorageCryptographyContractV1.
+- Supersedes learning: none

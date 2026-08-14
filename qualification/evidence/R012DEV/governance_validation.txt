@@ -1,0 +1,39 @@
+Governance validation PASSED (ADOPTED)
+- checked 17 required files
+- checked 6 Cursor rules
+
+Governance mode tests PASSED
+- Live repository passed adopted validation
+- Live adopted governance state rejected in template mode
+- Template positive fixture plus 20 template rejection cases
+- ADOPTED positive fixture plus 79 ADOPTED rejection cases
+- Fresh ADOPTED fixture with empty ledgers passed
+
+ProjectIdentityBuildContractV1 verification PASSED
+- checked 8 modules
+- checked 14 frozen contract values
+
+A000 qualification bundle verification PASSED (commit 4a2b1e4c7ce1)
+  - verified 56 constituents
+  - manifest hash 2c7cd508504ab29b0857a676e6f86c0deeb717ad32e796a1ef76b7abe324f822
+A001PRE qualification bundle verification PASSED (commit 3065c073aac2)
+  - verified 47 constituents
+  - manifest hash 0125bb36425b8ae0a815fe92d86a8f834084b3cacb111d467a8b5742edeacbdd
+R000 qualification bundle verification PASSED (commit 43054d0a2a21)
+  - verified 37 constituents
+  - manifest hash 501880933649bc80c618141fb064ba6d80ee1e7a38df4d25cc59c80e4411aa13
+R001 qualification bundle verification PASSED (commit e442e1478dee)
+  - verified 56 constituents
+  - manifest hash 9b4d380b3ee5defb40c1156a5cb0869830d1449062b6ab1d781c7ca0e6bb4bae
+R002 qualification bundle verification PASSED (commit 7f6f37fabba6)
+  - verified 58 constituents
+  - manifest hash df414085f861438f1fbd71cbbb40bbdd4db3a43acdf71c74a08c4bc00b5a37e9
+R012 qualification bundle verification PASSED (commit afd0ecdb21bd)
+  - verified 40 constituents
+  - manifest hash 644ee8e99d6192aee59aab7497c3532f90a06d61bc20eae5871216147bccf9f7
+R012DEV qualification bundle verification PASSED (working tree)
+  - verified 20 constituents
+  - manifest hash 851005132d78a9d92fd653d2081f1f17ca9304b494dfb0d2445efd9fdb44274b
+
+PASS: core-math/src/main/kotlin/com/animusmachinae/dll17/core/math/GeneratedLookupTables.kt matches the generator output
+  LOOKUP_UNIT_RAMP_V1  5e8184bbc950ad382477edd4af3f2490ad71dc0fce92e29486865cddea81bcdb

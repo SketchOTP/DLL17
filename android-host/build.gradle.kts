@@ -54,6 +54,12 @@ android {
         getByName("androidTest") {
             kotlin.srcDir("src/androidTest/kotlin")
         }
+        // D012: the crash process lives in the debug variant only. A component
+        // whose entire purpose is to die abruptly while holding canonical
+        // storage open has no business in the release package.
+        getByName("debug") {
+            kotlin.srcDir("src/debug/kotlin")
+        }
     }
 }
 
@@ -66,6 +72,11 @@ dependencies {
     implementation(project(":core-crypto"))
     implementation(project(":core-state"))
     implementation(project(":core-continuity"))
+    // D012: the Android production adapter for the R012 substrate. The Keystore
+    // container and the app-private storage layout are the only Android-specific
+    // parts; everything they plug into is frozen and qualified off device.
+    implementation(project(":core-persistence"))
+    implementation(project(":core-recovery"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -80,4 +91,9 @@ dependencies {
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
+    // Test scope only, and deliberately so. The identity authority is separately
+    // deployable and ordinary local operation never calls it; the device
+    // determinism fixture needs a real one to prove that canonical bytes survive
+    // a cold recovery, and a real service is better evidence than a stub.
+    androidTestImplementation(project(":services:identity-authority"))
 }

@@ -98,6 +98,21 @@ Both writes go through a staging file and an atomic rename, so a death *during*
 either leaves the previous state intact, and a death *between* them leaves step
 one's file.
 
+> **Open conflict, recorded 2026-08-14 under D012. Not resolved here.**
+>
+> The claim above that already-written records "stay readable" across a rotation
+> is contradicted by the frozen `EncryptedRecordStore`, which refuses any record
+> whose header key epoch differs from the container's current epoch and derives
+> its nonce and AAD from that epoch. After a rotation the existing journal does
+> not open at all. Evidence: fixture `DV-KS-ROTATION-READBACK-01`,
+> `readableAfterRotation=0/5`.
+>
+> Both behaviours are frozen and they cannot both hold. Resolving it means either
+> re-encrypting history on rotation or separating the *wrapping* epoch from the
+> *record* key epoch, and the choice has real consequences, so it requires a
+> versioned amendment and architect review. No value in this document has been
+> changed on account of it.
+
 ### Interrupted rewrap
 
 Resolved at every open, deterministically:
@@ -140,6 +155,6 @@ which the data is recoverable and the key is not yet gone.
 
 | Item | State |
 |---|---|
-| Android Keystore-backed `DeviceKeyContainer` | `BLOCKED_DEVICE_UNAVAILABLE` — the interface and the JVM implementation are frozen and qualified; the Keystore implementation needs a device |
-| StrongBox / TEE attestation policy | Not frozen; requires device capability evidence |
+| Android Keystore-backed `DeviceKeyContainer` | Implemented under D012 as `AndroidKeystoreDeviceKeyContainer`, an HMAC-SHA256 keystore key. Qualified on an emulator; `BLOCKED_DEVICE_UNAVAILABLE` on physical hardware |
+| StrongBox / TEE attestation policy | Not frozen; requires device capability evidence. The adapter requests StrongBox, reports what the platform grants, and requires nothing |
 | Rotation cadence | Not frozen; a cadence is a parameter and no device evidence exists |

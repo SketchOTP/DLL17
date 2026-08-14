@@ -16,7 +16,7 @@
 - `core-state/` — pure Kotlin JVM module holding the canonical snapshot, the pure single-threaded reducer, normalized events, durability classes, the durable journal and replay kernel, the Class W staged protocol, the panic witness, the assisted-payload interface, schema migration, and the R001 qualification kernel. Canonical logic since R001; still no organism behaviour.
 - `core-continuity/` — pure Kotlin JVM module holding the four clocks, durable time anchors, time-confidence classification, blind-decay credit, the unresolved-time debt ledger, offline reconciliation, generation-partitioned journalling and compaction, durability admission and safe hold, platform protection, the encrypted-record boundary, identity binding, version boundaries, and the R002 qualification kernel. Canonical logic since R002; still no organism behaviour.
 - `desktop-runner/` — pure Kotlin JVM headless runner and the desktop determinism matrix target; runs the R001 qualification kernel and emits `R001_EVIDENCE_DIGEST`.
-- `android-host/` — the only module that links the Android framework; the unchanged R000 Compose shell plus the instrumented tests that qualify the determinism matrix on real ART.
+- `android-host/` — the only module that links the Android framework; the unchanged R000 Compose shell, the R012 Android adapter (`persistence/`: the Keystore key container, the app-private storage layout, the startup key-resolution decision table), a debug-only crash process, and the instrumented suites that qualify determinism, continuity and the R012 substrate on real ART.
 
 ## Interfaces and contracts
 
@@ -42,6 +42,7 @@
 - `scripts/fixtures/governance_template/.agent/` — pristine unadopted governance files used as the fixture base for the self-test; never the live project state.
 - `tools/verify_project_identity.py` — checks the build files against the frozen project identity contract.
 - `tools/qualify_r000_android.sh` — installs, launches, verifies, terminates and relaunches the shell on a connected Android target and records the evidence.
+- `tools/verify_backup_exclusion.py` — reads the built debug and release packages with `aapt2`, follows the merged manifest's own resource references, and asserts that canonical state is excluded from cloud backup and device transfer. Exits 2 rather than 0 when the tooling or the package is absent.
 - `tools/build_qualification_bundle.py` — builds and verifies the hashed per-phase qualification bundles. Closed phases are pinned to their qualified commit and read through git, so a later phase cannot break a gate that already closed.
 - `tools/generate_lookup_tables.py` — generates the canonical lookup tables and, as an independent Python implementation of the codec and digest, cross-checks the Kotlin canonical encoder and SHA-256.
 - `tools/qualify_r001_determinism.sh` — runs the determinism matrix against a connected Android target and records what that target computed.
@@ -52,6 +53,7 @@
 - `qualification/fixtures/R001/` — frozen golden vectors and the desktop reference report for the R001 fixture set.
 - `qualification/replay/R001/` — replay equivalence and the eight-boundary crash recovery sweep.
 - `qualification/device-matrix/R000/` — device matrix and raw Android install, launch, visible-state, terminate and relaunch evidence including screenshots and logcat.
+- `qualification/device-matrix/R012/` — the Android device matrix for the R012 substrate, the emulator's complete 45-fixture report and its measurements. The physical-device row is `BLOCKED_DEVICE_UNAVAILABLE`.
 - `qualification/device-matrix/R001/` — the cross-target determinism matrix and per-target records for the desktop JVM, the x86_64 emulator and Tensor hardware.
 - `governance/qualification/R000_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R000 qualification claim; verified in CI against its pinned commit.
 - `governance/qualification/R001_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R001 qualification claim; verified in CI.

@@ -321,3 +321,23 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Affected areas: docs/architecture/IdentityAuthorityProtocolV1.md, services/identity-authority/, core-persistence/src/test/
 - Supersedes record: none
 
+
+## DEC-0031
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0031
+- Status: ACTIVE
+- Decision or event: D012 closes as BLOCKED_DEVICE_UNAVAILABLE rather than PASS. The Android adapter and the forty-five fixture device qualification suite are complete and ran on an x86 emulator, and that run is filed as supplementary API-path coverage rather than as device evidence.
+- Rationale: The directive states that an emulator does not substitute for physical-device evidence where the requirement concerns Keystore behaviour, real app-private device storage, physical-device latency, or restart and recovery on actual hardware, and that desktop results may not be substituted either. All four requirements are open, so the honest close is BLOCKED. Filing the emulator row as a pass would put software-backed key material and emulated storage latency into the record as hardware evidence, which is exactly the substitution the directive forbids.
+- Affected areas: governance/release-gates/R012_DEVICE_GATE.md, qualification/device-matrix/R012/, governance/qualification/QUALIFICATION_EVIDENCE_INDEX.md
+- Supersedes record: none
+
+## DEC-0032
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0032
+- Status: ACTIVE
+- Decision or event: A contradiction between two frozen contracts was found and is being escalated rather than fixed. LocalStorageCryptographyContractV1 promises that a wrapping-epoch rotation leaves already written records readable; the frozen EncryptedRecordStore refuses any record whose header key epoch differs from the container's current epoch and derives its nonce and associated data from that epoch, so after a rotation the existing journal does not open. Fixture DV-KS-ROTATION-READBACK-01 records the observed behaviour, reports NOT HELD, and is named in a declared PENDING_ARCHITECT_REVIEW set.
+- Rationale: D012 forbids changing a frozen D011 contract to make a device test pass and states that a material conflict requires a versioned amendment and architect review. Either contract could be amended and the choice has real consequences — re-encrypting history versus separating the wrapping epoch from the record key epoch — so it is not a coder's decision. Declaring the failing fixture keeps the suite honest without leaving an undeclared red test in the repository.
+- Affected areas: android-host/src/androidTest/, governance/release-gates/R012_DEVICE_GATE.md, qualification/device-matrix/R012/DEVICE_MATRIX.md, docs/architecture/LocalStorageCryptographyContractV1.md
+- Supersedes record: none

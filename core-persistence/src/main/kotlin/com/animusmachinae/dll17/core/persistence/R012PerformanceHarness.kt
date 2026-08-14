@@ -30,6 +30,42 @@ public object R012PerformanceHarness {
     private const val RECORD_BYTES = 256
     private const val REPETITIONS = 3
 
+    /**
+     * The filesystem behind a path, named so a tmpfs result can never be filed
+     * as a durability measurement.
+     *
+     * `Files.getFileStore` is the direct answer and it is not portable: Android
+     * refuses it with a `SecurityException`, because enumerating mount points is
+     * not something an app is allowed to do. Discovered by running this harness
+     * on a device under D012. The fallback reads the process's own mount table,
+     * which an app may read, and the last resort is to say "unknown" rather than
+     * to guess — a wrong filesystem name here is how a two-microsecond fsync
+     * gets recorded as a durable commit.
+     */
+    private fun describeFilesystem(root: File): String {
+        try {
+            val store = Files.getFileStore(root.toPath())
+            return "${store.type()} device=${store.name()}"
+        } catch (refused: SecurityException) {
+            // Fall through to the mount table.
+        } catch (unavailable: java.io.IOException) {
+            // Fall through to the mount table.
+        }
+        return try {
+            val target = root.absolutePath
+            File("/proc/self/mounts").readLines()
+                .mapNotNull { line ->
+                    val parts = line.split(' ')
+                    if (parts.size >= 3 && target.startsWith(parts[1])) parts[1] to parts[2] else null
+                }
+                .maxByOrNull { it.first.length }
+                ?.let { "${it.second} mountPoint=${it.first}" }
+                ?: "unknown"
+        } catch (unreadable: Exception) {
+            "unknown"
+        }
+    }
+
     private class Samples(val label: String, val micros: LongArray) {
         fun percentile(p: Double): Long {
             val sorted = micros.clone()
@@ -55,19 +91,19 @@ public object R012PerformanceHarness {
     }
 
     public fun run(root: File): String = buildString {
-        val store = Files.getFileStore(root.toPath())
+        val filesystem = describeFilesystem(root)
         append("R012_PERFORMANCE=measured\n")
         append("backend=").append(PersistenceBackendContract.BACKEND_ID).append('\n')
         append("os=").append(System.getProperty("os.name"))
         append(" arch=").append(System.getProperty("os.arch")).append('\n')
         append("jvm=").append(System.getProperty("java.vm.name"))
         append(' ').append(System.getProperty("java.version")).append('\n')
-        append("filesystem=").append(store.type()).append(" device=").append(store.name()).append('\n')
+        append("filesystem=").append(filesystem).append('\n')
         append("commits=").append(COMMITS).append(" recordBytes=").append(RECORD_BYTES)
         append(" warmup=").append(WARMUP).append(" repetitions=").append(REPETITIONS).append('\n')
-        append("\nNOTE: these are reference-machine numbers on a desktop NVMe device. They are\n")
-        append("      not Android device figures and are not production thresholds. No\n")
-        append("      threshold is derived from them; see the contract for why.\n\n")
+        append("\nNOTE: these are measurements of the machine named above and nothing more.\n")
+        append("      They are not production thresholds. No threshold is derived from\n")
+        append("      them; see PersistenceBackendContractV1 for why.\n\n")
 
         append("== CLASS W — witnessed commit, one fsync per record\n")
         val classW = (1..REPETITIONS).map { rep -> classWRun(File(root, "classW-$rep"), rep) }
