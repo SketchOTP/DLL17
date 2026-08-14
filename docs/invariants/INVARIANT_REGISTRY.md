@@ -68,6 +68,19 @@ where it is enforced today.
 | INV-0057 | An ordinary rotation of the device wrapping material rewrites no journal byte and leaves every already-written record readable. | `LocalStorageCryptographyContractV2` | Enforced by `FX-EPOCH-ROTATE-ONCE-01`, `FX-EPOCH-ROTATE-MANY-01`, `FX-EPOCH-NO-REWRITE-01` and `DV-KS-ROTATION-READBACK-01`. |
 | INV-0058 | A record's encryption context is immutable, is bound into its AAD, and is the only key identity used to read it. The container's current wrapping epoch never decides whether a record may be read. | `LocalStorageCryptographyContractV2` | Enforced by `FX-EPOCH-CONTEXT-AUTHENTICATED-01` and `FX-EPOCH-FOREIGN-KEY-01`; four forged header fields refused, foreign data key refused. |
 | INV-0059 | Migrating key state from V1 to V2 is deterministic, idempotent and crash-safe, and recovers either the readable pre-migration state or the complete migrated state — never a half-state. | `LocalStorageCryptographyContractV2` | Enforced by `FX-V1-MIGRATION-IDEMPOTENT-01` and the two `Runtime.halt` boundary fixtures `FX-V1-MIGRATION-CRASH-STAGED-01` and `FX-V1-MIGRATION-CRASH-RENAMED-01`. |
+| INV-0060 | A recovery provider receives encrypted package bytes and the contract's object name, and nothing else. No canonical plaintext, no key and no organism content crosses the boundary. | `RecoveryPackageStoreContractV1` | Enforced by `FX-NET-PRIVACY-PAYLOAD-01`, which plants a plaintext canary and searches what the provider holds, and `FX-NET-PRIVACY-METADATA-01`, which searches every request line the endpoint observed. |
+| INV-0061 | An outage of the recovery provider or of the identity authority leaves ordinary local life untouched, and is never reported as a refusal. | `RecoveryPackageStoreContractV1`, `IdentityAuthorityTransportContractV1` | Enforced by `FX-NET-PROVIDER-OUTAGE-LOCAL-LIFE-01` and `FX-NET-AUTHORITY-OUTAGE-LOCAL-STATE-01`, both against a genuinely unreachable socket. |
+| INV-0062 | The transport carries no protocol decision of its own: every epoch, challenge, lease, replay, rate-limit and idempotency outcome is the protocol's, unchanged over HTTP. | `IdentityAuthorityTransportContractV1` | Enforced by the nine `FX-NET-AUTH-*` fixtures, which re-qualify over HTTP every property D011 qualified in process. |
+| INV-0063 | The identity epoch advances at most once per activation however a request is duplicated, retried or raced, and a restarted authority still holds the epoch it granted. | `IdentityAuthorityProtocolV1` | Enforced by `FX-NET-AUTH-DUPLICATE-ACTIVATE-01`, `FX-NET-AUTH-RACE-01` (two threads, two sockets, one winner) and `FX-NET-AUTH-RESTART-01`. |
+| INV-0064 | Canonical bytes and hashes are independent of the provider, bucket, object key, ETag, request id, HTTP status, region, hostname, retry count and network ordering. | `DeterminismContractV1` | Enforced by the three `FX-NET-DETERMINISM-*` fixtures; a restored organism's canonical state hash equals its source's across two different object keys. |
+
+### D014 note
+
+INV-0060 through INV-0064 constrain the network boundary: what may cross it, what
+an outage may do, and what the transport is forbidden to decide. None asserts
+anything about organism behaviour, and none of them makes a claim about a
+deployed service — see `governance/release-gates/R014_NETWORK_GATE.md`, section
+"Not closed by this gate".
 
 ### R002 note
 

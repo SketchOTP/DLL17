@@ -1,0 +1,50 @@
+# Reproducible local deployment of the identity authority.
+#
+# One instance, one volume. The single instance is not a simplification for
+# local use: the epoch compare-and-swap is a process-level lock over one file,
+# and two instances against one store would both believe they held it. The
+# failure mode is two devices owning one organism, so `deploy.replicas` must
+# stay at 1 here and everywhere else.
+#
+# Not a production topology. No TLS, no reverse proxy, no secret management, no
+# monitoring. See `OPERATIONS.md`, section "Not production-qualified".
+#
+#   docker compose -f services/identity-authority/operations/compose.yaml up --build
+
+services:
+  identity-authority:
+    build:
+      context: ../../..
+      dockerfile: services/identity-authority/operations/Dockerfile
+    image: dll17-authority:local
+    restart: unless-stopped
+    # Loopback on the host. Exposing this port to a network without the reverse
+    # proxy in front of it is the mistake `OPERATIONS.md` exists to prevent.
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      DLL17_AUTHORITY_STORE: /var/lib/dll17/authority
+      DLL17_AUTHORITY_PORT: "8080"
+      DLL17_AUTHORITY_BIND: "0.0.0.0"
+    volumes:
+      - authority-store:/var/lib/dll17/authority
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      # Liveness. The load balancer's check is `/readyz`, which fails when the
+      # store cannot be written — that must not restart the process.
+      test:
+        - CMD-SHELL
+        - "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET /healthz HTTP/1.0\\r\\n\\r\\n' >&3 && head -n 1 <&3 | grep -q ' 200 '"
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  authority-store:

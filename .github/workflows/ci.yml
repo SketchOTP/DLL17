@@ -175,6 +175,30 @@ jobs:
           grep -q 'notHeld=0' r012.txt \
             || { echo '::error::an R012 fixture no longer holds'; exit 1; }
 
+      # R014 network substrate (D014). Runs against the in-repository
+      # S3-compatible endpoint on a bound loopback port, so the provider's
+      # signing, HTTP, retry and failure paths and the authority transport are
+      # all exercised here. No credential and no external endpoint is used or
+      # required: qualification against a real third-party endpoint is a
+      # separate run recorded in the R014 gate, and CI is not the place for it.
+      - name: R014 network provider and authority transport kernel
+        run: |
+          ./gradlew :desktop-runner:r014NetworkQualification --no-daemon --quiet \
+            > r014.txt
+          cat r014.txt
+          golden=$(grep -A1 'GOLDEN_EVIDENCE_DIGEST: String' \
+            desktop-runner/src/main/kotlin/com/animusmachinae/dll17/desktop/R014NetworkQualificationKernel.kt \
+            | grep -oE '[0-9a-f]{64}' | head -1)
+          actual=$(grep -oE 'R014_EVIDENCE_DIGEST=[0-9a-f]{64}' r014.txt | cut -d= -f2)
+          if [ -z "$golden" ] || [ "$golden" != "$actual" ]; then
+            echo "::error::CI did not reproduce the frozen R014 evidence digest"
+            exit 1
+          fi
+          grep -q 'notHeld=0' r014.txt \
+            || { echo '::error::an R014 fixture no longer holds'; exit 1; }
+          grep -q 'ENDPOINT_KIND=IN_REPOSITORY_QUALIFICATION_ENDPOINT' r014.txt \
+            || { echo '::error::CI must not depend on an external object store'; exit 1; }
+
       - name: A001 activation package
         run: |
           ./gradlew :research:aliveness-spike:analysis:a001DryRun --no-daemon --quiet \

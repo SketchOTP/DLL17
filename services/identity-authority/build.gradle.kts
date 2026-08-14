@@ -9,6 +9,15 @@
 // canonical organism state and no way to decrypt a recovery package.
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    // D014: the service is now deployable, so it needs a start script. The
+    // `application` plugin is Gradle's own; it adds no dependency to the
+    // runtime classpath.
+    application
+}
+
+application {
+    mainClass.set("com.animusmachinae.dll17.services.identity.IdentityAuthorityServiceMain")
+    applicationName = "identity-authority"
 }
 
 kotlin {

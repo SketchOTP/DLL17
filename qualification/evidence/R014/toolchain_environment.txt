@@ -1,0 +1,33 @@
+D014 TOOLCHAIN AND TARGET ENVIRONMENT
+======================================================================
+recorded: 2026-08-14T15:46:47Z
+
+== host ==
+Linux 7.0.0-27-generic GNU/Linux
+openjdk version "17.0.20" 2026-07-21
+OpenJDK Runtime Environment Temurin-17.0.20+8 (build 17.0.20+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.20+8 (build 17.0.20+8, mixed mode, sharing)
+Gradle 9.5.0
+Kotlin:        2.3.20
+Launcher JVM:  17.0.20 (Eclipse Adoptium 17.0.20+8)
+Daemon JVM:    /home/sketch/.local/toolchains/jdk-17.0.20+8 (no Daemon JVM specified, using current Java home)
+
+== android sdk ==
+ANDROID_HOME=/home/sketch/Android/Sdk
+36.0.0
+37.0.0
+
+== external object-store endpoint used for qualification ==
+image=quay.io/minio/minio:latest
+digest=quay.io/minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
+minio version RELEASE.2025-09-07T16-13-09Z (commit-id=07c3a429bfed433e49018cb0f78a52145d4bedeb)
+endpoint=http://127.0.0.1:19000 bucket=dll17-recovery region=us-east-1 addressing=path-style
+
+== attached devices ==
+List of devices attached
+emulator-5554          device product:sdk_slim_x86_64 model:Android_ATD_built_for_x86_64 device:emu64x transport_id:10
+
+
+== physical device probe ==
+lsusb entries matching a known Android vendor: 0
+RESULT: no physical Android device reachable -> D012 remains BLOCKED_DEVICE_UNAVAILABLE

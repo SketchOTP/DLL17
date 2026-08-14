@@ -1,0 +1,117 @@
+R014_QUALIFICATION_ROOT=/home/sketch/Projects/DLL17/desktop-runner/build/r014-network-qualification
+R014_FILESYSTEM=ext4 device=/dev/nvme0n1p2
+R014_EXTERNAL_ENDPOINT=none (using the in-repository qualification endpoint)
+
+R014_FIXTURE_SET=R014-NETWORK-FIXTURES-V1
+R014_FIXTURE_VERSION=1
+PROVIDER=S3_COMPATIBLE_OBJECT_STORE_V1
+TRANSPORT=IdentityAuthorityTransportContractV1
+ENDPOINT_KIND=IN_REPOSITORY_QUALIFICATION_ENDPOINT
+
+== PROVIDER_CONFORMANCE
+  put sequence=1 bytes=4096 status=200
+  eTag="e936cba040fbfb9b32ec5bb444fd120e" serverChecksum=6TbLoED7+5sy
+  conformance sequences=[1, 2, 6]
+
+== AUTHORITY_TRANSPORT
+  register outcome=REGISTERED epoch=1
+  activate outcome=ACTIVATION_GRANTED duplicate=ALREADY_GRANTED epoch=2
+  race outcomes=[EPOCH_CONFLICT, ACTIVATION_GRANTED] winners=1
+  restart epochBefore=3 epochAfter=3
+
+== END_TO_END_RECOVERY
+  upload bytes=3168 receiptChecksumMatches=true
+  coldRecovery outcome=RECOVERED epoch=2 restored=20
+
+== OUTAGE_ISOLATION
+  providerOutage=NETWORK_INTERRUPTED localCommits=25 readBack=25
+  authorityOutage=TRANSPORT_UNAVAILABLE localRecords=25
+
+== PRIVACY
+  packageBytes=564 canaryPresent=false
+
+== DETERMINISM
+  runA sourceHash=ce6b921730d73939 restoredHash=ce6b921730d73939
+  runB sourceHash=ce6b921730d73939 restoredHash=ce6b921730d73939
+
+== FINDINGS
+  HELD     FX-NET-ROUNDTRIP-01  Do stored bytes come back byte-identically over the network?
+           bytes=4096 identical=true
+  HELD     FX-NET-RECEIPT-01  Does the receipt confirm identifier, size, checksum and sequence for the exact bytes?
+           size=4096 checksumMatches=true sequence=1
+  HELD     FX-NET-INTEGRITY-RECEIPT-01  Does the provider make the server verify the payload rather than take our word for it?
+           checksumHeaderSent=true serverAccepted=200
+  HELD     FX-NET-IDEMPOTENT-PUT-01  Is an ambiguous upload safe to retry?
+           checksumStable=true objects=1
+  HELD     FX-NET-CONDITIONAL-REPLACE-01  Does a replacement at the same sequence supersede rather than accumulate?
+           supersededInPlace=true objects=1
+  HELD     FX-NET-LISTING-ORDER-01  Are listings ordered by sequence, so the current point is the newest package?
+           sequences=[1, 2, 3] currentPoint=3
+  HELD     FX-NET-NOT-FOUND-01  Is a missing object NOT_FOUND rather than an empty result?
+           outcome=NOT_FOUND
+  HELD     FX-NET-IDEMPOTENT-DELETE-01  Does a retried revocation converge rather than failing on its second attempt?
+           objectsAtSequence3=0
+  HELD     FX-NET-WRONG-BUCKET-01  Is a wrong bucket refused rather than silently created?
+           outcome=NOT_FOUND
+  HELD     FX-NET-AUTH-FAILURE-01  Is an authentication failure a refusal rather than a corruption or a retry storm?
+           outcome=REJECTED
+  HELD     FX-NET-TIMEOUT-01  Is a timeout a provider failure and never a claim about the package?
+           outcome=NETWORK_INTERRUPTED
+  HELD     FX-NET-MULTIPART-NOT-USED-01  Is a package above the single-request ceiling refused before it is sent, so multipart is never reached?
+           outcome=REJECTED ceilingBytes=67108864
+  HELD     FX-NET-RETRY-CONVERGES-01  Does a transient provider failure recover on retry without duplicating the object?
+           retriedThenStored=true objects=1
+  HELD     FX-NET-FAILED-REPLACEMENT-01  Does a failed replacement leave the last confirmed package intact?
+           outcome=PROVIDER_UNAVAILABLE previousIntact=true
+  HELD     FX-NET-RATE-LIMIT-01  Is a provider rate limit an ordinary outcome rather than a failure of the organism?
+           outcome=PROVIDER_UNAVAILABLE
+  HELD     FX-NET-AUTH-REGISTER-01  Does registration over the transport establish epoch one unchanged?
+           outcome=REGISTERED epoch=1
+  HELD     FX-NET-AUTH-ACTIVATE-01  Does an activation over the transport advance the epoch exactly once?
+           outcome=ACTIVATION_GRANTED epoch=2
+  HELD     FX-NET-AUTH-DUPLICATE-ACTIVATE-01  Does a duplicated request consume a second epoch?
+           duplicate=ALREADY_GRANTED epoch=2
+  HELD     FX-NET-AUTH-REPLAY-01  Is a replayed nonce refused after the transport carried it?
+           outcome=CHALLENGE_INVALID epoch=2
+  HELD     FX-NET-AUTH-RACE-01  Do two destinations racing over the network produce exactly one winner?
+           winners=1 epoch=3
+  HELD     FX-NET-AUTH-SUPERSEDED-01  Does a superseded device learn it is superseded through the transport?
+           outcome=SUPERSEDED currentEpoch=3
+  HELD     FX-NET-AUTH-STALE-01  Is a stale request refused on the server's clock rather than the caller's?
+           outcome=CHALLENGE_INVALID
+  HELD     FX-NET-AUTH-NO-DETAIL-01  Does the service's free-text diagnostic stay off the wire?
+           detailCarried=false
+  HELD     FX-NET-AUTH-RESTART-01  Does a restarted authority still hold the epoch it granted?
+           epochBefore=3 epochAfter=3
+  HELD     FX-NET-E2E-UPLOAD-01  Does an encrypted package upload to the network provider and confirm the exact bytes?
+           size=3168 checksumMatches=true
+  HELD     FX-NET-E2E-RETRIEVE-01  Does the package come back from the network byte-identically?
+           identical=true bytes=3168
+  HELD     FX-NET-E2E-COLD-RECOVERY-01  Does a cold device restore the organism with both the provider and the authority on the network?
+           outcome=RECOVERED epoch=2 restored=20
+  HELD     FX-NET-E2E-RESTORED-READABLE-01  Is the network-restored history readable under the destination's own new key?
+           records=20 checkpoint=30
+  HELD     FX-NET-PROVIDER-OUTAGE-LOCAL-LIFE-01  With the recovery provider unreachable, do ordinary local commits still succeed and read back?
+           providerOutcome=NETWORK_INTERRUPTED commits=25 readBack=25
+  HELD     FX-NET-AUTHORITY-OUTAGE-LOCAL-STATE-01  Does an authority outage leave local state intact and stay distinct from a refusal?
+           transportFailure=TRANSPORT_UNAVAILABLE localRecords=25
+  HELD     FX-NET-PROVIDER-OUTAGE-UNIFORM-01  Does every provider operation fail the same recognisable way during an outage?
+           outcomes=[PROVIDER_UNAVAILABLE, PROVIDER_UNAVAILABLE, PROVIDER_UNAVAILABLE, PROVIDER_UNAVAILABLE]
+  HELD     FX-NET-PRIVACY-PAYLOAD-01  Does the recovery provider hold anything but ciphertext?
+           plaintextCanaryFound=false packageBytes=564
+  HELD     FX-NET-PRIVACY-METADATA-01  Is the only organism metadata crossing the boundary the object name the contract requires?
+           requestsObserved=59 plaintextInRequestLine=false
+  HELD     FX-NET-PRIVACY-AUTHORITY-01  Does the authority's durable state contain any organism content after a full exchange?
+           organismContentInAuthorityStore=false
+  HELD     FX-NET-PRIVACY-LOG-01  Is the service access log restricted to identifiers, outcomes and counts?
+           logLines=2 allStructured=true
+  HELD     FX-NET-DETERMINISM-ROUNDTRIP-01  Is the restored canonical state hash identical to the source's?
+           sourceEqualsRestored=true
+  HELD     FX-NET-DETERMINISM-PROVIDER-INDEPENDENT-01  Are canonical bytes independent of the object key, the request id and the server's timing?
+           hashesEqualAcrossDifferentKeys=true restored=5/5
+  HELD     FX-NET-DETERMINISM-NO-PROVIDER-VOCABULARY-01  Does any provider, bucket, ETag, region or hostname appear in a canonical hash input?
+           providerVocabularyInCanonicalHash=false
+
+held=38 notHeld=0 total=38
+R014_EVIDENCE_DIGEST=efbd6f1caa060da228f72a96cef9e3a2a290c7503f685270e2bbb2b7c7da1501
+

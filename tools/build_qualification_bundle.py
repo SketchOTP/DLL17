@@ -634,6 +634,90 @@ R012V2_CONSTITUENTS: list[tuple[str, list[str]]] = [
 ]
 
 
+# D014: the network substrate. The recovery provider and the identity-authority
+# transport, plus the two endpoints they were qualified against. R012-QB-2 stays
+# pinned to the commit D013 was accepted at: D014 legitimately edits three of its
+# constituents — the provider contract gains a second qualifying provider, the
+# authority protocol's transport line is unblocked, and the prior-art record
+# gains two entries — and a gate that has already passed must not depend on what
+# a later directive does.
+R014_CONSTITUENTS: list[tuple[str, list[str]]] = [
+    (
+        "Frozen contracts",
+        [
+            "docs/architecture/IdentityAuthorityTransportContractV1.md",
+            "docs/architecture/IdentityAuthorityProtocolV1.md",
+            "docs/architecture/RecoveryPackageStoreContractV1.md",
+        ],
+    ),
+    (
+        "Transport codec",
+        [
+            "core-recovery/src/main/kotlin/com/animusmachinae/dll17/core/recovery/IdentityAuthorityTransport.kt",
+        ],
+    ),
+    (
+        "Network recovery provider",
+        [
+            "core-recovery-net/build.gradle.kts",
+            "core-recovery-net/src/main/kotlin/com/animusmachinae/dll17/core/recovery/net/S3Signing.kt",
+            "core-recovery-net/src/main/kotlin/com/animusmachinae/dll17/core/recovery/net/ObjectStoreHttp.kt",
+            "core-recovery-net/src/main/kotlin/com/animusmachinae/dll17/core/recovery/net/S3RecoveryPackageStore.kt",
+            "core-recovery-net/src/main/kotlin/com/animusmachinae/dll17/core/recovery/net/HttpIdentityAuthorityClient.kt",
+        ],
+    ),
+    (
+        "Authority service and transport",
+        [
+            "services/identity-authority/build.gradle.kts",
+            "services/identity-authority/src/main/kotlin/com/animusmachinae/dll17/services/identity/IdentityAuthorityService.kt",
+            "services/identity-authority/src/main/kotlin/com/animusmachinae/dll17/services/identity/IdentityAuthorityHttpServer.kt",
+        ],
+    ),
+    (
+        "Qualification endpoint and kernel",
+        [
+            "services/s3-qualification-endpoint/build.gradle.kts",
+            "services/s3-qualification-endpoint/src/main/kotlin/com/animusmachinae/dll17/services/objectstore/S3QualificationEndpoint.kt",
+            "desktop-runner/src/main/kotlin/com/animusmachinae/dll17/desktop/R014NetworkQualificationKernel.kt",
+            "desktop-runner/src/main/kotlin/com/animusmachinae/dll17/desktop/R014NetworkQualificationMain.kt",
+        ],
+    ),
+    (
+        "Qualification suites",
+        [
+            "core-recovery-net/src/test/kotlin/com/animusmachinae/dll17/core/recovery/net/S3ProviderNetworkConformanceTest.kt",
+            "core-recovery-net/src/test/kotlin/com/animusmachinae/dll17/core/recovery/net/IdentityAuthorityTransportTest.kt",
+            "core-recovery-net/src/test/kotlin/com/animusmachinae/dll17/core/recovery/net/AndroidApiSurfaceTest.kt",
+            "core-recovery/src/test/kotlin/com/animusmachinae/dll17/core/recovery/RecoveryPackageStoreConformanceTest.kt",
+        ],
+    ),
+    (
+        "Operations",
+        [
+            "services/identity-authority/operations/OPERATIONS.md",
+            "services/identity-authority/operations/Dockerfile",
+            "services/identity-authority/operations/compose.yaml",
+            "docs/operations/RECOVERY_PROVIDER_CONFIGURATION.md",
+        ],
+    ),
+    (
+        "Qualification evidence",
+        [
+            "qualification/network/R014/R014_REPORT.txt",
+            "qualification/network/R014/R014_EXTERNAL_ENDPOINT_REPORT.txt",
+            "qualification/network/R014/ENDPOINT_MATRIX.md",
+            "qualification/evidence/R014/governance_validation.txt",
+            "qualification/evidence/R014/project_identity.txt",
+            "qualification/evidence/R014/gradle_build.txt",
+            "qualification/evidence/R014/toolchain_environment.txt",
+        ],
+    ),
+    ("Prior art", ["docs/decisions/EXTERNAL_PRIOR_ART.md"]),
+    ("Gate record", ["governance/release-gates/R014_NETWORK_GATE.md"]),
+]
+
+
 class PhaseSpec:
     def __init__(
         self,
@@ -730,7 +814,13 @@ PHASES: dict[str, PhaseSpec] = {
         bundle_version="R012-QB-2",
         bundle_path="governance/qualification/R012_SUBSTRATE_BUNDLE_V2.md",
         constituents=R012V2_CONSTITUENTS,
-        frozen_at_commit=None,
+        # Pinned to the commit D013 was accepted at. D014 legitimately edits
+        # three of its constituents: `RecoveryPackageStoreContractV1.md` gains a
+        # second qualifying provider, `IdentityAuthorityProtocolV1.md` has its
+        # transport line unblocked, and `EXTERNAL_PRIOR_ART.md` gains PA-0002 and
+        # PA-0003. Seventh application of IMPL-0014 for the same reason: a gate
+        # that has already passed must not depend on what a later directive does.
+        frozen_at_commit="43be3c89fa55d050394565e2117bdac4a73d43e6",
     ),
     "R012DEV": PhaseSpec(
         phase="R012DEV",
@@ -753,6 +843,15 @@ PHASES: dict[str, PhaseSpec] = {
         bundle_version="R012DEV-QB-2",
         bundle_path="governance/qualification/R012_DEVICE_BUNDLE_V2.md",
         constituents=R012DEV_CONSTITUENTS,
+        frozen_at_commit=None,
+    ),
+    "R014": PhaseSpec(
+        phase="R014",
+        title="network recovery provider and identity-authority transport",
+        directive="D014",
+        bundle_version="R014-QB-1",
+        bundle_path="governance/qualification/R014_NETWORK_BUNDLE.md",
+        constituents=R014_CONSTITUENTS,
         frozen_at_commit=None,
     ),
     "A001PRE": PhaseSpec(

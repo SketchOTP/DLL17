@@ -11,7 +11,24 @@
 | R012-SUB-V2 | Local-storage epoch separation | `governance/qualification/R012_SUBSTRATE_BUNDLE_V2.md` | `PASS` under D013, 55 / 55 fixtures. Implements `LocalStorageCryptographyContractV2`, which supersedes V1 and amends `ContinuityDurabilityContractV1` sections 13.3–13.5. Gate record: `governance/release-gates/R012_SUBSTRATE_GATE_V2.md`. |
 | R012-DEV | R012 substrate on Android hardware | `governance/qualification/R012_DEVICE_BUNDLE.md` | `BLOCKED_DEVICE_UNAVAILABLE` under D012. The Android Keystore adapter, the app-private storage adapter and the 45-fixture device suite are complete and ran on an emulator (44 / 45 held); no physical device was reachable, and an emulator does not substitute for one. Gate record: `governance/release-gates/R012_DEVICE_GATE.md`. Pinned to `4700b0762cad3b1bb63a69be4f7eca9caea3b819` so the declared failure stays verifiable. |
 | R012-DEV-V2 | R012 substrate on Android, after epoch separation | `governance/qualification/R012_DEVICE_BUNDLE_V2.md` | Still `BLOCKED_DEVICE_UNAVAILABLE` under D013 — no physical device was reachable to D013 either. The device suite re-ran at fixture set version 2 with 46 / 46 held, including `DV-KS-ROTATION-READBACK-01`, which D012 had filed as `NOT HELD`. |
+| R014-NET | Network recovery provider and identity-authority transport | `governance/qualification/R014_NETWORK_BUNDLE.md` | `PASS` under D014. 38 / 38 fixtures against the in-repository S3-compatible endpoint and 33 / 33 against MinIO `RELEASE.2025-09-07T16-13-09Z`. Freezes `IdentityAuthorityTransportContractV1` and adds `S3_COMPATIBLE_OBJECT_STORE_V1` to the unchanged `RecoveryPackageStoreContractV1`. Gate record: `governance/release-gates/R014_NETWORK_GATE.md`. |
 | A001 | Aliveness gate | none | `BLOCKED`. Five outstanding blockers, none clearable by code: unqualified baseline, unregistered variance pilot, no released paired-difference SD, three unassigned reviewer roles, no owner resource ceiling. |
+
+## Why R014 records two endpoint runs and does not average them
+
+The in-repository endpoint can be made to fail on command — a forced 5xx, a rate
+limit, a full outage — which is how the retry, failed-replacement and outage
+fixtures are qualified at all. It cannot prove the signer is AWS-compatible,
+because it is code from this repository agreeing with other code from this
+repository.
+
+MinIO proves exactly that and nothing about injected faults: it is an independent
+implementation of AWS Signature Version 4, it authenticated every request, and it
+carried the whole end-to-end cold recovery. Five fixtures do not run against it
+because it cannot be told to break.
+
+Neither run substitutes for the other, so the gate reports both counts, both
+digests and the reason they differ. See `qualification/network/R014/ENDPOINT_MATRIX.md`.
 
 ## R000 evidence layout
 

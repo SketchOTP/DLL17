@@ -361,3 +361,23 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: D013 makes the fixture D012 declared as failing pass. If R012DEV-QB-1 continued to follow the working tree, the negative evidence D012 filed would silently become a passing report and the record would no longer show that a finding was made. A resolved finding that leaves no trace is indistinguishable from a finding nobody made, and the architect's standing rule is to preserve failures rather than accept summaries. The D012 gate record and device matrix keep the original text and the version 1 report remains verifiable at that commit.
 - Affected areas: tools/build_qualification_bundle.py, governance/qualification/, governance/release-gates/R012_DEVICE_GATE.md, qualification/device-matrix/R012/DEVICE_MATRIX.md
 - Supersedes record: none
+
+## DEC-0035
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0035
+- Status: ACTIVE
+- Decision or event: The network recovery provider and the identity-authority transport are project-owned, with no third-party dependency, and gradle/libs.versions.toml is unchanged by D014.
+- Rationale: Two separate findings reached the same place for different reasons. For the object-store client the candidates are materially unsuitable: the provider runs on the destination device during a cold recovery, AWS states it has no plans to expand Android support for its v2 Java SDK, and the MinIO client resolves BouncyCastle, Guava, Jackson and OkHttp, which would put a second cryptographic provider on a device whose key hierarchy is already frozen and qualified. For the transport no candidate is unsuitable and a capable option was declined: the service has four endpoints, one bounded binary body under a hundred and twenty eight bytes and no session state, and a framework would contribute a dependency tree to keep current inside the process that decides which device owns an organism. Both are recorded with their evidence as PA-0002 and PA-0003 with disposition BUILD, and the costs of the second are written down rather than hidden.
+- Affected areas: core-recovery-net/, services/identity-authority/, docs/decisions/EXTERNAL_PRIOR_ART.md, gradle/libs.versions.toml
+- Supersedes record: none
+
+## DEC-0036
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0036
+- Status: ACTIVE
+- Decision or event: The R014 network gate passes. Both items D011 left open, a network recovery provider and an identity-authority transport, are implemented, frozen and qualified, including end-to-end cold recovery through MinIO, an independent third-party implementation of AWS Signature Version 4.
+- Rationale: The gate is a statement about a mechanism, not about a deployment. Nothing has been hosted, no commercial endpoint has been used, TLS is unexercised, and no availability, redundancy or disaster-recovery claim is made. Both the gate record and the operations package list what is not production-qualified, because an operations manual reads like a capability whether or not anything has ever run.
+- Affected areas: governance/release-gates/R014_NETWORK_GATE.md, governance/qualification/R014_NETWORK_BUNDLE.md, qualification/network/R014/, services/identity-authority/operations/
+- Supersedes record: none

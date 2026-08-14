@@ -35,6 +35,11 @@ include(":core-continuity")
 // Pure Kotlin/JVM like every other core-* module.
 include(":core-persistence")
 include(":core-recovery")
+// R012 network substrate (directive D014). The S3-compatible recovery provider
+// and the identity-authority transport client. Kept out of `core-recovery` so
+// that the provider-neutral contract cannot acquire a transport dependency by
+// accident: recovery correctness stays provable with no network at all.
+include(":core-recovery-net")
 include(":desktop-runner")
 include(":android-host")
 
@@ -55,3 +60,11 @@ include(":benchmarks:persistence-bench")
 // the organism core dependency graph: normal local runtime never calls it for
 // cognition, physiology, memory, action selection or ordinary startup.
 include(":services:identity-authority")
+
+// The in-repository S3-compatible qualification endpoint (directive D014).
+// Isolated like `benchmarks/` and `research/`: nothing in the organism
+// dependency graph depends on it, and it is never shipped. It exists so the
+// network path — real sockets, real HTTP, real SigV4 verification — is exercised
+// by a check that runs anywhere, including CI. It does not replace qualification
+// against a real third-party endpoint, which D014 requires separately.
+include(":services:s3-qualification-endpoint")

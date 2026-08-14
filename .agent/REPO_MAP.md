@@ -15,7 +15,10 @@
 - `core-crypto/` — pure Kotlin JVM module holding the canonical byte codec and envelope, the project's own SHA-256, the canonical state hash, and counter-based PRNG substreams with domain-separated derivation. Canonical logic since R001.
 - `core-state/` — pure Kotlin JVM module holding the canonical snapshot, the pure single-threaded reducer, normalized events, durability classes, the durable journal and replay kernel, the Class W staged protocol, the panic witness, the assisted-payload interface, schema migration, and the R001 qualification kernel. Canonical logic since R001; still no organism behaviour.
 - `core-continuity/` — pure Kotlin JVM module holding the four clocks, durable time anchors, time-confidence classification, blind-decay credit, the unresolved-time debt ledger, offline reconciliation, generation-partitioned journalling and compaction, durability admission and safe hold, platform protection, the encrypted-record boundary, identity binding, version boundaries, and the R002 qualification kernel. Canonical logic since R002; still no organism behaviour.
-- `desktop-runner/` — pure Kotlin JVM headless runner and the desktop determinism matrix target; runs the R001 qualification kernel and emits `R001_EVIDENCE_DIGEST`.
+- `core-recovery-net/` — pure Kotlin JVM module holding the S3-compatible network recovery provider, its SigV4 signing, the HTTP layer and the identity-authority transport client. No third-party dependency, and `AndroidApiSurfaceTest` enforces that it reaches nothing outside the Android API 29 surface.
+- `services/identity-authority/` — the separately deployable epoch authority and its HTTP transport, plus the operations package under `operations/`. Outside the organism core dependency graph.
+- `services/s3-qualification-endpoint/` — an S3-compatible endpoint used only for qualification: real sockets, real SigV4 verification, injectable faults. Isolated like `benchmarks/`; nothing ships it, and it does not stand in for a real provider.
+- `desktop-runner/` — pure Kotlin JVM headless runner and the desktop determinism matrix target; runs the R001 qualification kernel and emits `R001_EVIDENCE_DIGEST`, and hosts the R012 and R014 qualification kernels because the host is the only module allowed to see the core and the deployable services at once.
 - `android-host/` — the only module that links the Android framework; the unchanged R000 Compose shell, the R012 Android adapter (`persistence/`: the Keystore key container, the app-private storage layout, the startup key-resolution decision table), a debug-only crash process, and the instrumented suites that qualify determinism, continuity and the R012 substrate on real ART.
 
 ## Interfaces and contracts
@@ -33,6 +36,9 @@
 - `docs/decisions/DECISION_LOG.md` — implementation decisions that are not architect directives.
 - `docs/decisions/EXTERNAL_PRIOR_ART.md` — external landscape checks with an explicit `REFERENCE`, `ADOPT` or `REJECT` disposition for each.
 - `docs/architecture/LocalStorageCryptographyContractV2.md` — frozen local record encryption and key lifecycle. Supersedes V1 by separating the wrapping epoch from the data key's identity, and amends `ContinuityDurabilityContractV1` sections 13.3–13.5.
+- `docs/architecture/IdentityAuthorityTransportContractV1.md` — frozen network surface of the identity authority. Carries `IdentityAuthorityProtocolV1` and redefines nothing in it.
+- `docs/operations/RECOVERY_PROVIDER_CONFIGURATION.md` — configuration schema, credential ownership and the exhaustive list of what a recovery provider is allowed to see.
+- `services/identity-authority/operations/OPERATIONS.md` — configuration, secrets, health and readiness, backup, restore, upgrade, log privacy and incident runbook, with an explicit list of what is not production-qualified.
 - `governance/source-provenance/SOURCE_PROVENANCE_LEDGER.md` — proof that the repository is greenfield.
 - `governance/release-gates/R000_EXIT_GATE.md` — honest per-criterion status of the R000 exit gate.
 - `governance/release-gates/R001_EXIT_GATE.md` — per-criterion status of all three canonical R001 exit gates, including the one criterion resting on an architect waiver.
@@ -57,13 +63,14 @@
 - `qualification/device-matrix/R000/` — device matrix and raw Android install, launch, visible-state, terminate and relaunch evidence including screenshots and logcat.
 - `qualification/device-matrix/R012/` — the Android device matrix for the R012 substrate, the emulator's complete 45-fixture report and its measurements. The physical-device row is `BLOCKED_DEVICE_UNAVAILABLE`.
 - `qualification/device-matrix/R001/` — the cross-target determinism matrix and per-target records for the desktop JVM, the x86_64 emulator and Tensor hardware.
+- `qualification/network/R014/` — the network fixture reports for both endpoints and the endpoint matrix explaining what each run proves and why their fixture counts differ.
 - `governance/qualification/R000_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R000 qualification claim; verified in CI against its pinned commit.
 - `governance/qualification/R001_QUALIFICATION_BUNDLE.md` — hashed manifest binding the R001 qualification claim; verified in CI.
 
 ## Configuration
 
 - `.gitignore` — source-control exclusions for bytecode caches, local environments, scratch files, the forbidden migration report, build outputs, IDE state and Android artifacts.
-- `settings.gradle.kts` — root project name, repository policy and the five included modules.
+- `settings.gradle.kts` — root project name, repository policy and the included modules.
 - `build.gradle.kts` — root build script declaring the pinned plugins without applying them.
 - `gradle/libs.versions.toml` — the version catalog; every dependency version is an exact pin.
 - `gradle/wrapper/gradle-wrapper.properties` — pins the Gradle distribution to the contracted version.

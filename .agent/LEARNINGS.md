@@ -437,3 +437,33 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: Any authenticated-encryption read path with plaintext metadata.
 - Supersedes learning: none
+
+## L-0043
+
+- Learning ID: L-0043
+- Date: 2026-08-14
+- Fact or lesson: A protocol implementation tested only against a server from the same repository proves consistency, not compatibility. The two R014 endpoints answer different questions and neither is sufficient alone. The in-repository endpoint can be told to return a 500, a 429 or nothing at all, which is the only reason the retry, failed-replacement, rate-limit and outage fixtures exist at all. MinIO cannot be told to break, but it accepted every signature, which is the only available evidence that the signer implements AWS Signature Version 4 rather than a private dialect of it. Recording both counts and the reason they differ is more honest than reporting whichever number is larger.
+- Evidence location: qualification/network/R014/ENDPOINT_MATRIX.md; qualification/network/R014/R014_EXTERNAL_ENDPOINT_REPORT.txt; IMPL-0081.
+- Confidence: VERIFIED
+- Scope: Any wire protocol this project implements against an external specification.
+- Supersedes learning: none
+
+## L-0044
+
+- Learning ID: L-0044
+- Date: 2026-08-14
+- Fact or lesson: A justification for refusing a dependency decays unless something enforces it. The entire argument for building the S3 adapter is that the alternatives cannot run on the destination device, and on a desktop build that argument is invisible: the first person to reach for java.net.http because it is nicer would leave the module compiling, testing green, and quietly unable to do the one thing it exists for. Reading the module's own compiled class files back and comparing every java and javax reference against an Android API 29 allowlist turns the argument into a check, and it found a real reference on its first run.
+- Evidence location: core-recovery-net/src/test/kotlin/com/animusmachinae/dll17/core/recovery/net/AndroidApiSurfaceTest.kt; PA-0002.
+- Confidence: VERIFIED
+- Scope: Any module whose platform constraints are not exercised by the build that tests it.
+- Supersedes learning: none
+
+## L-0045
+
+- Learning ID: L-0045
+- Date: 2026-08-14
+- Fact or lesson: An interface parameter that is harmless in process can be a vulnerability on a wire. IdentityAuthorityClient takes a nowMillis because an in-process caller has to supply one, and the obvious transport encoding would have carried it; a client that can name the current time expires nothing, outlives every lease and steps around the rate limiter. The fix was to leave the field out of every request encoding and have the server read its own clock. Porting an interface to a network is not a mechanical translation: each parameter has to be asked whether the caller is now allowed to choose it.
+- Evidence location: core-recovery/.../IdentityAuthorityTransport.kt; fixture FX-NET-AUTH-STALE-01; IMPL-0079.
+- Confidence: VERIFIED
+- Scope: Any in-process interface later exposed over a network.
+- Supersedes learning: none

@@ -128,6 +128,18 @@ current epoch.
 
 | Item | State |
 |---|---|
-| Transport (HTTP surface, TLS, auth) | Not frozen; a deployment decision, and correctness is provable without one |
-| Hosting, backup, rotation and incident procedures for the authority database | `BLOCKED_SPEC_SERVICE_OPERATIONS` — requires an owner and an environment |
+| Transport (HTTP surface) | **Unblocked under D014.** Frozen separately as `IdentityAuthorityTransportContractV1`, which carries this protocol and changes nothing in it |
+| TLS | Still not in-process. A reverse proxy is required; see `services/identity-authority/operations/OPERATIONS.md` |
+| Hosting, backup, rotation and incident procedures for the authority store | **Procedures written under D014** in `OPERATIONS.md`. Hosting itself is still not deployed, and no availability, redundancy or disaster-recovery claim is made |
+| Verification-key rotation | Not designed. Rotating it means letting a caller replace the credential that decides ownership, which is the operation the `register` conflict rule exists to prevent |
+| Multi-instance deployment | **Not supported.** The compare-and-swap is a process-level lock over one file |
 | Production rate-limit tuning | The frozen values are protocol defaults, not measured production limits |
+
+### What D014 changed here, and what it did not
+
+Nothing in this document above this line was amended. Every property listed —
+the honest guarantee, the exhaustive stored field set, the frozen parameters, the
+frozen proof, the frozen operations, the three layers of replay protection, the
+racing-destination rule and the frozen recovery order — was re-qualified over
+HTTP and produced the same outcome. The transport carries this protocol; it does
+not get a say in it.

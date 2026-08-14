@@ -1,0 +1,3 @@
+ProjectIdentityBuildContractV1 verification PASSED
+- checked 8 modules
+- checked 14 frozen contract values

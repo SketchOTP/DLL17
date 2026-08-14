@@ -4,8 +4,10 @@
 - Version: 1
 - Frozen under: D011
 - Executable portion: `core-recovery/.../RecoveryPackageStore.kt`
-- Qualifying provider: `FILESYSTEM_OBJECT_STORE_V1`
-- Conformance suite: `RecoveryPackageStoreConformanceTest`
+- Qualifying providers: `FILESYSTEM_OBJECT_STORE_V1`,
+  `S3_COMPATIBLE_OBJECT_STORE_V1` (added under D014)
+- Conformance suites: `RecoveryPackageStoreConformanceTest`,
+  `S3ProviderNetworkConformanceTest`, `R014NetworkQualificationKernel`
 
 Provider-neutral cold-package storage. Deliberately small: a provider stores
 bytes and confirms what it stored.
@@ -79,10 +81,51 @@ property nobody re-tests.
 
 ---
 
+---
+
+## The network provider, added under D014
+
+The paragraph above anticipated this and set the terms: a network provider "must
+satisfy this same contract and pass the same conformance suite". It does, and the
+contract itself is **unchanged** — no version bump, no new operation, no new
+outcome. A second implementation of a frozen interface is not an amendment to it.
+
+`S3_COMPATIBLE_OBJECT_STORE_V1` implements the five operations over the
+S3-compatible object API. Vendor neutrality is structural rather than declared:
+there is no vendor name in the implementation and no per-vendor branch, and
+everything that differs between providers is a configuration value. See
+`docs/operations/RECOVERY_PROVIDER_CONFIGURATION.md`.
+
+Two things the network provider must do that the filesystem one did not have to:
+
+- **Make the far end verify the payload.** Every upload carries
+  `x-amz-checksum-sha256`, so the server refuses a corrupted object and a `200`
+  is an integrity receipt rather than a promise. The returned ETag is recorded
+  for the operator and deliberately not trusted, because ETag stops being a
+  content hash the moment an object is multipart-uploaded or encrypted with a
+  managed key.
+- **Keep the receipt provider-independent.** The receipt is derived from the
+  bytes, not from the provider, so `RecoveryPoint.receiptConfirms` means the same
+  thing for both. A provider-derived identifier would make freshness depend on
+  which backend the user happened to choose. Asserted by
+  `S3ProviderNetworkConformanceTest`, which compares both providers' receipts for
+  the same payload.
+
+Multipart upload is not implemented, and a package above 64 MiB is refused before
+it is sent rather than silently taking a path that does not exist.
+
+Qualified against the in-repository endpoint (38 fixtures) and against MinIO
+`RELEASE.2025-09-07T16-13-09Z` (33 fixtures). See
+`qualification/network/R014/ENDPOINT_MATRIX.md`.
+
+---
+
 ## Blocked
 
 | Item | State |
 |---|---|
-| Production network provider selection | `BLOCKED_SPEC_RECOVERY_PROVIDER_SELECTION` — a product decision needing an owner, credentials and a privacy review |
+| Production network provider **selection** | `BLOCKED_SPEC_RECOVERY_PROVIDER_SELECTION` — D014 built the mechanism; choosing and paying for an endpoint remains a product decision needing an owner, credentials and a privacy review |
+| Multipart upload | Not implemented, not needed, and refused rather than approximated |
+| Any commercial endpoint | `NOT RUN` — deploying billable cloud resources needs separate authorization |
 | Provider-side retention and revocation policy | Follows the selected provider |
 | Upload scheduling and background attempt policy | R012 product UX, outside the parallel amendment |
