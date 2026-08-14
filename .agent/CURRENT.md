@@ -3,7 +3,7 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-14T17:45:00-04:00`
+- Last updated: `2026-08-14T19:25:00-04:00`
 
 ## Active state after adoption
 
@@ -11,21 +11,23 @@
 - External directive ID: D016
 - Objective: Execute the complete A001 aliveness gate and determine, from preregistered independent human evidence, whether the remediated adaptive FULL organism produces a meaningfully stronger blinded impression of aliveness than a strong independently qualified scripted pet.
 - Current status: `BLOCKED`
-- Acceptance: Twenty-one criteria, none met. The first, that all required independent roles are validly assigned, is the gate the directive is blocked at.
+- Acceptance: Twenty-one criteria. The fourth, that owner study ceilings are frozen, is met. The first, that all required independent roles are validly assigned, is the gate the directive is blocked at.
 - Current phase: A001.0 — independent governance activation, boundary report D016-A. Not entered. All three roster roles are unassigned and the independent study operator is unnamed, so no signed governance record can exist, no reviewer ruling can be taken, and no baseline qualification, pilot registration or recruitment can occur.
-- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md. No engineering source, contract, qualification evidence, participant material or study implementation was modified under D-016.
-- Immediate next action: Hold at D016-A. The blocking inputs are three named eligible people plus an independent study operator with their four signed governance records, the six reviewer rulings, and the frozen owner resource ceiling. None can be produced by writing code, and the directive forbids placeholder names, signatures and approvals.
+- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md, research/aliveness-spike/analysis/, research/aliveness-spike/study-protocol/, research/aliveness-spike/evidence/. No organism source, production contract, participant material or scored study data was modified under D-016.
+- Immediate next action: Hold at D016-A. The owner ceiling is now frozen and recorded. The remaining blocking inputs are three named eligible people plus an independent study operator with their four signed governance records, the six reviewer rulings, and an independent human-subjects determination. None can be produced by writing code, and the directive forbids placeholder names, signatures and approvals.
 
 ## Temporary task-relevant facts
 
-- D-016 is blocked at Phase A001.0 with BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, recorded as O-0016 and in the D016-A section of the A001 activation gate record. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists. BLOCKED_SPEC_STUDY_BUDGET is independently outstanding and is the only blocker clearable without recruiting anyone.
-- The frozen independence requirements in IndependentReviewOnboardingV1 appear to exclude the programme owner from the primary and alternate reviewer roles, and state that the role must be filled externally when no internal person qualifies. The BaselineIndependentOwner may also be the alternate reviewer; the study operator's overlap is not addressed by any frozen contract, so proposing one returns BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY.
+- D-016 is blocked at Phase A001.0 with BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, recorded as O-0017 superseding O-0016 and in the A001 activation gate record. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists. Four blockers remain, not five.
+- The owner froze the A001 resource ceiling at four hundred participants and two hundred and fifty participant-hours, recorded as DEC-0039. It lives in A001FeasibilityBudget.FROZEN_OWNER_CEILING and GA-24 reads it rather than restating it, so BLOCKED_SPEC_STUDY_BUDGET is cleared. Four hundred participants is 246.667 participant-hours at the frozen schedule, so the participant count binds first and a test keeps that true.
+- Role compatibility is frozen as a unique primary reviewer, an alternate who may also be the BaselineIndependentOwner, and a study operator who is a third unique person and not a gate reviewer. The ethics posture is that an independent human-subjects determination must be obtained before recruiting anyone and that the programme may not self-determine exemption. Three candidates are recorded in IndependentReviewRosterV1 as candidates only; none has been approached, accepted, conflict-reviewed or signed anything, and the roster is still blank.
+- The frozen independence requirements in IndependentReviewOnboardingV1 exclude anyone with an incentive contingent on A001 passing from the primary and alternate reviewer roles, and state that the role must be filled externally when no internal person qualifies. The owner's role ruling resolves the previously undefined study-operator overlap, so BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY no longer applies to the intended structure.
 - D-GOV-001 adopted the current canonical Authority Codex governance standard, recorded as DEC-0038 and closed as O-GOV-001. Codex is primary, AGENTS.md is a short always-on router, the canonical Codex skills live under .agents/skills/, and the sections the canonical package no longer carries are preserved in governance/PROJECT_GOVERNANCE_SUPPLEMENT.md rather than deleted. The canonical Authority checkout at /home/sketch/Projects/authority was read only and was not modified. Local directive IDs use the D-GOV- prefix for repository governance work so that numeric local IDs stay aligned with the architect's external D0NN numbering.
-- No Java runtime exists on this machine, so the Kotlin governance audit and the A001 dry run cannot be re-executed locally. The committed evidence files are the machine output and GitHub CI reverified them at commit 44c3de7630216be7bc8c28a8ceafb2781f7729af.
+- The workstation has no system JDK. A Temurin 17.0.20+8 JDK is fetched into a session scratchpad when Kotlin work is needed, and it reproduced the committed A001 dry run byte for byte before any regeneration, which is how regenerated evidence is known to match what CI will produce.
 - D-015 was a governance-synchronization directive that committed and pushed the goal-drift audit record and introduced no engineering work; it is closed as O-0015.
 - D-014 was accepted as PASS on 2026-08-14 after the architect independently verified commit ffcf7cd6d93fa481258f58376fb1025c5af1a864 and CI run 31818973628, and no successor directive was issued.
 - The architect's goal-drift audit returned NO_ARCHITECTURAL_DRIFT with EXECUTION_PRIORITY_DRIFT_DETECTED and is recorded as DEC-0037. The standing execution rule is to prove the creature is alive before investing further in making its recovery infrastructure production-complete.
-- No further backend, network, recovery, hosting, availability, monitoring, scaling or disaster-recovery engineering is to be started. The next programme effort is unblocking and executing A001, whose five remaining inputs are organisational rather than technical. R003 through R009 follow only after A001 passes. D012 may be closed opportunistically if a physical Android device becomes reachable, but it does not set the priority.
+- No further backend, network, recovery, hosting, availability, monitoring, scaling or disaster-recovery engineering is to be started. The next programme effort is unblocking and executing A001, whose remaining inputs are organisational rather than technical. R003 through R009 follow only after A001 passes. D012 may be closed opportunistically if a physical Android device becomes reachable, but it does not set the priority.
 - Programme phase. A000 is complete and remediated, the A001 activation package is prepared and its gate is correctly shut, the R012 substrate is qualified on the desktop under the corrected V2 cryptography contract, the R012 network substrate is qualified against an in-repository endpoint and against MinIO, the Android adapter is implemented but unqualified on hardware, and the identity authority is undeployed.
 - Five R012 contracts are frozen. LocalStorageCryptographyContractV1 is SUPERSEDED by LocalStorageCryptographyContractV2, which also amends sections 13.3 through 13.5 of ContinuityDurabilityContractV1. The other four are unchanged. Recorded as DEC-0029 and DEC-0033.
 - The selected backend is SEGMENTED_APPEND_LOG_V1, a single-writer append-only log with one metadata-inclusive fsync per acknowledged commit. Recorded as DEC-0028.
@@ -73,7 +75,7 @@
 - The network recovery provider has never run against a commercial object store and its TLS path is unexercised; both qualification runs are loopback plaintext HTTP. Provider selection for the product still needs an owner, credentials and a privacy review.
 - Multipart upload is not implemented. A recovery package above sixty four mebibytes is refused before it is sent rather than split.
 - The identity authority has a transport and written operations procedures, and is deployed nowhere. Its backup, restore, upgrade and incident procedures have never been exercised, no availability, redundancy or disaster-recovery claim is made, and verification-key rotation is not designed.
-- A001 remains blocked on five inputs that no code can supply: an independently qualified scripted baseline, a registered variance pilot, the paired-difference standard deviation, three named eligible reviewers, and an owner resource ceiling.
+- A001 remains blocked on four inputs that no code can supply: an independently qualified scripted baseline, a registered variance pilot, the paired-difference standard deviation, and three named eligible reviewers plus a study operator. The owner resource ceiling is no longer among them.
 - The graded instrument is frozen but not cognitively pretested, and was written by a party with an interest in the outcome.
 - No institutional review board, ethics committee or data-protection review has seen the A001 study, none is claimed, and whether one is required is undetermined.
 - The habitat remains abstract, and carries circadian structure added specifically to make a mechanism testable.
@@ -83,14 +85,13 @@
 
 ## Blockers
 
-- D-016 is open and blocked at Phase A001.0 on three named independent reviewers, an independent study operator and the owner resource ceiling. No code can supply any of them.
-- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED and BLOCKED_SPEC_STUDY_BUDGET.
+- D-016 is open and blocked at Phase A001.0 on three named independent reviewers, an independent study operator and an independent human-subjects determination. No code can supply any of them.
+- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD and BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
 ## Pending decisions
 
 - Who fills PrimaryIndependentAlivenessGateReviewer, AlternateIndependentAlivenessGateReviewer and BaselineIndependentOwner.
-- The maximum fundable participants and participant-hours for A001.
 - Whether the graded instrument must be cognitively pretested before Attempt 1.
 - Whether this study requires external ethical or institutional approval, and in which jurisdiction it runs.
 - Which production network recovery provider to select, and who owns its credentials and privacy review. D014 built the mechanism; the choice is still open.

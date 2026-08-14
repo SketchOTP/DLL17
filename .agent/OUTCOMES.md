@@ -387,3 +387,25 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The five A001 blockers are unchanged and none is a coding problem. The graded instrument is frozen but not cognitively pretested and was written by a party with an interest in the outcome. No institutional review board, ethics committee or data-protection review has seen the study and whether one is required is undetermined. The frozen reviewer independence requirements appear to exclude the programme owner from the primary and alternate roles, so at least one role may have to be filled externally. The study operator's permitted role overlap is not addressed by any frozen contract, so proposing an overlap would return BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY.
 - Blockers: BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_SPEC_STUDY_BUDGET
 - Follow-up directive: none
+
+
+## D-016 - BLOCKED
+
+- Outcome ID: O-0017
+- Supersedes outcome: O-0016
+- Closed: 2026-08-14T19:20:00-04:00
+- Acceptance: NOT MET
+- Summary: The owner's three frozen A001 decisions are synchronized into repository governance, recorded as DEC-0039, and one machine blocker cleared as a result. The resource ceiling lives in A001FeasibilityBudget.FROZEN_OWNER_CEILING at four hundred participants and two hundred and fifty participant-hours, and GA-24 reads that value rather than restating it, so the audit and the calculator cannot disagree about the ceiling. The audit now reports eighteen passing items and six blocking items across twenty-seven, with four outstanding blockers instead of five. Role compatibility and the ethics posture are frozen in IndependentReviewRosterV1, and GA-26 now carries the prohibition on self-determined exemption while remaining REQUIRES_SIGNED_GOVERNANCE_EVIDENCE because no determination exists. Three preferred candidates are recorded as candidates only, with institution-published contact addresses, and the roster itself remains blank; no name, signature, ruling or approval was fabricated. D016 remains at boundary D016-A with BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, attempts consumed zero of three, programme state ALIVENESS_UNTESTED, and no human outcome data anywhere in the repository.
+- Changed areas: research/aliveness-spike/, governance/release-gates/, .agent/
+- Validation:
+  - gradlew research aliveness-spike analysis test including two new frozen-ceiling assertions - PASSED
+  - Regeneration of A001_ACTIVATION_DRY_RUN.txt and GOVERNANCE_AUDIT.txt from the changed code - PASSED
+  - Byte comparison of the pre-change dry run against the committed evidence, proving the local toolchain reproduces CI output before anything was regenerated - PASSED
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering ten bundles - PASSED
+  - Human recruitment gate still refused after the change - PASSED
+  - Every phase from A001.2 through A001.15 - NOT RUN, unreachable while the roster is blank
+- Remaining risks: The roster is still blank and the three candidates have not been approached, so the programme has intent rather than reviewers. If a candidate declines, the roster stays blank rather than falling through to whoever is available. The graded instrument is frozen but not cognitively pretested and was written by a party with an interest in the outcome. No independent human-subjects determination exists yet. The powered requirement is still unknown, so whether four hundred participants is enough is genuinely undetermined and A001_NOT_FEASIBLE remains a real possible outcome.
+- Blockers: BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+- Follow-up directive: none

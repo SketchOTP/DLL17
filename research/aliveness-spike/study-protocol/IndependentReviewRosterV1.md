@@ -14,6 +14,63 @@ A001 remains `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` while any required name is
 blank. All three are blank. This is the single most consequential blocker on the
 A-track, and it cannot be resolved by writing code.
 
+## Frozen role-compatibility ruling
+
+Decided by the programme owner on 2026-08-14, recorded as DEC-0039. This
+resolves the overlap question the frozen contracts previously left open, so
+`BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY` no longer applies to the intended
+structure.
+
+| Role | Constraint |
+|---|---|
+| `PrimaryIndependentAlivenessGateReviewer` | Must be a unique independent person. No overlap with any other role. |
+| `AlternateIndependentAlivenessGateReviewer` | May be the same person as `BaselineIndependentOwner`. |
+| `BaselineIndependentOwner` | May be the same person as the alternate reviewer. |
+| Independent human-study operator | Must be a third unique person, and may not also be a gate reviewer. |
+
+Three distinct people minimum. The pre-existing condition on the permitted
+overlap still stands: it must not make one person the only check on the
+comparison, which is why the primary is required to be unique.
+
+## Candidates approached — not appointments
+
+The owner has identified preferred candidates. **None of them has been
+approached, none has accepted, none has completed conflict review, and none has
+signed anything.** They are recorded here as intent, and this table confers no
+role, no authority and no ruling. The roster above stays blank until a real
+acceptance and a signed record exist.
+
+| Role | Candidate | Why |
+|---|---|---|
+| Primary reviewer | Prof. Rachel McDonnell, Trinity College Dublin | Researches how motion, behaviour, personality and embodiment of virtual characters are perceived by humans — unusually close to what this gate measures. |
+| Alternate reviewer + baseline owner | Prof. Guy Hoffman, Cornell | Human-robot interaction, robotic companions, non-anthropomorphic social robots and how people interpret autonomous behaviour; suited to challenge whether the scripted comparator is genuinely competent rather than a straw man. |
+| Independent study operator | Prof. Andreea Bobu, MIT | Autonomous agents interacting with people, alignment with human expectations, and controlled user studies; methodological background for the sealed pilot without being a gate reviewer. |
+
+Institution-published contact addresses, recorded so the approach can be made
+and audited: `ramcdonn@tcd.ie`, `hoffman@cornell.edu`, `abobu@mit.edu`.
+
+If a candidate declines, the roster stays blank rather than falling through to
+whoever is available. Eligibility conditions 1–4 of
+[IndependentReviewOnboardingV1](IndependentReviewOnboardingV1.md) apply to every
+replacement candidate equally.
+
+## Frozen ethics posture
+
+Decided by the programme owner on 2026-08-14, recorded as DEC-0039.
+
+Before any participant is recruited, an independent human-subjects or ethics
+determination must be obtained from a qualified IRB, HRPP or equivalent body.
+The determination need not result in full review — but **the programme may not
+determine its own exemption**. OHRP recommends that investigators not make their
+own exemption determinations because of the conflict of interest inherent in
+doing so, and the Common Rule does not automatically cover every privately
+conducted study, so an absence of automatic coverage is not a finding of
+exemption.
+
+`GA-26` carries this posture and remains
+`REQUIRES_SIGNED_GOVERNANCE_EVIDENCE`: no determination exists yet, and none is
+claimed.
+
 ## Frozen independence requirements
 
 The primary and alternate gate reviewers must:

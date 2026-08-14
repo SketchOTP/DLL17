@@ -76,28 +76,26 @@ GA-22  PASS
 GA-23  PASS
    requirement: Exclusion, technical-failure and missing-data rules are frozen before data
    detail:      reasons=6 complete-case only, no imputation, screening order fixed so a pair is reported under the first reason that disqualified it
-GA-24  BLOCKED
+GA-24  PASS
    requirement: An owner resource ceiling exists to test the powered requirement against
-   detail:      maxFundableParticipants and maxParticipantHours are funding decisions; the calculator returns a blocking state rather than assuming a ceiling
-   blocks:      BLOCKED_SPEC_STUDY_BUDGET
+   detail:      the owner froze maxFundableParticipants=400 and maxParticipantHours=250.000 before the pilot ran, so the ceiling cannot be a rationalization of the powered requirement; this item is read from the frozen value rather than restating it
 GA-25  PASS
    requirement: Participant information, consent and data-handling materials exist
    detail:      ParticipantInformationAndConsentV1 and DataHandlingAndPrivacyV1 describe the actual procedure, the actual identifiers collected and the actual retention
 GA-26  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
    requirement: Any required external ethical or institutional approval is in place
-   detail:      no IRB, institutional or ethics-board approval exists and none is claimed; whether one is required is a decision for the owner and the independent reviewer, not for this repository
+   detail:      no IRB, institutional or ethics-board approval exists and none is claimed; the owner has frozen the posture that an independent human-subjects determination must be obtained from a qualified IRB, HRPP or equivalent body before any participant is recruited, and that the programme may not self-determine exemption; obtaining that determination is a human act and remains signed governance evidence
 GA-27  PASS
    requirement: The scored analysis pipeline is preregistered and tested before data
    detail:      A001AnalysisV1 v1 exercised on synthetic fixtures covering pass, statistically-significant-but-not-meaningful, large-but-imprecise, negative, and corrected ablation significance and non-significance
 
-PASS=17 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=7 
+PASS=18 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
 A001_PROGRAM_STATE=ALIVENESS_UNTESTED
 A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 HUMAN_SCORED_RECRUITMENT=BLOCKED
-OUTSTANDING_BLOCKERS=5
+OUTSTANDING_BLOCKERS=4
   BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
   BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
   BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
-  BLOCKED_SPEC_STUDY_BUDGET
 

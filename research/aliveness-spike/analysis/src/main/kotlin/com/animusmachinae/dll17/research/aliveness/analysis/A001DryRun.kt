@@ -195,11 +195,11 @@ public object A001DryRun {
         append("with a SYNTHETIC pilot release and still no owner ceiling:\n")
         append(A001FeasibilityBudget.compute(releaseA, null).render())
         append('\n')
-        append("with a SYNTHETIC pilot release and a SYNTHETIC generous ceiling:\n")
+        append("with a SYNTHETIC pilot release and the REAL frozen owner ceiling:\n")
         append(
             A001FeasibilityBudget.compute(
                 releaseA,
-                A001FeasibilityBudget.OwnerCeiling(400, 400.0),
+                A001FeasibilityBudget.FROZEN_OWNER_CEILING,
             ).render(),
         )
         append('\n')

@@ -65,15 +65,49 @@ with observed session times once any session has been run.
 
 ---
 
+## Frozen owner resource ceiling
+
+Frozen by the programme owner on **2026-08-14**, recorded as DEC-0039 and held
+in `A001FeasibilityBudget.FROZEN_OWNER_CEILING`. `GA-24` reads that value rather
+than restating it, so the audit and the calculator cannot disagree about what
+the ceiling is.
+
+| Ceiling | Value |
+|---|---|
+| `maxFundableParticipants` | 400 |
+| `maxParticipantHours` | 250.0 |
+
+Frozen **before** the variance pilot has run, and therefore before the powered
+requirement is knowable. That ordering is the whole point of phase A001.1: a
+ceiling chosen after seeing the pilot SD is not a constraint, it is a
+rationalization of whatever the result happened to demand.
+
+At the 2220-second schedule above, 400 participants is **246.667
+participant-hours**, so the participant count is the binding limit and the
+250-hour figure is the schedule check rather than the constraint. The hour
+ceiling alone would permit 405 participants. `GovernanceAuditTest` asserts the
+two halves stay consistent, so a future lengthening of the session schedule
+fails the build instead of silently converting the hour ceiling into the binding
+one.
+
+The ceiling is deliberately generous enough for a substantial study and
+deliberately finite. If an unexpectedly noisy pilot produces a powered
+requirement above either half, the correct result is `A001_NOT_FEASIBLE` and a
+redesign — not a larger budget, and not a trimmed sample.
+
 ## Blocked
 
-Two inputs, and only two. Neither can be defaulted, and the calculator returns a
-blocking state rather than a number when either is missing.
+One input remains, and it cannot be defaulted. The calculator returns a blocking
+state rather than a number while it is missing.
 
 | Input | Block | Why it cannot be invented |
 |---|---|---|
 | `pairedDifferenceSd` | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` | The pilot has not run. Guessing it would set the sample size by assumption. |
-| `maxFundableParticipants`, `maxParticipantHours` | `BLOCKED_SPEC_STUDY_BUDGET` | A funding and scheduling decision belonging to the owner. |
+
+`BLOCKED_SPEC_STUDY_BUDGET` is cleared. It remains reachable in code and in the
+state table below: if the owner ever withdraws the decision,
+`FROZEN_OWNER_CEILING` becomes `null` and both `GA-24` and the calculator return
+to blocking rather than falling back to the last known numbers.
 
 Everything else that was blocked under D008 is now frozen: the minimally
 worthwhile difference, alpha, power, the variance inflation rule, the exclusion

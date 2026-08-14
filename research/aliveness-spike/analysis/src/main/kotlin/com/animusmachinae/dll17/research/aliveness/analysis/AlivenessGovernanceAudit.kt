@@ -249,10 +249,30 @@ public object AlivenessGovernanceAudit {
         AuditItem(
             "GA-24",
             "An owner resource ceiling exists to test the powered requirement against",
-            AuditState.BLOCKED,
-            "maxFundableParticipants and maxParticipantHours are funding decisions; the " +
-                "calculator returns a blocking state rather than assuming a ceiling",
-            blockingState = "BLOCKED_SPEC_STUDY_BUDGET",
+            if (A001FeasibilityBudget.FROZEN_OWNER_CEILING == null) {
+                AuditState.BLOCKED
+            } else {
+                AuditState.PASS
+            },
+            A001FeasibilityBudget.FROZEN_OWNER_CEILING.let { ceiling ->
+                if (ceiling == null) {
+                    "maxFundableParticipants and maxParticipantHours are funding decisions; " +
+                        "the calculator returns a blocking state rather than assuming a ceiling"
+                } else {
+                    "the owner froze maxFundableParticipants=" +
+                        ceiling.maxFundableParticipants +
+                        " and maxParticipantHours=" +
+                        Statistics.d3(ceiling.maxParticipantHours) +
+                        " before the pilot ran, so the ceiling cannot be a rationalization " +
+                        "of the powered requirement; this item is read from the frozen " +
+                        "value rather than restating it"
+                }
+            },
+            blockingState = if (A001FeasibilityBudget.FROZEN_OWNER_CEILING == null) {
+                "BLOCKED_SPEC_STUDY_BUDGET"
+            } else {
+                null
+            },
         ),
         AuditItem(
             "GA-25",
@@ -266,8 +286,11 @@ public object AlivenessGovernanceAudit {
             "Any required external ethical or institutional approval is in place",
             AuditState.REQUIRES_SIGNED_GOVERNANCE_EVIDENCE,
             "no IRB, institutional or ethics-board approval exists and none is claimed; " +
-                "whether one is required is a decision for the owner and the independent " +
-                "reviewer, not for this repository",
+                "the owner has frozen the posture that an independent human-subjects " +
+                "determination must be obtained from a qualified IRB, HRPP or equivalent " +
+                "body before any participant is recruited, and that the programme may not " +
+                "self-determine exemption; obtaining that determination is a human act and " +
+                "remains signed governance evidence",
         ),
         AuditItem(
             "GA-27",

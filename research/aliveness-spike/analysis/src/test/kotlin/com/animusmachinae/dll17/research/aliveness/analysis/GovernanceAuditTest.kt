@@ -19,7 +19,11 @@ class GovernanceAuditTest {
 
     @Test
     fun `no item claims PASS on the strength of human evidence that does not exist`() {
-        val humanDependent = setOf("GA-04", "GA-05", "GA-06", "GA-10", "GA-15", "GA-16", "GA-24")
+        // GA-24 is deliberately absent: the owner's resource ceiling is a human
+        // decision that now actually exists, so it is the one item in this family
+        // that may legitimately pass. Every other item here still depends on
+        // evidence nobody has produced.
+        val humanDependent = setOf("GA-04", "GA-05", "GA-06", "GA-10", "GA-15", "GA-16")
         for (item in items.filter { it.id in humanDependent }) {
             assertTrue(
                 item.state != AuditState.PASS,
@@ -64,7 +68,6 @@ class GovernanceAuditTest {
                 "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
                 "BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED",
-                "BLOCKED_SPEC_STUDY_BUDGET",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -91,6 +94,40 @@ class GovernanceAuditTest {
         assertEquals(AuditState.BLOCKED, roster.state)
         assertEquals("BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED", roster.blockingState)
         assertTrue(roster.detail.contains("unassigned"))
+    }
+
+    @Test
+    fun `the owner resource ceiling item is read from the frozen value`() {
+        val ceiling = A001FeasibilityBudget.FROZEN_OWNER_CEILING
+        assertNotNull(ceiling, "the owner ceiling is frozen, so GA-24 must have a value to read")
+        assertEquals(400, ceiling.maxFundableParticipants)
+        assertEquals(250.0, ceiling.maxParticipantHours)
+
+        val budget = items.single { it.id == "GA-24" }
+        assertEquals(AuditState.PASS, budget.state)
+        assertNull(budget.blockingState)
+        // The detail must carry the actual frozen numbers, so the audit cannot
+        // report a ceiling that disagrees with the one the calculator uses.
+        assertTrue(budget.detail.contains("maxFundableParticipants=400"))
+        assertTrue(budget.detail.contains("maxParticipantHours=250.000"))
+    }
+
+    @Test
+    fun `the frozen ceiling is consistent with the frozen per-participant schedule`() {
+        val ceiling = A001FeasibilityBudget.FROZEN_OWNER_CEILING
+        assertNotNull(ceiling)
+        // 400 participants at the frozen schedule is 246.667 participant-hours,
+        // so the participant count binds first. If the schedule ever lengthens
+        // enough to invert that, the owner is being held to a ceiling that no
+        // longer means what was decided, and this fails.
+        val hoursAtParticipantCeiling =
+            ceiling.maxFundableParticipants.toDouble() *
+                A001FeasibilityBudget.PARTICIPANT_SECONDS / 3600.0
+        assertTrue(
+            hoursAtParticipantCeiling <= ceiling.maxParticipantHours,
+            "the participant ceiling implies $hoursAtParticipantCeiling hours, " +
+                "which exceeds the frozen hour ceiling",
+        )
     }
 
     @Test

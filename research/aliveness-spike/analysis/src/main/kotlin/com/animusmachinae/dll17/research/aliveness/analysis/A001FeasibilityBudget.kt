@@ -68,6 +68,30 @@ public object A001FeasibilityBudget {
         public val maxParticipantHours: Double,
     )
 
+    /**
+     * The owner's frozen resource ceiling for Attempt 1.
+     *
+     * Frozen by the programme owner on 2026-08-14, **before** the variance pilot
+     * has run and therefore before the powered requirement is knowable. That
+     * ordering is the whole point of `A001.1`: a ceiling chosen after seeing the
+     * pilot SD is not a constraint, it is a rationalization of whatever the
+     * result happened to demand.
+     *
+     * At [PARTICIPANT_SECONDS] per participant, 400 participants is 246.667
+     * participant-hours, so the participant count is the binding limit and the
+     * 250-hour figure is the schedule check rather than the constraint. If the
+     * powered requirement exceeds either, the correct result is
+     * `A001_NOT_FEASIBLE` and a redesign — never a trimmed sample.
+     *
+     * Nullable on purpose. If the owner ever withdraws the decision this becomes
+     * `null` again and `GA-24` returns to `BLOCKED_SPEC_STUDY_BUDGET`, because
+     * the audit reads this value rather than restating it.
+     */
+    public val FROZEN_OWNER_CEILING: OwnerCeiling? = OwnerCeiling(
+        maxFundableParticipants = 400,
+        maxParticipantHours = 250.0,
+    )
+
     public class Result(
         public val state: FeasibilityState,
         public val releasedSd: Double?,
