@@ -348,3 +348,42 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The risks recorded under O-0014 are unchanged, because nothing outside governance memory was modified. A001 remains blocked on the same five external inputs, no physical Android device is reachable, and the identity authority remains undeployed.
 - Blockers: none
 - Follow-up directive: none
+
+
+## D-GOV-001 - COMPLETE
+
+- Outcome ID: O-GOV-001
+- Supersedes outcome: none
+- Closed: 2026-08-14T17:25:00-04:00
+- Acceptance: MET
+- Summary: The repository now runs the current canonical Authority Codex governance standard, recorded as DEC-0038. The canonical checkout at /home/sketch/Projects/authority was read as the source of truth and was not modified. The root AGENTS.md became the short Codex-first router carrying the mandatory eight-file .agent preflight, the nested-inheritance clause and the statement that Cursor, Claude and Gemini files are compatibility adapters. Both canonical Codex skills were installed byte-identical to the canonical checkout. The governance validator is now byte-identical to the canonical Authority validator and enforces the two skills, the eight contract files and five Codex-first content strings. The self-test gained the two canonical Authority template rejection cases and four repository-specific adopted cases covering the new content and skill-structure checks, going from twenty to twenty-two template cases and from seventy-nine to eighty-three adopted cases. The always-on Cursor rule now declares itself a compatibility adapter to the Codex-first router. Every existing .agent record was preserved and only appended to. The three policy sections the canonical package no longer carries were preserved verbatim in governance/PROJECT_GOVERNANCE_SUPPLEMENT.md rather than deleted. No engineering source, build configuration, contract, service, qualification evidence or test outside the governance validator was touched, and all ten qualification bundles verify at unchanged manifest hashes.
+- Changed areas: AGENTS.md, .agents/, scripts/, .cursor/rules/, governance/, .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED covering nineteen required files - PASSED
+  - python3 scripts/test_validate_governance.py covering twenty-two template and eighty-three adopted rejection cases - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering ten bundles - PASSED
+  - diff of scripts/validate_governance.py against the canonical Authority validator showing no difference - PASSED
+  - sha256 comparison of both installed Codex skills against the canonical Authority skills - PASSED
+  - JVM build and test suites - NOT RUN, no Java runtime exists in this environment and no JVM source was changed
+- Remaining risks: The canonical Authority checkout is not a Git repository, so the reference has no version identifier and was pinned only by file modification times at inspection. The Authority self-test prints hard-coded rejection-case counts that disagree with its own case lists, so counts derived from it cannot be trusted; this repository derives them from the lists instead. The governance supplement is a repository-specific deviation from the canonical file set and will need reconciliation if the canonical package later reintroduces those sections. The risks recorded under O-0015 are otherwise unchanged.
+- Blockers: none for D-GOV-001. D-016 remains open and blocked on inputs no code can supply.
+- Follow-up directive: none
+
+
+## D-016 - BLOCKED
+
+- Outcome ID: O-0016
+- Supersedes outcome: none
+- Closed: 2026-08-14T17:40:00-04:00
+- Acceptance: NOT MET
+- Summary: D016-A, the governance activation boundary, returns BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED. Phase A001.0 was not entered and no later phase was reached. PrimaryIndependentAlivenessGateReviewer, AlternateIndependentAlivenessGateReviewer and BaselineIndependentOwner are all unassigned in IndependentReviewRosterV1, and the independent human-study operator required by BlindVariancePilotV1 is unnamed, so none of the four required signed governance records can exist and none of the six reviewer rulings can be taken. No participant was recruited, no session was run, no human outcome data exists, and attempts consumed remains zero of three with programme state ALIVENESS_UNTESTED. BLOCKED_SPEC_STUDY_BUDGET is independently outstanding because maxFundableParticipants and maxParticipantHours are owner decisions that the directive forbids estimating or inferring. AlivenessGovernanceAuditV2 reports seventeen passing items, one NOT_APPLICABLE_PRE_ATTEMPT, two REQUIRES_SIGNED_GOVERNANCE_EVIDENCE and seven blocking items across twenty-seven, yielding the five unchanged outstanding blockers and a shut human-scored recruitment gate. No placeholder name, signature, ruling or approval was created, and no institutional or ethics approval is claimed.
+- Changed areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering ten bundles - PASSED
+  - Local re-execution of AlivenessGovernanceAuditV2 and the A001 dry run - BLOCKED, no Java runtime exists in this environment; the committed evidence is the machine output and CI reverifies the analysis module
+  - Every phase from A001.1 through A001.15 - NOT RUN, unreachable while A001.0 is blocked
+- Remaining risks: The five A001 blockers are unchanged and none is a coding problem. The graded instrument is frozen but not cognitively pretested and was written by a party with an interest in the outcome. No institutional review board, ethics committee or data-protection review has seen the study and whether one is required is undetermined. The frozen reviewer independence requirements appear to exclude the programme owner from the primary and alternate roles, so at least one role may have to be filled externally. The study operator's permitted role overlap is not addressed by any frozen contract, so proposing an overlap would return BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY.
+- Blockers: BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_SPEC_STUDY_BUDGET
+- Follow-up directive: none

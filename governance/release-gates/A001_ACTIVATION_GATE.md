@@ -89,3 +89,50 @@ The order below is not a preference; each step needs the one before it.
 ## Gate state
 
 **`A001_ACTIVATION = BLOCKED`.** Not started, and correctly so.
+
+---
+
+## D016-A — governance activation attempt
+
+- Directive: D016 (execute the complete A001 aliveness gate)
+- Evaluated: 2026-08-14
+- Boundary: `D016-A`, Phase A001.0
+- Disposition: **`BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`**
+
+D016 instructed execution of all sixteen A001 phases. Phase A001.0 was not
+entered, and no later phase was reached. Nothing in the gate state above
+changed, because nothing that could change it can be produced by writing code.
+
+| Required role | State |
+|---|---|
+| `PrimaryIndependentAlivenessGateReviewer` | unassigned |
+| `AlternateIndependentAlivenessGateReviewer` | unassigned |
+| `BaselineIndependentOwner` | unassigned |
+| Independent human-study operator (`BlindVariancePilotV1`) | unnamed |
+
+No conflict-of-interest declaration, independence declaration, authority
+acknowledgement or signed role acceptance can exist while no person is named,
+so none was produced. None of the six reviewer rulings was taken. **No
+placeholder name, signature, ruling or approval was created**, and no IRB,
+ethics-board or institutional approval is claimed.
+
+Two eligibility facts the roster owner needs before naming anyone:
+
+1. `IndependentReviewOnboardingV1` requires that the primary and alternate have
+   no incentive contingent on A001 passing or on the product shipping, and sit
+   outside the FULL programme's direct reporting chain. It states that if no
+   internal person satisfies conditions 1–4 the role must be filled externally.
+2. One role overlap is explicitly permitted — the `BaselineIndependentOwner`
+   may be the alternate gate reviewer, provided that does not make one person
+   the only check on the comparison. The study operator's overlap is not
+   addressed by any frozen contract, so a proposed overlap there returns
+   `BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY` rather than an inferred permission.
+
+`BLOCKED_SPEC_STUDY_BUDGET` is independently outstanding and is the only
+blocker clearable without recruiting anyone: `maxFundableParticipants` and
+`maxParticipantHours` are owner decisions, and A001.1 requires them frozen
+*before* the pilot result exists so the result cannot influence the ceiling.
+
+Attempts consumed remains `0 / 3`. Programme state remains
+`ALIVENESS_UNTESTED`. No participant was recruited, no session was run, and no
+human outcome data exists anywhere in this repository. Recorded as O-0016.

@@ -3,22 +3,26 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-14T14:55:00-04:00`
+- Last updated: `2026-08-14T17:45:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: `NONE`
-- External directive ID: `NONE`
-- Objective: `NONE`
-- Current status: `IDLE`
-- Acceptance: `NONE`
-- Current phase: `NONE`
-- Expected or actual touched areas: `NONE`
-- Immediate next action: `NONE`
+- Local directive ID: D-016
+- External directive ID: D016
+- Objective: Execute the complete A001 aliveness gate and determine, from preregistered independent human evidence, whether the remediated adaptive FULL organism produces a meaningfully stronger blinded impression of aliveness than a strong independently qualified scripted pet.
+- Current status: `BLOCKED`
+- Acceptance: Twenty-one criteria, none met. The first, that all required independent roles are validly assigned, is the gate the directive is blocked at.
+- Current phase: A001.0 — independent governance activation, boundary report D016-A. Not entered. All three roster roles are unassigned and the independent study operator is unnamed, so no signed governance record can exist, no reviewer ruling can be taken, and no baseline qualification, pilot registration or recruitment can occur.
+- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md. No engineering source, contract, qualification evidence, participant material or study implementation was modified under D-016.
+- Immediate next action: Hold at D016-A. The blocking inputs are three named eligible people plus an independent study operator with their four signed governance records, the six reviewer rulings, and the frozen owner resource ceiling. None can be produced by writing code, and the directive forbids placeholder names, signatures and approvals.
 
 ## Temporary task-relevant facts
 
-- No directive is open. D-015 was a governance-synchronization directive that committed and pushed this audit record and introduced no engineering work; it is closed as O-0015.
+- D-016 is blocked at Phase A001.0 with BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, recorded as O-0016 and in the D016-A section of the A001 activation gate record. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists. BLOCKED_SPEC_STUDY_BUDGET is independently outstanding and is the only blocker clearable without recruiting anyone.
+- The frozen independence requirements in IndependentReviewOnboardingV1 appear to exclude the programme owner from the primary and alternate reviewer roles, and state that the role must be filled externally when no internal person qualifies. The BaselineIndependentOwner may also be the alternate reviewer; the study operator's overlap is not addressed by any frozen contract, so proposing one returns BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY.
+- D-GOV-001 adopted the current canonical Authority Codex governance standard, recorded as DEC-0038 and closed as O-GOV-001. Codex is primary, AGENTS.md is a short always-on router, the canonical Codex skills live under .agents/skills/, and the sections the canonical package no longer carries are preserved in governance/PROJECT_GOVERNANCE_SUPPLEMENT.md rather than deleted. The canonical Authority checkout at /home/sketch/Projects/authority was read only and was not modified. Local directive IDs use the D-GOV- prefix for repository governance work so that numeric local IDs stay aligned with the architect's external D0NN numbering.
+- No Java runtime exists on this machine, so the Kotlin governance audit and the A001 dry run cannot be re-executed locally. The committed evidence files are the machine output and GitHub CI reverified them at commit 44c3de7630216be7bc8c28a8ceafb2781f7729af.
+- D-015 was a governance-synchronization directive that committed and pushed the goal-drift audit record and introduced no engineering work; it is closed as O-0015.
 - D-014 was accepted as PASS on 2026-08-14 after the architect independently verified commit ffcf7cd6d93fa481258f58376fb1025c5af1a864 and CI run 31818973628, and no successor directive was issued.
 - The architect's goal-drift audit returned NO_ARCHITECTURAL_DRIFT with EXECUTION_PRIORITY_DRIFT_DETECTED and is recorded as DEC-0037. The standing execution rule is to prove the creature is alive before investing further in making its recovery infrastructure production-complete.
 - No further backend, network, recovery, hosting, availability, monitoring, scaling or disaster-recovery engineering is to be started. The next programme effort is unblocking and executing A001, whose five remaining inputs are organisational rather than technical. R003 through R009 follow only after A001 passes. D012 may be closed opportunistically if a physical Android device becomes reachable, but it does not set the priority.
@@ -57,7 +61,7 @@
 
 ## Last validation after adoption
 
-- Command or check: python3 scripts/validate_governance.py --mode ADOPTED, python3 scripts/test_validate_governance.py, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify covering ten bundles, python3 tools/generate_lookup_tables.py --check, python3 tools/verify_backup_exclusion.py, ./gradlew clean build covering sixteen modules and four hundred and twenty nine JVM tests, ./gradlew :desktop-runner:run, ./gradlew :desktop-runner:r012Qualification, ./gradlew :desktop-runner:r014NetworkQualification against both the in-repository endpoint and MinIO, ./gradlew :research:aliveness-spike:accelerated-sim:run, and ./gradlew :research:aliveness-spike:analysis:a001DryRun
+- Command or check: python3 scripts/validate_governance.py --mode ADOPTED covering nineteen required files, python3 scripts/test_validate_governance.py covering twenty-two template and eighty-three adopted rejection cases, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify covering ten bundles, python3 tools/generate_lookup_tables.py --check, python3 tools/verify_backup_exclusion.py, ./gradlew clean build covering sixteen modules and four hundred and twenty nine JVM tests, ./gradlew :desktop-runner:run, ./gradlew :desktop-runner:r012Qualification, ./gradlew :desktop-runner:r014NetworkQualification against both the in-repository endpoint and MinIO, ./gradlew :research:aliveness-spike:accelerated-sim:run, and ./gradlew :research:aliveness-spike:analysis:a001DryRun
 - Result: `PASSED`
 
 ## Risks
@@ -79,6 +83,7 @@
 
 ## Blockers
 
+- D-016 is open and blocked at Phase A001.0 on three named independent reviewers, an independent study operator and the owner resource ceiling. No code can supply any of them.
 - A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED and BLOCKED_SPEC_STUDY_BUDGET.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
