@@ -381,3 +381,13 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The gate is a statement about a mechanism, not about a deployment. Nothing has been hosted, no commercial endpoint has been used, TLS is unexercised, and no availability, redundancy or disaster-recovery claim is made. Both the gate record and the operations package list what is not production-qualified, because an operations manual reads like a capability whether or not anything has ever run.
 - Affected areas: governance/release-gates/R014_NETWORK_GATE.md, governance/qualification/R014_NETWORK_BUNDLE.md, qualification/network/R014/, services/identity-authority/operations/
 - Supersedes record: none
+
+## DEC-0037
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0037
+- Status: ACTIVE
+- Decision or event: The architect accepted D014 as PASS after independently verifying commit ffcf7cd6d93fa481258f58376fb1025c5af1a864 and CI run 31818973628, then ran a goal-drift audit and returned NO_ARCHITECTURAL_DRIFT with EXECUTION_PRIORITY_DRIFT_DETECTED. D014 is the last R012 service and infrastructure directive for now. No D015 is issued for further backend, network, recovery, hosting, availability, monitoring, scaling or disaster-recovery engineering. The standing execution rule is to prove the creature is alive before investing further in making its recovery infrastructure production-complete. The next programme effort is unblocking and executing A001, and R003 through R009 follow only after A001 passes. D012 may be closed opportunistically when a physical Android device becomes reachable, but does not control what is worked on next.
+- Rationale: The canonical goal is a persistent Android artificial organism that is internally motivated, individual, adaptive, embodied and capable of learning, memory, relationships and development. Persistence and recovery are supporting requirements, not the product. D011 through D014 each solved a real defect or a real gap, but continuing to harden life-support infrastructure for a creature not yet shown to be perceived as alive is the exact failure the A000 and A001 gate exists to prevent. The remaining A001 inputs are not coding problems: three named independent roles, an independently qualified scripted baseline, a registered thirty-six-pair blind variance pilot, the released paired-difference standard deviation, and an owner resource ceiling.
+- Affected areas: .agent/CURRENT.md, .agent/OUTCOMES.md, governance/, docs/architecture/, research/aliveness-spike/
+- Supersedes record: none

@@ -332,3 +332,19 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: D012 remains BLOCKED_DEVICE_UNAVAILABLE and no physical Android device was reachable to D014 either; the network provider is written to the Android API 29 surface and that surface is enforced by a test that reads the compiled classes back, but nothing in D014 ran on a device. The identity authority is not deployed anywhere, so its backup, restore, upgrade and incident procedures are written and unexercised, and it cannot be run as more than one instance without breaking the epoch compare-and-swap. TLS is unexercised. No commercial endpoint has been used, so provider-specific behaviour, cost and throughput are unknown and no threshold is derived. Multipart upload is not implemented and a package above sixty four mebibytes is refused rather than split. Recovery provider selection for the product remains a decision needing an owner, credentials and a privacy review. Verification-key rotation is not designed. Sudden power-loss durability remains unproven and unclaimed. A001 remains blocked on the same five external inputs.
 - Blockers: No physical Android device is reachable to this environment. No production environment, owner or credentials exist for the identity authority or for a commercial object store.
 - Follow-up directive: none
+
+## D-015 - COMPLETE
+
+- Outcome ID: O-0015
+- Supersedes outcome: none
+- Closed: 2026-08-14T15:05:00-04:00
+- Acceptance: MET
+- Summary: The governance-only record of the D014 closure and the goal-drift audit is committed and pushed. DEC-0037 records that the architect accepted D014 as PASS after independently verifying its commit and CI run, that the audit returned NO_ARCHITECTURAL_DRIFT with EXECUTION_PRIORITY_DRIFT_DETECTED, and that the standing execution rule is to prove the creature is alive before investing further in making its recovery infrastructure production-complete. CURRENT.md is reset to IDLE with no directive open and carries the consequences a next agent needs: no further optional backend, network, recovery, hosting, availability, monitoring, scaling or disaster-recovery work is authorized at this gate state, A001 is the next programme effort and its five blockers are unchanged and machine-checked, D012 may close opportunistically on physical hardware without setting priority, and the identity-authority single-instance constraint is a correctness property rather than a scaling limitation. No engineering source, configuration, contract, fixture, service or qualification evidence was touched, and every qualification bundle verifies unchanged at the same manifest hashes.
+- Changed areas: .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering ten bundles - PASSED
+- Remaining risks: The risks recorded under O-0014 are unchanged, because nothing outside governance memory was modified. A001 remains blocked on the same five external inputs, no physical Android device is reachable, and the identity authority remains undeployed.
+- Blockers: none
+- Follow-up directive: none

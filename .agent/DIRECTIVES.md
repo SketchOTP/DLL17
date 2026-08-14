@@ -225,3 +225,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-011
 - Status at issuance: ISSUED
+
+
+## D-015
+
+- Issued: 2026-08-14T14:58:00-04:00
+- Issuer: User
+- External directive: D015
+- Objective: Commit and push only the already-prepared governance-memory changes that record the D014 closure and the goal-drift audit, introducing no engineering work of any kind.
+- Scope: Commit and push the governance-memory records stating that D014 is accepted and closed, that the audit result is NO_ARCHITECTURAL_DRIFT with EXECUTION_PRIORITY_DRIFT_DETECTED, that persistence, recovery, network and service infrastructure is supporting work rather than the product objective, that no further optional backend, network, recovery, hosting, availability, monitoring, scaling or disaster-recovery work is authorized at the current gate state, that A001 is the next programme effort, that D012 may close opportunistically on real physical Android hardware but does not set programme priority, that the five machine-checked A001 blockers are unchanged, and that the identity-authority single-instance constraint is a correctness property rather than a scaling limitation; run the governance validator, the governance self-test and qualification bundle verification before committing; stop with BLOCKED_SCOPE_CONTAMINATION if the changed-file set contains anything outside the intended governance-memory files; and push to main under the required commit identity.
+- Exclusions: Any implementation, architecture, dependency, qualification, test-fixture, service, human-study or R003 through R009 organism change; including unrelated changes in the commit; beginning D016.
+- Acceptance: Changed files are limited to the intended governance records; the governance validator passes; the governance self-test passes; all qualification bundles verify unchanged; no engineering source, configuration, contract or implementation evidence is modified; the commit is pushed to main; the author identity is correct; local HEAD equals origin/main; the final worktree is clean; and GitHub CI passes if the push triggers it.
+- Risk class: LOW
+- Relationship: new
+- Related directive: none
+- Status at issuance: ISSUED

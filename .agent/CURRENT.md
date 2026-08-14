@@ -3,21 +3,26 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-14T21:40:00-04:00`
+- Last updated: `2026-08-14T14:55:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-014
-- External directive ID: D014
-- Objective: Implement and qualify the remaining network-facing recovery and identity-authority substrate — a vendor-neutral S3-compatible recovery provider, a versioned identity-authority transport, and a minimum service operations package — without making ordinary organism operation depend on a cloud service.
-- Current status: `COMPLETE`
-- Acceptance: A vendor-neutral network recovery provider implemented and conformant; S3 client and transport-framework candidates evaluated with dispositions recorded; a versioned identity-authority transport frozen that preserves every protocol semantic; conformance passing against a real compatible endpoint; race, idempotency, replay and restart qualification passing; end-to-end network cold recovery passing; provider or authority outage unable to strand ordinary local life; no canonical plaintext reaching the provider; canonical bytes and hashes independent of network behaviour; operations artifacts present with no unsupported production claims; prior bundles still valid; CI passes; HEAD matches origin/main; the worktree is clean.
-- Current phase: A000 complete and remediated; the A001 activation package is prepared and its gate is correctly shut; the R012 substrate is qualified on the desktop under the corrected V2 cryptography contract; the R012 network substrate is qualified against an in-repository endpoint and against MinIO; the Android adapter is implemented but unqualified on hardware and the identity authority is undeployed. R003 through R009 remain blocked behind A001.
-- Expected or actual touched areas: core-recovery-net/, services/s3-qualification-endpoint/, services/identity-authority/, core-recovery/, desktop-runner/, docs/architecture/, docs/operations/, docs/decisions/, docs/invariants/, tools/build_qualification_bundle.py, governance/release-gates/, governance/qualification/, qualification/network/, qualification/evidence/R014/, .github/workflows/ci.yml, settings.gradle.kts, .agent/
-- Immediate next action: Hold for architect review of the D-014 completion report; this snapshot is awaiting reset to IDLE once that review lands. Two external inputs are outstanding: a physical Android device reachable to adb for the R012 device gate, and an owner, environment and credentials for a production object store and a deployed identity authority. The A001 inputs are unchanged. Do not begin D015.
+- Local directive ID: `NONE`
+- External directive ID: `NONE`
+- Objective: `NONE`
+- Current status: `IDLE`
+- Acceptance: `NONE`
+- Current phase: `NONE`
+- Expected or actual touched areas: `NONE`
+- Immediate next action: `NONE`
 
 ## Temporary task-relevant facts
 
+- No directive is open. D-015 was a governance-synchronization directive that committed and pushed this audit record and introduced no engineering work; it is closed as O-0015.
+- D-014 was accepted as PASS on 2026-08-14 after the architect independently verified commit ffcf7cd6d93fa481258f58376fb1025c5af1a864 and CI run 31818973628, and no successor directive was issued.
+- The architect's goal-drift audit returned NO_ARCHITECTURAL_DRIFT with EXECUTION_PRIORITY_DRIFT_DETECTED and is recorded as DEC-0037. The standing execution rule is to prove the creature is alive before investing further in making its recovery infrastructure production-complete.
+- No further backend, network, recovery, hosting, availability, monitoring, scaling or disaster-recovery engineering is to be started. The next programme effort is unblocking and executing A001, whose five remaining inputs are organisational rather than technical. R003 through R009 follow only after A001 passes. D012 may be closed opportunistically if a physical Android device becomes reachable, but it does not set the priority.
+- Programme phase. A000 is complete and remediated, the A001 activation package is prepared and its gate is correctly shut, the R012 substrate is qualified on the desktop under the corrected V2 cryptography contract, the R012 network substrate is qualified against an in-repository endpoint and against MinIO, the Android adapter is implemented but unqualified on hardware, and the identity authority is undeployed.
 - Five R012 contracts are frozen. LocalStorageCryptographyContractV1 is SUPERSEDED by LocalStorageCryptographyContractV2, which also amends sections 13.3 through 13.5 of ContinuityDurabilityContractV1. The other four are unchanged. Recorded as DEC-0029 and DEC-0033.
 - The selected backend is SEGMENTED_APPEND_LOG_V1, a single-writer append-only log with one metadata-inclusive fsync per acknowledged commit. Recorded as DEC-0028.
 - The R012 kernel is R012-FIXTURES-V1 version 2 with digest 0da0d889840c0bafe6554735cb9670d27f862870478589518383f0734aece6a5, fifty-five fixtures, all held, checked by CI. Version 1 had forty-two and digest 48bd44a3.
@@ -47,7 +52,8 @@
 - The R012 performance harness could not run on Android at all until its filesystem probe stopped depending on Files.getFileStore, which Android refuses. Recorded as IMPL-0070 and L-0038.
 - Killing a process leaves the page cache intact, so power loss is not proven by any test here and is disclosed as unproven. Recorded as L-0035.
 - No human outcome data exists anywhere in the repository and no R003 through R009 organism mechanism exists.
-- D-001 remains recorded as nonconforming, D-002 through D-011 remain recorded as accepted and complete, and D-012 remains recorded as BLOCKED_DEVICE_UNAVAILABLE.
+- D-001 remains recorded as nonconforming, D-002 through D-011 remain recorded as accepted and complete, D-012 remains recorded as BLOCKED_DEVICE_UNAVAILABLE, and D-013 and D-014 are accepted as PASS.
+- The R012 substrate is treated as sufficient for the present gate state. Further infrastructure hardening is out of priority rather than out of scope, recorded as DEC-0037, because the organism has not yet been shown to be perceived as alive.
 
 ## Last validation after adoption
 
