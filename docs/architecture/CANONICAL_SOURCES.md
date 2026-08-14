@@ -12,6 +12,11 @@ This repository implements them; it does not define them.
 | `docs/architecture/ProjectIdentityBuildContractV1.md` | Frozen repository identity, toolchain pins and dependency policy. Derived from the canonical pages under R000. |
 | `docs/architecture/DeterminismContractV1.md` | Frozen canonical byte format, hashing, randomness, fixed-point and migration decisions. Derived from the canonical pages under R001. |
 | `docs/architecture/ContinuityDurabilityContractV1.md` | Frozen clocks, trusted elapsed time, reconciliation, durability, platform protection and encrypted-record decisions. Derived from the canonical pages under R002. |
+| `docs/architecture/PersistenceBackendContractV1.md` | Frozen production storage backend, layout, framing, acknowledgement, compaction and capacity semantics. Derived under D011. |
+| `docs/architecture/LocalStorageCryptographyContractV1.md` | Frozen local record encryption, key wrapping, rotation, interrupted rewrap and quarantine. Derived under D011. |
+| `docs/architecture/RecoveryCryptographyContractV1.md` | Frozen recovery root, encoding, KDF, cold-package format and failure semantics. Derived under D011. |
+| `docs/architecture/IdentityAuthorityProtocolV1.md` | Frozen epoch authority protocol, proof, replay protection and the supported-singularity claim. Derived under D011. |
+| `docs/architecture/RecoveryPackageStoreContractV1.md` | Frozen provider-neutral cold-package storage interface and conformance requirements. Derived under D011. |
 
 Rules:
 
@@ -27,12 +32,15 @@ Rules:
 | 2026-08-07 | Architecture freeze and R000/R001 implementation handoff | R001 non-negotiable assertions and the eight-criterion R001 gate; the panic witness has no universal 2.0 ms requirement and must be measured |
 | 2026-08-12 | Aliveness-first validation | R003 and later organism mechanisms are gated behind A001 |
 | 2026-08-13 | R001 determinism target matrix amendment | Snapdragon is no longer a required R001 gate target; the required matrix is Tensor, x86 emulator and desktop JVM, with Exynos conditional |
+| 2026-08-13 | R002 execution-boundary amendment | Recovery cryptography, the identity authority, the recovery provider and production backend selection are R012 gates and do not block R002 |
+| 2026-08-13 | A001 Attempt-1 candidate and preregistration amendments | The three-arm human ablation family and the frozen Attempt-1 constants |
+| 2026-08-14 | Parallel execution amendment while A001 is externally blocked | A bounded subset of R012 substrate work is authorized in parallel: backend selection, local storage cryptography, recovery cryptography, identity-authority protocol, recovery-package storage. Not product UX, sensors, notifications, dialogue or any R003–R009 mechanism |
 
 Contracts not yet frozen, and therefore not yet derivable:
 
 | Contract | Status | Consequence |
 |---|---|---|
-| `RecoveryCryptographyContractV1` | Not frozen | Recovery cryptography, the mnemonic encoding, the KDF and the identity-epoch protocol are `BLOCKED_SPEC_RECOVERY_CRYPTOGRAPHY` and may not be invented inside implementation code |
+| `RecoveryCryptographyContractV1` | **Frozen under D011** | `BLOCKED_SPEC_RECOVERY_CRYPTOGRAPHY` is cleared. The recovery root, encoding, checksum, KDF, package format and identity-epoch protocol are frozen and qualified |
 | `SpeciesBaselineV1`, `CriticalCareContractV1` | Not frozen, gated behind A001 | No physiology exists to implement |
 
 ## A000/A001 sources reviewed under D008

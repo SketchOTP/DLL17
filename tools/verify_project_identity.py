@@ -25,7 +25,17 @@ WRAPPER = ROOT / "gradle/wrapper/gradle-wrapper.properties"
 ANDROID_BUILD = ROOT / "android-host/build.gradle.kts"
 SETTINGS = ROOT / "settings.gradle.kts"
 
-CORE_MODULES = ("core-math", "core-crypto", "core-state", "core-continuity")
+# R012 (D011) added core-persistence and core-recovery. Both are pure Kotlin/JVM
+# and both are held to the same Android-free rule as the earlier core modules,
+# because persistence and recovery correctness must be provable off-device.
+CORE_MODULES = (
+    "core-math",
+    "core-crypto",
+    "core-state",
+    "core-continuity",
+    "core-persistence",
+    "core-recovery",
+)
 JVM_MODULES = CORE_MODULES + ("desktop-runner",)
 ALL_MODULES = JVM_MODULES + ("android-host",)
 

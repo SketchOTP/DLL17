@@ -347,3 +347,33 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Scope: Every figure this programme reports to the architect.
 - Supersedes learning: none
 
+## L-0034
+
+- Learning ID: L-0034
+- Date: 2026-08-14
+- Fact or lesson: A durability benchmark that lands on tmpfs measures nothing and looks excellent. The first backend evaluation ran in the system temporary directory, which is tmpfs on this machine, reported two-microsecond commits for an fsync-per-commit design, and would have selected a backend on numbers that never touched a device. Both harnesses now print the filesystem type and refuse to run on tmpfs or ramfs.
+- Evidence location: benchmarks/persistence-bench/; qualification/evidence/R012/backend_benchmark.txt; IMPL-0064.
+- Confidence: VERIFIED
+- Scope: Every storage or durability measurement this programme makes.
+- Supersedes learning: none
+
+## L-0035
+
+- Learning ID: L-0035
+- Date: 2026-08-14
+- Fact or lesson: Killing a process does not prove a durability claim. Runtime.halt skips shutdown hooks and finalizers and is a genuine abrupt death, but it leaves the operating system page cache intact, so bytes written without an fsync are still readable afterwards. Only power loss, or a device that lies about fsync, distinguishes forced bytes from unforced ones. The fault matrix therefore proves the recovery logic around the policy, and the policy itself is stated as the basis of the claim rather than implied to be tested.
+- Evidence location: core-persistence/CrashHarness.kt; governance/release-gates/R012_SUBSTRATE_GATE.md; IMPL-0065.
+- Confidence: VERIFIED
+- Scope: Every durability claim in this programme.
+- Supersedes learning: none
+
+## L-0036
+
+- Learning ID: L-0036
+- Date: 2026-08-14
+- Fact or lesson: The most dangerous storage bug found under D011 was a corrupt first frame being reported as an empty journal. The original scan tolerated a malformed frame whenever it sat at the end of the last good data, which is trivially true for the first frame of a file. A corrupt installation would have presented itself as a device with no organism on it, and the next step would have been a birth. The fix is a rule rather than a patch: a wrong magic or an impossible length is corruption wherever it appears, because a partial write cannot produce either.
+- Evidence location: core-persistence/PersistenceBackend.kt; PersistenceBackendTest; IMPL-0055; INV-0048.
+- Confidence: VERIFIED
+- Scope: Every recovery path that has to distinguish an absent organism from an unreadable one.
+- Supersedes learning: none
+

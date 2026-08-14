@@ -1,0 +1,45 @@
+R012_PERFORMANCE=measured
+backend=SEGMENTED_APPEND_LOG_V1
+os=Linux arch=amd64
+jvm=OpenJDK 64-Bit Server VM 17.0.20
+filesystem=ext4 device=/dev/nvme0n1p2
+commits=1500 recordBytes=256 warmup=150 repetitions=3
+
+NOTE: these are reference-machine numbers on a desktop NVMe device. They are
+      not Android device figures and are not production thresholds. No
+      threshold is derived from them; see the contract for why.
+
+== CLASS W — witnessed commit, one fsync per record
+  run      mean_us    p50_us    p90_us    p99_us    max_us
+  1        464.137       417       573       811      6377
+  2        441.545       401       503       891      6053
+  3        700.632       453       635     11328     21342
+
+== CLASS O — ordinary progress, batched with one fsync per batch
+  batch     perRecord_us_mean   batch_us_mean
+  1                   820.941         820.941
+  4                   167.095         668.379
+  16                   32.563         521.002
+  64                    9.795         626.879
+  Batching is a durability *class* decision, not a storage trick: Class O may
+  be batched because losing the tail of it is recoverable, and Class W may not.
+
+== ENCRYPTED-RECORD OVERHEAD
+  rawPayloadBytes=384000
+  unencryptedJournalBytes=420000
+  encryptedJournalBytes=531000
+  overheadPerRecordBytes=74
+  overheadRatio=1.264
+
+== SNAPSHOT, COMPACTION AND REPLAY
+  snapshotWrite_us mean=1994.150 p50=703 max=12939
+  replay_ms=22.740 records=1500
+  compaction_ms=5.559 survivors=750
+  journalBytesAfterCompaction=265500
+
+== COLD RECOVERY PACKAGE
+  tailRecords=750
+  packageSizeBytes=205456
+  createPackage_ms=25.752
+  openPackage_ms=2.607
+

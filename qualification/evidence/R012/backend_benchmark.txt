@@ -1,0 +1,29 @@
+PERSISTENCE_BACKEND_BENCHMARK=D011
+workload: single writer, append-only, fsync-acknowledged commit, whole-history replay
+commits=2000 recordBytes=512 warmup=200
+os=Linux arch=amd64
+jvm=OpenJDK 64-Bit Server VM 17.0.20
+root=/home/sketch/Projects/DLL17/benchmarks/persistence-bench/build/persistence-bench
+filesystem=ext4 device=/dev/nvme0n1p2 (fsync reaches a real device)
+
+candidate                          mean_us    p50_us    p90_us    p99_us    max_us   replay_ms  compact_ms       bytes
+C1_APPEND_LOG_FORCE_METADATA       433.304       407       509       743      2672       8.632      11.489     1152800
+C2_APPEND_LOG_FORCE_DATA_ONLY      397.881       371       448       608      2737       9.751       0.005     1152800
+C3_RANDOM_ACCESS_RWD               407.644       387       468       584      2765      23.713       0.003     1152800
+C4_WHOLE_FILE_REWRITE             2967.327      1408      3974     19062     53420       1.896       0.003     1152800
+C5_SQLITE_WAL_SYNC_FULL            426.220       427       615       939     13556       5.457      10.404     5082640
+C6_SQLITE_DELETE_SYNC_FULL        1962.692      1297      1770     19177    179330       1.576       9.142     1298432
+
+== candidate descriptions
+  C1_APPEND_LOG_FORCE_METADATA     append-only log, FileChannel.force(true) per commit
+  C2_APPEND_LOG_FORCE_DATA_ONLY    append-only log, FileChannel.force(false) per commit
+  C3_RANDOM_ACCESS_RWD             RandomAccessFile in rwd mode, one write per commit
+  C4_WHOLE_FILE_REWRITE            rewrite whole state + fsync + atomic rename per commit
+  C5_SQLITE_WAL_SYNC_FULL          direct SQLite, journal_mode=WAL, synchronous=FULL
+  C6_SQLITE_DELETE_SYNC_FULL       direct SQLite, journal_mode=DELETE, synchronous=FULL
+
+== notes
+  C2 forces data only; its compaction column is not measured and reads 0.000.
+  C3 and C4 do not implement pruning; their compaction column reads 0.000.
+  Replay reads every surviving record, which is what recovery actually does.
+  Storage footprint is the whole directory, so SQLite's WAL and journal count.

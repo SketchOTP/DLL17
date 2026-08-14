@@ -167,3 +167,17 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Related directive: D-009
 - Status at issuance: ISSUED
 
+## D-011
+
+- Issued: 2026-08-14T09:00:00-04:00
+- Issuer: User
+- External directive: D011
+- Objective: Advance the bounded R012 persistence, recovery and identity substrate authorized by the 2026-08-14 parallel-execution amendment while A001 remains externally blocked, so that infrastructure the canonical plan already requires is qualified rather than idling.
+- Scope: Re-read the canonical architecture, the R012 section of Implementation Plan E2E and the parallel-execution amendment; freeze PersistenceBackendContractV1, LocalStorageCryptographyContractV1, RecoveryCryptographyContractV1, IdentityAuthorityProtocolV1 and at least one concrete RecoveryPackageStore provider contract; select a production persistence backend from measured evidence and qualify it against the frozen R002 durability semantics; implement and qualify local encrypted persistence with key rotation and interrupted rewrap; implement and qualify recovery cryptography and end-to-end cold recovery; implement and qualify the identity-epoch authority; implement one concrete recovery-package provider; exercise the selected backend against real failure behaviour including process death, interrupted journal, snapshot and compaction writes, corruption and full storage; collect real latency and storage measurements; prove that persistence, encryption, recovery and provider choice do not change canonical bytes or hashes; keep R000, R001, R002, A000 and A001PRE green; produce a reproducible qualification bundle; and push a commit with passing GitHub CI.
+- Exclusions: A001 participant recruitment; baseline human qualification; variance-pilot execution; scored human data; R003 physiology, birth and care; R004 action selection, AffordanceWorld and RouteEvidence; R005 embodiment; R006 learning; R007 memory; R008 relationships; R009 development and evolution; dialogue; LLM behaviour; full R012 UX, sensors, notifications and product completion; inventing organism behaviour to test storage; fabricating production limits; beginning D012.
+- Acceptance: All five contracts are frozen before dependent behaviour is treated as qualified; a concrete production backend is selected from measured evidence and preserves the frozen R002 durability semantics; local encrypted persistence, key rotation and interrupted rewrap are qualified; corruption produces detection or quarantine rather than a silent reset; a concrete recovery-package provider exists; end-to-end supported cold recovery succeeds; corrupt, stale, duplicate and unauthorized recovery paths are refused correctly; identity epoch and authority semantics pass qualification; copied-state quarantine works; provider or network failure cannot strand ordinary local operation; canonical serialization and hashing remain independent of persistence, encryption and recovery; real backend latency and storage measurements are recorded; prior qualifications remain green; a reproducible D011 qualification bundle exists; GitHub CI passes; the work is committed and pushed to main under the required commit identity; local HEAD equals origin/main; the final worktree is clean; and no A001 human work or R003 through R009 organism mechanism is introduced.
+- Risk class: NORMAL
+- Relationship: new
+- Related directive: none
+- Status at issuance: ISSUED
+

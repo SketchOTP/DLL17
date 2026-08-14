@@ -7,6 +7,7 @@
 | R002 | Lifecycle, durability, trusted time, reconciliation | `governance/qualification/R002_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D007. Gate record: `governance/release-gates/R002_EXIT_GATE.md`. |
 | A000 | Aliveness spike | `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | `COMPLETE` under D008 and D009. Research track, not a production gate. D008 returned five negative findings and an empty curiosity feasible region; D009 remediated the candidate under unchanged thresholds and all 24 findings now hold. Gate record: `governance/release-gates/A000_EXIT_GATE.md`. Pinned to `4a2b1e4c7ce1326b5c8d5b08d873df7f581186d7`. |
 | A001-PRE | Activation package | `governance/qualification/A001_ACTIVATION_PACKAGE_BUNDLE.md` | `COMPLETE` under D010. The study protocol, instrument, comparator manifest, sealed pilot, feasibility calculator, analysis pipeline, participant materials and reviewer onboarding, all prepared without human data. Gate record: `governance/release-gates/A001_ACTIVATION_GATE.md`. |
+| R012-SUB | Persistence, recovery and identity substrate | `governance/qualification/R012_SUBSTRATE_BUNDLE.md` | `COMPLETE` for the scope the 2026-08-14 parallel amendment authorized, under D011. Not the R012 product exit gate. Gate record: `governance/release-gates/R012_SUBSTRATE_GATE.md`. |
 | A001 | Aliveness gate | none | `BLOCKED`. Five outstanding blockers, none clearable by code: unqualified baseline, unregistered variance pilot, no released paired-difference SD, three unassigned reviewer roles, no owner resource ceiling. |
 
 ## R000 evidence layout
@@ -102,6 +103,21 @@ under `research/aliveness-spike/evidence/negative/D008/`. Under D009 the
 candidate was revised against them, under unchanged thresholds, and all
 twenty-four findings hold with twenty-seven of twenty-seven feasible grid
 points. Both records stand; the second does not erase the first.
+
+## R012 substrate evidence layout
+
+| Path | Contents |
+|---|---|
+| `governance/qualification/R012_SUBSTRATE_BUNDLE.md` | Hashed manifest binding the five frozen contracts, the implementation, the qualification suites and the measured evidence. |
+| `docs/architecture/PersistenceBackendContractV1.md` and the four other R012 contracts | The frozen contracts themselves, with their decision records and their blocked items. |
+| `qualification/fixtures/R012/R012_REPORT.txt` | The 42-fixture kernel report, including the real-process-death fault matrix. |
+| `qualification/evidence/R012/backend_benchmark.txt` | Six candidate backends measured in isolation on ext4/NVMe. The selection evidence. |
+| `qualification/evidence/R012/performance.txt` | Measured latency distributions across three repetitions, encrypted-record overhead, package size and duration. |
+| `qualification/evidence/R012/` | Governance validation, identity check, build, toolchain environment. |
+
+R012 substrate evidence is desktop-JVM evidence against a real ext4/NVMe
+filesystem. **No Android device evidence exists**, and the Android Keystore
+implementation of `DeviceKeyContainer` is `BLOCKED_DEVICE_UNAVAILABLE`.
 
 ## A001 pre-activation evidence layout
 

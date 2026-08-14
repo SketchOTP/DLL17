@@ -440,6 +440,90 @@ A001PRE_CONSTITUENTS: list[tuple[str, list[str]]] = [
 ]
 
 
+R012_CONSTITUENTS: list[tuple[str, list[str]]] = [
+    (
+        "Frozen contracts",
+        [
+            "docs/architecture/PersistenceBackendContractV1.md",
+            "docs/architecture/LocalStorageCryptographyContractV1.md",
+            "docs/architecture/RecoveryCryptographyContractV1.md",
+            "docs/architecture/IdentityAuthorityProtocolV1.md",
+            "docs/architecture/RecoveryPackageStoreContractV1.md",
+        ],
+    ),
+    (
+        "Persistence implementation",
+        [
+            "core-persistence/build.gradle.kts",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/PersistenceBackend.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/LocalStorageCryptography.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/ColdRecoveryActivation.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/CrashHarness.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/R012QualificationKernel.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/R012PerformanceHarness.kt",
+        ],
+    ),
+    (
+        "Recovery implementation",
+        [
+            "core-recovery/build.gradle.kts",
+            "core-recovery/src/main/kotlin/com/animusmachinae/dll17/core/recovery/RecoveryCryptography.kt",
+            "core-recovery/src/main/kotlin/com/animusmachinae/dll17/core/recovery/RecoveryPackageStore.kt",
+            "core-recovery/src/main/kotlin/com/animusmachinae/dll17/core/recovery/IdentityAuthorityProtocol.kt",
+            "core-crypto/src/main/kotlin/com/animusmachinae/dll17/core/crypto/KeyDerivation.kt",
+        ],
+    ),
+    (
+        "Identity authority service",
+        [
+            "services/identity-authority/build.gradle.kts",
+            "services/identity-authority/src/main/kotlin/com/animusmachinae/dll17/services/identity/IdentityAuthorityService.kt",
+        ],
+    ),
+    (
+        "Qualification suites",
+        [
+            "core-persistence/src/test/kotlin/com/animusmachinae/dll17/core/persistence/PersistenceBackendTest.kt",
+            "core-persistence/src/test/kotlin/com/animusmachinae/dll17/core/persistence/LocalStorageCryptographyTest.kt",
+            "core-persistence/src/test/kotlin/com/animusmachinae/dll17/core/persistence/ModuleBoundaryTest.kt",
+            "core-recovery/src/test/kotlin/com/animusmachinae/dll17/core/recovery/RecoveryCryptographyTest.kt",
+            "core-recovery/src/test/kotlin/com/animusmachinae/dll17/core/recovery/RecoveryPackageStoreConformanceTest.kt",
+            "services/identity-authority/src/test/kotlin/com/animusmachinae/dll17/services/identity/IdentityAuthorityServiceTest.kt",
+            "core-crypto/src/test/kotlin/com/animusmachinae/dll17/core/crypto/KeyDerivationTest.kt",
+        ],
+    ),
+    (
+        "Backend selection and measured evidence",
+        [
+            "benchmarks/persistence-bench/build.gradle.kts",
+            "benchmarks/persistence-bench/src/main/kotlin/com/animusmachinae/dll17/bench/PersistenceBackendBenchmark.kt",
+            "qualification/evidence/R012/backend_benchmark.txt",
+            "qualification/evidence/R012/performance.txt",
+        ],
+    ),
+    (
+        "Qualification evidence",
+        [
+            "qualification/fixtures/R012/R012_REPORT.txt",
+            "qualification/evidence/R012/governance_validation.txt",
+            "qualification/evidence/R012/project_identity.txt",
+            "qualification/evidence/R012/gradle_build.txt",
+            "qualification/evidence/R012/toolchain_environment.txt",
+        ],
+    ),
+    (
+        "Build and toolchain state",
+        [
+            "settings.gradle.kts",
+            "gradle/libs.versions.toml",
+            "desktop-runner/build.gradle.kts",
+            CI_WORKFLOW,
+        ],
+    ),
+    ("Gate record", ["governance/release-gates/R012_SUBSTRATE_GATE.md"]),
+]
+
+
 class PhaseSpec:
     def __init__(
         self,
@@ -514,6 +598,15 @@ PHASES: dict[str, PhaseSpec] = {
         # already passed must not depend on what a later directive does.
         frozen_at_commit="4a2b1e4c7ce1326b5c8d5b08d873df7f581186d7",
     ),
+    "R012": PhaseSpec(
+        phase="R012",
+        title="persistence, recovery and identity substrate",
+        directive="D011",
+        bundle_version="R012-QB-1",
+        bundle_path="governance/qualification/R012_SUBSTRATE_BUNDLE.md",
+        constituents=R012_CONSTITUENTS,
+        frozen_at_commit=None,
+    ),
     "A001PRE": PhaseSpec(
         phase="A001PRE",
         title="A001 activation package, prepared without human data",
@@ -521,7 +614,12 @@ PHASES: dict[str, PhaseSpec] = {
         bundle_version="A001PRE-QB-1",
         bundle_path="governance/qualification/A001_ACTIVATION_PACKAGE_BUNDLE.md",
         constituents=A001PRE_CONSTITUENTS,
-        frozen_at_commit=None,
+        # Closed under D010 and accepted by the architect at this commit. Pinned
+        # for the fourth time for the reason IMPL-0014 identified: D011 adds
+        # Gradle modules and a CI step, and both `settings.gradle.kts` and the
+        # workflow are A001PRE constituents. A gate that has already passed must
+        # not break because a later directive exists.
+        frozen_at_commit="3065c073aac271d0b99d8af40e0b89c852a0b255",
     ),
 }
 

@@ -66,6 +66,7 @@ jobs:
             qualification/longitudinal/
             research/aliveness-spike/evidence/
             research/aliveness-spike/study-protocol/
+            docs/architecture/
           if-no-files-found: error
 
   build:
@@ -153,6 +154,27 @@ jobs:
       # comparator cannot land without the evidence moving with it. The audit
       # assertions are the ones that matter most: if a future change ever makes
       # this step report recruitment as permitted, that is the alarm.
+      # R012 substrate (D011). The kernel spawns child JVMs and kills them with
+      # Runtime.halt, so it exercises real process death rather than a simulated
+      # one. It writes to the workspace rather than the system temp directory:
+      # on a tmpfs, fsync is a no-op and every durability fixture would pass
+      # without proving anything, so both harnesses refuse to run there.
+      - name: R012 persistence and recovery kernel
+        run: |
+          ./gradlew :desktop-runner:r012Qualification --no-daemon --quiet \
+            > r012.txt
+          cat r012.txt
+          golden=$(grep -A1 'GOLDEN_EVIDENCE_DIGEST: String' \
+            core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/R012QualificationKernel.kt \
+            | grep -oE '[0-9a-f]{64}' | head -1)
+          actual=$(grep -oE 'R012_EVIDENCE_DIGEST=[0-9a-f]{64}' r012.txt | cut -d= -f2)
+          if [ -z "$golden" ] || [ "$golden" != "$actual" ]; then
+            echo "::error::CI did not reproduce the frozen R012 evidence digest"
+            exit 1
+          fi
+          grep -q 'notHeld=0' r012.txt \
+            || { echo '::error::an R012 fixture no longer holds'; exit 1; }
+
       - name: A001 activation package
         run: |
           ./gradlew :research:aliveness-spike:analysis:a001DryRun --no-daemon --quiet \

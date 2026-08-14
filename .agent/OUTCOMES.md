@@ -224,3 +224,28 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED and BLOCKED_SPEC_STUDY_BUDGET.
 - Follow-up directive: none
 
+## D-011 - COMPLETE
+
+- Outcome ID: O-0011
+- Supersedes outcome: none
+- Closed: 2026-08-14T11:55:00-04:00
+- Acceptance: MET
+- Summary: The bounded R012 persistence, recovery and identity substrate is implemented and qualified. Five contracts are frozen before their dependent implementation was treated as qualified: PersistenceBackendContractV1, LocalStorageCryptographyContractV1, RecoveryCryptographyContractV1, IdentityAuthorityProtocolV1 and RecoveryPackageStoreContractV1. The production backend was selected from six candidates benchmarked in isolation on a real ext4 filesystem over NVMe, where direct SQLite in write-ahead-logging mode cost 5.3 times the p99 commit latency and 4.4 times the storage of the selected single-writer append-only log for a workload that never issues a query. Local persistence is authenticated ciphertext with a random wrapped data key, and rotation, interrupted rewrap, device mismatch, container refusal and copied-state quarantine are all qualified with no path that produces a fresh key. Recovery cryptography freezes a 256-bit root with a checksummed base32 encoding, HKDF derivation, and a plaintext MAC-protected manifest bound into the ciphertext associated data; end-to-end cold recovery restores an organism on a destination device from package plus secret alone, and corrupt, stale, wrong-key, duplicate and interrupted paths are all refused correctly. The identity authority advances epochs by atomic compare-and-swap under a nonce-bound proof, spends nonces even on failure, rate limits, tells a superseded device on next contact, survives its own restart, and stores only identity metadata. A filesystem-backed recovery provider passes a conformance suite written against the interface. The forty-two fixture kernel holds on every fixture, including a fault matrix driven by real child JVMs killed with Runtime.halt.
+- Changed areas: core-persistence/, core-recovery/, services/identity-authority/, core-crypto/, desktop-runner/, benchmarks/persistence-bench/, docs/architecture/, docs/decisions/DECISION_LOG.md, docs/invariants/INVARIANT_REGISTRY.md, governance/release-gates/R012_SUBSTRATE_GATE.md, governance/qualification/, qualification/fixtures/R012/, qualification/evidence/R012/, settings.gradle.kts, gradle/libs.versions.toml, tools/, .github/workflows/ci.yml, .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py covering eight modules - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering R000 and R001 and R002 and A000 at their pinned commits and R012 and A001PRE live - PASSED
+  - python3 tools/generate_lookup_tables.py --check - PASSED
+  - ./gradlew clean build covering fourteen modules and three hundred and sixty JVM tests - PASSED
+  - ./gradlew :desktop-runner:run reproducing both frozen production digests - PASSED
+  - ./gradlew :desktop-runner:r012Qualification with forty-two of forty-two fixtures held - PASSED
+  - ./gradlew :desktop-runner:r012Performance - PASSED
+  - ./gradlew :benchmarks:persistence-bench:run - PASSED
+  - ./gradlew :research:aliveness-spike:accelerated-sim:run reproducing the A000 digest - PASSED
+  - ./gradlew :research:aliveness-spike:analysis:a001DryRun - PASSED
+- Remaining risks: No Android device or emulator was reachable, so the Android Keystore key container and device-level backend, corruption and full-storage qualification remain outstanding and are recorded as BLOCKED_DEVICE_UNAVAILABLE. Power-loss durability is not proven by any test, because killing a process leaves the operating system page cache intact; the claim rests on the force-per-commit policy and is stated as such rather than implied to be measured. The measured latencies are reference-machine figures and no production threshold is derived from them. The qualifying recovery provider is filesystem-backed, and selecting a network provider is a product decision needing an owner, credentials and a privacy review. The identity authority has no transport, hosting, backup or incident procedure. A001 remains blocked on the same five external inputs as at the close of D-010.
+- Blockers: The device half of the R012 substrate cannot close without an Android device or emulator. A001 cannot begin without three named reviewers, an independently qualified baseline, a registered variance pilot, the released paired-difference standard deviation and an owner resource ceiling.
+- Follow-up directive: none
+

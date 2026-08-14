@@ -291,3 +291,33 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Affected areas: qualification/fixtures/A000/, qualification/longitudinal/A000/ACCELERATED_FINDINGS.md, governance/release-gates/A000_EXIT_GATE.md, research/aliveness-spike/study-protocol/SpontaneousActionAttributionV1.md
 - Supersedes record: none
 
+## DEC-0028
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0028
+- Status: ACTIVE
+- Decision or event: The production persistence backend is a single-writer append-only log with one metadata-inclusive fsync per acknowledged commit, selected over direct SQLite in two durability modes, a synchronous random-access file and a whole-file rewrite design.
+- Rationale: Selected from measurement rather than convention, as the canonical plan requires. On ext4 over NVMe, SQLite in write-ahead-logging mode cost 5.3 times the p99 commit latency and 4.4 times the storage for a workload that never issues a query, never updates a record in place, and reads only by replaying the whole surviving history. A general-purpose engine would also place its own crash-recovery machinery underneath ours, so a durability claim would depend on two engines agreeing rather than on one fsync returning.
+- Affected areas: docs/architecture/PersistenceBackendContractV1.md, core-persistence/, benchmarks/persistence-bench/, qualification/evidence/R012/
+- Supersedes record: none
+
+## DEC-0029
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0029
+- Status: ACTIVE
+- Decision or event: The five R012 substrate contracts are frozen: PersistenceBackendContractV1, LocalStorageCryptographyContractV1, RecoveryCryptographyContractV1, IdentityAuthorityProtocolV1 and RecoveryPackageStoreContractV1. BLOCKED_SPEC_RECOVERY_CRYPTOGRAPHY and BLOCKED_SPEC_RECOVERY_PROVIDER are cleared for the substrate, and a filesystem-backed object store is the qualifying provider.
+- Rationale: The 2026-08-14 parallel-execution amendment authorizes exactly this substrate while A001 is blocked on people and money. Each contract was frozen before its dependent implementation was treated as qualified, and each records what remains blocked rather than inventing it. The recovery root is 256 bits with HKDF rather than a passphrase with a memory-hard key-derivation function, because entropy does the work the function would otherwise have to.
+- Affected areas: docs/architecture/, core-persistence/, core-recovery/, services/identity-authority/, governance/release-gates/R012_SUBSTRATE_GATE.md
+- Supersedes record: none
+
+## DEC-0030
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0030
+- Status: ACTIVE
+- Decision or event: The identity authority delivers supported singularity and is documented as unable to deliver absolute singularity against an indefinitely offline clone. The service is separately deployable and is structurally absent from the organism core dependency graph.
+- Rationale: A recovered organism supersedes its predecessor and the predecessor is rejected on next contact, but the authority never reaches out, so a device that never calls is never told. That asymmetry is a property of the physics rather than a gap in the implementation, and the product must claim the first and never the second. Separate deployability is enforced by a test asserting the service class is absent from the core classpath, not by convention.
+- Affected areas: docs/architecture/IdentityAuthorityProtocolV1.md, services/identity-authority/, core-persistence/src/test/
+- Supersedes record: none
+

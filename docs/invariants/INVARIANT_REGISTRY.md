@@ -55,6 +55,15 @@ where it is enforced today.
 | INV-0045 | A programme success floor may become stricter or stay equivalent after an attempt begins. It may never become easier. | `AlivenessProgramGateV1` | Frozen at +10.0 points with a CI condition before any human data existed, and pinned by test. |
 | INV-0046 | Synthetic fixture data may demonstrate that an analysis works. It may never be recorded, cited or bundled as scientific evidence about the organism. | D010 | Every dry-run scenario is marked `SYNTHETIC`, and the output is filed under research evidence rather than under qualification. |
 
+| INV-0047 | A cryptographic or key-container failure never produces a fresh key or an empty journal. It refuses or quarantines. | `LocalStorageCryptographyContractV1` | A fresh key orphans every existing record and the next startup looks like a birth. |
+| INV-0048 | Structural damage to a durable frame is corruption wherever it appears; only a shortfall of bytes at the end is a torn tail. | `PersistenceBackendContractV1` | A partial write cannot forge a magic or a length. |
+| INV-0049 | A staging file becomes authoritative only through an atomic rename; an unrenamed one is discarded, never adopted. | `PersistenceBackendContractV1` | Applies to journal compaction, checkpoints and key state alike. |
+| INV-0050 | Identity may not move backwards. History may. | `RecoveryCryptographyContractV1` | A package below the activated epoch is refused, or a superseded device could reclaim the organism with an old backup. |
+| INV-0051 | Recovery never reruns old behaviour to reconstruct history; a gap is declared, never filled in. | `RecoveryCryptographyContractV1` | The package carries a checkpoint and a journal tail, not a script to replay. |
+| INV-0052 | No storage provider is canonical authority beyond confirming the bytes and sequence of a package, and ordinary local operation never depends on one. | `RecoveryPackageStoreContractV1` | Enforced by qualification with the provider refusing every call. |
+| INV-0053 | The identity authority stores identity metadata only, and normal local runtime never calls it. | `IdentityAuthorityProtocolV1` | Enforced structurally: the service is outside the organism core dependency graph and a test asserts its absence from the core classpath. |
+| INV-0054 | Canonical serialized bytes and canonical state hashes are independent of backend, key, ciphertext, nonce, storage location, recovery package and provider. | `DeterminismContractV1` | Encryption sits below the canonical byte layer; qualification proves the hash is identical under different keys and different ciphertext. |
+
 ### R002 note
 
 INV-0016 through INV-0033 are continuity invariants. None of them is a
@@ -72,6 +81,13 @@ behaviour, and none of them is evidence that a mechanism works.
 
 INV-0040 through INV-0042 constrain the A000 research candidate. They are not
 production invariants and do not authorize any R003–R009 mechanism.
+
+### D011 note
+
+INV-0047 through INV-0054 constrain the R012 persistence, recovery and identity
+substrate. They are production invariants and they bind the implementation, but
+none of them asserts anything about organism behaviour: no R003 through R009
+mechanism exists.
 
 ### D010 note
 

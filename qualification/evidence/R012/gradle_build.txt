@@ -1,0 +1,12 @@
+# Full clean build, D011
+
+$ ./gradlew clean build
+
+[Incubating] Problems report is available at: file:///home/sketch/Projects/DLL17/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 3m 23s
+174 actionable tasks: 149 executed, 25 from cache
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.0/userguide/configuration_cache_enabling.html
+
+JVM test totals across all modules:
+  tests=360 failures=0 errors=0

@@ -1,0 +1,128 @@
+R012_QUALIFICATION_ROOT=/home/sketch/Projects/DLL17/desktop-runner/build/r012-qualification
+R012_FILESYSTEM=ext4 device=/dev/nvme0n1p2
+
+R012_FIXTURE_SET=R012-FIXTURES-V1
+R012_FIXTURE_VERSION=1
+BACKEND=SEGMENTED_APPEND_LOG_V1
+
+== BACKEND
+  appended=200 readBack=200 usedBytes=45200
+  afterPrune records=100 usedBytes=22600
+  capacity=4096 acceptedRecords=26 survivorsAfterFault=26
+
+== CRYPTOGRAPHY
+  rawRecordBytes=202 plaintextVisibleOnMedium=false
+  containerRefused=true fault=CONTAINER_UNAVAILABLE quarantined=true
+  rotation epochBefore=1 epochAfter=2
+  interruptedRewrap inFlightOnReload=true resumedEpoch=2
+
+== RECOVERY
+  recoverySecret encoding=68 chars groups=14
+  package sizeBytes=3168 checkpointSequence=30 tailRecords=20
+  providerReceipt id=b31901728b90b2af size=3168
+  coldRecovery outcome=RECOVERED epoch=2 restored=20 gap=true
+
+== IDENTITY_AUTHORITY
+  register=1 challenge=CHALLENGE_ISSUED activate=ACTIVATION_GRANTED epoch=2
+  authorityStoreBytes=114 organismContentPresent=false
+
+== FAULT_MATRIX
+  deathAfterCommit childExit=9 recovered=25
+  tornFrame childExit=9 recovered=12 afterNextAppend=13
+  interruptedSnapshot stagingLeftBehind=true checkpointUnchanged=true
+
+== DETERMINISM
+  canonicalHashA=3b589a853a3c122da9060d577db151e20f33ba9e6bbf334ddeef4df7b83d0a32
+  canonicalHashB=3b589a853a3c122da9060d577db151e20f33ba9e6bbf334ddeef4df7b83d0a32
+  ciphertextIdentical=false
+  recoveryRoundTripIdentical=true
+
+== FINDINGS
+  HELD     FX-BACKEND-ROUNDTRIP-01  Does every acknowledged record come back byte-identical after reopen?
+           records=200 allPayloadsMatch=true
+  HELD     FX-BACKEND-COMPACTION-01  Does compaction drop exactly the pruned range and keep the rest readable?
+           survivors=100 firstSequence=101
+  HELD     FX-BACKEND-COLD-REOPEN-01  Does a cold reopen recover the compacted history without a catalogue?
+           records=100 lastSequence=200
+  HELD     FX-BACKEND-SELFTEST-01  Does the durability self-test exercise a real write, force and read-back?
+           selfTest=true
+  HELD     FX-BACKEND-SINGLE-WRITER-01  Does the backend refuse a sequence that does not advance?
+           regressionRefused=true highWater=10
+  HELD     FX-BACKEND-CAPACITY-01  Does an exhausted medium refuse the write and keep prior history intact?
+           faulted=true accepted=26 survivors=26
+  HELD     FX-CRYPTO-AT-REST-01  Is the canonical payload absent from the bytes the medium holds?
+           plaintextVisible=false rawBytes=202
+  HELD     FX-CRYPTO-CORRUPTION-01  Does a single flipped bit produce a detected fault rather than a silent reset?
+           detected=true silentReset=false
+  HELD     FX-CRYPTO-QUARANTINE-01  Does an unusable key container quarantine the installation instead of resetting it?
+           refused=true fault=CONTAINER_UNAVAILABLE quarantined=true keyStateRetained=true
+  HELD     FX-CRYPTO-DEVICE-BINDING-01  Is a copied database on another device refused as a device mismatch?
+           fault=DEVICE_MISMATCH
+  HELD     FX-CRYPTO-ROTATION-01  Does a wrapping-key rotation preserve the data key so history stays readable?
+           dataKeyUnchanged=true epoch=2
+  HELD     FX-CRYPTO-INTERRUPTED-REWRAP-01  Does an interrupted rewrap resume deterministically on the next open?
+           inFlight=true resumedEpoch=2 dataKeyIntact=true
+  HELD     FX-RECOVERY-SECRET-01  Does the encoded recovery secret round-trip and reject a mistyped character?
+           roundTrip=true mistypedRejected=true symbols=55
+  HELD     FX-RECOVERY-PROVIDER-RECEIPT-01  Does the provider confirm identifier, size, checksum and sequence for the exact bytes?
+           size=3168 checksumMatches=true sequence=1
+  HELD     FX-RECOVERY-COLD-END-TO-END-01  Does a cold destination device restore the organism from package plus secret alone?
+           outcome=RECOVERED epoch=2 restored=20
+  HELD     FX-RECOVERY-GAP-01  Is a recovery gap declared rather than invented when history is missing?
+           gapDeclared=true unavailableMillis=15000
+  HELD     FX-RECOVERY-RESTORED-READABLE-01  Is the restored history readable under the destination's own new key?
+           records=20 checkpoint=30 newLocalKeyMaterial=true
+  HELD     FX-RECOVERY-WRONG-KEY-01  Is a package opened with the wrong recovery secret refused?
+           state=RECOVERY_PACKAGE_UNAUTHENTIC
+  HELD     FX-RECOVERY-CORRUPT-PACKAGE-01  Is a corrupted package refused before any epoch is consumed?
+           outcome=PACKAGE_REJECTED epochConsumed=0
+  HELD     FX-RECOVERY-STALE-PACKAGE-01  Is a package older than the activated identity epoch refused?
+           outcome=PACKAGE_STALE detail=RECOVERY_PACKAGE_STALE: package epoch 1 is below the activat
+  HELD     FX-RECOVERY-DUPLICATE-PACKAGE-01  Is re-uploading the same package idempotent rather than duplicating it?
+           identicalReceipt=true storedObjects=1
+  HELD     FX-RECOVERY-INTERRUPTED-UPLOAD-01  Does an interrupted upload leave the previously confirmed package intact?
+           outcome=PARTIAL_WRITE previousObjectIntact=true
+  HELD     FX-RECOVERY-PROVIDER-OUTAGE-01  Can the organism operate locally while the recovery provider is unavailable?
+           localCommitsSucceeded=true providerOutcome=PROVIDER_UNAVAILABLE
+  HELD     FX-RECOVERY-PROVIDER-BLIND-01  Is the provider unable to see canonical plaintext in what it stores?
+           plaintextVisibleToProvider=false storedBytes=3168
+  HELD     FX-IDENTITY-EPOCH-ADVANCE-01  Does a valid proof advance the epoch exactly once and grant a lease?
+           outcome=ACTIVATION_GRANTED epoch=2
+  HELD     FX-IDENTITY-REPLAY-01  Is a replayed activation recognised as an idempotent retry rather than a new advance?
+           outcome=ALREADY_GRANTED epoch=2
+  HELD     FX-IDENTITY-STOLEN-PROOF-01  Is a captured proof useless to a different device or a different epoch?
+           outcome=PROOF_REJECTED
+  HELD     FX-IDENTITY-STALE-EPOCH-01  Is an activation for an already-consumed epoch refused?
+           outcome=EPOCH_CONFLICT currentEpoch=2
+  HELD     FX-IDENTITY-SUPERSEDED-01  Is the prior device told it is superseded the next time it makes contact?
+           priorDevice=SUPERSEDED currentDevice=REGISTERED
+  HELD     FX-IDENTITY-CHALLENGE-EXPIRY-01  Does a challenge nonce expire rather than remain usable indefinitely?
+           outcome=CHALLENGE_INVALID
+  HELD     FX-IDENTITY-RATE-LIMIT-01  Are repeated failed proofs rate limited rather than allowed to grind?
+           finalOutcome=RATE_LIMITED maxFailedProofs=5
+  HELD     FX-IDENTITY-MINIMAL-STORE-01  Does the authority's durable store contain no canonical organism content?
+           storeBytes=114 organismContentPresent=false
+  HELD     FX-FAULT-PROCESS-DEATH-AFTER-COMMIT-01  Do acknowledged commits survive a real process kill with no shutdown hook?
+           childExit=9 recordsRecovered=25
+  HELD     FX-FAULT-TORN-FRAME-01  Is a half-written frame dropped, leaving a clean boundary for the next append?
+           recovered=12 afterAppend=13 lastSequence=99
+  HELD     FX-FAULT-INTERRUPTED-COMPACTION-01  Is an unrenamed compaction staging file discarded rather than adopted?
+           stagingPresentBefore=true stagingAfter=false records=15
+  HELD     FX-FAULT-INTERRUPTED-SNAPSHOT-01  Does an interrupted checkpoint write leave the previous checkpoint authoritative?
+           checkpointUnchanged=true stagingResidue=true
+  HELD     FX-FAULT-CORRUPTION-01  Is corruption before the tail reported as a fault rather than silently truncated?
+           detected=true
+  HELD     FX-FAULT-REPEATED-RESTART-01  Do eight consecutive restarts recover the identical history each time?
+           restartCounts=30,30,30,30,30,30,30,30
+  HELD     FX-FAULT-WRITE-REFUSED-01  Does a refused write leave the existing history readable?
+           writeRefused=true survivors=5
+  HELD     FX-DETERMINISM-STORAGE-INDEPENDENT-01  Do different keys and different ciphertext produce the identical canonical hash?
+           canonicalHashesEqual=true ciphertextDiffers=true
+  HELD     FX-DETERMINISM-RECOVERY-ROUND-TRIP-01  Does a package round trip preserve canonical bytes exactly?
+           identical=true tailRecords=30
+  HELD     FX-DETERMINISM-CHECKPOINT-01  Is the checkpoint hash independent of its storage location?
+           hashes=1 value=c3895b381028fa5c
+
+held=42 notHeld=0 total=42
+R012_EVIDENCE_DIGEST=48bd44a31a3a952cf884b358c5e587b93a24875f1d36d7625e6b4b7d5f62127f
+
