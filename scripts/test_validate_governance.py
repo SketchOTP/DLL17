@@ -164,6 +164,8 @@ def main() -> int:
             raise AssertionError("adopted live governance state was accepted as a clean template fixture")
 
     template_cases = [
+        ("missing mandatory .agent contract file", lambda root: (root / ".agent/LEARNINGS.md").unlink()),
+        ("missing Codex governance skill", lambda root: shutil.rmtree(root / ".agents")),
         ("active directive ID", lambda root: (root / ".agent/CURRENT.md").write_text((root / ".agent/CURRENT.md").read_text(encoding="utf-8").replace("Local directive ID: `NONE`", "Local directive ID: `D-LIVE-001`", 1), encoding="utf-8")),
         ("active template current status", lambda root: (root / ".agent/CURRENT.md").write_text((root / ".agent/CURRENT.md").read_text(encoding="utf-8").replace("Current status: `IDLE`", "Current status: `IN_PROGRESS`", 1), encoding="utf-8")),
         ("live template objective", lambda root: (root / ".agent/CURRENT.md").write_text((root / ".agent/CURRENT.md").read_text(encoding="utf-8").replace("Objective: `NONE`", "Objective: `Live task`", 1), encoding="utf-8")),
@@ -268,6 +270,10 @@ def main() -> int:
         ("invalid record status", lambda root: (make_adopted(root), (root / ".agent/RECORD.md").write_text((root / ".agent/RECORD.md").read_text(encoding="utf-8").replace("- Status: ACTIVE", "- Status: UNKNOWN", 1), encoding="utf-8"))),
         ("arbitrary repository map paragraph", lambda root: (make_adopted(root), append(root / ".agent/REPO_MAP.md", "\nThis prose is not a map entry.\n"))),
         ("malformed repository map entry", lambda root: (make_adopted(root), append(root / ".agent/REPO_MAP.md", "\n- src/ — missing backticks.\n"))),
+        ("AGENTS.md dropping the Codex-first primacy statement", lambda root: (make_adopted(root), (root / "AGENTS.md").write_text((root / "AGENTS.md").read_text(encoding="utf-8").replace("Codex is the primary coding agent", "Any agent may lead", 1), encoding="utf-8"))),
+        ("AGENTS.md dropping the compatibility-adapter deference", lambda root: (make_adopted(root), (root / "AGENTS.md").write_text((root / "AGENTS.md").read_text(encoding="utf-8").replace("Cursor rules and Claude/Gemini files are compatibility adapters", "Cursor rules and Claude/Gemini files are independent authorities", 1), encoding="utf-8"))),
+        ("Codex governance skill missing a workflow section", lambda root: (make_adopted(root), (root / ".agents/skills/authority-governance/SKILL.md").write_text((root / ".agents/skills/authority-governance/SKILL.md").read_text(encoding="utf-8").replace("## Ordered workflow", "## Workflow", 1), encoding="utf-8"))),
+        ("external discovery skill missing a workflow section", lambda root: (make_adopted(root), (root / ".agents/skills/external-discovery/SKILL.md").write_text((root / ".agents/skills/external-discovery/SKILL.md").read_text(encoding="utf-8").replace("## Mid-implementation discovery", "## Later discovery", 1), encoding="utf-8"))),
     ]
     for name, mutate in adopted_cases:
         expect_failure(name, "ADOPTED", mutate)

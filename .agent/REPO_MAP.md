@@ -2,7 +2,10 @@
 
 ## Entry points
 
-- `AGENTS.md` — canonical cross-agent repository policy; the precedence, classification, validation and reporting rules all other adapters defer to.
+- `AGENTS.md` — the always-on Codex-first router; states the mandatory `.agent/` preflight and points at the detailed contract instead of duplicating it. Nested `AGENTS.md` files may add scoped guidance but may not bypass the preflight.
+- `.agents/skills/authority-governance/SKILL.md` — canonical Authority governance workflow; the detailed precedence, scope, validation, safety, integration and reporting contract the router defers to. Byte-identical to the canonical Authority checkout.
+- `.agents/skills/external-discovery/SKILL.md` — canonical external prior-art skill; additive, and it does not reopen or invalidate qualified work. Byte-identical to the canonical Authority checkout.
+- `governance/PROJECT_GOVERNANCE_SUPPLEMENT.md` — repository-specific governance the canonical Authority package does not carry: repository orientation, task classification, the advisory-versus-enforced-control distinction, ledger discipline and the ANIMUS ONE boundary.
 - `CLAUDE.md` — Claude Code adapter; imports AGENTS.md and adds no duplicate policy.
 - `GEMINI.md` — Gemini adapter; imports AGENTS.md and adds no duplicate policy.
 - `COMMANDMENTS_OF_THE_CODE.md` — condensed coding principles referenced by the policy layer.
@@ -45,8 +48,8 @@
 
 ## Tests and validation
 
-- `scripts/validate_governance.py` — the only executable validation in the repository; checks required files, Cursor rules, policy content and the adopted or unadopted state of the governance files.
-- `scripts/test_validate_governance.py` — validator self-test; exercises both validator modes with positive and rejection cases built from an isolated fixture.
+- `scripts/validate_governance.py` — the only executable validation in the repository; checks required files, the eight-file `.agent/` contract, both Codex skills, the Codex-first content of the router, Cursor rules, policy content and the adopted or unadopted state of the governance files. Byte-identical to the canonical Authority validator.
+- `scripts/test_validate_governance.py` — validator self-test; exercises both validator modes with positive and rejection cases built from an isolated fixture. Extends the canonical Authority suite with the live-state cases the Authority checkout cannot run against itself.
 - `scripts/fixtures/governance_template/.agent/` — pristine unadopted governance files used as the fixture base for the self-test; never the live project state.
 - `tools/verify_project_identity.py` — checks the build files against the frozen project identity contract.
 - `tools/qualify_r000_android.sh` — installs, launches, verifies, terminates and relaunches the shell on a connected Android target and records the evidence.
@@ -78,7 +81,7 @@
 - `.serena/.gitignore` — pre-existing exclusion of Serena local overrides and cache.
 - `.cursor/mcp.json` — external navigation and memory server declarations for Cursor.
 - `.cursor/MCP.md` — documentation of those external integrations.
-- `.cursor/rules/00-core-governance.mdc` — the single always-applied Cursor policy adapter.
+- `.cursor/rules/00-core-governance.mdc` — the single always-applied Cursor policy adapter; a compatibility layer that defers to the Codex-first `AGENTS.md`.
 - `.cursor/rules/02-mimir.mdc` — conditional rule for the Mimir memory integration.
 - `.cursor/rules/03-serena.mdc` — conditional rule for the Serena navigation integration.
 - `.cursor/rules/04-cocoindex-code.mdc` — conditional rule for the code-index integration.

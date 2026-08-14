@@ -16,9 +16,16 @@ REQUIRED = [
     ".agent/PROJECT_GOAL.md", ".agent/PROJECT_PROFILE.md", ".agent/CURRENT.md",
     ".agent/DIRECTIVES.md", ".agent/OUTCOMES.md", ".agent/LEARNINGS.md",
     ".agent/RECORD.md", ".agent/REPO_MAP.md", ".cursor/mcp.json", ".cursor/MCP.md",
-    ".cursor/skills/mimir/SKILL.md", "scripts/validate_governance.py",
+    ".cursor/skills/mimir/SKILL.md", ".agents/skills/authority-governance/SKILL.md",
+    ".agents/skills/external-discovery/SKILL.md",
+    "scripts/validate_governance.py",
     "scripts/test_validate_governance.py",
 ]
+AGENT_CONTRACT_FILES = (
+    ".agent/PROJECT_GOAL.md", ".agent/PROJECT_PROFILE.md", ".agent/CURRENT.md",
+    ".agent/DIRECTIVES.md", ".agent/OUTCOMES.md", ".agent/LEARNINGS.md",
+    ".agent/RECORD.md", ".agent/REPO_MAP.md",
+)
 VALIDATION_STATES = {"PASSED", "FAILED", "NOT RUN", "NOT APPLICABLE", "BLOCKED"}
 CURRENT_STATUSES = {"IDLE", "PLANNING", "IN_PROGRESS", "VALIDATING", "BLOCKED", "COMPLETE"}
 OUTCOME_STATUSES = {"COMPLETE", "PARTIAL", "BLOCKED", "FAILED", "CANCELLED", "SUPERSEDED"}
@@ -435,13 +442,19 @@ def validate_common(root: Path, errors: list[str]) -> None:
         fail(errors, f".cursor/mcp.json: invalid configuration: {exc}")
     validate_rules(root, errors)
     agents = read(root, "AGENTS.md") if (root / "AGENTS.md").is_file() else ""
-    for heading in (
-        "## Precedence", "## Repository orientation", "## Task classification",
-        "## Local working memory", "## Validation", "## Safety and destructive actions",
-        "## External integrations", "## Completion and reporting", "ANIMUS ONE",
-    ):
+    for heading in ("## Mandatory preflight", "## Detailed guidance", "## Operating requirements"):
         if heading not in agents:
             fail(errors, f"AGENTS.md: missing required content: {heading}")
+    for required in (
+        "Codex is the primary coding agent", "complete `.agent/` contract",
+        "Reading or validating them must not alter their data", "`.agents/skills/`",
+        "Cursor rules and Claude/Gemini files are compatibility adapters",
+    ):
+        if required not in agents:
+            fail(errors, f"AGENTS.md: missing Codex-first governance content: {required}")
+    for relative in AGENT_CONTRACT_FILES:
+        if not (root / relative).is_file():
+            fail(errors, f"missing mandatory .agent contract file: {relative}")
     if "@AGENTS.md" not in read(root, "CLAUDE.md"):
         fail(errors, "CLAUDE.md: must import AGENTS.md")
     if "@./AGENTS.md" not in read(root, "GEMINI.md"):
@@ -450,6 +463,17 @@ def validate_common(root: Path, errors: list[str]) -> None:
     for heading in ("## Inputs", "## Ordered steps", "## Outputs", "## Failure handling", "## Verification"):
         if heading not in skill:
             fail(errors, f"Mimir skill: missing distinct workflow section {heading}")
+    codex_skill = read(root, ".agents/skills/authority-governance/SKILL.md")
+    for heading in ("## Purpose", "## Mandatory inputs", "## Ordered workflow", "## `.agent/` contract", "## Failure handling"):
+        if heading not in codex_skill:
+            fail(errors, f"Codex governance skill: missing distinct workflow section {heading}")
+    for required in ("AGENTS.md", "PROJECT_GOAL.md", "PROJECT_PROFILE.md", "CURRENT.md", "DIRECTIVES.md", "OUTCOMES.md", "LEARNINGS.md", "RECORD.md", "REPO_MAP.md"):
+        if required not in codex_skill:
+            fail(errors, f"Codex governance skill: missing mandatory contract reference {required}")
+    discovery_skill = read(root, ".agents/skills/external-discovery/SKILL.md")
+    for heading in ("## Activation", "## Governing principle", "## Existing work", "## Discovery", "## Evaluation", "## Mid-implementation discovery", "## Reporting"):
+        if heading not in discovery_skill:
+            fail(errors, f"External discovery skill: missing distinct workflow section {heading}")
     validate_animus(root, errors)
 
 
