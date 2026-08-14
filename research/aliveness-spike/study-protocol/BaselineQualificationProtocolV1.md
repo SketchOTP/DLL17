@@ -1,39 +1,92 @@
 # BaselineQualificationProtocolV1
 
 - Status: `READY_FOR_HUMAN_EVIDENCE`
-- Version: 1 (draft; not activated)
+- Version: 1
+- Coverage manifest: `research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt`
 
 Establishes that `ScriptedPetBaselineV1` is a genuinely competent comparator
 before it is used to judge FULL. The FULL team may not self-certify it.
 
-## Frozen now
+The point is adversarial. If the baseline is weak, a FULL win means nothing; the
+whole force of a positive A001 comes from the comparator being hard to beat.
+
+---
+
+## Frozen
 
 | Decision | Value |
 |---|---|
 | Comparator | `ScriptedPetBaselineV1` versus `DegradedScriptedControlV1` |
-| Design | paired live sessions, order randomized and counterbalanced |
-| Session duration | as `SpikeExpressionContractV1`: 600 s per creature |
-| Presentation | identical, one contract, blinded labels |
-| Rater pool | pilot-only, permanently excluded from all scored A001 and ablation pools |
-| Endpoint | the same anchored graded aliveness instrument used for the primary endpoint, scored as a paired difference |
-| Direction | the qualification passes only if the strong baseline beats the degraded control |
-| Owner | `BaselineIndependentOwner`, who may reject or strengthen the baseline |
-| Ordering | exclusions, technical-failure rules and analysis frozen before pilot data |
-| Post-qualification | hash and pin the contingency set, script, hold windows, interaction coverage manifest, parameters and expression-contract version |
+| Participants | 40, independent |
+| Exclusion | Permanently excluded from all scored A001 and human-ablation pools |
+| Design | Paired live sessions, order randomized and counterbalanced |
+| Session duration | 600 s per creature, as `SpikeExpressionContractV1` |
+| Presentation | Identical, one contract, blinded labels |
+| Endpoint | `BaselineCompetenceInstrumentV1`, anchored 0–100, scored as a paired difference: strong baseline minus degraded control |
+| Required margin | mean `>= +15.0` points |
+| Precision | two-sided 95% CI lower bound `> 0` |
+| Direction | The qualification passes only if the strong baseline beats the degraded control. A tie or a reversal fails. |
+| Analysis | The same preregistered pipeline as the primary endpoint: complete-case, fixed screening order, paired t interval |
+| Owner | `BaselineIndependentOwner`, who may reject the baseline or require it to be strengthened |
+| Ordering | Exclusions, technical-failure rules and analysis frozen before pilot data |
+| Post-qualification | Hash and pin the contingency set, script, hold windows, interaction coverage manifest, parameters and expression-contract version |
+
+## What competence means here
+
+The instrument assesses three things, and only these three. It does **not** ask
+how alive the creature seemed — that is the A001 endpoint, and asking it here
+would contaminate the comparison.
+
+| Dimension | Question asked |
+|---|---|
+| Contingent responsiveness | Did it react to what you did, promptly and in a way that fitted what you did? |
+| Behavioural coherence | Did what it did follow sensibly from what came before, rather than jumping about at random? |
+| Surface behavioural breadth | How many different things did it do? |
+
+Each is rated 0–100 with anchors; the competence score is their mean. Frozen
+before data, like everything else.
+
+## Coverage manifest
+
+`BaselineCoverageManifestV1` is generated from the implementation itself, so it
+cannot drift away from the thing it describes. It discloses, in full:
+
+- the four authored drive thresholds;
+- the seven-rule contingency table in priority order;
+- the reaction for each of the six interaction kinds, for both scripted cohorts,
+  and which three the degraded control ignores;
+- both idle/play scripts entry by entry, with their hold windows and advance
+  rules;
+- surface coverage: 12 of 15 actions and 11 of 12 objects for the strong
+  baseline, against 8 and 5 for the degraded control;
+- the expression contract version.
+
+The independent owner reads this to decide whether the comparator is fair
+*before* any person rates it.
 
 ## Objective pre-evidence
 
-Not a substitute for the human endpoint, but recorded because it is available
-now. Over 40 virtual days on a matched seed and habitat under the D009 habitat,
-the strong baseline produced 9.18 distinct objects inspected per day, 2.63 bits
-of action entropy and a 0.39 inactivity share; the degraded control produced
-1.00, 1.38 bits and 0.70. The intended competence gap is real in the objective
-measures, and unchanged from D008.
+Not a substitute for the human endpoint, and recorded only because it is
+available now. Matched seed, habitat, window and probe, from
+`BASELINE_COVERAGE_MANIFEST.txt`:
+
+| Cohort | Entropy | Objects/day | Occupancy | Inactivity | Regularity |
+|---|---|---|---|---|---|
+| `ScriptedPetBaselineV1` | 2.629 | 9.18 | 0.344 | 0.392 | 0.633 |
+| `DegradedScriptedControlV1` | 1.377 | 1.00 | 0.584 | 0.703 | 0.775 |
+| FULL | 2.763 | 10.15 | 0.341 | 0.243 | 0.358 |
+
+The intended competence gap between the two scripted cohorts is real in the
+objective measures, and the strong baseline is unchanged from its D008 form.
+
+That FULL leads on every objective measure is **not** evidence that it will win
+the human comparison, and must not be cited as any. Objective breadth is not
+apparent aliveness; if it were, A001 would be unnecessary.
 
 ## Blocked
 
-- **Minimum winning margin.** Requires a defensible effect size on the graded
-  instrument. `BLOCKED_SPEC_BASELINE_COMPETENCE_MARGIN`.
-- **Sample size.** Follows from the margin and the pilot variance.
-- **Rater recruitment.** No participants exist.
+- **Participants.** None exist.
 - **`BaselineIndependentOwner`.** Unassigned; see `IndependentReviewRosterV1`.
+- **The qualification itself.** `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED`.
+  The baseline is implemented, frozen, fully disclosed and powered — and it is
+  not qualified, and nothing in this repository may claim otherwise.

@@ -3,62 +3,66 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-13T20:40:00-04:00`
+- Last updated: `2026-08-13T23:20:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-009
-- External directive ID: D009
-- Objective: Revise the disposable A000 FULL candidate against the accepted D008 negative evidence, under unchanged curiosity-envelope thresholds and without consuming the programme’s single allowed threshold-only revision.
+- Local directive ID: D-010
+- External directive ID: D010
+- Objective: Prepare the complete A001 Attempt-1 study and governance package so human work can begin as soon as the named reviewer roster and the owner resource ceiling exist, without collecting any human outcome data.
 - Current status: `COMPLETE`
-- Acceptance: The revised candidate stays bounded and numerically stable; the long-run differentiation and diversity floors pass; rejected alternatives can be boundedly re-explored after contingency or devaluation change; the episodic mechanism either contributes or is removed from FULL; CuriosityBalanceEnvelopeV1 returns NON_EMPTY_FEASIBLE_REGION with thresholds unchanged; substantive-spontaneity attribution still passes; all prior negative evidence remains preserved; research and production isolation remains intact; a reproducible revised A000 evidence bundle exists; R000, R001 and R002 remain green; CI passes; HEAD matches origin/main; the worktree is clean; and no R003 through R009 production mechanism is introduced.
-- Current phase: A000 complete and remediated. A001 is the next gate and cannot begin. R003 through R009 remain blocked behind A001.
-- Expected or actual touched areas: research/aliveness-spike/, settings.gradle.kts, governance/release-gates/, governance/qualification/, docs/decisions/, docs/invariants/, docs/architecture/, qualification/fixtures/A000/, qualification/longitudinal/A000/, qualification/evidence/A000/, tools/build_qualification_bundle.py, .github/workflows/ci.yml, .agent/
-- Immediate next action: Hold for architect review of the D-009 completion report; this snapshot is awaiting reset to IDLE once that review closes. The outstanding architect decisions are the reviewer roster, the aliveness success floor and whether to preregister a replacement third ablation arm. Do not begin D010.
+- Acceptance: AlivenessStudyProtocolV1 is frozen and executable with exact instrument wording and anchors; the ten-point and ninety-five-percent-confidence-interval rule is encoded exactly; the baseline qualification package and the blind variance pilot are operationally ready; a synthetic dry run proves the FULL-facing pilot channel releases only the paired-difference standard deviation; the analysis pipeline passes synthetic positive and negative fixtures; the feasibility calculator is complete with only the owner ceiling and the real pilot standard deviation unresolved; the reviewer onboarding package is complete and truthfully unassigned; the governance audit prevents premature activation; participant information and privacy materials are complete; no human outcome data is collected; no R003 through R009 production implementation is introduced; prior qualifications remain green; reproducible evidence exists; CI passes; HEAD matches origin/main; and the worktree is clean.
+- Current phase: A000 complete and remediated. The A001 activation package is prepared and the gate is correctly shut. R003 through R009 remain blocked behind A001.
+- Expected or actual touched areas: research/aliveness-spike/study-protocol/, research/aliveness-spike/analysis/, research/aliveness-spike/accelerated-sim/, research/aliveness-spike/cohorts/, research/aliveness-spike/evidence/, governance/release-gates/, governance/qualification/, docs/decisions/, docs/invariants/, qualification/fixtures/A000/, qualification/longitudinal/A000/, qualification/evidence/A001PRE/, tools/build_qualification_bundle.py, .github/workflows/ci.yml, .agent/
+- Immediate next action: Hold for architect review of the D-010 completion report; this snapshot is awaiting reset to IDLE once that review closes. The two outstanding external inputs are three eligible reviewer and baseline-owner names, and the maximum human-study participant and resource budget. Do not begin D011.
 
 ## Temporary task-relevant facts
 
-- The revised A000 evidence digest is 65efd37541b66a5bd30bacb5c8176abd8cba7832f00029ab3e9afd8589dc81fc for fixture set version 2, compiled into A000QualificationKernel.GOLDEN_EVIDENCE_DIGEST and checked by CI.
-- All twenty-four accelerated findings hold. Under D008 five did not.
-- The joint curiosity envelope returns NON_EMPTY_FEASIBLE_REGION with twenty-seven of twenty-seven grid points feasible and robust, against zero of twenty-seven under D008, on the identical grid and seed matrix.
-- No curiosity threshold was altered and the programme's single allowed threshold-only revision remains unspent. Recorded as DEC-0023.
-- Mean population differentiation rose from 0.052 to 0.163, closest-pair from 0.019 to 0.074, final-window diversity from 0.034 to 0.103 and matched-stimulus history divergence from 0.325 to 0.610.
-- Re-exploration is evidenced by a controlled reversal protocol in which a rejected food source went from 0.13 to 32.5 uses a day while the devalued source went from 31.1 to zero, with the first return twenty ticks after the flip.
-- Episodic history was revised and then removed from FULL because the revision still did not contribute. The cohort is retained inverted as FULL+episodic-history so the negative result stays reproducible. Recorded as DEC-0024.
-- The human leave-one-out ablation family is two arms rather than three, and Holm-Bonferroni now corrects across two.
-- Anti-convergence is enforced by three small independent bounds rather than one large one, namely action satiation, a per-object engagement refractory and a metabolic cost for vigorous activity.
-- Substantive spontaneity attribution fell from 0.946 to 0.877 against an unchanged 0.700 floor, which is the expected direction for an organism spending far more time in genuinely optional behaviour.
-- The two scripted comparators and the presentation contract are unchanged, and the baseline is within noise of its D008 measures while remaining far stronger than the degraded control.
-- All D008 failed results and the rejected configuration are preserved in research/aliveness-spike/evidence/negative/D008/ and are bundle constituents.
+- The A001 activation package is complete: AlivenessStudyProtocolV1 and GradedAlivenessInstrumentV1 are frozen, and the participant information, consent, privacy and reviewer onboarding materials exist.
+- The programme success floor is frozen at a mean paired difference of at least ten points with a two-sided ninety-five percent confidence interval lower bound above zero, at alpha 0.05 and power 0.80. Recorded as DEC-0026.
+- The human ablation family is three arms again. The architect preregistered FULL minus outcome uncertainty and directed re-exploration as the replacement. Recorded as DEC-0025.
+- The variance-pilot information barrier is enforced by type visibility rather than by policy, and two synthetic pilots with opposite outcomes release byte-identical output.
+- The registered pilot size of thirty-six pairs is the smallest one the frozen 1.25 inflation factor can defend, which is checked numerically in a test rather than asserted.
+- The feasibility calculator uses exact noncentral-t power and powers ablation arms at the corrected alpha divided by three.
+- The activation audit has twenty-seven items and five outstanding blockers, and the activation state is derived from the items rather than declared beside them.
+- The A000 fixture set moved to version three with digest 9462e43622c414db47c28a2e79452455bc0d6642396dd5ca8d65bae208b3114a, because the cohort-parity fixture covers the new preregistered ablation cohort. No organism behaviour changed and all twenty-four findings still hold.
+- Several D009 prose figures were reconciled against the frozen kernel evidence. Every finding, direction and verdict was and remains correct. Recorded as DEC-0027.
+- The A000 bundle is now pinned to its qualified commit 4a2b1e4c and its manifest hash is unchanged at 2c7cd508504ab29b0857a676e6f86c0deeb717ad32e796a1ef76b7abe324f822.
+- The A001PRE bundle is A001PRE-QB-1 with manifest hash 0125bb36425b8ae0a815fe92d86a8f834084b3cacb111d467a8b5742edeacbdd over forty-seven constituents.
+- No human outcome data exists anywhere in the repository, and every synthetic figure is marked SYNTHETIC where it appears.
 - No production organism behaviour exists. Nothing under research/ is depended on by any production module.
-- D-001 remains recorded as nonconforming, and D-002 through D-008 remain recorded as accepted and complete.
+- D-001 remains recorded as nonconforming, and D-002 through D-009 remain recorded as accepted and complete.
 
 ## Last validation after adoption
 
-- Command or check: python3 scripts/validate_governance.py --mode ADOPTED, python3 scripts/test_validate_governance.py, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify, python3 tools/generate_lookup_tables.py --check, ./gradlew clean build, ./gradlew :desktop-runner:run, ./gradlew :research:aliveness-spike:accelerated-sim:run, and ./gradlew :research:aliveness-spike:analysis:run
+- Command or check: python3 scripts/validate_governance.py --mode ADOPTED, python3 scripts/test_validate_governance.py, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify, python3 tools/generate_lookup_tables.py --check, ./gradlew clean build, ./gradlew :desktop-runner:run, ./gradlew :research:aliveness-spike:accelerated-sim:run, ./gradlew :research:aliveness-spike:accelerated-sim:baselineManifest, and ./gradlew :research:aliveness-spike:analysis:a001DryRun
 - Result: `PASSED`
 
 ## Risks
 
-- A001 remains blocked because IndependentReviewRosterV1 names nobody in any of its three roles, which no amount of code resolves.
-- The human ablation family is now two arms. Choosing a replacement third arm requires a new preregistered plan and is not the implementer's decision.
+- A001 remains blocked on five inputs, none of which code can supply: an unqualified scripted baseline, an unregistered variance pilot, the paired-difference standard deviation that pilot would release, three unassigned reviewer roles, and an owner resource ceiling.
+- The graded instrument is frozen but not cognitively pretested, and was written by a party with an interest in the outcome. The independent reviewer may require pretesting before Attempt 1.
+- The powered sample size is unknown until the pilot runs, so A001_NOT_FEASIBLE remains a real possible outcome.
+- The per-participant schedule used for the participant-hour figure is a protocol design estimate, not a measurement.
+- Every access control in DataHandlingAndPrivacyV1 except the variance-pilot barrier is written guidance rather than an enforced control, and no prose prevents an action.
+- No institutional review board, ethics committee or data-protection review has seen this study, none is claimed, and whether one is required is undetermined.
 - The scripted baseline still has no human competence qualification, and none is claimed.
-- Two learning laws and one memory mechanism were changed on the strength of accelerated measures alone, with no human data.
-- The habitat remains abstract, and now carries circadian structure that was added specifically to make the episodic mechanism testable.
-- Cycle regularity and single-action occupancy remain constructs invented for this track, and the envelope result has now turned on both in both directions.
-- The accelerated kernel takes about three minutes and the envelope search about eight. The kernel runs in CI; the envelope search does not, and its result is committed evidence rather than a reproduced check.
+- The habitat remains abstract, and now carries circadian structure that was added specifically to make a mechanism testable.
+- Cycle regularity and single-action occupancy remain constructs invented for this track, and the envelope result has turned on both in both directions.
+- The accelerated kernel takes about three minutes and the envelope search about eight. The kernel and the A001 dry run run in CI; the envelope search does not, and its result is committed evidence rather than a reproduced check.
 - The repository is public while carrying a proprietary licence, and an MIT grant was published for the revisions between the initial commit and the D-005 commit.
 - Governance history contains a permanent nonconformance at D-001 that must not be rewritten by later work. Recorded as DEC-0002.
 
 ## Blockers
 
-- A001 cannot begin while IndependentReviewRosterV1 is unassigned. The curiosity-envelope blocker is cleared: the feasible region is non-empty under unchanged thresholds.
+- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD, BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED and BLOCKED_SPEC_STUDY_BUDGET. The curiosity-envelope and success-floor blockers are cleared.
 
 ## Pending decisions
 
-- Whether to preregister a replacement third human ablation arm now that the episodic arm has been retired.
 - Who fills PrimaryIndependentAlivenessGateReviewer, AlternateIndependentAlivenessGateReviewer and BaselineIndependentOwner.
-- The programme-level aliveness success floor, which is a value judgement about what complexity is worth and is not derivable from A000 evidence.
+- The maximum fundable participants and participant-hours for A001.
+- Whether the graded instrument must be cognitively pretested before Attempt 1.
+- Whether this study requires external ethical or institutional approval, and in which jurisdiction it runs.
 - When to freeze RecoveryCryptographyContractV1, which unblocks R002.12 recovery cryptography and the identity-epoch authority.
 - Which production storage provider to select, and which storage engine adopts the durable medium interface.
 - Whether the repository should remain public now that the licence is proprietary.

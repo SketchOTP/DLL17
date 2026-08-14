@@ -56,9 +56,26 @@ unblinding and release to the FULL team, blocks new preregistration, preserves
 all raw data and rulings, and marks the A-track `GOVERNANCE_HOLD`. The FULL team
 cannot self-clear a hold.
 
-## Immediate consequence
+## Onboarding
 
-`CuriosityEnvelopeFeasibilityV1` gives the primary reviewer a decision to make
-as soon as one exists: the A000 joint feasibility search returned
-`EMPTY_THRESHOLD_INCOMPATIBILITY_CANDIDATE`, and only the reviewer may choose
-between the threshold-revision path and the mechanism-revision path.
+The complete onboarding package — eligibility, the three declarations, the
+signed acceptance record, the reading order, and the recusal process — is
+[IndependentReviewOnboardingV1](IndependentReviewOnboardingV1.md). It contains
+no names and no placeholder people.
+
+## What is waiting for the reviewer
+
+Decisions that exist now and cannot be taken by anyone else:
+
+1. Whether `ScriptedPetBaselineV1` is a fair comparator, on the full disclosure
+   in `evidence/BASELINE_COVERAGE_MANIFEST.txt`.
+2. Whether `GradedAlivenessInstrumentV1` may be used without cognitive
+   pretesting, given that it was written by a party with an interest in the
+   outcome.
+3. Whether the variance pilot may be registered, and who operates it.
+4. Whether this study needs external ethical or institutional approval.
+
+The A000 curiosity-envelope question that was waiting for the reviewer under
+D008 no longer is: the empty feasible region was resolved by revising the
+mechanism under unchanged thresholds, and the programme's single allowed
+threshold-only revision remains unspent.

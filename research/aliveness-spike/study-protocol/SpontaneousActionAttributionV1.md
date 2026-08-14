@@ -63,9 +63,10 @@ Over 1,363 scored spontaneous actions: `SubstantiveSpontaneityRate = 0.946`,
 
 ## Measured on the D009 candidate
 
-Over 2,089 scored spontaneous actions (60 virtual days, static habitat, 1-in-5
-sampling): `SubstantiveSpontaneityRate = 0.877`,
-`OscillatorTieBreakOnlyRate = 0.027`.
+Over 2,154 scored spontaneous actions (60 virtual days, static habitat, 1-in-5
+sampling): `SubstantiveSpontaneityRate = 0.891`,
+`OscillatorTieBreakOnlyRate = 0.028`. Of those, 1,407 classify
+`MIXED_SUBSTANTIVE`.
 
 The substantive rate fell and remains well clear of its 0.700 floor. That is the
 expected direction and worth stating plainly: the revised candidate spends far
@@ -74,5 +75,5 @@ actions are close calls between comparable options. The oscillator and
 tie-break-only share stayed near one in forty.
 
 Across the 27-point envelope grid and 4-seed matrix the substantive rate ranged
-0.886–0.921 and the oscillator/tie-break-only rate 0.026–0.046, so no
+0.885–0.921 and the oscillator/tie-break-only rate 0.024–0.048, so no
 parameterization in the feasible region approaches either bound.

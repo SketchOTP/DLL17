@@ -23,12 +23,20 @@ Each document carries one of three statuses:
 | [MechanismRevisionD009](MechanismRevisionD009.md) | `FROZEN` |
 | [ScriptedPetBaselineV1](ScriptedPetBaselineV1.md) | `FROZEN` (implementation); competence unqualified |
 | [MaterialChangeEligibilityV1](MaterialChangeEligibilityV1.md) | `FROZEN` |
-| [AlivenessGovernanceAuditV1](AlivenessGovernanceAuditV1.md) | `FROZEN` |
-| [AlivenessProgramGateV1](AlivenessProgramGateV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
+| [AlivenessGovernanceAuditV1](AlivenessGovernanceAuditV1.md) | `FROZEN` (v2 under D010: now the activation gate) |
+| [AlivenessStudyProtocolV1](AlivenessStudyProtocolV1.md) | `FROZEN` (D010) |
+| [GradedAlivenessInstrumentV1](GradedAlivenessInstrumentV1.md) | `FROZEN` (D010) |
+| [AlivenessProgramGateV1](AlivenessProgramGateV1.md) | `READY_FOR_HUMAN_EVIDENCE` — success floor now frozen |
 | [BaselineQualificationProtocolV1](BaselineQualificationProtocolV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [BlindVariancePilotV1](BlindVariancePilotV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
-| [A001FeasibilityBudgetV1](A001FeasibilityBudgetV1.md) | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` |
+| [A001FeasibilityBudgetV1](A001FeasibilityBudgetV1.md) | `READY_FOR_HUMAN_EVIDENCE` — was `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` |
+| [ParticipantInformationAndConsentV1](ParticipantInformationAndConsentV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
+| [DataHandlingAndPrivacyV1](DataHandlingAndPrivacyV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
+| [IndependentReviewOnboardingV1](IndependentReviewOnboardingV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [IndependentReviewRosterV1](IndependentReviewRosterV1.md) | `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` |
 
-`AlivenessStudyProtocolV1` is not authored here. It is attempt-specific, it
-depends on `A001FeasibilityBudgetV1`, and D008 did not authorize it.
+Under D010 the attempt-specific protocol, the instrument, the participant
+materials and the reviewer onboarding package were authored and frozen. What
+remains blocked needs people or money, not code: three named reviewers, a
+registered variance pilot, the SD it releases, an independent baseline
+qualification, and an owner resource ceiling.

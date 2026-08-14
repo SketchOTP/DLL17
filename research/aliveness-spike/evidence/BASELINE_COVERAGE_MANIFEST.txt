@@ -1,0 +1,66 @@
+BASELINE_COVERAGE_MANIFEST=BaselineCoverageManifestV1
+comparator=ScriptedPetBaselineV1  control=DegradedScriptedControlV1
+expressionContract=SpikeExpressionContractV1 v1
+qualificationStatus=NOT_INDEPENDENTLY_QUALIFIED
+
+== AUTHORED DRIVE ANALOGUES (not learned; no outcome persists as value)
+  hungerActThreshold=0.520000
+  fatigueActThreshold=0.620000
+  fatigueRestThreshold=0.450000
+  attentionActThreshold=0.560000
+
+== AUTHORED CONTINGENCY TABLE (priority order, strong baseline)
+   1. reacting to a live interaction event -> the reaction for that kind
+   2. hunger above threshold AND food present -> EAT@FOOD_TROUGH (tier 3)
+   3. fatigue above threshold AND night -> SLEEP (tier 3)
+   4. fatigue above rest threshold -> REST (tier 3, strong baseline only)
+   5. attention want above threshold AND not in refractory -> SEEK_INTERACTION, alternating between the two people (strong) or always PERSON_ALPHA (degraded)
+   6. a causal change at the novel slot -> OBSERVE@NOVEL_SLOT (tier 4, strong only)
+   7. otherwise -> the idle/play script entry currently held
+
+== INTERACTION COVERAGE
+  kinds=6
+  TOUCH               strong=RESPOND_TO_TOUCH@person  degraded=RESPOND_TO_TOUCH@person
+  CALL                strong=ORIENT@person            degraded=IGNORED
+  OFFER_FOOD          strong=EAT@FOOD_TROUGH          degraded=EAT@FOOD_TROUGH
+  PRESENT_OBJECT      strong=OBSERVE@target           degraded=IGNORED
+  WITHDRAW_ATTENTION  strong=IDLE_VARIATION           degraded=IGNORED
+  STARTLE             strong=WITHDRAW@target          degraded=WITHDRAW@target
+  reactionWindowTicks strong=10 degraded=4
+
+== IDLE AND PLAY SCRIPT
+  strong: entries=14 holdTicks=12 advance=seeded draw over the whole script
+    PLAY@PLAY_BALL
+    EXPLORE@PLAY_CUBE
+    OBSERVE@PLAY_CHIME
+    ORIENT@PLAY_MIRROR
+    EXPLORE@SHELTER
+    OBSERVE@PERSON_ALPHA
+    ORIENT@PERSON_BETA
+    VOCALIZE@PERSON_ALPHA
+    IDLE_VARIATION
+    OBSERVE@FOOD_TROUGH
+    WITHDRAW@AVERSIVE_BUZZER
+    PLAY@PLAY_CUBE
+    EXPLORE@PLAY_BALL
+    OBSERVE@SEALED_GATE
+  degraded: entries=3 holdTicks=40 advance=fixed cycle
+    IDLE_VARIATION
+    OBSERVE@PLAY_BALL
+    IDLE_VARIATION
+
+== SURFACE COVERAGE
+  strong: distinctActions=12/15 distinctObjects=11/12
+  degraded: distinctActions=8/15 distinctObjects=5/12
+
+== MATCHED OBJECTIVE PROBE
+  seed=606 days=40 windowDays=15 condition=CONTROLLED_NOVELTY
+  cohort                        entropy   objects/d  occupancy inactivity regularity revisits/d
+  ScriptedPetBaselineV1         2.628823  9.175000  0.344444  0.391667  0.632556  69.425000
+  DegradedScriptedControlV1     1.377008  1.000000  0.583704  0.702917  0.775352  0.000000
+  FULL                          2.762618  10.150000  0.340833  0.242778  0.357995  137.825000
+
+NOTE: objective breadth is not apparent aliveness. This manifest exists so
+      the independent owner can see exactly what the comparator is, and
+      reject or strengthen it, before any person rates anything.
+

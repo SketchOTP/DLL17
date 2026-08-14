@@ -1,0 +1,91 @@
+# A001 activation gate
+
+- Track: A001 — human aliveness comparison, Attempt 1 of a maximum of 3
+- Directive: D010 (activation package prepared without human data)
+- Program state: `ALIVENESS_UNTESTED`, attempts consumed 0
+- Activation state: `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED`
+- Human scored recruitment: **BLOCKED**
+- Evaluated: 2026-08-13
+
+This gate is not closed and D010 did not attempt to close it. D010's job was to
+make everything ready that can be made ready without people, so that what
+remains is visibly a shortage of reviewers and money rather than a shortage of
+work.
+
+**No human outcome data exists.** No participant has been recruited, no session
+has been run, and nothing in this repository may claim otherwise.
+
+---
+
+## What D010 completed
+
+| Artifact | State |
+|---|---|
+| `AlivenessStudyProtocolV1` | `FROZEN` — design, procedure, endpoints, exclusions, analysis, classification |
+| `GradedAlivenessInstrumentV1` | `FROZEN` — exact wording and five anchors, verbatim |
+| Primary decision rule | Encoded exactly: mean ≥ +10.0 **and** two-sided 95% CI lower bound > 0 |
+| Human ablation family | Three arms, Holm-Bonferroni at FWER 0.05 |
+| `BaselineQualificationProtocolV1` | Powered at 40 participants, +15.0 margin, complete |
+| `BaselineCoverageManifestV1` | Generated from the comparator implementation itself |
+| `BlindVariancePilotV1` | Operationally ready at 36 pairs, sealed channel proven |
+| `A001FeasibilityBudgetV1` | Calculator complete; exact noncentral-t power |
+| `A001AnalysisV1` | Preregistered and exercised on synthetic fixtures |
+| `ParticipantInformationAndConsentV1` | Information sheet, consent form, debrief |
+| `DataHandlingAndPrivacyV1` | Collection, separation, retention, access, publication |
+| `IndependentReviewOnboardingV1` | Eligibility, three declarations, acceptance record, recusal |
+| `AlivenessGovernanceAuditV2` | 27 items; activation state derived from them |
+
+## The activation audit
+
+27 items. 17 `PASS`, 1 `NOT_APPLICABLE_PRE_ATTEMPT`, 2
+`REQUIRES_SIGNED_GOVERNANCE_EVIDENCE`, 7 `BLOCKED`.
+
+Current output: `research/aliveness-spike/evidence/GOVERNANCE_AUDIT.txt`.
+
+The activation state and the recruitment gate are computed from the items, not
+declared beside them. `GovernanceAuditTest` proves it in both directions: remove
+every blocking item and the gate opens; leave one and it does not.
+
+## The five outstanding blockers
+
+None of these can be cleared by writing code.
+
+| # | Blocker | What it needs |
+|---|---|---|
+| 1 | `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` | 40 participants and an assigned `BaselineIndependentOwner` |
+| 2 | `BLOCKED_VARIANCE_PILOT_NOT_REGISTERED` | An independent operator and a reviewer to register the pilot |
+| 3 | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` | The pilot to have run and released its one number |
+| 4 | `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` | Three real, eligible people |
+| 5 | `BLOCKED_SPEC_STUDY_BUDGET` | An owner decision on fundable participants and participant-hours |
+
+Two further items require signed human judgement rather than an artifact:
+adjudication of material change for Attempts 2 and 3, and whether any external
+ethical or institutional approval is required. **No IRB, institutional or
+ethics-board approval exists, and none is claimed.**
+
+## What is deliberately still unknown
+
+1. **The powered sample size.** It is a function of the pilot SD, and the pilot
+   has not run. The calculator returns a blocking state rather than a number.
+2. **Whether the study is affordable at all.** `A001_NOT_FEASIBLE` is a real
+   possible outcome, and an underpowered attempt is not a legitimate substitute.
+3. **Whether the instrument works.** It is frozen but not cognitively pretested,
+   and the reviewer may require pretesting before Attempt 1.
+4. **Whether FULL beats the baseline.** A000 says the mechanisms are real,
+   bounded and attributable. It says nothing about how they look to a person.
+
+## Sequencing
+
+The order below is not a preference; each step needs the one before it.
+
+1. Assign the roster. Everything else is gated on it.
+2. Reviewer decides on the baseline, the instrument and any external approval.
+3. Run the baseline qualification: 40 participants, +15.0 margin.
+4. Register and run the variance pilot: 36 pairs, sealed.
+5. Release `pairedDifferenceSd`. Compute the powered budget.
+6. Owner supplies the ceiling. Feasible or not feasible.
+7. Only then: Attempt 1.
+
+## Gate state
+
+**`A001_ACTIVATION = BLOCKED`.** Not started, and correctly so.

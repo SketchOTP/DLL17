@@ -127,6 +127,17 @@ public enum class Cohort(public val cohortId: String, public val blindedLabel: S
     FULL_MINUS_PREFERENCE_LEARNING("FULL-preference-learning", "CREATURE"),
 
     /**
+     * The replacement third human ablation arm, preregistered by the architect
+     * under D010 after the episodic arm was retired.
+     *
+     * Directed re-exploration became load-bearing for the aliveness thesis under
+     * D009: it is what lets an organism return to a rejected option because its
+     * estimate went stale, rather than because a die came up. If raters cannot
+     * tell FULL from FULL without it, the mechanism has not earned retention.
+     */
+    FULL_MINUS_OUTCOME_UNCERTAINTY("FULL-outcome-uncertainty", "CREATURE"),
+
+    /**
      * FULL **plus** episodic history, not minus.
      *
      * The mechanism was removed from FULL under D009 after a revised form still
@@ -147,6 +158,8 @@ public enum class Cohort(public val cohortId: String, public val blindedLabel: S
                     Mechanism.RECENT_INSPECTION_INHIBITION
             FULL_MINUS_PREFERENCE_LEARNING ->
                 Mechanism.QUALIFIED_SET - Mechanism.PREFERENCE_LEARNING
+            FULL_MINUS_OUTCOME_UNCERTAINTY ->
+                Mechanism.QUALIFIED_SET - Mechanism.OUTCOME_UNCERTAINTY
             FULL_PLUS_EPISODIC_HISTORY ->
                 Mechanism.QUALIFIED_SET + Mechanism.EPISODIC_HISTORY
         }
@@ -156,17 +169,22 @@ public enum class Cohort(public val cohortId: String, public val blindedLabel: S
 
     public companion object {
         /**
-         * The preregistered human-rated leave-one-out arms.
+         * The preregistered human-rated leave-one-out arms for Attempt 1.
          *
-         * Two, not three: the episodic arm was retired under D009 when the
-         * mechanism left FULL. The canonical multiplicity plan corrects across
-         * the comparisons *actually tested in the attempt*, so Holm-Bonferroni
-         * now runs over two. Adding a replacement third arm requires a new
-         * preregistered plan and is not the implementer's decision.
+         * Three. The episodic arm was retired under D009 when the mechanism left
+         * FULL, and the architect preregistered `FULL − outcome uncertainty /
+         * directed re-exploration` as its replacement under D010. Holm-Bonferroni
+         * corrects across the comparisons actually tested, so the family-wise
+         * correction runs over three.
+         *
+         * The order here is the preregistered arm order. Holm's procedure sorts
+         * by p-value, so this order does not affect the correction; it fixes the
+         * reporting order so an attempt cannot be reordered after the fact.
          */
         public val HUMAN_ABLATION_FAMILY: List<Cohort> = listOf(
             FULL_MINUS_CURIOSITY_ANTICONVERGENCE,
             FULL_MINUS_PREFERENCE_LEARNING,
+            FULL_MINUS_OUTCOME_UNCERTAINTY,
         )
     }
 }

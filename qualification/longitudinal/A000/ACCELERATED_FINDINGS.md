@@ -140,26 +140,37 @@ It does mean the primary comparison will not be an easy win.
 
 # D009 candidate — what changed and what it did
 
+> **Figure correction, D010.** The D009 completion report and the first version
+> of this section quoted figures from an intermediate kernel run rather than the
+> final frozen one. Every finding, direction and verdict was and remains correct;
+> several decimals were not. The tables below are reconciled against
+> `qualification/fixtures/A000/A000_REPORT.txt`, which is the authoritative
+> artifact and always was. The largest single correction is final-window
+> diversity, reported as 0.103 and actually 0.136 — a correction in the
+> candidate's favour.
+
 ## The four remediated failures
 
 | Measure | D008 | D009 | Floor / ceiling |
 |---|---|---|---|
-| Mean population differentiation | 0.052 | 0.163 | ≥ 0.050 |
-| Closest-pair differentiation | 0.019 | 0.074 | ≥ 0.050 |
-| Final-window diversity | 0.034 | 0.103 | ≥ 0.050 |
+| Mean population differentiation | 0.052 | 0.166 | ≥ 0.050 |
+| Closest-pair differentiation | 0.019 | 0.077 | ≥ 0.050 |
+| Final-window diversity | 0.034 | 0.136 | ≥ 0.050 |
+| Closest pair, final window | 0.006 | 0.044 | — |
 | Matched-stimulus history divergence | 0.325 | 0.610 | ≥ 0.050 |
-| Rejected option re-sampled, eats/day | 0.00 | 32.5 | > before |
-| Action-type entropy, static habitat | 1.589 | 2.714 | ≥ 1.600 |
-| Maximum single-action occupancy | 0.468 | 0.357 | ≤ 0.450 |
-| Cycle regularity | 0.924 | 0.369 | ≤ 0.550 |
-| Distinct objects inspected / day | 5.06 | 9.74 | ≥ 2.500 |
+| Rejected option re-sampled, eats/day | 0.00 | 31.0 | > before |
+| Action-type entropy, static habitat | 1.589 | 2.735 | ≥ 1.600 |
+| Maximum single-action occupancy | 0.468 | 0.361 | ≤ 0.450 |
+| Cycle regularity | 0.924 | 0.366 | ≤ 0.550 |
+| Distinct objects inspected / day | 5.06 | 9.71 | ≥ 2.500 |
+| Revisitation bouts / day | 32.1 | 138.8 | ≥ 3.000 |
 | Curiosity feasible points | 0 / 27 | 27 / 27 | ≥ 1 robust |
 
 ## Where the individuality comes from
 
 Not from noise. The organism draws on one seeded random substream, consulted
 only among candidates that are already near-equal after every biological and
-learned term, and it accounts for 2.7% of scored spontaneous actions.
+learned term, and it accounts for 2.8% of scored spontaneous actions.
 
 It comes from three compounding sources:
 
@@ -173,7 +184,8 @@ It comes from three compounding sources:
 
 The history-dependence fixture isolates this from constitution entirely: two
 organisms with the *same seed* — identical traits, identical tie-break stream —
-diverge on 61% of probe ticks after different lived histories.
+diverge on 61.0% of probe ticks after different lived histories, and on 63.5% of
+ticks by target.
 
 ## How re-exploration works
 
@@ -182,13 +194,26 @@ slowly while it is neglected, and jumps when an outcome contradicts the
 expectation. Exploration appetite rises with frustration, falls with stress, and
 is damped by fear of the specific object.
 
-In the controlled reversal protocol the organism ate at the reliable source 31.1
-times a day and at the rejected one 0.13. Twenty ticks after the contingency
+In the controlled reversal protocol the organism ate at the reliable source 27.6
+times a day and never at the rejected one. Seven ticks after the contingency
 flipped it returned to the rejected source, and by the final window it was eating
-there 32.5 times a day and at the old source not at all. Preference followed:
-0.036 for the abandoned source against 0.681 for the readopted one.
+there 31.0 times a day and at the old source not at all. Preference followed:
+0.026 for the abandoned source against 0.727 for the readopted one.
 
 Nothing in that sequence is random. The trace names the driver.
+
+## Learning after remediation
+
+| Mechanism | Evidence |
+|---|---|
+| Preference formation | 0.399 for the high-payoff play object against 0.000 for the null-payoff one, under matched exposure across four seeds |
+| Preference weakening | adopted food preference 0.663 → 0.025 across a contingency reversal |
+| Preference switching | the alternative rises 0.000 → 0.748 |
+| Conditioned avoidance | fear peaked at 0.648; 12,006 ticks above the avoidance threshold |
+| Extinction | 0.401 → 0.192 once the object becomes safe, bounded below at 30% of its historical peak |
+| Habituation | 0.400 at exposure end, 0.071 after five days of non-exposure |
+| Sensitization | 0.001 → 0.321 on one strong negative event |
+| Habit | follows contingency in both directions: 0.816 → 0.004 on the source that stops paying, 0.000 → 0.735 on the one that starts |
 
 ## Why episodic history was removed
 
@@ -210,9 +235,30 @@ carried. Episodic memory needs conjunctions that a scalar per-object value canno
 represent, and a twelve-affordance habitat with one contingency per object does
 not have many.
 
+## Spontaneity attribution after remediation
+
+| Measure | D008 | D009 | Bound |
+|---|---|---|---|
+| `SubstantiveSpontaneityRate` | 0.946 | 0.891 | ≥ 0.700 |
+| `OscillatorTieBreakOnlyRate` | 0.010 | 0.028 | ≤ 0.200 |
+| Scored spontaneous actions | 1,363 | 2,154 | — |
+
+The substantive rate fell. That is the expected direction — the revised organism
+spends far more of its time in genuinely optional behaviour, so more spontaneous
+actions are close calls between comparable options — but it moved five and a half
+points and is worth watching if the candidate is revised again.
+
+`MIXED_SUBSTANTIVE` remains dominant at 1,407 of 2,154 scored actions. Most
+spontaneous behaviour is overdetermined: several mechanisms independently support
+the same choice, which is exactly why coalition attribution is used instead of
+single knockouts.
+
 ## Cohort comparison after remediation
 
-Forty virtual days, matched seed and habitat, fifteen-day window.
+Forty virtual days, matched seed and habitat, fifteen-day window. Reproduced by
+`:accelerated-sim:baselineManifest` into
+`research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt`; under D009
+these numbers came from an ad-hoc diagnostic that nothing checked.
 
 | Cohort | Entropy | Objects/day | Occupancy | Inactivity | Regularity |
 |---|---|---|---|---|---|

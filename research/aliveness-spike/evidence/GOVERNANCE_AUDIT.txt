@@ -1,68 +1,103 @@
-GOVERNANCE_AUDIT=AlivenessGovernanceAuditV1 v1
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV2 v2
 SCOPE=research governance only; no organism runtime behaviour is exercised
 
-GA-01  NOT_APPLICABLE_PRE_ATTEMPT
-   requirement: Attempt number remains within the three-attempt budget
-   detail:      attemptsConsumed=0 budget=3
-GA-02  NOT_APPLICABLE_PRE_ATTEMPT
+GA-01  PASS
+   requirement: Attempt counter exists and remains within the three-attempt budget
+   detail:      attemptsConsumed=0 budget=3 attempt=1
+GA-02  PASS
    requirement: All prior negative evidence is retained and referenced
-   detail:      no scored attempt has produced evidence yet
-GA-03  BLOCKED
-   requirement: Program success floor has not weakened
-   detail:      BLOCKED_SPEC_ALIVENESS_SUCCESS_FLOOR: the floor is an architect value judgement about how much apparent aliveness is worth the complexity, and is not derivable from A000 evidence
+   detail:      the rejected D008 candidate, its failed readouts and its empty curiosity search are retained under research/aliveness-spike/evidence/negative/D008/ and are hash-pinned bundle constituents
+GA-03  PASS
+   requirement: Programme success floor is frozen and has not weakened
+   detail:      floor=mean 10.000 points AND two-sided 0.950 CI lower bound > 0; frozen before any human data and may only become stricter
 GA-04  BLOCKED
    requirement: ScriptedPetBaselineV1 hash/version matches independently qualified evidence
-   detail:      the baseline is implemented and frozen in source, but no independent competence qualification has been run: BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+   detail:      the baseline is implemented and frozen in source, and its qualification protocol is complete and powered, but no human qualification has been run
+   blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 GA-05  BLOCKED
-   requirement: Baseline competence pilot passed its preregistered margin
-   detail:      requires a pilot-only human rater pool; no human data exists
-GA-06  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: Baseline competence qualification passed its preregistered margin
+   detail:      requires 40 independent participants and a mean margin of at least 15.000 points with a CI lower bound above zero; no human data exists
+   blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+GA-06  BLOCKED
    requirement: BlindVariancePilotV1 was prospectively registered variance-only/non-scored
-   detail:      no pilot has been registered or run
-GA-07  NOT_APPLICABLE_PRE_ATTEMPT
-   requirement: Variance-pilot participants never enter scored pools
-   detail:      no participants exist
+   detail:      the pilot is operationally ready (VARIANCE_ONLY, NON_SCORED, n=36) but registration requires an independent operator and a reviewer, neither of whom is named
+   blocks:      BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
+GA-07  PASS
+   requirement: Variance-pilot and baseline participants can never enter scored pools
+   detail:      enforced in the preregistered analysis, not only in prose: A001Analysis.screen excludes any record flagged priorNonScoredPool as PRIOR_NON_SCORED_POOL, ahead of every data-quality rule
 GA-08  NOT_APPLICABLE_PRE_ATTEMPT
    requirement: Pilot/scored status was never reclassified after data
    detail:      no data exists to reclassify
-GA-09  NOT_APPLICABLE_PRE_ATTEMPT
-   requirement: Only the permitted paired-difference SD reached the FULL team
-   detail:      no pilot output exists; no disclosure has occurred
+GA-09  PASS
+   requirement: Only the permitted paired-difference SD can reach the FULL team
+   detail:      structural: BlindVariancePilot.PilotRelease declares exactly pairedDifferenceSd and protocolValid, the sealed analysis type is private and never escapes, and BlindVariancePilotSealTest shows two pilots with opposite outcomes release byte-identical output
 GA-10  BLOCKED
-   requirement: A001FeasibilityBudgetV1 passes before recruitment/scoring
-   detail:      BLOCKED_SPEC_PAIRED_DIFFERENCE_SD: the powered sample size cannot be computed until the blind variance pilot releases pairedDifferenceSD
-GA-11  BLOCKED
-   requirement: AlivenessStudyProtocolV1 was frozen/timestamped before scored data
-   detail:      the attempt-specific protocol depends on the feasibility budget and is not authored under D008
+   requirement: A001FeasibilityBudgetV1 passes before recruitment or scoring
+   detail:      the calculator is complete and tested, but the powered sample cannot be computed until the pilot releases pairedDifferenceSd
+   blocks:      BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+GA-11  PASS
+   requirement: AlivenessStudyProtocolV1 is frozen before any scored data
+   detail:      AlivenessStudyProtocolV1 v1 frozen with instrument GradedAlivenessInstrumentV1, 600s per creature, counterbalanced order
 GA-12  PASS
-   requirement: MechanismCoalitionSetV1 / exact Shapley attribution contract is frozen
+   requirement: MechanismCoalitionSet / exact Shapley attribution contract is frozen
    detail:      groups=6 (2^k=64 <= 64, exact enumeration) valueFunction=CoalitionValueFunctionV1 attribution=SpontaneousActionAttributionV1
 GA-13  PASS
    requirement: CuriosityBalanceEnvelopeV1 proves anti-convergence and attribution on identical parameter/seed hashes
-   detail:      the search evaluates both requirements from the same run per grid point and seed, so the two readouts cannot originate from different parameterizations; the recorded result is the search's own output
+   detail:      the search evaluates both requirements from the same run per grid point and seed, so the two readouts cannot originate from different parameterizations; the recorded result is NON_EMPTY_FEASIBLE_REGION under unchanged thresholds
 GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
    requirement: MaterialChangeEligibilityV1 and independent adjudication exist for Attempts 2/3
    detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
 GA-15  BLOCKED
    requirement: IndependentReviewRosterV1 names primary/alternate/baseline-owner before Attempt 1
-   detail:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED: all three roles are unassigned
+   detail:      all three roles are unassigned; the onboarding package is complete and the roster carries no placeholder names
+   blocks:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
 GA-16  BLOCKED
    requirement: Reviewer independence/conflict declarations and any replacement cause are present
-   detail:      no reviewers are named, so no declarations can exist
+   detail:      the declaration forms and the signed-acceptance record are prepared, but no reviewer is named so no declaration can be signed
+   blocks:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
 GA-17  PASS
    requirement: Viewer/expression/interaction contract hashes match across cohorts
    detail:      every cohort renders through SpikeExpressionContractV1 v1; the contract has no cohort parameter and the viewer has no reference to Cohort
 GA-18  PASS
    requirement: Human ablation family/multiplicity plan and separate rater pools are frozen
-   detail:      family=FULL-curiosity-anticonvergence,FULL-preference-learning,FULL-episodic-history alpha=50000e-6 correction=Holm-Bonferroni raterPools=separate (plan frozen; execution requires participants)
+   detail:      family=FULL-curiosity-anticonvergence,FULL-preference-learning,FULL-outcome-uncertainty arms=3 alpha=50000e-6 correction=Holm-Bonferroni raterPools=separate
 GA-19  PASS
    requirement: Spontaneity attribution thresholds/classifier version are frozen
    detail:      substantiveFloor=700000e-6 oscillatorCeiling=200000e-6 dominantShare=500000e-6 mixedMin=150000e-6
 GA-20  PASS
    requirement: A001 is blocked while any required governance role is unassigned
-   detail:      A001_STATE=BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED, asserted from GA-15
+   detail:      asserted from GA-15: the activation state is derived from the blocking items rather than declared, so it cannot drift out of agreement with them
+GA-21  PASS
+   requirement: Participant-facing instrument wording and anchors are frozen
+   detail:      GradedAlivenessInstrumentV1 v1: one scored item, 5 labelled anchors spanning 0-100, wording frozen verbatim (not cognitively pretested; recorded as a limitation)
+GA-22  PASS
+   requirement: The primary decision rule is encoded exactly as preregistered
+   detail:      A001Analysis.classifyPrimary requires mean >= 10.000 AND ciLow > 0, and separates the two failure modes rather than collapsing them
+GA-23  PASS
+   requirement: Exclusion, technical-failure and missing-data rules are frozen before data
+   detail:      reasons=6 complete-case only, no imputation, screening order fixed so a pair is reported under the first reason that disqualified it
+GA-24  BLOCKED
+   requirement: An owner resource ceiling exists to test the powered requirement against
+   detail:      maxFundableParticipants and maxParticipantHours are funding decisions; the calculator returns a blocking state rather than assuming a ceiling
+   blocks:      BLOCKED_SPEC_STUDY_BUDGET
+GA-25  PASS
+   requirement: Participant information, consent and data-handling materials exist
+   detail:      ParticipantInformationAndConsentV1 and DataHandlingAndPrivacyV1 describe the actual procedure, the actual identifiers collected and the actual retention
+GA-26  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
+   requirement: Any required external ethical or institutional approval is in place
+   detail:      no IRB, institutional or ethics-board approval exists and none is claimed; whether one is required is a decision for the owner and the independent reviewer, not for this repository
+GA-27  PASS
+   requirement: The scored analysis pipeline is preregistered and tested before data
+   detail:      A001AnalysisV1 v1 exercised on synthetic fixtures covering pass, statistically-significant-but-not-meaningful, large-but-imprecise, negative, and corrected ablation significance and non-significance
 
-PASS=6 NOT_APPLICABLE_PRE_ATTEMPT=6 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=1 BLOCKED=7 
+PASS=17 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=7 
 A001_PROGRAM_STATE=ALIVENESS_UNTESTED
-A001_ACTIVATION=BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+HUMAN_SCORED_RECRUITMENT=BLOCKED
+OUTSTANDING_BLOCKERS=5
+  BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+  BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
+  BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+  BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+  BLOCKED_SPEC_STUDY_BUDGET
 

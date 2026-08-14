@@ -261,3 +261,33 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Affected areas: research/aliveness-spike/cohorts/DecisionTrace.kt, research/aliveness-spike/cohorts/Organism.kt, research/aliveness-spike/study-protocol/, governance/release-gates/A000_EXIT_GATE.md
 - Supersedes record: none
 
+## DEC-0025
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0025
+- Status: ACTIVE
+- Decision or event: The architect preregistered FULL minus outcome uncertainty and directed re-exploration as the replacement third human ablation arm, restoring the Attempt-1 family to three arms under Holm-Bonferroni at family-wise error rate 0.05.
+- Rationale: The episodic arm was retired under DEC-0024 when the mechanism left FULL. Directed re-exploration became load-bearing for the aliveness thesis under D009, because it is what lets an organism return to a rejected option after outcome evidence changes rather than by chance, so it is the mechanism whose human contribution most needs testing. The choice was the architect's and was made before any human data existed.
+- Affected areas: research/aliveness-spike/cohorts/DecisionTrace.kt, research/aliveness-spike/analysis/, research/aliveness-spike/study-protocol/, qualification/fixtures/A000/
+- Supersedes record: none
+
+## DEC-0026
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0026
+- Status: ACTIVE
+- Decision or event: The programme-level aliveness success floor is frozen at a mean paired difference of at least ten points on the zero-to-one-hundred graded instrument with a two-sided ninety-five percent confidence interval lower bound above zero, at alpha 0.05 and power 0.80, with a thirty-six participant blind variance pilot and a forty participant baseline qualification carrying a fifteen-point competence margin.
+- Rationale: The floor clears BLOCKED_SPEC_ALIVENESS_SUCCESS_FLOOR, which had been open since D008. It was set by the architect before any human data existed, which is the only point at which setting it is honest. It is two conditions rather than one because a p-value alone would let a trivial well-powered difference authorize R003 through R009, and a point estimate alone would let an unresolved sample do the same. The floor may become stricter or stay equivalent after Attempt 1 begins and may never become easier.
+- Affected areas: research/aliveness-spike/study-protocol/, research/aliveness-spike/analysis/, governance/release-gates/A001_ACTIVATION_GATE.md
+- Supersedes record: none
+
+## DEC-0027
+
+- Date: 2026-08-13
+- Record or decision ID: DEC-0027
+- Status: ACTIVE
+- Decision or event: Figures quoted in the D009 completion report and in several D009 prose documents were reconciled against the frozen kernel evidence, and the A000 fixture set moved to version three with a new golden digest.
+- Rationale: The D009 narrative carried decimals from an intermediate kernel run rather than the final frozen one. Every finding, direction and verdict was and remains correct, and the committed evidence file was authoritative throughout, but the prose disagreed with it. The digest itself moved for a separate and disclosed reason, namely that D010 added the preregistered third ablation cohort and the cohort-parity fixture covers every cohort. No organism behaviour changed and all twenty-four findings still hold.
+- Affected areas: qualification/fixtures/A000/, qualification/longitudinal/A000/ACCELERATED_FINDINGS.md, governance/release-gates/A000_EXIT_GATE.md, research/aliveness-spike/study-protocol/SpontaneousActionAttributionV1.md
+- Supersedes record: none
+

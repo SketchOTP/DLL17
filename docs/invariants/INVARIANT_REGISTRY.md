@@ -50,6 +50,11 @@ where it is enforced today.
 | INV-0041 | No single action or object can take an unbounded share of the organism's time. | `MechanismRevisionD009` | Three independent bounds: action satiation, a per-object engagement refractory, and a metabolic cost for vigorous activity. |
 | INV-0042 | A mechanism that does not measurably earn its place is removed from the candidate, not retained. | Canonical Principle 11 | Episodic history was revised, measured over a five-seed matrix, and removed when the revision still did not contribute. |
 
+| INV-0043 | The quantity released from a non-scored pilot to the team that runs the scored study must be invariant to the direction of the pilot's result. | `BlindVariancePilotV1` | Enforced by type visibility and proven by two pilots with opposite outcomes releasing byte-identical output. |
+| INV-0044 | A study prerequisite that is missing names its own blocking state; the activation gate is derived from the prerequisites and never declared beside them. | `AlivenessGovernanceAuditV2` | A declared gate drifts permissive. `GovernanceAuditTest` proves the derivation opens and closes correctly. |
+| INV-0045 | A programme success floor may become stricter or stay equivalent after an attempt begins. It may never become easier. | `AlivenessProgramGateV1` | Frozen at +10.0 points with a CI condition before any human data existed, and pinned by test. |
+| INV-0046 | Synthetic fixture data may demonstrate that an analysis works. It may never be recorded, cited or bundled as scientific evidence about the organism. | D010 | Every dry-run scenario is marked `SYNTHETIC`, and the output is filed under research evidence rather than under qualification. |
+
 ### R002 note
 
 INV-0016 through INV-0033 are continuity invariants. None of them is a
@@ -67,4 +72,11 @@ behaviour, and none of them is evidence that a mechanism works.
 
 INV-0040 through INV-0042 constrain the A000 research candidate. They are not
 production invariants and do not authorize any R003–R009 mechanism.
+
+### D010 note
+
+INV-0043 through INV-0046 constrain the A001 study machinery: what may cross the
+variance-pilot barrier, how the activation gate is computed, which direction a
+success floor may move, and what synthetic data may be used for. None of them
+asserts anything about the organism, and none is evidence that it works.
 

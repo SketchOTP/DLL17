@@ -1,0 +1,14 @@
+# Full clean build, D010
+
+$ ./gradlew clean build
+> Task :android-host:createReleaseApkListingFileRedirect
+> Task :android-host:assembleRelease
+> Task :android-host:assemble
+> Task :android-host:build
+
+BUILD SUCCESSFUL in 5s
+153 actionable tasks: 74 executed, 78 from cache, 1 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.0/userguide/configuration_cache_enabling.html
+
+JVM test totals across all modules:
+  tests=285 failures=0 errors=0

@@ -147,6 +147,29 @@ jobs:
             exit 1
           fi
 
+      # The A001 activation package must stay reproducible and must stay shut.
+      # Both committed evidence files are regenerated and compared byte for byte,
+      # so a change to the preregistered analysis, the instrument wording or the
+      # comparator cannot land without the evidence moving with it. The audit
+      # assertions are the ones that matter most: if a future change ever makes
+      # this step report recruitment as permitted, that is the alarm.
+      - name: A001 activation package
+        run: |
+          ./gradlew :research:aliveness-spike:analysis:a001DryRun --no-daemon --quiet \
+            > a001_dry_run.txt
+          ./gradlew :research:aliveness-spike:accelerated-sim:baselineManifest \
+            --no-daemon --quiet > baseline_manifest.txt
+          diff -u research/aliveness-spike/evidence/A001_ACTIVATION_DRY_RUN.txt \
+            a001_dry_run.txt
+          diff -u research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt \
+            baseline_manifest.txt
+          grep -q 'HUMAN_SCORED_RECRUITMENT=BLOCKED' a001_dry_run.txt \
+            || { echo '::error::A001 recruitment is no longer reported as blocked'; exit 1; }
+          grep -q 'releasedFields=pairedDifferenceSd,protocolValid' a001_dry_run.txt \
+            || { echo '::error::the variance-pilot release schema changed'; exit 1; }
+          grep -q 'identicalRelease=true' a001_dry_run.txt \
+            || { echo '::error::the variance-pilot channel leaks the direction of the result'; exit 1; }
+
       - name: Android instrumented test assembly
         run: ./gradlew :android-host:assembleDebugAndroidTest --no-daemon
 

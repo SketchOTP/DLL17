@@ -1,0 +1,9 @@
+# A000 kernel reproduction under the D010 cohort set
+
+$ ./gradlew :research:aliveness-spike:accelerated-sim:run
+  HELD     AX-COHORT-PARITY-01  Does every cohort render through the same frozen presentation contract?
+           cohorts=7 posturesUsed=6 expressionsUsed=7 microUsed=10 vocabularyRespected=true
+
+held=24 notHeld=0 total=24
+A000_EVIDENCE_DIGEST=9462e43622c414db47c28a2e79452455bc0d6642396dd5ca8d65bae208b3114a
+

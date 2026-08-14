@@ -341,6 +341,105 @@ A000_CONSTITUENTS: list[tuple[str, list[str]]] = [
 ]
 
 
+A001PRE_CONSTITUENTS: list[tuple[str, list[str]]] = [
+    (
+        "Study protocol and instrument",
+        [
+            "research/aliveness-spike/study-protocol/AlivenessStudyProtocolV1.md",
+            "research/aliveness-spike/study-protocol/GradedAlivenessInstrumentV1.md",
+            "research/aliveness-spike/study-protocol/AlivenessProgramGateV1.md",
+        ],
+    ),
+    (
+        "Comparator qualification",
+        [
+            "research/aliveness-spike/study-protocol/BaselineQualificationProtocolV1.md",
+            "research/aliveness-spike/study-protocol/ScriptedPetBaselineV1.md",
+            "research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt",
+            "research/aliveness-spike/accelerated-sim/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/sim/BaselineCoverageManifest.kt",
+        ],
+    ),
+    (
+        "Sealed variance pilot and feasibility",
+        [
+            "research/aliveness-spike/study-protocol/BlindVariancePilotV1.md",
+            "research/aliveness-spike/study-protocol/A001FeasibilityBudgetV1.md",
+            "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/BlindVariancePilot.kt",
+            "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001FeasibilityBudget.kt",
+        ],
+    ),
+    (
+        "Preregistered analysis",
+        [
+            "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001StudyContract.kt",
+            "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001Analysis.kt",
+            "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/Statistics.kt",
+            "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001DryRun.kt",
+            "research/aliveness-spike/analysis/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/StatisticsTest.kt",
+            "research/aliveness-spike/analysis/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001AnalysisTest.kt",
+            "research/aliveness-spike/analysis/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001StudyContractTest.kt",
+            "research/aliveness-spike/analysis/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001FeasibilityBudgetTest.kt",
+            "research/aliveness-spike/analysis/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/BlindVariancePilotSealTest.kt",
+        ],
+    ),
+    (
+        "Participants and independent review",
+        [
+            "research/aliveness-spike/study-protocol/ParticipantInformationAndConsentV1.md",
+            "research/aliveness-spike/study-protocol/DataHandlingAndPrivacyV1.md",
+            "research/aliveness-spike/study-protocol/IndependentReviewOnboardingV1.md",
+            "research/aliveness-spike/study-protocol/IndependentReviewRosterV1.md",
+            "research/aliveness-spike/study-protocol/MaterialChangeEligibilityV1.md",
+        ],
+    ),
+    (
+        "Activation audit",
+        [
+            "research/aliveness-spike/study-protocol/AlivenessGovernanceAuditV1.md",
+            "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/AlivenessGovernanceAudit.kt",
+            "research/aliveness-spike/analysis/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/GovernanceAuditTest.kt",
+            "research/aliveness-spike/evidence/GOVERNANCE_AUDIT.txt",
+        ],
+    ),
+    (
+        "Synthetic dry-run evidence",
+        ["research/aliveness-spike/evidence/A001_ACTIVATION_DRY_RUN.txt"],
+    ),
+    (
+        "Validation evidence",
+        [
+            "qualification/evidence/A001PRE/governance_validation.txt",
+            "qualification/evidence/A001PRE/project_identity.txt",
+            "qualification/evidence/A001PRE/gradle_build.txt",
+            "qualification/evidence/A001PRE/a000_kernel.txt",
+            "qualification/evidence/A001PRE/toolchain_environment.txt",
+        ],
+    ),
+    (
+        "Isolation and CI",
+        [
+            "settings.gradle.kts",
+            "research/aliveness-spike/analysis/build.gradle.kts",
+            "research/aliveness-spike/accelerated-sim/build.gradle.kts",
+            "research/aliveness-spike/cohorts/src/test/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeIsolationTest.kt",
+            CI_WORKFLOW,
+        ],
+    ),
+    (
+        "Reconciled A000 carry-forward",
+        [
+            "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/DecisionTrace.kt",
+            "research/aliveness-spike/accelerated-sim/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/sim/A000QualificationKernel.kt",
+            "qualification/fixtures/A000/GOLDEN_VECTORS.md",
+            "qualification/fixtures/A000/A000_REPORT.txt",
+            "qualification/longitudinal/A000/ACCELERATED_FINDINGS.md",
+            "governance/release-gates/A000_EXIT_GATE.md",
+        ],
+    ),
+    ("Gate record", ["governance/release-gates/A001_ACTIVATION_GATE.md"]),
+]
+
+
 class PhaseSpec:
     def __init__(
         self,
@@ -408,6 +507,20 @@ PHASES: dict[str, PhaseSpec] = {
         bundle_version="A000-QB-2",
         bundle_path="governance/qualification/A000_QUALIFICATION_BUNDLE.md",
         constituents=A000_CONSTITUENTS,
+        # A000 closed under D009 at this commit and the architect accepted it.
+        # Pinned for the same reason R000, R001 and R002 are: D010 legitimately
+        # edits A000 artifacts — the kernel gains a preregistered ablation cohort
+        # and the gate record gains a figure reconciliation — and a gate that has
+        # already passed must not depend on what a later directive does.
+        frozen_at_commit="4a2b1e4c7ce1326b5c8d5b08d873df7f581186d7",
+    ),
+    "A001PRE": PhaseSpec(
+        phase="A001PRE",
+        title="A001 activation package, prepared without human data",
+        directive="D010",
+        bundle_version="A001PRE-QB-1",
+        bundle_path="governance/qualification/A001_ACTIVATION_PACKAGE_BUNDLE.md",
+        constituents=A001PRE_CONSTITUENTS,
         frozen_at_commit=None,
     ),
 }

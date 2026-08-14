@@ -5,8 +5,9 @@
 | R000 | Greenfield project initialization | `governance/qualification/R000_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D005. Gate record: `governance/release-gates/R000_EXIT_GATE.md`. |
 | R001 | Deterministic fixed-point spike | `governance/qualification/R001_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D006. The determinism-matrix criterion rests on evidence plus the 2026-08-13 canonical amendment that made Snapdragon optional. Gate record: `governance/release-gates/R001_EXIT_GATE.md`. |
 | R002 | Lifecycle, durability, trusted time, reconciliation | `governance/qualification/R002_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D007. Gate record: `governance/release-gates/R002_EXIT_GATE.md`. |
-| A000 | Aliveness spike | `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | `COMPLETE` under D008. Research track, not a production gate: it produced a documented viability result including five negative findings. Gate record: `governance/release-gates/A000_EXIT_GATE.md`. |
-| A001 | Aliveness gate | none | `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`, and additionally blocked on the independent reviewer's determination for the empty curiosity-envelope feasible set. |
+| A000 | Aliveness spike | `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | `COMPLETE` under D008 and D009. Research track, not a production gate. D008 returned five negative findings and an empty curiosity feasible region; D009 remediated the candidate under unchanged thresholds and all 24 findings now hold. Gate record: `governance/release-gates/A000_EXIT_GATE.md`. Pinned to `4a2b1e4c7ce1326b5c8d5b08d873df7f581186d7`. |
+| A001-PRE | Activation package | `governance/qualification/A001_ACTIVATION_PACKAGE_BUNDLE.md` | `COMPLETE` under D010. The study protocol, instrument, comparator manifest, sealed pilot, feasibility calculator, analysis pipeline, participant materials and reviewer onboarding, all prepared without human data. Gate record: `governance/release-gates/A001_ACTIVATION_GATE.md`. |
+| A001 | Aliveness gate | none | `BLOCKED`. Five outstanding blockers, none clearable by code: unqualified baseline, unregistered variance pilot, no released paired-difference SD, three unassigned reviewer roles, no owner resource ceiling. |
 
 ## R000 evidence layout
 
@@ -62,7 +63,13 @@ Once a phase's gate closes, its bundle is pinned in
 `tools/build_qualification_bundle.py` to the commit that was qualified, and
 verification reads that commit's blobs rather than the working tree. A closed
 gate must not be breakable by a later phase editing a shared build file or
-registry. R000 is pinned to `43054d0a2a210bc48563cc81016d6083bff2a182`.
+registry. R000 is pinned to `43054d0a2a210bc48563cc81016d6083bff2a182`, R001 to
+`e442e1478deed9e70f5f2b547c92071ba8bce6ff`, R002 to
+`7f6f37fabba6a5ad4af2fd517e62cb4c08dbfeb2` and A000 to
+`4a2b1e4c7ce1326b5c8d5b08d873df7f581186d7`. A000 was pinned under D010 for
+exactly this reason: D010 adds the preregistered third ablation cohort to the
+kernel and reconciles figures in the gate record, both of which are A000
+constituents.
 
 ## A000 evidence layout
 
@@ -76,16 +83,36 @@ architecture amendment, newly frozen production contract.
 | Path | Contents |
 |---|---|
 | `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | Hashed manifest binding the research contracts, implementation, isolation boundary and evidence. |
-| `research/aliveness-spike/study-protocol/` | The fifteen A000/A001 research contracts with their exact `FROZEN` / `READY_FOR_HUMAN_EVIDENCE` / `BLOCKED_*` status. |
+| `research/aliveness-spike/study-protocol/` | The twenty A000/A001 research contracts with their exact `FROZEN` / `READY_FOR_HUMAN_EVIDENCE` / `BLOCKED_*` status. |
 | `qualification/fixtures/A000/` | `A000-FIXTURES-V1` golden vectors and the full kernel report including sample decision traces. |
 | `qualification/longitudinal/A000/` | The accelerated research findings, positive and negative. |
-| `research/aliveness-spike/evidence/` | Curiosity-envelope feasibility search output and the executable governance audit. |
+| `research/aliveness-spike/evidence/` | Curiosity-envelope feasibility search output, the executable governance audit, the baseline coverage manifest, the synthetic A001 dry run, and the preserved D008 negative evidence. |
 | `qualification/evidence/A000/` | Governance validation, identity check, build, kernel run, toolchain environment. |
 
 ## Why A000 has no pass/fail gate
 
 R000, R001 and R002 each answer "does the implementation meet a frozen
 contract?", which has a yes or no. A000 asks "is this hypothesis worth
-testing?", which does not. Five of its twenty-two findings did not hold, and
-the joint curiosity-envelope feasible set is empty. Those are results, recorded
-with their configurations, not failures to be fixed before the track can close.
+testing?", which does not.
+
+Under D008 five of twenty-two findings did not hold and the joint
+curiosity-envelope feasible set was empty. Those were results, recorded with
+their configurations, not failures to be hidden — and they are retained in full
+under `research/aliveness-spike/evidence/negative/D008/`. Under D009 the
+candidate was revised against them, under unchanged thresholds, and all
+twenty-four findings hold with twenty-seven of twenty-seven feasible grid
+points. Both records stand; the second does not erase the first.
+
+## A001 pre-activation evidence layout
+
+| Path | Contents |
+|---|---|
+| `governance/qualification/A001_ACTIVATION_PACKAGE_BUNDLE.md` | Hashed manifest binding the protocol, instrument, comparator manifest, sealed pilot, feasibility calculator, analysis pipeline, participant materials and reviewer onboarding. |
+| `research/aliveness-spike/evidence/A001_ACTIVATION_DRY_RUN.txt` | **Synthetic.** Every branch of the preregistered analysis, the sealed pilot channel, the feasibility calculator and the activation audit. Engineering evidence that the pipeline works; never evidence about the organism. |
+| `research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt` | The complete disclosure of the scripted comparator, generated from its implementation. |
+| `research/aliveness-spike/evidence/GOVERNANCE_AUDIT.txt` | The 27-item activation audit and its five outstanding blockers. |
+| `qualification/evidence/A001PRE/` | Governance validation, identity check, build, kernel reproduction, toolchain environment. |
+
+**No human outcome data exists anywhere in this repository.** Everything in the
+A001 pre-activation layout is either a specification or synthetic fixture data,
+and the synthetic data is marked as such on every line it appears.

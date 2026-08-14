@@ -340,14 +340,20 @@ public open class ScriptedPetAgent(
         tick = tick,
     )
 
-    protected companion object {
-        val HUNGER_ACT: Long = FixedPoint.of(0L, 520_000L)
-        val FATIGUE_ACT: Long = FixedPoint.of(0L, 620_000L)
-        val FATIGUE_REST: Long = FixedPoint.of(0L, 450_000L)
-        val ATTENTION_ACT: Long = FixedPoint.of(0L, 560_000L)
+    /**
+     * Public under D010 so `BaselineCoverageManifest` can disclose the entire
+     * authored baseline — every threshold, every script entry, every reaction —
+     * to the independent owner who has to judge whether it is a fair comparator.
+     * A baseline whose contents are only described in prose cannot be audited.
+     */
+    public companion object {
+        public val HUNGER_ACT: Long = FixedPoint.of(0L, 520_000L)
+        public val FATIGUE_ACT: Long = FixedPoint.of(0L, 620_000L)
+        public val FATIGUE_REST: Long = FixedPoint.of(0L, 450_000L)
+        public val ATTENTION_ACT: Long = FixedPoint.of(0L, 560_000L)
 
         /** Broad authored idle/play coverage: the strong baseline. */
-        val BASELINE_SCRIPT: List<Pair<SpikeAction, HabitatObject?>> = listOf(
+        public val BASELINE_SCRIPT: List<Pair<SpikeAction, HabitatObject?>> = listOf(
             SpikeAction.PLAY to HabitatObject.PLAY_BALL,
             SpikeAction.EXPLORE to HabitatObject.PLAY_CUBE,
             SpikeAction.OBSERVE to HabitatObject.PLAY_CHIME,
@@ -365,7 +371,7 @@ public open class ScriptedPetAgent(
         )
 
         /** Deliberately narrow: the degraded control used only for baseline qualification. */
-        val DEGRADED_SCRIPT: List<Pair<SpikeAction, HabitatObject?>> = listOf(
+        public val DEGRADED_SCRIPT: List<Pair<SpikeAction, HabitatObject?>> = listOf(
             SpikeAction.IDLE_VARIATION to null,
             SpikeAction.OBSERVE to HabitatObject.PLAY_BALL,
             SpikeAction.IDLE_VARIATION to null,

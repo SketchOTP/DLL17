@@ -1,0 +1,354 @@
+A001_DRY_RUN=A001DryRunV1
+DATA_CLASS=SYNTHETIC — no human has rated anything; this is engineering
+           evidence that the preregistered pipeline behaves as written,
+           and is not scientific evidence about the organism.
+protocol=AlivenessStudyProtocolV1 v1  analysis=A001AnalysisV1 v1
+
+GradedAlivenessInstrumentV1 v1
+PREAMBLE: You have just spent ten minutes with this creature. There are no right or wrong answers, and you are not being tested. We are asking about your impression of the creature, not about the graphics, the sound, or the software.
+
+ITEM: How alive did this creature seem to you? Move the slider to any point between 0 and 100.
+
+ANCHORS (0-100, continuous slider; anchors shown, intermediate values allowed)
+    0  Not alive at all
+       It seemed like a moving picture or a machine running a sequence. Nothing it did came from the creature itself.
+   25  Slightly alive
+       It reacted to me sometimes, but what it did next never seemed to come from anything of its own.
+   50  Somewhat alive
+       It seemed to have some states of its own — it wanted things at some moments and not others — but I could usually see what it would do.
+   75  Mostly alive
+       It seemed to have its own interests and moods. It sometimes did things I did not expect, and those things still made sense for it.
+  100  Completely alive
+       It seemed like a creature with its own inner life, going about its own business, that I happened to be visiting.
+
+SECONDARY (after the second creature only)
+  Thinking about both creatures you met: which one seemed more alive to you? (First / Second)
+  Did the two creatures seem like the same kind of creature, or two different kinds? (Same / Different)
+
+================================================================
+SCENARIO PRIMARY_PASS   [SYNTHETIC]
+intent: a clear effect above the +10 floor with an interval well clear of zero, and an ablation family where two arms survive Holm correction and one does not
+
+A001AnalysisV1 v1  protocol=AlivenessStudyProtocolV1 v1
+screening: included=240 excluded=0
+
+PRIMARY  PairedAlivenessDifference (FULL - ScriptedPetBaselineV1)
+  n=60 mean=16.000 sd=18.000 t=6.885 df=59.000 p=0.000000
+  95% CI [11.350, 20.650]
+  rule: mean >= 10.000 AND ciLow > 0
+  practicalFloorMet=true intervalExcludesZero=true
+  CLASSIFICATION=PASS
+
+SECONDARY  forced choice (cannot rescue a failed primary)
+  n=60 preferredFULL=49 proportion=0.817 exactP=0.000001
+
+ABLATION FAMILY  Holm-Bonferroni, FWER=0.050, arms=3
+  FULL-curiosity-anticonvergence
+    n=60 mean=14.000 95% CI [9.350, 18.650] rawP=0.000000 holmP=0.000000
+    MECHANISM_CONTRIBUTION_DEMONSTRATED
+  FULL-preference-learning
+    n=60 mean=12.000 95% CI [7.350, 16.650] rawP=0.000003 holmP=0.000006
+    MECHANISM_CONTRIBUTION_DEMONSTRATED
+  FULL-outcome-uncertainty
+    n=60 mean=2.000 95% CI [-2.650, 6.650] rawP=0.392908 holmP=0.392908
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+
+ATTEMPT_OUTCOME=A001_ATTEMPT_1_PASS
+
+================================================================
+SCENARIO PRIMARY_FAIL_NOT_PRACTICALLY_MEANINGFUL   [SYNTHETIC]
+intent: statistically unambiguous and substantively trivial: the interval excludes zero, and the effect is a quarter of the floor
+
+A001AnalysisV1 v1  protocol=AlivenessStudyProtocolV1 v1
+screening: included=380 excluded=0
+
+PRIMARY  PairedAlivenessDifference (FULL - ScriptedPetBaselineV1)
+  n=200 mean=2.500 sd=9.000 t=3.928 df=199.000 p=0.000118
+  95% CI [1.245, 3.755]
+  rule: mean >= 10.000 AND ciLow > 0
+  practicalFloorMet=false intervalExcludesZero=true
+  CLASSIFICATION=FAIL_NOT_PRACTICALLY_MEANINGFUL
+
+SECONDARY  forced choice (cannot rescue a failed primary)
+  n=200 preferredFULL=122 proportion=0.610 exactP=0.002279
+
+ABLATION FAMILY  Holm-Bonferroni, FWER=0.050, arms=3
+  FULL-curiosity-anticonvergence
+    n=60 mean=1.000 95% CI [-1.325, 3.325] rawP=0.392908 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+  FULL-preference-learning
+    n=60 mean=0.500 95% CI [-1.825, 2.825] rawP=0.668522 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+  FULL-outcome-uncertainty
+    n=60 mean=0.200 95% CI [-2.125, 2.525] rawP=0.863922 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+
+ATTEMPT_OUTCOME=A001_ATTEMPT_1_FAIL
+
+================================================================
+SCENARIO PRIMARY_FAIL_IMPRECISE   [SYNTHETIC]
+intent: practically large and statistically unresolved: the point estimate clears the floor and the interval still contains zero
+
+A001AnalysisV1 v1  protocol=AlivenessStudyProtocolV1 v1
+screening: included=56 excluded=0
+
+PRIMARY  PairedAlivenessDifference (FULL - ScriptedPetBaselineV1)
+  n=14 mean=12.000 sd=34.000 t=1.321 df=13.000 p=0.209417
+  95% CI [-7.631, 31.631]
+  rule: mean >= 10.000 AND ciLow > 0
+  practicalFloorMet=true intervalExcludesZero=false
+  CLASSIFICATION=FAIL_IMPRECISE
+
+SECONDARY  forced choice (cannot rescue a failed primary)
+  n=14 preferredFULL=9 proportion=0.643 exactP=0.423950
+
+ABLATION FAMILY  Holm-Bonferroni, FWER=0.050, arms=3
+  FULL-curiosity-anticonvergence
+    n=14 mean=3.000 95% CI [-16.631, 22.631] rawP=0.746549 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+  FULL-preference-learning
+    n=14 mean=2.000 95% CI [-17.631, 21.631] rawP=0.829214 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+  FULL-outcome-uncertainty
+    n=14 mean=1.000 95% CI [-18.631, 20.631] rawP=0.914051 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+
+ATTEMPT_OUTCOME=A001_ATTEMPT_1_FAIL
+
+================================================================
+SCENARIO PRIMARY_FAIL_NULL_OR_NEGATIVE   [SYNTHETIC]
+intent: the outright negative result: the scripted baseline is rated more alive than FULL
+
+A001AnalysisV1 v1  protocol=AlivenessStudyProtocolV1 v1
+screening: included=240 excluded=0
+
+PRIMARY  PairedAlivenessDifference (FULL - ScriptedPetBaselineV1)
+  n=60 mean=-6.000 sd=16.000 t=-2.905 df=59.000 p=0.005166
+  95% CI [-10.133, -1.867]
+  rule: mean >= 10.000 AND ciLow > 0
+  practicalFloorMet=false intervalExcludesZero=false
+  CLASSIFICATION=FAIL_NULL_OR_NEGATIVE
+
+SECONDARY  forced choice (cannot rescue a failed primary)
+  n=60 preferredFULL=21 proportion=0.350 exactP=0.027340
+
+ABLATION FAMILY  Holm-Bonferroni, FWER=0.050, arms=3
+  FULL-curiosity-anticonvergence
+    n=60 mean=0.500 95% CI [-3.633, 4.633] rawP=0.809572 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+  FULL-preference-learning
+    n=60 mean=-1.000 95% CI [-5.133, 3.133] rawP=0.630091 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+  FULL-outcome-uncertainty
+    n=60 mean=-0.000 95% CI [-4.133, 4.133] rawP=1.000000 holmP=1.000000
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+
+ATTEMPT_OUTCOME=A001_ATTEMPT_1_FAIL
+
+================================================================
+SCENARIO SCREENING_AND_MISSING_DATA   [SYNTHETIC]
+intent: every exclusion route exercised at once, with the surviving complete cases analysed and nothing imputed
+
+A001AnalysisV1 v1  protocol=AlivenessStudyProtocolV1 v1
+screening: included=160 excluded=6
+  DUPLICATE_PARTICIPANT=1
+  PRIOR_NON_SCORED_POOL=1
+  TECHNICAL_FAILURE=1
+  INCOMPLETE_SESSION=1
+  MISSING_SCORE=1
+  SCORE_OUT_OF_RANGE=1
+
+PRIMARY  PairedAlivenessDifference (FULL - ScriptedPetBaselineV1)
+  n=40 mean=14.000 sd=17.000 t=5.208 df=39.000 p=0.000006
+  95% CI [8.563, 19.437]
+  rule: mean >= 10.000 AND ciLow > 0
+  practicalFloorMet=true intervalExcludesZero=true
+  CLASSIFICATION=PASS
+
+SECONDARY  forced choice (cannot rescue a failed primary)
+  n=40 preferredFULL=32 proportion=0.800 exactP=0.000182
+
+ABLATION FAMILY  Holm-Bonferroni, FWER=0.050, arms=3
+  FULL-curiosity-anticonvergence
+    n=40 mean=11.000 95% CI [5.563, 16.437] rawP=0.000208 holmP=0.000623
+    MECHANISM_CONTRIBUTION_DEMONSTRATED
+  FULL-preference-learning
+    n=40 mean=9.000 95% CI [3.563, 14.437] rawP=0.001811 holmP=0.003623
+    MECHANISM_CONTRIBUTION_DEMONSTRATED
+  FULL-outcome-uncertainty
+    n=40 mean=3.000 95% CI [-2.437, 8.437] rawP=0.271210 holmP=0.271210
+    MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+
+ATTEMPT_OUTCOME=A001_ATTEMPT_1_PASS
+
+================================================================
+SEALED VARIANCE-PILOT CHANNEL   [SYNTHETIC]
+Two pilots built to disagree completely about direction and to share a
+dispersion. If the released output can tell them apart, the barrier leaks.
+
+pilot A (synthetic mean difference +22.000):
+BlindVariancePilotV1 v1 RELEASE
+  pairedDifferenceSd=14.000000
+  protocolValid=true
+  withheld: mean difference, sign, cohort means, per-participant
+            differences, subgroup effects, forced-choice results,
+            comparative comments, raw recordings
+pilot B (synthetic mean difference -22.000):
+BlindVariancePilotV1 v1 RELEASE
+  pairedDifferenceSd=14.000000
+  protocolValid=true
+  withheld: mean difference, sign, cohort means, per-participant
+            differences, subgroup effects, forced-choice results,
+            comparative comments, raw recordings
+identicalRelease=true
+releasedFields=pairedDifferenceSd,protocolValid
+
+================================================================
+FEASIBILITY BUDGET
+
+with no pilot and no ceiling (the real current state):
+A001FeasibilityBudgetV1 v1
+  alpha=0.050 power=0.800 minimumWorthwhileDifference=10.000 sdInflation=1.250
+  releasedSd=UNAVAILABLE inflatedSd=UNAVAILABLE
+  requiredPairsPrimary=UNAVAILABLE requiredPairsPerAblationArm=UNAVAILABLE
+  totalRequiredParticipants=UNAVAILABLE totalRequiredParticipantHours=UNAVAILABLE
+  ownerCeiling=UNRESOLVED
+  STATE=BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+  detail: no pilot release exists; BlindVariancePilotV1 has not run
+
+with a SYNTHETIC pilot release and still no owner ceiling:
+A001FeasibilityBudgetV1 v1
+  alpha=0.050 power=0.800 minimumWorthwhileDifference=10.000 sdInflation=1.250
+  releasedSd=14.000000 inflatedSd=17.500000
+  requiredPairsPrimary=27 requiredPairsPerAblationArm=35
+  totalRequiredParticipants=132 totalRequiredParticipantHours=81.400
+  ownerCeiling=UNRESOLVED
+  STATE=BLOCKED_SPEC_STUDY_BUDGET
+  detail: the powered requirement is computable, but no owner resource ceiling exists to compare it against
+
+with a SYNTHETIC pilot release and a SYNTHETIC generous ceiling:
+A001FeasibilityBudgetV1 v1
+  alpha=0.050 power=0.800 minimumWorthwhileDifference=10.000 sdInflation=1.250
+  releasedSd=14.000000 inflatedSd=17.500000
+  requiredPairsPrimary=27 requiredPairsPerAblationArm=35
+  totalRequiredParticipants=132 totalRequiredParticipantHours=81.400
+  ownerCeiling=participants=400 participantHours=400.000
+  STATE=A001_FEASIBLE
+  detail: the powered requirement fits the frozen owner ceiling
+
+with a SYNTHETIC pilot release and a SYNTHETIC tight ceiling:
+A001FeasibilityBudgetV1 v1
+  alpha=0.050 power=0.800 minimumWorthwhileDifference=10.000 sdInflation=1.250
+  releasedSd=14.000000 inflatedSd=17.500000
+  requiredPairsPrimary=27 requiredPairsPerAblationArm=35
+  totalRequiredParticipants=132 totalRequiredParticipantHours=81.400
+  ownerCeiling=participants=40 participantHours=20.000
+  STATE=A001_NOT_FEASIBLE
+  detail: the powered requirement exceeds the frozen owner ceiling; Attempt 1 must be redesigned rather than run underpowered
+
+================================================================
+ACTIVATION AUDIT
+
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV2 v2
+SCOPE=research governance only; no organism runtime behaviour is exercised
+
+GA-01  PASS
+   requirement: Attempt counter exists and remains within the three-attempt budget
+   detail:      attemptsConsumed=0 budget=3 attempt=1
+GA-02  PASS
+   requirement: All prior negative evidence is retained and referenced
+   detail:      the rejected D008 candidate, its failed readouts and its empty curiosity search are retained under research/aliveness-spike/evidence/negative/D008/ and are hash-pinned bundle constituents
+GA-03  PASS
+   requirement: Programme success floor is frozen and has not weakened
+   detail:      floor=mean 10.000 points AND two-sided 0.950 CI lower bound > 0; frozen before any human data and may only become stricter
+GA-04  BLOCKED
+   requirement: ScriptedPetBaselineV1 hash/version matches independently qualified evidence
+   detail:      the baseline is implemented and frozen in source, and its qualification protocol is complete and powered, but no human qualification has been run
+   blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+GA-05  BLOCKED
+   requirement: Baseline competence qualification passed its preregistered margin
+   detail:      requires 40 independent participants and a mean margin of at least 15.000 points with a CI lower bound above zero; no human data exists
+   blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+GA-06  BLOCKED
+   requirement: BlindVariancePilotV1 was prospectively registered variance-only/non-scored
+   detail:      the pilot is operationally ready (VARIANCE_ONLY, NON_SCORED, n=36) but registration requires an independent operator and a reviewer, neither of whom is named
+   blocks:      BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
+GA-07  PASS
+   requirement: Variance-pilot and baseline participants can never enter scored pools
+   detail:      enforced in the preregistered analysis, not only in prose: A001Analysis.screen excludes any record flagged priorNonScoredPool as PRIOR_NON_SCORED_POOL, ahead of every data-quality rule
+GA-08  NOT_APPLICABLE_PRE_ATTEMPT
+   requirement: Pilot/scored status was never reclassified after data
+   detail:      no data exists to reclassify
+GA-09  PASS
+   requirement: Only the permitted paired-difference SD can reach the FULL team
+   detail:      structural: BlindVariancePilot.PilotRelease declares exactly pairedDifferenceSd and protocolValid, the sealed analysis type is private and never escapes, and BlindVariancePilotSealTest shows two pilots with opposite outcomes release byte-identical output
+GA-10  BLOCKED
+   requirement: A001FeasibilityBudgetV1 passes before recruitment or scoring
+   detail:      the calculator is complete and tested, but the powered sample cannot be computed until the pilot releases pairedDifferenceSd
+   blocks:      BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+GA-11  PASS
+   requirement: AlivenessStudyProtocolV1 is frozen before any scored data
+   detail:      AlivenessStudyProtocolV1 v1 frozen with instrument GradedAlivenessInstrumentV1, 600s per creature, counterbalanced order
+GA-12  PASS
+   requirement: MechanismCoalitionSet / exact Shapley attribution contract is frozen
+   detail:      groups=6 (2^k=64 <= 64, exact enumeration) valueFunction=CoalitionValueFunctionV1 attribution=SpontaneousActionAttributionV1
+GA-13  PASS
+   requirement: CuriosityBalanceEnvelopeV1 proves anti-convergence and attribution on identical parameter/seed hashes
+   detail:      the search evaluates both requirements from the same run per grid point and seed, so the two readouts cannot originate from different parameterizations; the recorded result is NON_EMPTY_FEASIBLE_REGION under unchanged thresholds
+GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
+   requirement: MaterialChangeEligibilityV1 and independent adjudication exist for Attempts 2/3
+   detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
+GA-15  BLOCKED
+   requirement: IndependentReviewRosterV1 names primary/alternate/baseline-owner before Attempt 1
+   detail:      all three roles are unassigned; the onboarding package is complete and the roster carries no placeholder names
+   blocks:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+GA-16  BLOCKED
+   requirement: Reviewer independence/conflict declarations and any replacement cause are present
+   detail:      the declaration forms and the signed-acceptance record are prepared, but no reviewer is named so no declaration can be signed
+   blocks:      BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+GA-17  PASS
+   requirement: Viewer/expression/interaction contract hashes match across cohorts
+   detail:      every cohort renders through SpikeExpressionContractV1 v1; the contract has no cohort parameter and the viewer has no reference to Cohort
+GA-18  PASS
+   requirement: Human ablation family/multiplicity plan and separate rater pools are frozen
+   detail:      family=FULL-curiosity-anticonvergence,FULL-preference-learning,FULL-outcome-uncertainty arms=3 alpha=50000e-6 correction=Holm-Bonferroni raterPools=separate
+GA-19  PASS
+   requirement: Spontaneity attribution thresholds/classifier version are frozen
+   detail:      substantiveFloor=700000e-6 oscillatorCeiling=200000e-6 dominantShare=500000e-6 mixedMin=150000e-6
+GA-20  PASS
+   requirement: A001 is blocked while any required governance role is unassigned
+   detail:      asserted from GA-15: the activation state is derived from the blocking items rather than declared, so it cannot drift out of agreement with them
+GA-21  PASS
+   requirement: Participant-facing instrument wording and anchors are frozen
+   detail:      GradedAlivenessInstrumentV1 v1: one scored item, 5 labelled anchors spanning 0-100, wording frozen verbatim (not cognitively pretested; recorded as a limitation)
+GA-22  PASS
+   requirement: The primary decision rule is encoded exactly as preregistered
+   detail:      A001Analysis.classifyPrimary requires mean >= 10.000 AND ciLow > 0, and separates the two failure modes rather than collapsing them
+GA-23  PASS
+   requirement: Exclusion, technical-failure and missing-data rules are frozen before data
+   detail:      reasons=6 complete-case only, no imputation, screening order fixed so a pair is reported under the first reason that disqualified it
+GA-24  BLOCKED
+   requirement: An owner resource ceiling exists to test the powered requirement against
+   detail:      maxFundableParticipants and maxParticipantHours are funding decisions; the calculator returns a blocking state rather than assuming a ceiling
+   blocks:      BLOCKED_SPEC_STUDY_BUDGET
+GA-25  PASS
+   requirement: Participant information, consent and data-handling materials exist
+   detail:      ParticipantInformationAndConsentV1 and DataHandlingAndPrivacyV1 describe the actual procedure, the actual identifiers collected and the actual retention
+GA-26  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
+   requirement: Any required external ethical or institutional approval is in place
+   detail:      no IRB, institutional or ethics-board approval exists and none is claimed; whether one is required is a decision for the owner and the independent reviewer, not for this repository
+GA-27  PASS
+   requirement: The scored analysis pipeline is preregistered and tested before data
+   detail:      A001AnalysisV1 v1 exercised on synthetic fixtures covering pass, statistically-significant-but-not-meaningful, large-but-imprecise, negative, and corrected ablation significance and non-significance
+
+PASS=17 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=7 
+A001_PROGRAM_STATE=ALIVENESS_UNTESTED
+A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+HUMAN_SCORED_RECRUITMENT=BLOCKED
+OUTSTANDING_BLOCKERS=5
+  BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+  BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
+  BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+  BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED
+  BLOCKED_SPEC_STUDY_BUDGET
+

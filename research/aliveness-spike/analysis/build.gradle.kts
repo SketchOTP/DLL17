@@ -19,6 +19,15 @@ application {
     mainClass.set("com.animusmachinae.dll17.research.aliveness.analysis.CuriosityEnvelopeSearch")
 }
 
+// D010: synthetic dry run of the A001 activation package. Produces the
+// preregistered analysis, the sealed pilot channel and the feasibility budget
+// against fixtures. No human data is involved and none may be.
+tasks.register<JavaExec>("a001DryRun") {
+    group = "verification"
+    mainClass.set("com.animusmachinae.dll17.research.aliveness.analysis.A001DryRun")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
 tasks.register<JavaExec>("governanceAudit") {
     group = "verification"
     mainClass.set("com.animusmachinae.dll17.research.aliveness.analysis.AlivenessGovernanceAudit")

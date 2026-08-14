@@ -1,0 +1,9 @@
+# Project identity verification, D010
+
+ProjectIdentityBuildContractV1 verification PASSED
+- checked 6 modules
+- checked 14 frozen contract values
+
+$ python3 tools/generate_lookup_tables.py --check
+PASS: core-math/src/main/kotlin/com/animusmachinae/dll17/core/math/GeneratedLookupTables.kt matches the generator output
+  LOOKUP_UNIT_RAMP_V1  5e8184bbc950ad382477edd4af3f2490ad71dc0fce92e29486865cddea81bcdb

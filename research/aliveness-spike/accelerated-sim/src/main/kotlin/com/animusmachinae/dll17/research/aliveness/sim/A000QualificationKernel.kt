@@ -40,14 +40,14 @@ public class Finding(
 public object A000QualificationKernel {
 
     public const val FIXTURE_SET_ID: String = "A000-FIXTURES-V1"
-    public const val FIXTURE_SET_VERSION: Int = 2
+    public const val FIXTURE_SET_VERSION: Int = 3
 
     /**
      * The digest reproduced by a clean run of this kernel. Recomputed and pasted
      * back after the fixtures were frozen; CI fails if it drifts.
      */
     public const val GOLDEN_EVIDENCE_DIGEST: String =
-        "65efd37541b66a5bd30bacb5c8176abd8cba7832f00029ab3e9afd8589dc81fc"
+        "9462e43622c414db47c28a2e79452455bc0d6642396dd5ca8d65bae208b3114a"
 
     private const val DAY = SpikeContract.TICKS_PER_VIRTUAL_DAY
 

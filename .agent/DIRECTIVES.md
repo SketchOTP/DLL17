@@ -153,3 +153,17 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Related directive: D-008
 - Status at issuance: ISSUED
 
+## D-010
+
+- Issued: 2026-08-13T21:30:00-04:00
+- Issuer: User
+- External directive: D010
+- Objective: Prepare the complete A001 Attempt-1 study and governance package so actual human work can begin immediately once the named independent-review roster and the feasible participant and resource budget are supplied, without collecting any human outcome data.
+- Scope: Finalize and freeze AlivenessStudyProtocolV1 with the exact participant-facing instrument wording and anchors and the exact primary decision rule; freeze the Attempt-1 human mechanism family as three arms under Holm-Bonferroni at family-wise error rate 0.05; finalize BaselineQualificationProtocolV1 at forty participants with a fifteen-point competence margin and prepare the baseline behaviour and coverage manifest; finalize the executable thirty-six participant blind variance pilot and prove on synthetic data that the FULL-facing channel releases only the paired-difference standard deviation; finalize the A001FeasibilityBudgetV1 calculator on the frozen power constants; finalize and test the complete A001 analysis package on synthetic fixtures; prepare the independent reviewer onboarding package; update the executable governance audit so it blocks premature activation; prepare the participant information, consent and privacy materials; produce reproducible D010 evidence; and push a commit with passing GitHub CI.
+- Exclusions: Recruiting participants; executing baseline human qualification; executing the blind variance pilot; collecting human study data; starting A001 Attempt 1; inspecting real human outcome data; implementing R003 through R009 production organism mechanisms; inventing the maximum fundable participants or participant-hours or cost ceiling; inserting placeholder people or invented names into the roster; claiming institutional, ethical or other external approval that does not exist; beginning D011.
+- Acceptance: AlivenessStudyProtocolV1 is frozen and executable, the exact instrument wording and anchors are frozen, the ten-point and ninety-five-percent-confidence-interval programme rule is encoded exactly, the baseline qualification package is operationally ready, BlindVariancePilotV1 is operationally ready, a synthetic dry run proves the FULL-facing pilot channel releases only the paired-difference standard deviation, the A001 analysis pipeline passes synthetic positive and negative fixtures, the feasibility calculator is complete, only the actual owner resource ceiling and the real pilot standard deviation remain unresolved in that calculator, the independent reviewer onboarding package is complete and truthfully unassigned, the governance audit correctly prevents premature A001 activation, the participant information and privacy materials are complete, no human outcome data is collected, no R003 through R009 production implementation is introduced, existing R000 and R001 and R002 and A000 qualification remains green, reproducible D010 evidence exists, GitHub CI passes, the work is committed and pushed to main, local HEAD equals origin/main, and the final worktree is clean.
+- Risk class: NORMAL
+- Relationship: amends
+- Related directive: D-009
+- Status at issuance: ISSUED
+

@@ -1,14 +1,22 @@
 # A000 golden fixtures
 
-- Fixture set: `A000-FIXTURES-V1` version 2 (D009 candidate)
+- Fixture set: `A000-FIXTURES-V1` version 3 (D009 candidate, D010 cohort set)
 - Golden evidence digest:
-  `65efd37541b66a5bd30bacb5c8176abd8cba7832f00029ab3e9afd8589dc81fc`
+  `9462e43622c414db47c28a2e79452455bc0d6642396dd5ca8d65bae208b3114a`
 - Compiled into `A000QualificationKernel.GOLDEN_EVIDENCE_DIGEST`
 - Full report with sample decision traces: `A000_REPORT.txt`
 
 The digest covers every finding identifier, every readout string and every
 held/not-held verdict. A mechanism change that silently alters behaviour moves
 the digest and fails CI, whether or not it changes a verdict.
+
+## Version history
+
+| Version | Change |
+|---|---|
+| 1 | D008 candidate |
+| 2 | D009 remediated candidate |
+| 3 | D010 added the preregistered third human ablation arm. No organism behaviour changed and all 24 findings still hold; the only altered readout is the cohort count in `AX-COHORT-PARITY-01`. |
 
 ## What the digest does not cover
 
@@ -41,8 +49,8 @@ only, and its arithmetic is the frozen R001 fixed-point library.
 | Episodic history | 20 conditioning days + 5 matched probe days, pooled over 5 seeds, FULL against FULL+episodic |
 | Anti-convergence | 180 static days for FULL and for the curiosity ablation |
 | Population diversity | 8 seeds × 60 days, 28 pairwise final-window comparisons |
-| Attribution | 60 days, 1-in-5 sampling, 2,089 scored spontaneous actions |
-| Cohort parity | all 6 cohorts × 3 days with scheduled interactions |
+| Attribution | 60 days, 1-in-5 sampling, 2,154 scored spontaneous actions |
+| Cohort parity | all 7 cohorts × 3 days with scheduled interactions |
 
 ## The determinism claim
 

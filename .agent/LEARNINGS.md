@@ -317,3 +317,33 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Scope: Every mechanism-contribution claim in this programme.
 - Supersedes learning: none
 
+## L-0031
+
+- Learning ID: L-0031
+- Date: 2026-08-13
+- Fact or lesson: An information barrier that is described in a document is not a barrier. The variance-pilot seal became real only when the released type was reduced to two fields, the full analysis type was made private and unreturnable, and a test showed that two pilots with opposite outcomes release byte-identical output. The last of those is the only one that proves the property rather than the implementation.
+- Evidence location: research/aliveness-spike/analysis/BlindVariancePilot.kt; BlindVariancePilotSealTest; IMPL-0047; INV-0043.
+- Confidence: VERIFIED
+- Scope: Every place in this programme where one party must not learn what another party knows.
+- Supersedes learning: none
+
+## L-0032
+
+- Learning ID: L-0032
+- Date: 2026-08-13
+- Fact or lesson: Two constants frozen independently by the architect turned out to determine each other. The 1.25 pilot standard-deviation inflation factor is exactly the one-sided ninety-five percent upper confidence bound on a standard deviation at thirty-five degrees of freedom, which is thirty-six pairs. At thirty-five pairs the bound is 1.253 and the factor no longer covers it. That is why a short pilot now reports itself protocol-invalid rather than releasing a number the inflation factor cannot defend, and why the check is computed in a test rather than asserted from a table.
+- Evidence location: BlindVariancePilotSealTest; research/aliveness-spike/study-protocol/A001FeasibilityBudgetV1.md.
+- Confidence: VERIFIED
+- Scope: The A001 feasibility calculation and any later re-powering.
+- Supersedes learning: none
+
+## L-0033
+
+- Learning ID: L-0033
+- Date: 2026-08-13
+- Fact or lesson: A number quoted in prose and produced by an ad-hoc diagnostic will drift from the artifact it claims to describe. Several D009 figures came from an intermediate kernel run, and the cohort comparison table came from a diagnostic that nothing checked. The fix was structural in both cases: reconcile the prose against the committed evidence, and turn the diagnostic into a named generator whose output is a bundle constituent.
+- Evidence location: DEC-0027; research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt; qualification/longitudinal/A000/ACCELERATED_FINDINGS.md.
+- Confidence: VERIFIED
+- Scope: Every figure this programme reports to the architect.
+- Supersedes learning: none
+
