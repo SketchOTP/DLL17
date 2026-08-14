@@ -44,23 +44,39 @@ import java.security.MessageDigest
 public object R012DeviceQualificationKernel {
 
     public const val FIXTURE_SET_ID: String = "R012-DEVICE-FIXTURES-V1"
-    public const val FIXTURE_SET_VERSION: Int = 1
+
+    /**
+     * Version 2 under D013: [CONTRACT_CONFLICT_FIXTURE] now holds, and a V1
+     * key-state migration fixture runs against real Keystore material. Version 1
+     * evidence is retained and is not comparable to this byte for byte.
+     */
+    public const val FIXTURE_SET_VERSION: Int = 2
 
     private const val ORGANISM = 0x0D11_0011L
 
     /**
-     * The one fixture that is expected not to hold, and why it is not silenced.
+     * The fixture that found the defect.
      *
-     * It records a contradiction between two frozen contracts rather than a
-     * defect in this directive's code. D012 forbids changing a frozen contract
-     * to make a device test pass, so the fixture states the observed behaviour,
-     * fails, and is named here so the failure is declared rather than discovered.
-     * Removing it from this set is the architect's call, after the amendment.
+     * Under D012 it reported `NOT HELD` and was declared here, because it had
+     * caught a contradiction between two frozen contracts and D012 forbade
+     * resolving one by patching the other. The architect resolved it with the
+     * 2026-08-14 epoch-separation amendment, and D013 implemented that as
+     * `LocalStorageCryptographyContractV2`. The fixture is unchanged — same
+     * identifier, same question, same threshold — and it now holds.
+     *
+     * It is kept named because the next agent to read this file should be able
+     * to see that a declared failure was resolved rather than deleted.
      */
     public const val CONTRACT_CONFLICT_FIXTURE: String = "DV-KS-ROTATION-READBACK-01"
 
-    /** Fixtures blocked on architect review of a frozen-contract conflict. */
-    public val PENDING_ARCHITECT_REVIEW: Set<String> = setOf(CONTRACT_CONFLICT_FIXTURE)
+    /**
+     * Fixtures blocked on architect review. Empty since D013.
+     *
+     * The mechanism stays. A suite that can only express "everything passes" has
+     * no way to report a finding it is not authorized to fix, and that is exactly
+     * the situation this set existed for.
+     */
+    public val PENDING_ARCHITECT_REVIEW: Set<String> = emptySet()
 
     public class Finding(
         public val id: String,
@@ -525,20 +541,12 @@ public object R012DeviceQualificationKernel {
 
         // The same records, read after the wrapping epoch advanced.
         //
-        // `LocalStorageCryptographyContractV1` says rotation "rewraps one key
-        // rather than re-encrypting every record ever written", and that records
-        // already written "stay readable". `EncryptedRecordStore` refuses any
-        // record whose header epoch differs from the container's current epoch,
-        // and derives the nonce and AAD from that same epoch — so after a
-        // rotation the existing journal does not open at all.
-        //
-        // Both behaviours are frozen, in two different contracts, and they
-        // contradict each other. This fixture does not choose between them and
-        // does not work around either: it records what the frozen code does and
-        // reports NOT HELD, because a wrapping rotation that silently orphans
-        // the journal is precisely the failure the cryptography contract exists
-        // to forbid. Resolving it requires a versioned amendment and architect
-        // review, not a device-side patch.
+        // This is the fixture that found the V1 defect: a rotation of the device
+        // wrapping material orphaned every record already written, on a code path
+        // an ordinary key-hygiene policy would run. Under
+        // `LocalStorageCryptographyContractV2` the wrapping epoch and the data
+        // key's identity are separate, records carry the second, and a rotation
+        // rewrites no history. The assertion below is the one D012 wrote.
         var readableAfterRotation = 0
         var rotationRefusal = "none"
         try {
@@ -562,6 +570,35 @@ public object R012DeviceQualificationKernel {
         sb.append("  rewrap interrupted at epoch ${interrupted.keyEpoch}, resolved to ${resolvedState.keyEpoch}\n")
         AndroidKeystoreDeviceKeyContainer.openExisting(DeviceCrashService.REWRAP_ALIAS)
             ?.deleteContainerMaterial()
+
+        // A V1 organism, under real Keystore material, opened by this build.
+        // The desktop kernel proves the migration; this proves that nothing about
+        // it depends on a JVM key container.
+        val migrateDir = dir(root, "keystore-migrate")
+        val migrateContainer = freshContainer("dll17.qual.migrate.v1")
+        val migrateKeys = LocalKeyStore(migrateDir, migrateContainer, ORGANISM)
+        val migrateState = migrateKeys.create(dataKey(31))
+        SegmentedJournalMedium(migrateDir).use { medium ->
+            val store = EncryptedRecordStore(medium, migrateKeys.keyContainer(migrateState), ORGANISM)
+            for (i in 1..6) store.append(i.toLong(), 1L, 700, 1, payload(i))
+        }
+        migrateKeys.writeV1ForMigrationTest(migrateState)
+        val foundV1 = migrateKeys.peek().requiresMigration
+        val migrated = migrateKeys.load()
+        val rotatedAfterMigration = migrateKeys.completeRewrap(migrateKeys.beginRewrap(migrated, 2))
+        val migratedRecords = SegmentedJournalMedium(migrateDir).use { medium ->
+            EncryptedRecordStore(medium, migrateKeys.keyContainer(rotatedAfterMigration), ORGANISM)
+                .readAll()
+        }
+        out += Finding(
+            "DV-KS-V1-MIGRATION-01",
+            "Does a V1 organism on Keystore material migrate and stay readable across a later rotation?",
+            foundV1 && !migrated.requiresMigration && migratedRecords.size == 6 &&
+                migratedRecords.all { it.payload.contentEquals(payload(it.sequence.toInt())) },
+            "foundV1=$foundV1 dataKeyId=${migrated.dataKeyId} " +
+                "readableAfterMigrationAndRotation=${migratedRecords.size}/6",
+        )
+        migrateContainer.deleteContainerMaterial()
 
         // Corruption, at the first frame and at a later one.
         out += corruptionFinding(root, "fault-corrupt-first", frameIndex = 0, id = "DV-FLT-CORRUPT-FIRST-01")

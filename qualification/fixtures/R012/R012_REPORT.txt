@@ -2,7 +2,7 @@ R012_QUALIFICATION_ROOT=/home/sketch/Projects/DLL17/desktop-runner/build/r012-qu
 R012_FILESYSTEM=ext4 device=/dev/nvme0n1p2
 
 R012_FIXTURE_SET=R012-FIXTURES-V1
-R012_FIXTURE_VERSION=1
+R012_FIXTURE_VERSION=2
 BACKEND=SEGMENTED_APPEND_LOG_V1
 
 == BACKEND
@@ -15,6 +15,15 @@ BACKEND=SEGMENTED_APPEND_LOG_V1
   containerRefused=true fault=CONTAINER_UNAVAILABLE quarantined=true
   rotation epochBefore=1 epochAfter=2
   interruptedRewrap inFlightOnReload=true resumedEpoch=2
+
+== EPOCH_SEPARATION
+  oneRotation epoch=2 dataKeyId=1 readable=5/5
+  manyRotations epoch=6 dataKeyId=1 readable=9/9
+  abandonedRotation epoch=1 readable=4/4
+  tamperRefused=context,generation,sequence,schemaVersion
+  migration v1Detected=true dataKeyId=1 idempotent=true
+  migrationPlaintext hashBefore=b3fa8c4a4f4da269390c03bdd3bfeabf93d43bb15d641ecbc2da9bec4294680a hashAfter=b3fa8c4a4f4da269390c03bdd3bfeabf93d43bb15d641ecbc2da9bec4294680a
+  migrationCrash stagedFoundV1=true renamedFoundV2=true
 
 == RECOVERY
   recoverySecret encoding=68 chars groups=14
@@ -62,6 +71,32 @@ BACKEND=SEGMENTED_APPEND_LOG_V1
            dataKeyUnchanged=true epoch=2
   HELD     FX-CRYPTO-INTERRUPTED-REWRAP-01  Does an interrupted rewrap resume deterministically on the next open?
            inFlight=true resumedEpoch=2 dataKeyIntact=true
+  HELD     FX-EPOCH-ROTATE-ONCE-01  After one wrapping rotation, is every record written before it still readable?
+           readableAfterRotation=5/5 epoch=2 dataKeyId=1
+  HELD     FX-EPOCH-NO-REWRITE-01  Does an ordinary wrapping rotation rewrite no journal byte at all?
+           journalBytesIdentical=true frames=5
+  HELD     FX-EPOCH-ROTATE-MANY-01  After repeated rotations and a restart, are pre- and post-rotation records both readable?
+           readable=9/9 epoch=6 dataKeyId=1
+  HELD     FX-EPOCH-DATAKEY-STABLE-01  Does the data key and its identity survive every wrapping rotation unchanged?
+           dataKeyId=1 dataKeyUnchanged=true wrappingEpoch=6
+  HELD     FX-EPOCH-ABANDON-01  Does an unusable pending wrap leave the previous wrapping state and the journal usable?
+           epochAfter=1 inFlight=false readable=4/4
+  HELD     FX-EPOCH-CONTEXT-AUTHENTICATED-01  Is every plaintext header field still bound by the AAD after the epoch pre-check was removed?
+           refused=4/4 fields=context|generation|sequence|schemaVersion
+  HELD     FX-EPOCH-FOREIGN-KEY-01  Is a record sealed under a different data key refused even at the right sequence?
+           refused=true
+  HELD     FX-V1-MIGRATION-01  Does V1 key state migrate to V2 with the data key and wrapping epoch untouched?
+           v1Detected=true dataKeyId=1 epoch=1 dataKeyIntact=true
+  HELD     FX-V1-MIGRATION-IDEMPOTENT-01  Does migrating twice produce exactly the same bytes as migrating once?
+           identicalBytes=true size=118
+  HELD     FX-V1-MIGRATION-RECORDS-01  Are V1 records byte-identical after migration and a subsequent rotation?
+           records=6/6 canonicalPlaintextIdentical=true
+  HELD     FX-V1-MIGRATION-CRASH-STAGED-01  Does death before the migration rename recover the readable pre-migration state?
+           foundV1=true migratedOnNextOpen=true records=7/7
+  HELD     FX-V1-MIGRATION-CRASH-RENAMED-01  Does death straight after the migration rename recover the complete migrated state?
+           foundV2=true records=7/7 dataKeyId=1
+  HELD     FX-V1-MIGRATION-FUTURE-REFUSED-01  Is key state from an unknown future schema version refused rather than guessed at?
+           refused=true
   HELD     FX-RECOVERY-SECRET-01  Does the encoded recovery secret round-trip and reject a mistyped character?
            roundTrip=true mistypedRejected=true symbols=55
   HELD     FX-RECOVERY-PROVIDER-RECEIPT-01  Does the provider confirm identifier, size, checksum and sequence for the exact bytes?
@@ -123,6 +158,6 @@ BACKEND=SEGMENTED_APPEND_LOG_V1
   HELD     FX-DETERMINISM-CHECKPOINT-01  Is the checkpoint hash independent of its storage location?
            hashes=1 value=c3895b381028fa5c
 
-held=42 notHeld=0 total=42
-R012_EVIDENCE_DIGEST=48bd44a31a3a952cf884b358c5e587b93a24875f1d36d7625e6b4b7d5f62127f
+held=55 notHeld=0 total=55
+R012_EVIDENCE_DIGEST=0da0d889840c0bafe6554735cb9670d27f862870478589518383f0734aece6a5
 

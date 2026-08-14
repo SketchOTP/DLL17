@@ -31,6 +31,8 @@
 - `docs/architecture/CANONICAL_SOURCES.md` — pointers to the authoritative external specifications.
 - `docs/invariants/INVARIANT_REGISTRY.md` — invariants and where each is enforced today.
 - `docs/decisions/DECISION_LOG.md` — implementation decisions that are not architect directives.
+- `docs/decisions/EXTERNAL_PRIOR_ART.md` — external landscape checks with an explicit `REFERENCE`, `ADOPT` or `REJECT` disposition for each.
+- `docs/architecture/LocalStorageCryptographyContractV2.md` — frozen local record encryption and key lifecycle. Supersedes V1 by separating the wrapping epoch from the data key's identity, and amends `ContinuityDurabilityContractV1` sections 13.3–13.5.
 - `governance/source-provenance/SOURCE_PROVENANCE_LEDGER.md` — proof that the repository is greenfield.
 - `governance/release-gates/R000_EXIT_GATE.md` — honest per-criterion status of the R000 exit gate.
 - `governance/release-gates/R001_EXIT_GATE.md` — per-criterion status of all three canonical R001 exit gates, including the one criterion resting on an architect waiver.

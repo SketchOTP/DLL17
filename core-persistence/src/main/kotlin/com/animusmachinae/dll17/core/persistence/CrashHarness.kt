@@ -1,5 +1,6 @@
 package com.animusmachinae.dll17.core.persistence
 
+import com.animusmachinae.dll17.core.continuity.EncryptedRecordStore
 import java.io.File
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
@@ -41,7 +42,32 @@ public object CrashHarness {
 
         /** Write the checkpoint staging file, then halt before the rename. */
         STAGE_CHECKPOINT_THEN_DIE,
+
+        /**
+         * Write V1 key state and records, stage the migrated V2 bytes, then halt
+         * *before* the rename. The first durable boundary of the V1 migration.
+         */
+        MIGRATE_STAGED_THEN_DIE,
+
+        /**
+         * The same, but complete the migration and halt immediately after the
+         * rename, before anything else can run. The second durable boundary.
+         */
+        MIGRATE_RENAMED_THEN_DIE,
     }
+
+    /** Fixed inputs for the migration modes, so the parent can reconstruct them. */
+    public const val MIGRATION_ORGANISM: Long = 0x0D11_0013L
+    public const val MIGRATION_FINGERPRINT: Long = 0xC333_3333L
+    public const val MIGRATION_RECORDS: Int = 7
+
+    public fun migrationContainer(): InProcessDeviceKeyContainer =
+        InProcessDeviceKeyContainer(MIGRATION_FINGERPRINT, ByteArray(32) { (it * 19 + 11).toByte() })
+
+    public fun migrationDataKey(): ByteArray =
+        ByteArray(com.animusmachinae.dll17.core.crypto.ChaCha20Poly1305.KEY_SIZE) {
+            (it * 23 + 5).toByte()
+        }
 
     public class ChildResult(public val exitCode: Int, public val output: String)
 
@@ -136,6 +162,42 @@ public object CrashChild {
                 File(directory, PersistenceBackendContract.CHECKPOINT_STAGING_FILE)
                     .writeBytes(ByteArray(512) { 0x5A })
                 println("staged checkpoint")
+                Runtime.getRuntime().halt(9)
+            }
+
+            CrashHarness.Mode.MIGRATE_STAGED_THEN_DIE,
+            CrashHarness.Mode.MIGRATE_RENAMED_THEN_DIE,
+            -> {
+                val keys = LocalKeyStore(
+                    directory,
+                    CrashHarness.migrationContainer(),
+                    CrashHarness.MIGRATION_ORGANISM,
+                )
+                val created = keys.create(CrashHarness.migrationDataKey())
+                SegmentedJournalMedium(directory).use { medium ->
+                    val store = EncryptedRecordStore(
+                        medium,
+                        keys.keyContainer(created),
+                        CrashHarness.MIGRATION_ORGANISM,
+                    )
+                    for (i in 1..CrashHarness.MIGRATION_RECORDS) {
+                        store.append(i.toLong(), 1L, 700, 1, CrashHarness.payload(i))
+                    }
+                }
+                // Put the organism back into the pre-V2 world it would be found in
+                // on a device that has been running the shipped V1 build.
+                keys.writeV1ForMigrationTest(created)
+
+                if (mode == CrashHarness.Mode.MIGRATE_STAGED_THEN_DIE) {
+                    // The migrated bytes reach the staging file and the process
+                    // dies before the rename makes them authoritative.
+                    File(directory, PersistenceBackendContract.KEYSTATE_STAGING_FILE)
+                        .writeBytes(created.migrated().canonicalBytes())
+                    println("staged migration")
+                } else {
+                    keys.load()
+                    println("renamed migration")
+                }
                 Runtime.getRuntime().halt(9)
             }
         }

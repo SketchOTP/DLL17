@@ -5,6 +5,7 @@ import com.animusmachinae.dll17.core.continuity.EncryptedRecordStore
 import com.animusmachinae.dll17.core.continuity.StorageFault
 import com.animusmachinae.dll17.core.crypto.CanonicalEnvelope
 import com.animusmachinae.dll17.core.crypto.CanonicalHash
+import com.animusmachinae.dll17.core.crypto.CanonicalReader
 import com.animusmachinae.dll17.core.crypto.CanonicalWriter
 import com.animusmachinae.dll17.core.crypto.ChaCha20Poly1305
 import com.animusmachinae.dll17.core.recovery.AuthorityOutcome
@@ -35,11 +36,17 @@ import java.security.MessageDigest
 public object R012QualificationKernel {
 
     public const val FIXTURE_SET_ID: String = "R012-FIXTURES-V1"
-    public const val FIXTURE_SET_VERSION: Int = 1
+
+    /**
+     * Version 2 under D013: the epoch-separation section. The identifier is kept
+     * so the fixture set is recognisably the same lineage; the version is what
+     * says the evidence is not comparable byte for byte with version 1.
+     */
+    public const val FIXTURE_SET_VERSION: Int = 2
 
     /** Reproduced by a clean run of this kernel. CI fails if it drifts. */
     public const val GOLDEN_EVIDENCE_DIGEST: String =
-        "48bd44a31a3a952cf884b358c5e587b93a24875f1d36d7625e6b4b7d5f62127f"
+        "0da0d889840c0bafe6554735cb9670d27f862870478589518383f0734aece6a5"
 
     private const val ORGANISM = 0x0D11_0011L
     private const val DEVICE_A = 0xA111_1111L
@@ -106,6 +113,7 @@ public object R012QualificationKernel {
         val sections = LinkedHashMap<String, String>()
         sections["BACKEND"] = backend(root, findings)
         sections["CRYPTOGRAPHY"] = cryptography(root, findings)
+        sections["EPOCH_SEPARATION"] = epochSeparation(root, findings)
         sections["RECOVERY"] = recovery(root, findings, authorityFactory)
         sections["IDENTITY_AUTHORITY"] = identity(root, findings, authorityFactory)
         sections["FAULT_MATRIX"] = faults(root, findings)
@@ -376,6 +384,373 @@ public object R012QualificationKernel {
                 usable.contentEquals(dataKey(13)),
         )
         return sb.toString()
+    }
+
+
+    // ------------------------------------------------------ epoch separation
+
+    /**
+     * `LocalStorageCryptographyContractV2`: the wrapping epoch, the data key's
+     * identity, and a record's immutable encryption context are three different
+     * things, and only the third one decides whether a record can be read.
+     *
+     * Every fixture here exists because the V1 conflation had a concrete
+     * consequence: an ordinary rotation of the device wrapping material made the
+     * organism's entire journal unreadable. `DV-KS-ROTATION-READBACK-01` found it
+     * on Android under D012; this section is the desktop half of the correction,
+     * and it runs in CI on every push.
+     */
+    private fun epochSeparation(root: File, out: MutableList<Finding>): String {
+        val sb = StringBuilder()
+
+        // --- one rotation, then many, with writes interleaved.
+        val rotateDir = dir(root, "epoch-rotate")
+        val rotateKeys = LocalKeyStore(rotateDir, container(), ORGANISM)
+        var state = rotateKeys.create(dataKey(41))
+        SegmentedJournalMedium(rotateDir).use { medium ->
+            val store = EncryptedRecordStore(medium, rotateKeys.keyContainer(state), ORGANISM)
+            for (i in 1..5) store.append(i.toLong(), 1L, 700, 1, payload(i))
+        }
+        val journalBefore = SegmentedJournalMedium(rotateDir).use { medium ->
+            medium.records().map { it.second.copyOf() }
+        }
+
+        state = rotateKeys.completeRewrap(rotateKeys.beginRewrap(state, 2))
+        val afterOne = SegmentedJournalMedium(rotateDir).use { medium ->
+            EncryptedRecordStore(medium, rotateKeys.keyContainer(state), ORGANISM).readAll()
+        }
+        sb.append("  oneRotation epoch=${state.keyEpoch} dataKeyId=${state.dataKeyId} " +
+            "readable=${afterOne.size}/5\n")
+        out += Finding(
+            "FX-EPOCH-ROTATE-ONCE-01",
+            "After one wrapping rotation, is every record written before it still readable?",
+            afterOne.size == 5 && afterOne.all { it.payload.contentEquals(payload(it.sequence.toInt())) },
+            "readableAfterRotation=${afterOne.size}/5 epoch=${state.keyEpoch} " +
+                "dataKeyId=${state.dataKeyId}",
+        )
+
+        // The rotation must not have touched a single durable journal byte. A
+        // rotation that quietly re-encrypted history would pass the fixture above
+        // and still be the wrong design: it would make key hygiene proportional to
+        // the size of the organism's life.
+        val journalAfter = SegmentedJournalMedium(rotateDir).use { medium ->
+            medium.records().map { it.second.copyOf() }
+        }
+        val untouched = journalBefore.size == journalAfter.size &&
+            journalBefore.zip(journalAfter).all { (b, a) -> b.contentEquals(a) }
+        out += Finding(
+            "FX-EPOCH-NO-REWRITE-01",
+            "Does an ordinary wrapping rotation rewrite no journal byte at all?",
+            untouched,
+            "journalBytesIdentical=$untouched frames=${journalAfter.size}",
+        )
+
+        // Four more rotations, each followed by a write, so old and new records
+        // are interleaved in one journal under one data key.
+        for (epoch in 3..6) {
+            state = rotateKeys.completeRewrap(rotateKeys.beginRewrap(state, epoch))
+            SegmentedJournalMedium(rotateDir).use { medium ->
+                val store = EncryptedRecordStore(medium, rotateKeys.keyContainer(state), ORGANISM)
+                val sequence = (epoch + 3).toLong()
+                store.append(sequence, 1L, 700, 1, payload(sequence.toInt()))
+            }
+        }
+        val reopened = LocalKeyStore(rotateDir, container(), ORGANISM)
+        val afterRestart = reopened.load()
+        val mixed = SegmentedJournalMedium(rotateDir).use { medium ->
+            EncryptedRecordStore(medium, reopened.keyContainer(afterRestart), ORGANISM).readAll()
+        }
+        sb.append("  manyRotations epoch=${afterRestart.keyEpoch} " +
+            "dataKeyId=${afterRestart.dataKeyId} readable=${mixed.size}/9\n")
+        out += Finding(
+            "FX-EPOCH-ROTATE-MANY-01",
+            "After repeated rotations and a restart, are pre- and post-rotation records both readable?",
+            mixed.size == 9 && mixed.all { it.payload.contentEquals(payload(it.sequence.toInt())) },
+            "readable=${mixed.size}/9 epoch=${afterRestart.keyEpoch} " +
+                "dataKeyId=${afterRestart.dataKeyId}",
+        )
+        out += Finding(
+            "FX-EPOCH-DATAKEY-STABLE-01",
+            "Does the data key and its identity survive every wrapping rotation unchanged?",
+            afterRestart.dataKeyId == LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID &&
+                reopened.unwrap(afterRestart).contentEquals(dataKey(41)),
+            "dataKeyId=${afterRestart.dataKeyId} dataKeyUnchanged=" +
+                "${reopened.unwrap(afterRestart).contentEquals(dataKey(41))} " +
+                "wrappingEpoch=${afterRestart.keyEpoch}",
+        )
+
+        // --- an abandoned rotation costs an epoch and nothing else.
+        val abandonDir = dir(root, "epoch-abandon")
+        val abandonKeys = LocalKeyStore(abandonDir, container(), ORGANISM)
+        val abandonState = abandonKeys.create(dataKey(43))
+        SegmentedJournalMedium(abandonDir).use { medium ->
+            val store = EncryptedRecordStore(medium, abandonKeys.keyContainer(abandonState), ORGANISM)
+            for (i in 1..4) store.append(i.toLong(), 1L, 700, 1, payload(i))
+        }
+        val staged = abandonKeys.beginRewrap(abandonState, 2)
+        // Corrupt the pending wrap so it cannot open: the rotation must be
+        // abandoned rather than adopted, and the organism must survive it.
+        val corruptPending = WrappedKeyState(
+            keyEpoch = staged.keyEpoch,
+            deviceFingerprint = staged.deviceFingerprint,
+            wrappedKey = staged.wrappedKey,
+            wrapNonce = staged.wrapNonce,
+            pendingEpoch = staged.pendingEpoch,
+            pendingWrappedKey = staged.pendingWrappedKey.copyOf().also { it[0] = (it[0].toInt() xor 0x01).toByte() },
+            pendingWrapNonce = staged.pendingWrapNonce,
+            dataKeyId = staged.dataKeyId,
+        )
+        File(abandonDir, PersistenceBackendContract.KEYSTATE_FILE)
+            .writeBytes(corruptPending.canonicalBytes())
+        val resolved = abandonKeys.resumeRewrap(abandonKeys.load())
+        val survivors = SegmentedJournalMedium(abandonDir).use { medium ->
+            EncryptedRecordStore(medium, abandonKeys.keyContainer(resolved), ORGANISM).readAll()
+        }
+        sb.append("  abandonedRotation epoch=${resolved.keyEpoch} readable=${survivors.size}/4\n")
+        out += Finding(
+            "FX-EPOCH-ABANDON-01",
+            "Does an unusable pending wrap leave the previous wrapping state and the journal usable?",
+            !resolved.rewrapInFlight && resolved.keyEpoch == 1 && survivors.size == 4,
+            "epochAfter=${resolved.keyEpoch} inFlight=${resolved.rewrapInFlight} " +
+                "readable=${survivors.size}/4",
+        )
+
+        // --- the context is authenticated, so dropping the pre-check dropped no
+        // guarantee. Each of these forges one header field and must be refused.
+        val tamperDir = dir(root, "epoch-tamper")
+        val tamperKeys = LocalKeyStore(tamperDir, container(), ORGANISM)
+        val tamperState = tamperKeys.create(dataKey(47))
+        SegmentedJournalMedium(tamperDir).use { medium ->
+            EncryptedRecordStore(medium, tamperKeys.keyContainer(tamperState), ORGANISM)
+                .append(1L, 1L, 700, 1, payload(1))
+        }
+        val genuine = SegmentedJournalMedium(tamperDir).use { medium ->
+            medium.records().single().second.copyOf()
+        }
+        val tampers = listOf(
+            "context" to { h: RecordHead -> h.copy(context = h.context + 1) },
+            "generation" to { h: RecordHead -> h.copy(generationId = h.generationId + 1L) },
+            "sequence" to { h: RecordHead -> h.copy(sequence = h.sequence + 1L) },
+            "schemaVersion" to { h: RecordHead -> h.copy(schemaVersion = h.schemaVersion + 1) },
+        )
+        val refused = tampers.filter { (_, edit) ->
+            val forgedDir = dir(root, "epoch-tamper-forged")
+            SegmentedJournalMedium(forgedDir).use { medium ->
+                medium.append(1L, forgeHeader(genuine, edit))
+            }
+            try {
+                SegmentedJournalMedium(forgedDir).use { medium ->
+                    EncryptedRecordStore(medium, tamperKeys.keyContainer(tamperState), ORGANISM)
+                        .readAll()
+                }
+                false
+            } catch (refusal: RuntimeException) {
+                true
+            }
+        }.map { it.first }
+        sb.append("  tamperRefused=${refused.joinToString(",")}\n")
+        out += Finding(
+            "FX-EPOCH-CONTEXT-AUTHENTICATED-01",
+            "Is every plaintext header field still bound by the AAD after the epoch pre-check was removed?",
+            refused.size == tampers.size,
+            "refused=${refused.size}/${tampers.size} fields=${refused.joinToString("|")}",
+        )
+
+        // A foreign data key at the correct position must still be refused, by
+        // the tag rather than by a comparison against mutable state.
+        val foreignDir = dir(root, "epoch-foreign")
+        val foreignKeys = LocalKeyStore(foreignDir, container(0xF444_4444L), ORGANISM)
+        val foreignState = foreignKeys.create(dataKey(53))
+        var foreignRefused = false
+        try {
+            SegmentedJournalMedium(tamperDir).use { medium ->
+                EncryptedRecordStore(medium, foreignKeys.keyContainer(foreignState), ORGANISM).readAll()
+            }
+        } catch (refusal: RuntimeException) {
+            foreignRefused = true
+        }
+        out += Finding(
+            "FX-EPOCH-FOREIGN-KEY-01",
+            "Is a record sealed under a different data key refused even at the right sequence?",
+            foreignRefused,
+            "refused=$foreignRefused",
+        )
+
+        // --- V1 compatibility.
+        val migrateDir = dir(root, "epoch-migrate")
+        val migrateKeys = LocalKeyStore(migrateDir, container(), ORGANISM)
+        val v1State = migrateKeys.create(dataKey(59))
+        SegmentedJournalMedium(migrateDir).use { medium ->
+            val store = EncryptedRecordStore(medium, migrateKeys.keyContainer(v1State), ORGANISM)
+            for (i in 1..6) store.append(i.toLong(), 1L, 700, 1, payload(i))
+        }
+        val plaintextBefore = SegmentedJournalMedium(migrateDir).use { medium ->
+            EncryptedRecordStore(medium, migrateKeys.keyContainer(v1State), ORGANISM)
+                .readAll().map { it.payload.copyOf() }
+        }
+        val hashBefore = CanonicalHash.hex(
+            CanonicalHash.ofEnvelope(
+                CanonicalEnvelope.wrap(901, 1, plaintextBefore.fold(ByteArray(0)) { a, b -> a + b }),
+            ),
+        )
+        migrateKeys.writeV1ForMigrationTest(v1State)
+        val beforeMigration = migrateKeys.peek()
+
+        val migrated = migrateKeys.load()
+        val bytesOnce = File(migrateDir, PersistenceBackendContract.KEYSTATE_FILE).readBytes()
+        migrateKeys.load()
+        val bytesTwice = File(migrateDir, PersistenceBackendContract.KEYSTATE_FILE).readBytes()
+        sb.append("  migration v1Detected=${beforeMigration.requiresMigration} " +
+            "dataKeyId=${migrated.dataKeyId} idempotent=${bytesOnce.contentEquals(bytesTwice)}\n")
+        out += Finding(
+            "FX-V1-MIGRATION-01",
+            "Does V1 key state migrate to V2 with the data key and wrapping epoch untouched?",
+            beforeMigration.requiresMigration && !migrated.requiresMigration &&
+                migrated.dataKeyId == LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID &&
+                migrated.keyEpoch == v1State.keyEpoch &&
+                migrateKeys.unwrap(migrated).contentEquals(dataKey(59)),
+            "v1Detected=${beforeMigration.requiresMigration} dataKeyId=${migrated.dataKeyId} " +
+                "epoch=${migrated.keyEpoch} dataKeyIntact=true",
+        )
+        out += Finding(
+            "FX-V1-MIGRATION-IDEMPOTENT-01",
+            "Does migrating twice produce exactly the same bytes as migrating once?",
+            bytesOnce.contentEquals(bytesTwice),
+            "identicalBytes=${bytesOnce.contentEquals(bytesTwice)} size=${bytesOnce.size}",
+        )
+
+        val rotatedAfterMigration = migrateKeys.completeRewrap(migrateKeys.beginRewrap(migrated, 2))
+        val plaintextAfter = SegmentedJournalMedium(migrateDir).use { medium ->
+            EncryptedRecordStore(medium, migrateKeys.keyContainer(rotatedAfterMigration), ORGANISM)
+                .readAll().map { it.payload.copyOf() }
+        }
+        val hashAfter = CanonicalHash.hex(
+            CanonicalHash.ofEnvelope(
+                CanonicalEnvelope.wrap(901, 1, plaintextAfter.fold(ByteArray(0)) { a, b -> a + b }),
+            ),
+        )
+        sb.append("  migrationPlaintext hashBefore=$hashBefore hashAfter=$hashAfter\n")
+        out += Finding(
+            "FX-V1-MIGRATION-RECORDS-01",
+            "Are V1 records byte-identical after migration and a subsequent rotation?",
+            hashBefore == hashAfter && plaintextAfter.size == 6,
+            "records=${plaintextAfter.size}/6 canonicalPlaintextIdentical=${hashBefore == hashAfter}",
+        )
+
+        // --- both durable migration boundaries, under real process death.
+        val stagedDir = dir(root, "epoch-migrate-staged")
+        CrashHarness.runChild(CrashHarness.Mode.MIGRATE_STAGED_THEN_DIE, stagedDir, 0)
+        val stagedKeys = LocalKeyStore(
+            stagedDir, CrashHarness.migrationContainer(), CrashHarness.MIGRATION_ORGANISM,
+        )
+        val stillV1 = stagedKeys.peek().requiresMigration
+        val afterStagedCrash = stagedKeys.load()
+        val stagedRecords = SegmentedJournalMedium(stagedDir).use { medium ->
+            EncryptedRecordStore(
+                medium, stagedKeys.keyContainer(afterStagedCrash), CrashHarness.MIGRATION_ORGANISM,
+            ).readAll()
+        }
+        out += Finding(
+            "FX-V1-MIGRATION-CRASH-STAGED-01",
+            "Does death before the migration rename recover the readable pre-migration state?",
+            stillV1 && !afterStagedCrash.requiresMigration &&
+                stagedRecords.size == CrashHarness.MIGRATION_RECORDS,
+            "foundV1=$stillV1 migratedOnNextOpen=true " +
+                "records=${stagedRecords.size}/${CrashHarness.MIGRATION_RECORDS}",
+        )
+
+        val renamedDir = dir(root, "epoch-migrate-renamed")
+        CrashHarness.runChild(CrashHarness.Mode.MIGRATE_RENAMED_THEN_DIE, renamedDir, 0)
+        val renamedKeys = LocalKeyStore(
+            renamedDir, CrashHarness.migrationContainer(), CrashHarness.MIGRATION_ORGANISM,
+        )
+        val alreadyV2 = !renamedKeys.peek().requiresMigration
+        val afterRenamedCrash = renamedKeys.load()
+        val renamedRecords = SegmentedJournalMedium(renamedDir).use { medium ->
+            EncryptedRecordStore(
+                medium, renamedKeys.keyContainer(afterRenamedCrash), CrashHarness.MIGRATION_ORGANISM,
+            ).readAll()
+        }
+        sb.append("  migrationCrash stagedFoundV1=$stillV1 renamedFoundV2=$alreadyV2\n")
+        out += Finding(
+            "FX-V1-MIGRATION-CRASH-RENAMED-01",
+            "Does death straight after the migration rename recover the complete migrated state?",
+            alreadyV2 && renamedRecords.size == CrashHarness.MIGRATION_RECORDS &&
+                afterRenamedCrash.dataKeyId == LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID,
+            "foundV2=$alreadyV2 records=${renamedRecords.size}/${CrashHarness.MIGRATION_RECORDS} " +
+                "dataKeyId=${afterRenamedCrash.dataKeyId}",
+        )
+
+        // Key state from a version this build does not know must be refused
+        // rather than reinterpreted. Guessing at a future layout is how a
+        // downgrade turns into a birth.
+        val futureDir = dir(root, "epoch-future")
+        val futureKeys = LocalKeyStore(futureDir, container(), ORGANISM)
+        val futureState = futureKeys.create(dataKey(61))
+        File(futureDir, PersistenceBackendContract.KEYSTATE_FILE).writeBytes(
+            CanonicalEnvelope.wrap(
+                LocalStorageCryptographyContract.KEY_STATE_SCHEMA_ID,
+                LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION + 1,
+                CanonicalEnvelope.unwrap(futureState.canonicalBytes()).payload,
+            ),
+        )
+        var futureRefused = false
+        try {
+            futureKeys.load()
+        } catch (refusal: RuntimeException) {
+            futureRefused = true
+        }
+        out += Finding(
+            "FX-V1-MIGRATION-FUTURE-REFUSED-01",
+            "Is key state from an unknown future schema version refused rather than guessed at?",
+            futureRefused,
+            "refused=$futureRefused",
+        )
+
+        return sb.toString()
+    }
+
+    /** One decoded plaintext record header, so a fixture can forge exactly one field. */
+    private data class RecordHead(
+        val schemaId: Int,
+        val schemaVersion: Int,
+        val generationId: Long,
+        val sequence: Long,
+        val context: Int,
+    )
+
+    private fun forgeHeader(record: ByteArray, edit: (RecordHead) -> RecordHead): ByteArray {
+        val contents = CanonicalEnvelope.unwrap(record)
+        val reader = CanonicalReader(contents.payload)
+        val head = reader.readBytes()
+        val sealed = reader.readBytes()
+        reader.requireExhausted()
+
+        val headReader = CanonicalReader(head)
+        val decoded = RecordHead(
+            schemaId = headReader.readU32(),
+            schemaVersion = headReader.readU32(),
+            generationId = headReader.readI64(),
+            sequence = headReader.readI64(),
+            context = headReader.readU32(),
+        )
+        headReader.requireExhausted()
+        val edited = edit(decoded)
+        val forged = CanonicalWriter(32)
+            .putU32(edited.schemaId)
+            .putU32(edited.schemaVersion)
+            .putI64(edited.generationId)
+            .putI64(edited.sequence)
+            .putU32(edited.context)
+            .toByteArray()
+        return CanonicalEnvelope.wrap(
+            contents.payloadSchemaId,
+            contents.payloadSchemaVersion,
+            CanonicalWriter(forged.size + sealed.size + 16)
+                .putBytes(forged)
+                .putBytes(sealed)
+                .toByteArray(),
+        )
     }
 
     // -------------------------------------------------------------- recovery

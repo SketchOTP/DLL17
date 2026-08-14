@@ -1,5 +1,8 @@
 package com.animusmachinae.dll17.core.continuity
 
+import com.animusmachinae.dll17.core.crypto.CanonicalEnvelope
+import com.animusmachinae.dll17.core.crypto.CanonicalReader
+import com.animusmachinae.dll17.core.crypto.CanonicalWriter
 import com.animusmachinae.dll17.core.crypto.ChaCha20Poly1305
 import com.animusmachinae.dll17.core.math.ArithmeticContext
 import com.animusmachinae.dll17.core.state.DurabilityClass
@@ -421,17 +424,128 @@ class DurabilityAndJournalTest {
     }
 
     @Test
-    fun `a record from another key epoch is refused rather than guessed`() {
+    fun `a later wrapping epoch still reads records written under an earlier one`() {
         val medium = InMemoryDurableMedium()
         val store = EncryptedRecordStore(medium, InMemoryKeyContainer(1, fingerprint, key()), organismId)
         store.append(1L, 1L, ContinuityEvent.SCHEMA_ID, 1, "payload".toByteArray())
 
+        // Same data key, rotated wrapping material. Under V1 this refused, which
+        // meant a rotation deleted the organism's history in every way that
+        // matters. `LocalStorageCryptographyContractV2` separates the two.
         val laterEpoch = EncryptedRecordStore(
             medium,
             InMemoryKeyContainer(2, fingerprint, key()),
             organismId,
         )
-        assertFailsWith<StorageFault> { laterEpoch.readAll() }
+        val read = laterEpoch.readAll()
+        assertEquals(1, read.size)
+        assertEquals("payload", String(read.single().payload))
+    }
+
+    @Test
+    fun `a foreign data key is refused even at the right sequence`() {
+        val medium = InMemoryDurableMedium()
+        EncryptedRecordStore(medium, InMemoryKeyContainer(1, fingerprint, key()), organismId)
+            .append(1L, 1L, ContinuityEvent.SCHEMA_ID, 1, "payload".toByteArray())
+
+        // Dropping the pre-check did not drop the guarantee: what refuses a
+        // record this container has no business reading is the AEAD tag, which
+        // cannot be talked round.
+        val foreignKey = ByteArray(ChaCha20Poly1305.KEY_SIZE) { (it + 99).toByte() }
+        assertFailsWith<StorageFault> {
+            EncryptedRecordStore(
+                medium,
+                InMemoryKeyContainer(1, fingerprint, foreignKey),
+                organismId,
+            ).readAll()
+        }
+    }
+
+    @Test
+    fun `tampering with the record encryption context fails authentication`() {
+        val medium = InMemoryDurableMedium()
+        val keys = InMemoryKeyContainer(1, fingerprint, key())
+        EncryptedRecordStore(medium, keys, organismId)
+            .append(1L, 1L, ContinuityEvent.SCHEMA_ID, 1, "payload".toByteArray())
+
+        // Rewriting the context — to make a record look as though it were sealed
+        // under a key the reader holds — must fail, or the removal of the epoch
+        // pre-check really would be a weakening.
+        val forged = InMemoryDurableMedium()
+        forged.append(1L, retampered(medium.records().single().second) { it.copy(context = 2) })
+        assertFailsWith<StorageFault> { EncryptedRecordStore(forged, keys, organismId).readAll() }
+    }
+
+    @Test
+    fun `a record cannot be transplanted into another generation`() {
+        val medium = InMemoryDurableMedium()
+        val keys = InMemoryKeyContainer(1, fingerprint, key())
+        EncryptedRecordStore(medium, keys, organismId)
+            .append(1L, 1L, ContinuityEvent.SCHEMA_ID, 1, "payload".toByteArray())
+
+        val forged = InMemoryDurableMedium()
+        forged.append(1L, retampered(medium.records().single().second) { it.copy(generationId = 2L) })
+        assertFailsWith<StorageFault> { EncryptedRecordStore(forged, keys, organismId).readAll() }
+    }
+
+    @Test
+    fun `a record cannot be transplanted into another schema`() {
+        val medium = InMemoryDurableMedium()
+        val keys = InMemoryKeyContainer(1, fingerprint, key())
+        EncryptedRecordStore(medium, keys, organismId)
+            .append(1L, 1L, ContinuityEvent.SCHEMA_ID, 1, "payload".toByteArray())
+
+        val forged = InMemoryDurableMedium()
+        forged.append(1L, retampered(medium.records().single().second) { it.copy(schemaVersion = 2) })
+        assertFailsWith<StorageFault> { EncryptedRecordStore(forged, keys, organismId).readAll() }
+    }
+
+    /**
+     * The plaintext header of one stored record, so a test can rewrite exactly
+     * one field of it and leave the ciphertext alone. Locating fields by byte
+     * search would silently drift the moment the layout changed; decoding does
+     * not.
+     */
+    private data class Head(
+        val schemaId: Int,
+        val schemaVersion: Int,
+        val generationId: Long,
+        val sequence: Long,
+        val context: Int,
+    )
+
+    private fun retampered(record: ByteArray, edit: (Head) -> Head): ByteArray {
+        val contents = CanonicalEnvelope.unwrap(record)
+        val reader = CanonicalReader(contents.payload)
+        val head = reader.readBytes()
+        val sealed = reader.readBytes()
+        reader.requireExhausted()
+
+        val headReader = CanonicalReader(head)
+        val decoded = Head(
+            schemaId = headReader.readU32(),
+            schemaVersion = headReader.readU32(),
+            generationId = headReader.readI64(),
+            sequence = headReader.readI64(),
+            context = headReader.readU32(),
+        )
+        headReader.requireExhausted()
+        val edited = edit(decoded)
+        val newHead = CanonicalWriter(32)
+            .putU32(edited.schemaId)
+            .putU32(edited.schemaVersion)
+            .putI64(edited.generationId)
+            .putI64(edited.sequence)
+            .putU32(edited.context)
+            .toByteArray()
+        return CanonicalEnvelope.wrap(
+            contents.payloadSchemaId,
+            contents.payloadSchemaVersion,
+            CanonicalWriter(newHead.size + sealed.size + 16)
+                .putBytes(newHead)
+                .putBytes(sealed)
+                .toByteArray(),
+        )
     }
 
     @Test

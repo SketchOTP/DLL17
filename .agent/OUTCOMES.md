@@ -276,3 +276,29 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: No physical Android device was reachable, so Keystore hardware or StrongBox backing, real device flash behaviour, physical-device latency and on-hardware restart are unqualified; the emulator reported software-backed key material and its storage is not device flash. Sudden power-loss durability remains unproven and unclaimed, because killing a process leaves the operating system page cache intact. No production threshold is derived from any measurement. Fixture DV-KS-ROTATION-READBACK-01 records that after a wrapping-epoch rotation the existing journal does not open, which contradicts the rotation promise in LocalStorageCryptographyContractV1 and needs a versioned amendment and architect review rather than a device-side patch. A001 remains blocked on the same five external inputs.
 - Blockers: No physical Android device is reachable to this environment. The frozen-contract contradiction recorded by DV-KS-ROTATION-READBACK-01 requires an architect decision.
 - Follow-up directive: none
+
+## D-013 - COMPLETE
+
+- Outcome ID: O-0013
+- Supersedes outcome: none
+- Closed: 2026-08-14T20:05:00-04:00
+- Acceptance: MET
+- Summary: The 2026-08-14 key-epoch separation amendment is implemented and frozen as LocalStorageCryptographyContractV2, which supersedes V1 and amends sections 13.3 through 13.5 of ContinuityDurabilityContractV1. The wrapping epoch, the data-key identity and a record's immutable encryption context are now three separate quantities, and only the last decides whether a record can be read. An ordinary wrapping rotation advances the epoch, rewraps the same data key, rewrites no journal byte, and leaves every already-written record readable through one rotation, through five, mixed with newer records, and across a restart. The record byte layout is unchanged, so no journal is rewritten and no canonical byte or hash moves; key state migrates from schema 231 version 1 to version 2 by adding a data-key identity to one small file, deterministically, idempotently, and crash-safely at both durable boundaries under real process death. Removing the epoch pre-check removed no guarantee: the context is inside the associated data, and four forged header fields and a foreign data key are all refused by the tag. Thirteen desktop fixtures and one device fixture were added, and the previously failing DV-KS-ROTATION-READBACK-01 now holds with readableAfterRotation five of five, unchanged in identifier, question and threshold. The external prior-art check is recorded as PA-0001 with disposition REFERENCE and no dependency was adopted.
+- Changed areas: docs/architecture/LocalStorageCryptographyContractV2.md, docs/architecture/LocalStorageCryptographyContractV1.md, docs/architecture/ContinuityDurabilityContractV1.md, core-continuity/, core-persistence/, android-host/src/androidTest/, tools/build_qualification_bundle.py, docs/decisions/, docs/invariants/INVARIANT_REGISTRY.md, governance/qualification/, governance/release-gates/, qualification/, .agent/
+- Validation:
+  - python3 scripts/validate_governance.py --mode ADOPTED - PASSED
+  - python3 scripts/test_validate_governance.py - PASSED
+  - python3 tools/verify_project_identity.py covering eight modules - PASSED
+  - python3 tools/build_qualification_bundle.py --verify covering nine bundles - PASSED
+  - python3 tools/generate_lookup_tables.py --check - PASSED
+  - python3 tools/verify_backup_exclusion.py against the built debug and release packages - PASSED
+  - ./gradlew clean build covering fourteen modules and three hundred and eighty six JVM tests - PASSED
+  - ./gradlew :desktop-runner:run reproducing both frozen production digests unchanged - PASSED
+  - ./gradlew :desktop-runner:r012Qualification with fifty five of fifty five fixtures held - PASSED
+  - ./gradlew :research:aliveness-spike:accelerated-sim:run reproducing the A000 digest unchanged - PASSED
+  - ./gradlew :research:aliveness-spike:analysis:a001DryRun byte identical to the committed evidence - PASSED
+  - ./gradlew :android-host:connectedDebugAndroidTest on an x86 emulator, twelve tests, forty six of forty six device fixtures held - PASSED on an emulator, which is supplementary coverage and not physical-device evidence
+  - Physical-device Keystore, storage, latency and restart qualification - BLOCKED, unchanged from D012
+- Remaining risks: D012 remains BLOCKED_DEVICE_UNAVAILABLE. No physical Android device was reachable to D013 either, so Keystore hardware or StrongBox backing, real device flash behaviour, physical-device latency and on-hardware restart are still unqualified, and resolving a fixture is not qualifying hardware. Sudden power-loss durability remains unproven and unclaimed, because killing a process leaves the operating system page cache intact. Data-encryption-key rotation is not implemented and needs a separately frozen design before it is; a wrapping rotation must never be quietly turned into one. No production threshold is derived from any measurement. A001 remains blocked on the same five external inputs.
+- Blockers: No physical Android device is reachable to this environment.
+- Follow-up directive: none

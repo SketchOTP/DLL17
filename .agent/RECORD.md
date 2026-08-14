@@ -341,3 +341,23 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: D012 forbids changing a frozen D011 contract to make a device test pass and states that a material conflict requires a versioned amendment and architect review. Either contract could be amended and the choice has real consequences — re-encrypting history versus separating the wrapping epoch from the record key epoch — so it is not a coder's decision. Declaring the failing fixture keeps the suite honest without leaving an undeclared red test in the repository.
 - Affected areas: android-host/src/androidTest/, governance/release-gates/R012_DEVICE_GATE.md, qualification/device-matrix/R012/DEVICE_MATRIX.md, docs/architecture/LocalStorageCryptographyContractV1.md
 - Supersedes record: none
+
+## DEC-0033
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0033
+- Status: ACTIVE
+- Decision or event: The architect resolved the DEC-0032 contradiction in favour of separating the wrapping epoch from the data key's identity rather than re-encrypting history, and D013 implemented that as LocalStorageCryptographyContractV2. A record now carries the identity of the key that sealed it, is decrypted under its own immutable stored context, and survives any number of wrapping rotations. The record byte layout is unchanged. Fixture DV-KS-ROTATION-READBACK-01, which D012 filed as NOT HELD, now reports readableAfterRotation=5/5.
+- Rationale: Re-encrypting history on every rotation would make routine key hygiene cost proportional to the length of the organism's life and would put every record at risk to change a field none of them carry. Separation costs four bytes of key state and a one-file migration. It is also the structure established envelope-encryption systems already use, recorded as PA-0001 with disposition REFERENCE.
+- Affected areas: docs/architecture/LocalStorageCryptographyContractV2.md, docs/architecture/LocalStorageCryptographyContractV1.md, docs/architecture/ContinuityDurabilityContractV1.md, core-continuity/, core-persistence/, android-host/src/androidTest/
+- Supersedes record: DEC-0032
+
+## DEC-0034
+
+- Date: 2026-08-14
+- Record or decision ID: DEC-0034
+- Status: ACTIVE
+- Decision or event: R012DEV-QB-1 is pinned to commit 4700b0762cad3b1bb63a69be4f7eca9caea3b819, and the D013 device re-run is filed as a separate bundle R012DEV-QB-2. This is the first time a bundle whose gate is BLOCKED rather than passed has been pinned.
+- Rationale: D013 makes the fixture D012 declared as failing pass. If R012DEV-QB-1 continued to follow the working tree, the negative evidence D012 filed would silently become a passing report and the record would no longer show that a finding was made. A resolved finding that leaves no trace is indistinguishable from a finding nobody made, and the architect's standing rule is to preserve failures rather than accept summaries. The D012 gate record and device matrix keep the original text and the version 1 report remains verifiable at that commit.
+- Affected areas: tools/build_qualification_bundle.py, governance/qualification/, governance/release-gates/R012_DEVICE_GATE.md, qualification/device-matrix/R012/DEVICE_MATRIX.md
+- Supersedes record: none

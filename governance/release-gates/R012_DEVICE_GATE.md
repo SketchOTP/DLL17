@@ -7,6 +7,7 @@
 - Evidence digest (emulator target):
   `ac38a91d98d5e422a1e1077be151e5a90b290efa89f91fa217435461797196a9`
 - Evaluated: 2026-08-14
+- Amended: 2026-08-14 under D013 — see "The declared fixture failure" below
 
 **Gate state: `BLOCKED_DEVICE_UNAVAILABLE`.**
 
@@ -43,7 +44,23 @@ actual hardware is therefore open.
 | Production thresholds | Not derived, and not derivable from emulator figures |
 | Sudden power-loss durability | Not proven by any test here, and not claimed |
 
-## The declared fixture failure
+## The declared fixture failure — resolved under D013
+
+**Status: resolved.** The architect's 2026-08-14 epoch-separation amendment chose
+separating the wrapping epoch from the data key's identity over re-encrypting
+history, and D013 implemented it as `LocalStorageCryptographyContractV2`. The
+device suite was re-run at fixture set version 2: `DV-KS-ROTATION-READBACK-01`
+now holds with `readableAfterRotation=5/5`, and 46 of 46 fixtures hold.
+
+That re-run is filed separately as `R012DEV-QB-2`. This gate record and
+`R012DEV-QB-1` are pinned to D012's commit and keep the failure exactly as it was
+reported, because a resolved finding that leaves no trace is indistinguishable
+from a finding nobody made. The original text follows unchanged.
+
+**The gate state above is unchanged: `BLOCKED_DEVICE_UNAVAILABLE`.** D013 had no
+physical device either, and resolving a fixture is not qualifying hardware.
+
+---
 
 `DV-KS-ROTATION-READBACK-01` reports `NOT HELD`. It records a contradiction
 between `LocalStorageCryptographyContractV1` (rotation rewraps one key and
@@ -65,7 +82,7 @@ the data key was unchanged without then reading a record back.
    used for the R001 and R002 matrices is an acceptable target.
 2. `./gradlew :android-host:connectedDebugAndroidTest` against it, with the
    report captured from logcat and filed in the device matrix.
-3. An architect decision on `DV-KS-ROTATION-READBACK-01`.
+3. ~~An architect decision on `DV-KS-ROTATION-READBACK-01`.~~ Done, D013.
 
-Nothing else is outstanding. The suite is written, the adapter is implemented,
-and the missing input is hardware.
+One input is outstanding, and it is hardware. The suite is written, the adapter
+is implemented, and the contract defect the suite found has been corrected.

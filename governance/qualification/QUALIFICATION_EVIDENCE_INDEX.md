@@ -7,8 +7,10 @@
 | R002 | Lifecycle, durability, trusted time, reconciliation | `governance/qualification/R002_QUALIFICATION_BUNDLE.md` | `PASS` — closed under D007. Gate record: `governance/release-gates/R002_EXIT_GATE.md`. |
 | A000 | Aliveness spike | `governance/qualification/A000_QUALIFICATION_BUNDLE.md` | `COMPLETE` under D008 and D009. Research track, not a production gate. D008 returned five negative findings and an empty curiosity feasible region; D009 remediated the candidate under unchanged thresholds and all 24 findings now hold. Gate record: `governance/release-gates/A000_EXIT_GATE.md`. Pinned to `4a2b1e4c7ce1326b5c8d5b08d873df7f581186d7`. |
 | A001-PRE | Activation package | `governance/qualification/A001_ACTIVATION_PACKAGE_BUNDLE.md` | `COMPLETE` under D010. The study protocol, instrument, comparator manifest, sealed pilot, feasibility calculator, analysis pipeline, participant materials and reviewer onboarding, all prepared without human data. Gate record: `governance/release-gates/A001_ACTIVATION_GATE.md`. |
-| R012-SUB | Persistence, recovery and identity substrate | `governance/qualification/R012_SUBSTRATE_BUNDLE.md` | `COMPLETE` for the scope the 2026-08-14 parallel amendment authorized, under D011. Not the R012 product exit gate. Gate record: `governance/release-gates/R012_SUBSTRATE_GATE.md`. |
-| R012-DEV | R012 substrate on Android hardware | `governance/qualification/R012_DEVICE_BUNDLE.md` | `BLOCKED_DEVICE_UNAVAILABLE` under D012. The Android Keystore adapter, the app-private storage adapter and the 45-fixture device suite are complete and ran on an emulator (44 / 45 held); no physical device was reachable, and an emulator does not substitute for one. Gate record: `governance/release-gates/R012_DEVICE_GATE.md`. |
+| R012-SUB | Persistence, recovery and identity substrate | `governance/qualification/R012_SUBSTRATE_BUNDLE.md` | `COMPLETE` for the scope the 2026-08-14 parallel amendment authorized, under D011. Not the R012 product exit gate. Superseded on one point by R012-SUB-V2. Gate record: `governance/release-gates/R012_SUBSTRATE_GATE.md`. Pinned to `afd0ecdb21bd20a00d4f3b6ae69d31e61890707c`. |
+| R012-SUB-V2 | Local-storage epoch separation | `governance/qualification/R012_SUBSTRATE_BUNDLE_V2.md` | `PASS` under D013, 55 / 55 fixtures. Implements `LocalStorageCryptographyContractV2`, which supersedes V1 and amends `ContinuityDurabilityContractV1` sections 13.3–13.5. Gate record: `governance/release-gates/R012_SUBSTRATE_GATE_V2.md`. |
+| R012-DEV | R012 substrate on Android hardware | `governance/qualification/R012_DEVICE_BUNDLE.md` | `BLOCKED_DEVICE_UNAVAILABLE` under D012. The Android Keystore adapter, the app-private storage adapter and the 45-fixture device suite are complete and ran on an emulator (44 / 45 held); no physical device was reachable, and an emulator does not substitute for one. Gate record: `governance/release-gates/R012_DEVICE_GATE.md`. Pinned to `4700b0762cad3b1bb63a69be4f7eca9caea3b819` so the declared failure stays verifiable. |
+| R012-DEV-V2 | R012 substrate on Android, after epoch separation | `governance/qualification/R012_DEVICE_BUNDLE_V2.md` | Still `BLOCKED_DEVICE_UNAVAILABLE` under D013 — no physical device was reachable to D013 either. The device suite re-ran at fixture set version 2 with 46 / 46 held, including `DV-KS-ROTATION-READBACK-01`, which D012 had filed as `NOT HELD`. |
 | A001 | Aliveness gate | none | `BLOCKED`. Five outstanding blockers, none clearable by code: unqualified baseline, unregistered variance pilot, no released paired-difference SD, three unassigned reviewer roles, no owner resource ceiling. |
 
 ## R000 evidence layout
@@ -132,7 +134,23 @@ filesystem. The Android half is a separate bundle, below.
 D012 closed as `BLOCKED_DEVICE_UNAVAILABLE`: the Android Keystore adapter and the
 device suite exist and run, and **no physical Android device was reachable**, so
 Keystore hardware backing, real device flash, physical-device latency and
-on-hardware restart remain unqualified.
+on-hardware restart remain unqualified. D013 re-ran the suite after correcting the
+contract defect the suite found, and it is still blocked on the same input.
+
+## Why R012 has two substrate bundles and two device bundles
+
+D012 found a defect in a contract that R012-QB-1 had already been qualified
+against, and D013 corrected it. Two ways of recording that were available.
+
+The bundles could have been rebuilt in place, which would make the record read as
+though the substrate had always been correct and as though
+`DV-KS-ROTATION-READBACK-01` had always passed. Instead both original bundles are
+pinned to the commits they were qualified at — including `R012DEV-QB-1`, whose
+gate is *blocked* rather than passed — and the corrected work is a successor.
+
+The cost is two extra bundles. What it buys is that a reader can still see, from
+verifiable artifacts rather than from prose, that a fixture found a real defect in
+a frozen contract and that the defect was escalated before it was fixed.
 
 ## A001 pre-activation evidence layout
 

@@ -22,16 +22,16 @@ NOTE: these are measurements of the machine named above and nothing more.
 
 == CLASS W — witnessed commit, one fsync per record
   run      mean_us    p50_us    p90_us    p99_us    max_us
-  1       1487.296      1410      1891      4601      7598
-  2       1207.938       980      2099      4061     10021
-  3       1368.599      1059      2158      7161     18703
+  1       1361.298      1189      2203      5190     11585
+  2       1140.637      1010      1618      4086     20726
+  3       1393.207      1230      1933      4497     10789
 
 == CLASS O — ordinary progress, batched with one fsync per batch
   batch     perRecord_us_mean   batch_us_mean
-  1                   809.254         809.254
-  4                   180.677         722.708
-  16                   62.741        1003.856
-  64                   27.994        1791.594
+  1                   905.168         905.168
+  4                   368.554        1474.215
+  16                  145.064        2321.025
+  64                   81.303        5203.400
   Batching is a durability *class* decision, not a storage trick: Class O may
   be batched because losing the tail of it is recoverable, and Class W may not.
 
@@ -43,14 +43,14 @@ NOTE: these are measurements of the machine named above and nothing more.
   overheadRatio=1.264
 
 == SNAPSHOT, COMPACTION AND REPLAY
-  snapshotWrite_us mean=2731.400 p50=2466 max=6123
-  replay_ms=253.665 records=1500
-  compaction_ms=33.882 survivors=750
+  snapshotWrite_us mean=3022.750 p50=2956 max=5358
+  replay_ms=170.743 records=1500
+  compaction_ms=33.897 survivors=750
   journalBytesAfterCompaction=265500
 
 == COLD RECOVERY PACKAGE
   tailRecords=750
   packageSizeBytes=205456
-  createPackage_ms=264.155
-  openPackage_ms=54.666
+  createPackage_ms=212.188
+  openPackage_ms=29.394
 

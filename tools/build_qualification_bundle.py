@@ -574,6 +574,66 @@ R012DEV_CONSTITUENTS: list[tuple[str, list[str]]] = [
 ]
 
 
+# D013: the corrected substrate. R012-QB-1 stays pinned to the commit it was
+# qualified at and is not touched — the epoch-separation correction is a real
+# change to a constituent of a closed gate, and the honest way to record that is
+# a successor bundle rather than a quiet edit to the old one. This bundle adds
+# the V2 contract, the amended record boundary in `core-continuity`, and the
+# regression evidence that the correction is qualified.
+R012V2_CONSTITUENTS: list[tuple[str, list[str]]] = [
+    (
+        "Frozen contracts",
+        [
+            "docs/architecture/PersistenceBackendContractV1.md",
+            "docs/architecture/LocalStorageCryptographyContractV2.md",
+            "docs/architecture/LocalStorageCryptographyContractV1.md",
+            "docs/architecture/RecoveryCryptographyContractV1.md",
+            "docs/architecture/IdentityAuthorityProtocolV1.md",
+            "docs/architecture/RecoveryPackageStoreContractV1.md",
+        ],
+    ),
+    (
+        "Amended record boundary",
+        [
+            "core-continuity/src/main/kotlin/com/animusmachinae/dll17/core/continuity/DurableStore.kt",
+            "core-continuity/src/test/kotlin/com/animusmachinae/dll17/core/continuity/DurabilityAndJournalTest.kt",
+        ],
+    ),
+    (
+        "Persistence implementation",
+        [
+            "core-persistence/build.gradle.kts",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/PersistenceBackend.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/LocalStorageCryptography.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/ColdRecoveryActivation.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/CrashHarness.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/R012QualificationKernel.kt",
+            "core-persistence/src/main/kotlin/com/animusmachinae/dll17/core/persistence/R012PerformanceHarness.kt",
+        ],
+    ),
+    (
+        "Qualification suites",
+        [
+            "core-persistence/src/test/kotlin/com/animusmachinae/dll17/core/persistence/PersistenceBackendTest.kt",
+            "core-persistence/src/test/kotlin/com/animusmachinae/dll17/core/persistence/LocalStorageCryptographyTest.kt",
+            "core-persistence/src/test/kotlin/com/animusmachinae/dll17/core/persistence/ModuleBoundaryTest.kt",
+        ],
+    ),
+    (
+        "Qualification evidence",
+        [
+            "qualification/fixtures/R012/R012_REPORT.txt",
+            "qualification/evidence/R012V2/governance_validation.txt",
+            "qualification/evidence/R012V2/project_identity.txt",
+            "qualification/evidence/R012V2/gradle_build.txt",
+            "qualification/evidence/R012V2/toolchain_environment.txt",
+        ],
+    ),
+    ("Prior art", ["docs/decisions/EXTERNAL_PRIOR_ART.md"]),
+    ("Gate record", ["governance/release-gates/R012_SUBSTRATE_GATE_V2.md"]),
+]
+
+
 class PhaseSpec:
     def __init__(
         self,
@@ -663,12 +723,35 @@ PHASES: dict[str, PhaseSpec] = {
         # bundle is still verified against exactly what was qualified.
         frozen_at_commit="afd0ecdb21bd20a00d4f3b6ae69d31e61890707c",
     ),
+    "R012V2": PhaseSpec(
+        phase="R012V2",
+        title="local-storage epoch separation",
+        directive="D013",
+        bundle_version="R012-QB-2",
+        bundle_path="governance/qualification/R012_SUBSTRATE_BUNDLE_V2.md",
+        constituents=R012V2_CONSTITUENTS,
+        frozen_at_commit=None,
+    ),
     "R012DEV": PhaseSpec(
         phase="R012DEV",
         title="R012 substrate on Android hardware",
         directive="D012",
         bundle_version="R012DEV-QB-1",
         bundle_path="governance/qualification/R012_DEVICE_BUNDLE.md",
+        constituents=R012DEV_CONSTITUENTS,
+        # Pinned to the commit D012 filed, even though its gate is BLOCKED rather
+        # than passed. D013 re-ran the device suite and the fixture that reported
+        # NOT HELD now holds — which would silently erase the negative evidence
+        # if this bundle followed the working tree. The D012 record stays exactly
+        # as it was written, verifiable, and the D013 run is a separate bundle.
+        frozen_at_commit="4700b0762cad3b1bb63a69be4f7eca9caea3b819",
+    ),
+    "R012DEV2": PhaseSpec(
+        phase="R012DEV2",
+        title="R012 substrate on Android hardware, after epoch separation",
+        directive="D013",
+        bundle_version="R012DEV-QB-2",
+        bundle_path="governance/qualification/R012_DEVICE_BUNDLE_V2.md",
         constituents=R012DEV_CONSTITUENTS,
         frozen_at_commit=None,
     ),

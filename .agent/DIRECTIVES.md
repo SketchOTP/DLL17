@@ -195,3 +195,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-011
 - Status at issuance: ISSUED
+
+
+## D-013
+
+- Issued: 2026-08-14T16:40:00-04:00
+- Issuer: User
+- External directive: D013
+- Objective: Implement the 2026-08-14 local-storage key-epoch separation amendment as a versioned successor contract, so that an ordinary wrapping-key rotation no longer makes the organism's existing journal unreadable, without disturbing unaffected qualified persistence, recovery, determinism or A-track work.
+- Scope: Create a versioned successor to LocalStorageCryptographyContractV1 separating the device wrapping epoch, the data-encryption-key identity and the immutable per-record encryption context; make ordinary wrapping rotation advance the wrapping epoch, rewrap the same data key, leave historical ciphertext and canonical history intact, preserve readability of records written under earlier wrapping epochs, permit old and new records to coexist and never require full-history re-encryption; decrypt historical records using the currently recovered data key and the record's own immutable authenticated metadata; keep an actual data-key rotation out of scope as a distinct future capability; define and qualify a deterministic, idempotent, replay-safe and crash-safe compatibility and migration rule for existing V1 encrypted records; add targeted regression fixtures for rotation, interrupted rewrap, authentication and context tampering and V1 compatibility; make the previously failing DV-KS-ROTATION-READBACK-01 pass without deleting, weakening, bypassing or relabelling it; prove canonical bytes and hashes remain independent of wrapping epoch, wrapping key, Keystore material, data-key wrap representation, record ciphertext, nonce, storage location and migration state; record the external prior-art check with disposition REFERENCE; reverify R000, R001, R002, A000, A001PRE, R012-QB-1 and the D012 device-independent evidence; and push a commit with passing GitHub CI.
+- Exclusions: Claiming a D012 physical-device pass; fabricating hardware-backed or StrongBox evidence; altering SEGMENTED_APPEND_LOG_V1; replacing the qualified ChaCha20-Poly1305 and HKDF implementation; adopting Tink, Google Cloud KMS or another runtime dependency; implementing data-encryption-key rotation, key rings, historical-key retention or re-encryption migration; implementing a production network recovery provider; deploying the identity-authority service; executing A001 human work; implementing R003 through R009 organism mechanisms; beginning D014.
+- Acceptance: Versioned epoch semantics are frozen and internally consistent; the wrapping epoch and the data-key and record context are no longer conflated; ordinary wrapping rotation preserves the same data key; historical records survive one and multiple wrapping rotations; mixed old and new records remain readable after restart; no full-history rewrite occurs during ordinary wrapping rotation; interrupted rewrap remains crash-safe; V1 compatibility and migration are deterministic, idempotent and crash-safe; DV-KS-ROTATION-READBACK-01 passes; canonical bytes and hashes remain unchanged; all unaffected pinned qualifications remain valid; the external prior-art disposition is recorded as REFERENCE; GitHub CI passes; the work is committed and pushed to main under the required commit identity; local HEAD equals origin/main; the final worktree is clean; and no A001 human work or R003 through R009 production mechanism is introduced.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-011
+- Status at issuance: ISSUED

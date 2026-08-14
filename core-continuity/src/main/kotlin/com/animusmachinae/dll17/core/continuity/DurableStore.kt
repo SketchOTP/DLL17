@@ -130,11 +130,37 @@ public class InMemoryDurableMedium(
  * test with no Keystore anywhere near it.
  */
 public interface KeyContainer {
+
+    /**
+     * The **wrapping** epoch: how many times the container material that protects
+     * the data key has been rotated. Amended by
+     * `LocalStorageCryptographyContractV2`.
+     *
+     * This value has no part in record encryption. Conflating it with the data
+     * key's identity is exactly the defect V2 corrects: a wrapping rotation
+     * changes only how the DEK is stored, so binding record nonces and AAD to it
+     * orphaned the entire journal on rotation.
+     */
     public val keyEpoch: Int
+
+    /**
+     * The identity of the data-encryption key itself.
+     *
+     * Stable across ordinary wrapping rotations, because the DEK is unchanged by
+     * them. It advances only under an actual DEK rotation, which is a separate
+     * capability that is not implemented and is not authorized here.
+     */
+    public val dataKeyId: Int get() = INITIAL_DATA_KEY_ID
+
     public val deviceFingerprint: Long
 
     /** Returns the 32-byte data key, or throws if the container cannot unwrap it. */
     public fun dataKey(): ByteArray
+
+    public companion object {
+        /** The data-key identity every organism is born with. */
+        public const val INITIAL_DATA_KEY_ID: Int = 1
+    }
 }
 
 /** A key container backed by an in-process key. Test and desktop use only. */
@@ -142,6 +168,7 @@ public class InMemoryKeyContainer(
     override val keyEpoch: Int,
     override val deviceFingerprint: Long,
     private val key: ByteArray,
+    override val dataKeyId: Int = KeyContainer.INITIAL_DATA_KEY_ID,
 ) : KeyContainer {
     init {
         if (key.size != ChaCha20Poly1305.KEY_SIZE) {
@@ -183,18 +210,27 @@ public class EncryptedRecordStore(
     public val usedBytes: Long get() = medium.usedBytes
     public val capacityBytes: Long get() = medium.capacityBytes
 
-    /** Header is plaintext: the AAD and nonce must be derivable before decryption. */
+    /**
+     * Header is plaintext: the AAD and nonce must be derivable before decryption.
+     *
+     * The trailing `u32` is the record's **encryption context** — the identity of
+     * the data key it was sealed under. Byte layout is unchanged from V1; what
+     * changed under `LocalStorageCryptographyContractV2` is where the value comes
+     * from. It used to be the container's current wrapping epoch, which made a
+     * record's readability depend on state that legitimately moves underneath it.
+     */
     private fun header(
         schemaId: Int,
         schemaVersion: Int,
         generationId: Long,
         sequence: Long,
+        context: Int,
     ): ByteArray = CanonicalWriter(32)
         .putU32(schemaId)
         .putU32(schemaVersion)
         .putI64(generationId)
         .putI64(sequence)
-        .putU32(keys.keyEpoch)
+        .putU32(context)
         .toByteArray()
 
     private fun associatedData(
@@ -202,24 +238,26 @@ public class EncryptedRecordStore(
         schemaVersion: Int,
         generationId: Long,
         sequence: Long,
+        context: Int,
     ): ByteArray = CanonicalWriter(40)
         .putU32(schemaId)
         .putU32(schemaVersion)
         .putI64(generationId)
         .putI64(sequence)
         .putI64(organismId)
-        .putU32(keys.keyEpoch)
+        .putU32(context)
         .toByteArray()
 
     /**
-     * Nonce derived from `(keyEpoch, sequence)`, never random.
+     * Nonce derived from `(context, sequence)`, never random.
      *
-     * The sequence is monotonic within a key epoch and the epoch prefixes it, so
-     * reuse is structurally impossible rather than probabilistically unlikely —
-     * and the write path needs no randomness source at all.
+     * The sequence is monotonic and never reused under one data key, so reuse is
+     * structurally impossible rather than probabilistically unlikely — and the
+     * write path needs no randomness source at all. The context prefix keeps that
+     * true across an eventual data-key rotation as well.
      */
-    private fun nonce(sequence: Long): ByteArray = CanonicalWriter(12)
-        .putU32(keys.keyEpoch)
+    private fun nonce(sequence: Long, context: Int): ByteArray = CanonicalWriter(12)
+        .putU32(context)
         .putI64(sequence)
         .toByteArray()
 
@@ -230,11 +268,12 @@ public class EncryptedRecordStore(
         schemaVersion: Int,
         plaintext: ByteArray,
     ) {
-        val head = header(schemaId, schemaVersion, generationId, sequence)
+        val context = keys.dataKeyId
+        val head = header(schemaId, schemaVersion, generationId, sequence, context)
         val sealed = ChaCha20Poly1305.seal(
             key = keys.dataKey(),
-            nonce = nonce(sequence),
-            aad = associatedData(schemaId, schemaVersion, generationId, sequence),
+            nonce = nonce(sequence, context),
+            aad = associatedData(schemaId, schemaVersion, generationId, sequence, context),
             plaintext = plaintext,
         )
         val record = CanonicalEnvelope.wrap(
@@ -302,22 +341,28 @@ public class EncryptedRecordStore(
         val schemaVersion = headReader.readU32()
         val generationId = headReader.readI64()
         val storedSequence = headReader.readI64()
-        val keyEpoch = headReader.readU32()
+        val context = headReader.readU32()
         headReader.requireExhausted()
 
         if (storedSequence != sequence) {
             throw StorageFault("record header sequence $storedSequence does not match $sequence")
         }
-        if (keyEpoch != keys.keyEpoch) {
-            // Never guess across epochs. A record written under another key epoch
-            // is not this container's to read.
-            throw StorageFault("record $sequence was written under key epoch $keyEpoch")
-        }
 
+        // The record's own immutable context, never the container's current
+        // wrapping epoch. `LocalStorageCryptographyContractV2`: a wrapping
+        // rotation rewraps the data key and rewrites no history, so a record must
+        // not become unreadable because the material protecting its key moved.
+        //
+        // This is not a weakening. The context is inside the AAD, so a record
+        // whose context was altered — to relocate it, to reinterpret it, or to
+        // make a foreign record decrypt here — fails authentication. What is
+        // gone is the *pre*-check that refused an honest record for carrying a
+        // value that had legitimately changed; what does the refusing now is the
+        // cryptography rather than a comparison against mutable state.
         val plaintext = ChaCha20Poly1305.open(
             key = keys.dataKey(),
-            nonce = nonce(sequence),
-            aad = associatedData(schemaId, schemaVersion, generationId, sequence),
+            nonce = nonce(sequence, context),
+            aad = associatedData(schemaId, schemaVersion, generationId, sequence, context),
             sealed = sealed,
         )
         return DurableRecord(sequence, generationId, schemaId, schemaVersion, plaintext)

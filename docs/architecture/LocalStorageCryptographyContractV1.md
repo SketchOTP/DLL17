@@ -1,10 +1,23 @@
 # LocalStorageCryptographyContractV1
 
-- Status: `FROZEN`
+- Status: `SUPERSEDED` by `LocalStorageCryptographyContractV2`, 2026-08-14, D013
 - Version: 1
 - Frozen under: D011
 - Executable portion: `core-persistence/.../LocalStorageCryptography.kt`
 - Qualification evidence: `qualification/fixtures/R012/R012_REPORT.txt`
+
+> **Superseded. Retained, not deleted.**
+>
+> `LocalStorageCryptographyContractV2` corrects one defect in this document: it
+> separates the *wrapping epoch* from the *data key's identity*, which this
+> version conflated. The consequence of the conflation was that an ordinary
+> rotation of the device wrapping material made the whole journal unreadable —
+> the open conflict recorded below under D012, and resolved by the architect's
+> 2026-08-14 epoch-separation amendment.
+>
+> Everything else here is carried forward unchanged and is still accurate. This
+> file remains the frozen text R012-QB-1 was qualified against, and R012-QB-1
+> reads it from the commit it was pinned to.
 
 The encrypted local-record boundary and the key lifecycle around it. Derived from
 Implementation Plan E2E R012.17, whose structural rule is fixed and is restated
@@ -98,6 +111,9 @@ Both writes go through a staging file and an atomic rename, so a death *during*
 either leaves the previous state intact, and a death *between* them leaves step
 one's file.
 
+> **Resolved 2026-08-14 by `LocalStorageCryptographyContractV2` under D013.**
+> The record below is the original D012 finding, kept as written.
+>
 > **Open conflict, recorded 2026-08-14 under D012. Not resolved here.**
 >
 > The claim above that already-written records "stay readable" across a rotation
@@ -112,6 +128,9 @@ one's file.
 > *record* key epoch, and the choice has real consequences, so it requires a
 > versioned amendment and architect review. No value in this document has been
 > changed on account of it.
+>
+> *Resolution:* the architect chose epoch separation over re-encrypting history.
+> `DV-KS-ROTATION-READBACK-01` now reports `readableAfterRotation=5/5`.
 
 ### Interrupted rewrap
 

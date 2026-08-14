@@ -407,3 +407,33 @@ Do not add live entries to this template. Exclude temporary narration, raw logs,
 - Confidence: VERIFIED
 - Scope: Any device-bound key container behind LocalStorageCryptographyContractV1.
 - Supersedes learning: none
+
+## L-0040
+
+- Learning ID: L-0040
+- Date: 2026-08-14
+- Fact or lesson: A test can encode a defect as an expectation and look like coverage. The V1 test was named "rotation preserves the data key so existing records stay readable" and its final assertion demanded a StorageFault — that is, it demanded that a routine rotation orphan ten records. The name stated the contract, the body asserted the bug, and nobody reading either alone would notice. When a test's name and its assertion disagree, the assertion is what ships.
+- Evidence location: core-persistence/src/test/kotlin/.../LocalStorageCryptographyTest.kt, the rotation test as it stood at commit afd0ecdb; DEC-0033.
+- Confidence: VERIFIED
+- Scope: Any qualification suite where a fixture asserts a refusal.
+- Supersedes learning: none
+
+## L-0041
+
+- Learning ID: L-0041
+- Date: 2026-08-14
+- Fact or lesson: Choosing a good representation can turn a migration into nothing. The record header field was always semantically the identity of the key that sealed the record; V1 simply wired it to the wrong source. Because the initial wrapping epoch and the initial data-key identity are both 1, every record ever written is already correct under V2 and not one byte of any journal has to move. The migration touches a single small key-state file. A worse choice of field — a new column, a different width, a different position — would have required re-encrypting the organism's entire history to fix a bug that never corrupted a record.
+- Evidence location: docs/architecture/LocalStorageCryptographyContractV2.md, "V1 compatibility"; fixtures FX-EPOCH-NO-REWRITE-01 and FX-V1-MIGRATION-RECORDS-01; IMPL-0074.
+- Confidence: VERIFIED
+- Scope: Any versioned change to a durable record layout.
+- Supersedes learning: none
+
+## L-0042
+
+- Learning ID: L-0042
+- Date: 2026-08-14
+- Fact or lesson: Removing a validity pre-check is not automatically a weakening, and keeping one is not automatically safety. The V1 epoch check refused records before decryption, which reads as defence in depth but was in fact the whole bug: the value it compared against was mutable state the record had no relationship to. The same field is inside the AAD, so every forgery the pre-check would have caught is caught by the AEAD tag anyway — verified by forging four header fields and having all four refused. The pre-check's only unique effect was refusing honest records.
+- Evidence location: core-continuity/.../DurableStore.kt decode(); fixtures FX-EPOCH-CONTEXT-AUTHENTICATED-01 and FX-EPOCH-FOREIGN-KEY-01; IMPL-0073.
+- Confidence: VERIFIED
+- Scope: Any authenticated-encryption read path with plaintext metadata.
+- Supersedes learning: none

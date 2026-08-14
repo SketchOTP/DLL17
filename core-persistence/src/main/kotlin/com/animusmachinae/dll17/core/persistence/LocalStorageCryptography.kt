@@ -13,7 +13,7 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
 /**
- * `LocalStorageCryptographyContractV1`, frozen values.
+ * `LocalStorageCryptographyContractV2`, frozen values.
  *
  * The structural rule comes from the canonical plan (R012.17) and is not
  * negotiable here: canonical payloads outside the key container are
@@ -21,11 +21,17 @@ import java.nio.file.StandardCopyOption
  * daily-use data key is random and wrapped by container material; and only the
  * minimum metadata needed to locate and order records stays outside the
  * ciphertext, authenticated against it.
+ *
+ * V2 supersedes V1 on exactly one point: the *wrapping* epoch and the *data
+ * key's identity* are separate quantities, and only the second one reaches a
+ * record. Every algorithm, every derivation, every byte layout of a record and
+ * every failure rule is carried forward unchanged.
  */
 public object LocalStorageCryptographyContract {
 
-    public const val CONTRACT_ID: String = "LocalStorageCryptographyContractV1"
-    public const val CONTRACT_VERSION: Int = 1
+    public const val CONTRACT_ID: String = "LocalStorageCryptographyContractV2"
+    public const val CONTRACT_VERSION: Int = 2
+    public const val SUPERSEDES: String = "LocalStorageCryptographyContractV1"
 
     public const val AEAD_ALGORITHM: String = ChaCha20Poly1305.ALGORITHM_ID
     public const val WRAP_ALGORITHM: String = ChaCha20Poly1305.ALGORITHM_ID
@@ -34,12 +40,29 @@ public object LocalStorageCryptographyContract {
     /** Domain separation for every key this contract derives. */
     public const val INFO_WRAPPING_KEY: String = "DLL17-LOCAL-WRAP-V1"
 
-    /** Canonical schema of the persisted key state. */
+    /**
+     * Canonical schema of the persisted key state.
+     *
+     * Version 2 under `LocalStorageCryptographyContractV2` adds `dataKeyId`.
+     * Version 1 remains readable and is migrated in place; see
+     * [LocalKeyStore.load].
+     */
     public const val KEY_STATE_SCHEMA_ID: Int = 231
-    public const val KEY_STATE_SCHEMA_VERSION: Int = 1
+    public const val KEY_STATE_SCHEMA_VERSION: Int = 2
+    public const val KEY_STATE_SCHEMA_VERSION_V1: Int = 1
 
-    /** The first epoch a newly created organism writes under. */
+    /** The first **wrapping** epoch a newly created organism writes under. */
     public const val INITIAL_KEY_EPOCH: Int = 1
+
+    /**
+     * The data-key identity a newly created organism is born with, and the one
+     * every V1 organism migrates to.
+     *
+     * V1 conflated this with [INITIAL_KEY_EPOCH]. They share a value, and that
+     * coincidence is why no journal has to be rewritten — but they are different
+     * quantities and V2 keeps them apart.
+     */
+    public const val INITIAL_DATA_KEY_ID: Int = KeyContainer.INITIAL_DATA_KEY_ID
 }
 
 /** Why local key material could not be used. */
@@ -97,13 +120,16 @@ public class InProcessDeviceKeyContainer(
 }
 
 /**
- * Persisted key state: the wrapped data-encryption key and its epoch.
+ * Persisted key state: the wrapped data-encryption key, the wrapping epoch that
+ * protects it, and the identity of the key itself.
  *
- * The DEK itself is random and never derived from the device secret, so a
- * rotation of the container material rewraps rather than re-encrypts, and the
- * millions of records already written stay readable.
+ * The DEK is random and never derived from the device secret, so a rotation of
+ * the container material rewraps rather than re-encrypts. Under V2 that promise
+ * is finally true in the read path as well: [keyEpoch] moves, [dataKeyId] does
+ * not, and only [dataKeyId] reaches a record.
  */
 public class WrappedKeyState(
+    /** The **wrapping** epoch. Advances on every container-material rotation. */
     public val keyEpoch: Int,
     public val deviceFingerprint: Long,
     public val wrappedKey: ByteArray,
@@ -115,8 +141,49 @@ public class WrappedKeyState(
     public val pendingEpoch: Int,
     public val pendingWrappedKey: ByteArray,
     public val pendingWrapNonce: ByteArray,
+    /**
+     * The identity of the wrapped data key. Unchanged by a wrapping rotation,
+     * which is the entire point of separating it from [keyEpoch].
+     */
+    public val dataKeyId: Int = LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID,
+    /**
+     * The schema version this state was read from. `1` means it predates V2 and
+     * has not yet been migrated; freshly written state is always
+     * [LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION].
+     */
+    public val schemaVersion: Int = LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION,
 ) {
     public val rewrapInFlight: Boolean get() = pendingEpoch != 0
+
+    /** True while this state is still in the superseded V1 representation. */
+    public val requiresMigration: Boolean
+        get() = schemaVersion < LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION
+
+    /**
+     * The V2 representation of this state.
+     *
+     * Deliberately a pure function of the state, with no clock, no randomness and
+     * no device read in it: that is what makes the migration idempotent, and
+     * migrating twice produces the same bytes as migrating once.
+     */
+    public fun migrated(): WrappedKeyState = if (!requiresMigration) {
+        this
+    } else {
+        WrappedKeyState(
+            keyEpoch = keyEpoch,
+            deviceFingerprint = deviceFingerprint,
+            wrappedKey = wrappedKey,
+            wrapNonce = wrapNonce,
+            pendingEpoch = pendingEpoch,
+            pendingWrappedKey = pendingWrappedKey,
+            pendingWrapNonce = pendingWrapNonce,
+            // Every V1 organism has exactly one data key and has never rotated
+            // it, because V1 had no way to. So the migrated identity is the
+            // initial one, always, for every installation in existence.
+            dataKeyId = LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID,
+            schemaVersion = LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION,
+        )
+    }
 
     public fun canonicalBytes(): ByteArray = CanonicalEnvelope.wrap(
         LocalStorageCryptographyContract.KEY_STATE_SCHEMA_ID,
@@ -129,28 +196,79 @@ public class WrappedKeyState(
             .putI32(pendingEpoch)
             .putBytes(pendingWrappedKey)
             .putBytes(pendingWrapNonce)
+            .putI32(dataKeyId)
             .toByteArray(),
     )
 
     public companion object {
+
+        /**
+         * Decodes either schema version.
+         *
+         * V1 state is returned as it was written, marked [requiresMigration], and
+         * is **not** silently upgraded here: decoding is a read, and a read must
+         * not have a durable side effect. [LocalKeyStore.load] performs the
+         * migration where a crash boundary can be reasoned about.
+         */
         public fun decode(bytes: ByteArray): WrappedKeyState {
             val contents = CanonicalEnvelope.unwrap(bytes)
             if (contents.payloadSchemaId != LocalStorageCryptographyContract.KEY_STATE_SCHEMA_ID) {
                 throw StorageFault("key state carries schema ${contents.payloadSchemaId}")
             }
+            val version = contents.payloadSchemaVersion
+            if (version != LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION &&
+                version != LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION_V1
+            ) {
+                // Newer than this build understands. Refusing is the only safe
+                // answer: guessing at a layout would either orphan the organism
+                // or, worse, appear to work.
+                throw StorageFault("key state carries unsupported schema version $version")
+            }
             val reader = CanonicalReader(contents.payload)
-            val state = WrappedKeyState(
-                keyEpoch = reader.readI32(),
-                deviceFingerprint = reader.readI64(),
-                wrappedKey = reader.readBytes(),
-                wrapNonce = reader.readBytes(),
-                pendingEpoch = reader.readI32(),
-                pendingWrappedKey = reader.readBytes(),
-                pendingWrapNonce = reader.readBytes(),
-            )
+            val keyEpoch = reader.readI32()
+            val deviceFingerprint = reader.readI64()
+            val wrappedKey = reader.readBytes()
+            val wrapNonce = reader.readBytes()
+            val pendingEpoch = reader.readI32()
+            val pendingWrappedKey = reader.readBytes()
+            val pendingWrapNonce = reader.readBytes()
+            val dataKeyId = if (version == LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION) {
+                reader.readI32()
+            } else {
+                LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID
+            }
             reader.requireExhausted()
-            return state
+            return WrappedKeyState(
+                keyEpoch = keyEpoch,
+                deviceFingerprint = deviceFingerprint,
+                wrappedKey = wrappedKey,
+                wrapNonce = wrapNonce,
+                pendingEpoch = pendingEpoch,
+                pendingWrappedKey = pendingWrappedKey,
+                pendingWrapNonce = pendingWrapNonce,
+                dataKeyId = dataKeyId,
+                schemaVersion = version,
+            )
         }
+
+        /**
+         * Encodes in the superseded V1 layout. Exists so migration can be
+         * qualified against genuine V1 bytes rather than against a hand-written
+         * approximation of them.
+         */
+        public fun encodeV1(state: WrappedKeyState): ByteArray = CanonicalEnvelope.wrap(
+            LocalStorageCryptographyContract.KEY_STATE_SCHEMA_ID,
+            LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION_V1,
+            CanonicalWriter(160)
+                .putI32(state.keyEpoch)
+                .putI64(state.deviceFingerprint)
+                .putBytes(state.wrappedKey)
+                .putBytes(state.wrapNonce)
+                .putI32(state.pendingEpoch)
+                .putBytes(state.pendingWrappedKey)
+                .putBytes(state.pendingWrapNonce)
+                .toByteArray(),
+        )
     }
 }
 
@@ -215,14 +333,55 @@ public class LocalKeyStore(
             pendingEpoch = 0,
             pendingWrappedKey = ByteArray(0),
             pendingWrapNonce = ByteArray(0),
+            dataKeyId = LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID,
         )
         writeAtomically(state)
         return state
     }
 
+    /**
+     * Loads key state, migrating a V1 representation to V2 in the process.
+     *
+     * The migration is one atomic rename of one small file, and it rewrites **no
+     * journal record** — the record layout is unchanged and V1 records are read
+     * through their own stored context. That is the whole reason this is a safe
+     * migration rather than a re-encryption of the organism's entire history.
+     *
+     * Crash boundaries, both of which recover to a readable state:
+     *
+     * - death before the rename leaves the V1 file, and the next open migrates
+     *   again to the identical bytes;
+     * - death after the rename leaves the V2 file, and the next open sees state
+     *   that no longer requires migration and does nothing.
+     *
+     * There is no third state, because [writeAtomically] stages and renames.
+     */
     public fun load(): WrappedKeyState {
         if (!statePath.exists()) throw StorageFault("no key state at ${statePath.absolutePath}")
+        val stored = WrappedKeyState.decode(statePath.readBytes())
+        if (!stored.requiresMigration) return stored
+        val migrated = stored.migrated()
+        writeAtomically(migrated)
+        return migrated
+    }
+
+    /** Reads without migrating. For qualification of the migration itself. */
+    public fun peek(): WrappedKeyState {
+        if (!statePath.exists()) throw StorageFault("no key state at ${statePath.absolutePath}")
         return WrappedKeyState.decode(statePath.readBytes())
+    }
+
+    /** Writes state in the superseded V1 layout. Qualification use only. */
+    public fun writeV1ForMigrationTest(state: WrappedKeyState) {
+        val bytes = WrappedKeyState.encodeV1(state)
+        stagingPath.writeBytes(bytes)
+        java.io.RandomAccessFile(stagingPath, "rws").use { it.fd.sync() }
+        Files.move(
+            stagingPath.toPath(),
+            statePath.toPath(),
+            StandardCopyOption.REPLACE_EXISTING,
+            StandardCopyOption.ATOMIC_MOVE,
+        )
     }
 
     /**
@@ -291,6 +450,7 @@ public class LocalKeyStore(
                 wrappingKey(newEpoch), nonce, wrapAad(newEpoch), dataKey,
             ),
             pendingWrapNonce = nonce,
+            dataKeyId = state.dataKeyId,
         )
         writeAtomically(staged)
         return staged
@@ -307,6 +467,9 @@ public class LocalKeyStore(
             pendingEpoch = 0,
             pendingWrappedKey = ByteArray(0),
             pendingWrapNonce = ByteArray(0),
+            // The data key is untouched by a rewrap, so its identity is too.
+            // This single line is the correction D013 exists for.
+            dataKeyId = state.dataKeyId,
         )
         writeAtomically(promoted)
         return promoted
@@ -344,6 +507,7 @@ public class LocalKeyStore(
                 pendingEpoch = 0,
                 pendingWrappedKey = ByteArray(0),
                 pendingWrapNonce = ByteArray(0),
+                dataKeyId = state.dataKeyId,
             )
             writeAtomically(abandoned)
             abandoned
@@ -376,6 +540,7 @@ public class LocalKeyStore(
     /** Adapts the wrapped state to the R002 [KeyContainer] the record store expects. */
     public fun keyContainer(state: WrappedKeyState): KeyContainer = object : KeyContainer {
         override val keyEpoch: Int = state.keyEpoch
+        override val dataKeyId: Int = state.dataKeyId
         override val deviceFingerprint: Long = container.deviceFingerprint
         override fun dataKey(): ByteArray = unwrap(state)
     }

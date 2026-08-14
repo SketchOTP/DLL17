@@ -706,6 +706,15 @@ integer-only, table-free, constant-shape, has published RFC 8439 test vectors,
 and needs no AES hardware path — so one implementation is correct on every target
 this program supports, including devices without AES-NI-equivalent acceleration.
 
+> **Amended 2026-08-14 by `LocalStorageCryptographyContractV2`, under D013.**
+> Sections 13.3, 13.4 and 13.5 below name `keyEpoch` where they mean *the
+> identity of the data key a record was sealed under*. V2 separates that from the
+> container's wrapping epoch and reads a record under its own immutable stored
+> context. The **byte layout is unchanged** — same field, same position, same
+> width — and no algorithm, ordering or threshold in this contract moves. Only
+> the source of that one value, and the removal of the pre-check in 13.5, differ.
+> See `LocalStorageCryptographyContractV2` for the frozen replacement text.
+
 ### 13.3 Nonce discipline
 
 The nonce is **derived, not random**:
@@ -741,7 +750,7 @@ authentication. Relocation is therefore detected rather than silently accepted.
 | Condition | Result |
 |---|---|
 | Tag mismatch | `STORAGE_FAULT`. Never a silent skip, never a partial read |
-| Unknown key epoch | Refuse. Never guess |
+| Unknown key epoch | Refuse. Never guess — *amended by V2: a record is read under its own context, and an unreadable one is refused by the AEAD tag rather than by a pre-check* |
 | Missing key container | Refuse and quarantine (section 14) |
 | Truncated record | `STORAGE_FAULT` |
 

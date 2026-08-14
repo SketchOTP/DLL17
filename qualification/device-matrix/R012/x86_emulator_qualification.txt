@@ -1,4 +1,4 @@
-R012 DEVICE QUALIFICATION — R012-DEVICE-FIXTURES-V1 v1
+R012 DEVICE QUALIFICATION — R012-DEVICE-FIXTURES-V1 v2
 ========================================================================
 device model=Android ATD built for x86_64 device=emu64x manufacturer=unknown
 soc=ranchu board=goldfish_x86_64 hardware=ranchu
@@ -87,8 +87,10 @@ FIXTURES
            inFlightBefore=true inFlightAfter=false epoch=2
   HELD     DV-KS-RESTART-01  Are records written by a now-dead process still decryptable under Keystore material after restart?
            decryptedAfterProcessDeath=5/5
-  NOT HELD DV-KS-ROTATION-READBACK-01  After the wrapping epoch advances, are records written under the previous epoch still readable?
-           readableAfterRotation=0/5 refusal=StorageFault
+  HELD     DV-KS-ROTATION-READBACK-01  After the wrapping epoch advances, are records written under the previous epoch still readable?
+           readableAfterRotation=5/5 refusal=none
+  HELD     DV-KS-V1-MIGRATION-01  Does a V1 organism on Keystore material migrate and stay readable across a later rotation?
+           foundV1=true dataKeyId=1 readableAfterMigrationAndRotation=6/6
   HELD     DV-FLT-CORRUPT-FIRST-01  Is a corrupt first frame reported as corruption rather than as an empty journal?
            detected=true
   HELD     DV-FLT-CORRUPT-LATER-01  Is corruption before the tail reported as a fault rather than silently truncated?
@@ -124,5 +126,8 @@ FIXTURES
   HELD     DV-DT-INDEPENDENCE-01  Is the canonical result independent of Keystore key, data key, ciphertext, nonce and path?
            ciphertextDiffers=true fingerprintDiffers=true canonicalIdentical=true
 
-held=44/45
-evidenceDigest=ac38a91d98d5e422a1e1077be151e5a90b290efa89f91fa217435461797196a9
+held=46/46
+evidenceDigest=bac5989e7c7cbd48f8174e7736ca462e4451424d7161384fa2d5d487209f9d74
+
+evidence written to /storage/emulated/0/Android/data/com.animusmachinae.dll17/files/r012_device_qualification.txt
+emulated=true

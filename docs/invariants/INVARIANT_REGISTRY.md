@@ -65,6 +65,9 @@ where it is enforced today.
 | INV-0054 | Canonical serialized bytes and canonical state hashes are independent of backend, key, ciphertext, nonce, storage location, recovery package and provider. | `DeterminismContractV1` | Encryption sits below the canonical byte layer; qualification proves the hash is identical under different keys and different ciphertext. |
 | INV-0055 | Opening a device key container never generates missing material, and an organism may be created only when both the key state and the container material are absent. | `LocalStorageCryptographyContractV1` | Enforced by `AndroidLocalKeyBootstrap` and its decision-table test; every other combination opens or quarantines. |
 | INV-0056 | Canonical state on Android lives only in app-private storage under a path the shipped backup and device-transfer rules exclude. | `ContinuityDurabilityContractV1` s14.1 | Enforced by `AndroidPersistenceLocations`, by a layout-coverage fixture, and by `tools/verify_backup_exclusion.py` reading the built package. |
+| INV-0057 | An ordinary rotation of the device wrapping material rewrites no journal byte and leaves every already-written record readable. | `LocalStorageCryptographyContractV2` | Enforced by `FX-EPOCH-ROTATE-ONCE-01`, `FX-EPOCH-ROTATE-MANY-01`, `FX-EPOCH-NO-REWRITE-01` and `DV-KS-ROTATION-READBACK-01`. |
+| INV-0058 | A record's encryption context is immutable, is bound into its AAD, and is the only key identity used to read it. The container's current wrapping epoch never decides whether a record may be read. | `LocalStorageCryptographyContractV2` | Enforced by `FX-EPOCH-CONTEXT-AUTHENTICATED-01` and `FX-EPOCH-FOREIGN-KEY-01`; four forged header fields refused, foreign data key refused. |
+| INV-0059 | Migrating key state from V1 to V2 is deterministic, idempotent and crash-safe, and recovers either the readable pre-migration state or the complete migrated state — never a half-state. | `LocalStorageCryptographyContractV2` | Enforced by `FX-V1-MIGRATION-IDEMPOTENT-01` and the two `Runtime.halt` boundary fixtures `FX-V1-MIGRATION-CRASH-STAGED-01` and `FX-V1-MIGRATION-CRASH-RENAMED-01`. |
 
 ### R002 note
 
@@ -83,6 +86,12 @@ behaviour, and none of them is evidence that a mechanism works.
 
 INV-0040 through INV-0042 constrain the A000 research candidate. They are not
 production invariants and do not authorize any R003–R009 mechanism.
+
+### D013 note
+
+INV-0057 through INV-0059 constrain the corrected local-storage cryptography.
+They are the invariants D012's `DV-KS-ROTATION-READBACK-01` was reporting the
+absence of. None asserts anything about organism behaviour.
 
 ### D012 note
 

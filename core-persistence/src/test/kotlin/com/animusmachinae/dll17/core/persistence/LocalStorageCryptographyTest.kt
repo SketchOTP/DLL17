@@ -2,6 +2,7 @@ package com.animusmachinae.dll17.core.persistence
 
 import com.animusmachinae.dll17.core.continuity.EncryptedRecordStore
 import com.animusmachinae.dll17.core.continuity.StorageFault
+import com.animusmachinae.dll17.core.crypto.CanonicalEnvelope
 import com.animusmachinae.dll17.core.crypto.ChaCha20Poly1305
 import java.io.File
 import java.nio.file.Files
@@ -97,13 +98,136 @@ class LocalStorageCryptographyTest {
         assertFalse(state.rewrapInFlight)
         assertTrue(keys.unwrap(state).contentEquals(dataKey()))
 
-        // Records written under epoch 1 carry epoch 1 in their header, so a store
-        // opened at epoch 2 must refuse them rather than guess across epochs.
+        // The data key's identity does not move when the material wrapping it
+        // does. Under V1 this assertion was inverted — the test demanded a
+        // StorageFault, which is to say it demanded that a routine rotation
+        // orphan ten records — and that is the defect D013 corrects.
+        assertEquals(LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID, state.dataKeyId)
+
         SegmentedJournalMedium(d).use { medium ->
-            assertFailsWith<StorageFault> {
-                EncryptedRecordStore(medium, keys.keyContainer(state), organism).readAll()
+            val read = EncryptedRecordStore(medium, keys.keyContainer(state), organism).readAll()
+            assertEquals(10, read.size)
+            read.forEachIndexed { index, record ->
+                assertTrue(record.payload.contentEquals(payload(index + 1)))
             }
         }
+    }
+
+    @Test
+    fun `history survives many wrapping rotations and mixes with new records`() {
+        val d = dir("rotate-many")
+        val keys = LocalKeyStore(d, container(), organism)
+        var state = keys.create(dataKey())
+
+        SegmentedJournalMedium(d).use { medium ->
+            val store = EncryptedRecordStore(medium, keys.keyContainer(state), organism)
+            for (i in 1..5) store.append(i.toLong(), 1L, 700, 1, payload(i))
+        }
+
+        // Four rotations, with a write after each. A record's readability must
+        // not depend on how many times the container material has turned over
+        // since it was written.
+        for (epoch in 2..5) {
+            state = keys.completeRewrap(keys.beginRewrap(state, epoch))
+            SegmentedJournalMedium(d).use { medium ->
+                val store = EncryptedRecordStore(medium, keys.keyContainer(state), organism)
+                val sequence = (epoch + 4).toLong()
+                store.append(sequence, 1L, 700, 1, payload(sequence.toInt()))
+            }
+        }
+        assertEquals(5, state.keyEpoch)
+        assertEquals(LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID, state.dataKeyId)
+
+        val reopened = LocalKeyStore(d, container(), organism)
+        val afterRestart = reopened.load()
+        SegmentedJournalMedium(d).use { medium ->
+            val read = EncryptedRecordStore(medium, reopened.keyContainer(afterRestart), organism)
+                .readAll()
+            assertEquals(9, read.size)
+            read.forEachIndexed { index, record ->
+                assertTrue(record.payload.contentEquals(payload(index + 1)))
+            }
+        }
+    }
+
+    @Test
+    fun `a wrapping rotation rewrites no journal byte`() {
+        val d = dir("rotate-no-rewrite")
+        val keys = LocalKeyStore(d, container(), organism)
+        val state = keys.create(dataKey())
+        SegmentedJournalMedium(d).use { medium ->
+            val store = EncryptedRecordStore(medium, keys.keyContainer(state), organism)
+            for (i in 1..8) store.append(i.toLong(), 1L, 700, 1, payload(i))
+        }
+        val before = SegmentedJournalMedium(d).use { m -> m.records().map { it.second.copyOf() } }
+
+        keys.completeRewrap(keys.beginRewrap(state, 2))
+
+        val after = SegmentedJournalMedium(d).use { m -> m.records().map { it.second.copyOf() } }
+        assertEquals(before.size, after.size)
+        before.zip(after).forEach { (b, a) -> assertTrue(b.contentEquals(a)) }
+    }
+
+    @Test
+    fun `V1 key state migrates deterministically and idempotently`() {
+        val d = dir("migrate")
+        val keys = LocalKeyStore(d, container(), organism)
+        val created = keys.create(dataKey())
+        // Put genuine V1 bytes on disk rather than an approximation of them.
+        keys.writeV1ForMigrationTest(created)
+        assertTrue(keys.peek().requiresMigration)
+
+        val migrated = keys.load()
+        assertFalse(migrated.requiresMigration)
+        assertEquals(LocalStorageCryptographyContract.INITIAL_DATA_KEY_ID, migrated.dataKeyId)
+        assertEquals(created.keyEpoch, migrated.keyEpoch)
+        assertTrue(keys.unwrap(migrated).contentEquals(dataKey()))
+
+        val once = File(d, PersistenceBackendContract.KEYSTATE_FILE).readBytes()
+        keys.load()
+        val twice = File(d, PersistenceBackendContract.KEYSTATE_FILE).readBytes()
+        assertTrue(once.contentEquals(twice), "migration is not idempotent")
+    }
+
+    @Test
+    fun `records written under V1 stay readable after migration and rotation`() {
+        val d = dir("migrate-records")
+        val keys = LocalKeyStore(d, container(), organism)
+        val created = keys.create(dataKey())
+        SegmentedJournalMedium(d).use { medium ->
+            val store = EncryptedRecordStore(medium, keys.keyContainer(created), organism)
+            for (i in 1..6) store.append(i.toLong(), 1L, 700, 1, payload(i))
+        }
+        val plaintextBefore = SegmentedJournalMedium(d).use { medium ->
+            EncryptedRecordStore(medium, keys.keyContainer(created), organism)
+                .readAll().map { it.payload.copyOf() }
+        }
+        keys.writeV1ForMigrationTest(created)
+
+        val migrated = keys.load()
+        val rotated = keys.completeRewrap(keys.beginRewrap(migrated, 2))
+        val plaintextAfter = SegmentedJournalMedium(d).use { medium ->
+            EncryptedRecordStore(medium, keys.keyContainer(rotated), organism)
+                .readAll().map { it.payload.copyOf() }
+        }
+        assertEquals(plaintextBefore.size, plaintextAfter.size)
+        plaintextBefore.zip(plaintextAfter).forEach { (b, a) -> assertTrue(b.contentEquals(a)) }
+    }
+
+    @Test
+    fun `key state from an unknown future schema is refused rather than guessed`() {
+        val d = dir("future-schema")
+        val keys = LocalKeyStore(d, container(), organism)
+        val state = keys.create(dataKey())
+        val path = File(d, PersistenceBackendContract.KEYSTATE_FILE)
+        path.writeBytes(
+            CanonicalEnvelope.wrap(
+                LocalStorageCryptographyContract.KEY_STATE_SCHEMA_ID,
+                LocalStorageCryptographyContract.KEY_STATE_SCHEMA_VERSION + 1,
+                CanonicalEnvelope.unwrap(state.canonicalBytes()).payload,
+            ),
+        )
+        assertFailsWith<StorageFault> { keys.load() }
     }
 
     @Test
