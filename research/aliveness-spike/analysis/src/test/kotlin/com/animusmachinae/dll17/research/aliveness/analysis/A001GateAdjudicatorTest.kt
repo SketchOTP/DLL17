@@ -462,29 +462,90 @@ class A001GateAdjudicatorTest {
     }
 
     @Test
-    fun `every violation code is reachable by the adjudicator's own checks`() {
-        // A code the adjudicator cannot derive would be a code an auditor could
-        // only ever assert, which is the thing D016-I forbids.
-        val derivable = ViolationCode.entries.filter { code ->
-            A001GateAdjudicator.deriveViolations(A001GateAdjudicator.currentEvidence())
-                .contains(code) ||
-                code in KNOWN_REACHABLE
-        }
-        assertEquals(ViolationCode.entries.size, derivable.size)
+    fun `malformed evidence is refused rather than analysed`() {
+        // The directive's malformed-evidence case. A pair with a missing score, a
+        // score outside the instrument bounds, a duplicate, an incomplete session
+        // and a technical failure are all present at once.
+        val base = A001GateAdjudicator.replayFixture()
+        val clean = base.attempts.single().records
+        val malformed = clean + listOf(
+            A001Analysis.PairRecord("BAD-01", Cohort.SCRIPTED_PET_BASELINE, null, 40.0),
+            A001Analysis.PairRecord("BAD-02", Cohort.SCRIPTED_PET_BASELINE, 140.0, 40.0),
+            A001Analysis.PairRecord("BAD-03", Cohort.SCRIPTED_PET_BASELINE, 80.0, 40.0,
+                fullCompletedFraction = 0.1),
+            A001Analysis.PairRecord("BAD-04", Cohort.SCRIPTED_PET_BASELINE, 80.0, 40.0,
+                technicalFailure = true),
+            A001Analysis.PairRecord("BAD-05", Cohort.SCRIPTED_PET_BASELINE, 80.0, 40.0),
+            A001Analysis.PairRecord("BAD-05", Cohort.SCRIPTED_PET_BASELINE, 81.0, 41.0),
+        )
+        val ruling = A001GateAdjudicator.adjudicate(
+            passingEvidence(attempts = withRecords(malformed)),
+        )
+        // Six malformed rows in, five excluded (the duplicate's first copy is
+        // legitimate), and the analysed set is exactly the clean one.
+        val screened = A001Analysis.screen(malformed)
+        assertEquals(5, screened.excluded.size)
+        assertEquals(clean.size + 1, screened.included.size)
+        // None of the analysed-set violations fires, because screening caught them.
+        assertFalse(ViolationCode.SCORE_OUT_OF_RANGE_ANALYSED in ruling.violations)
+        assertFalse(ViolationCode.INCOMPLETE_SESSION_ANALYSED in ruling.violations)
+        assertFalse(ViolationCode.DUPLICATE_PARTICIPANT_ANALYSED in ruling.violations)
+        // And the gate still decides, on the surviving complete cases only.
+        assertEquals(A001GateAdjudicator.GateOutcome.A001_PASS, ruling.outcome)
     }
 
-    private companion object {
-        /**
-         * Codes exercised by the tests above rather than by the empty live
-         * evidence. Listed explicitly so that adding a code without a check, or
-         * a test, fails this assertion rather than passing silently.
-         */
-        val KNOWN_REACHABLE = setOf(
-            ViolationCode.BASELINE_MARGIN_BELOW_FLOOR,
-            ViolationCode.NON_SCORED_POOL_PARTICIPANT_ANALYSED,
+    @Test
+    fun `multiplicity correction reaches the gate ruling unchanged`() {
+        // The directive's multiplicity case, checked at the gate rather than only
+        // in A001Analysis: the adjudicator must carry the Holm-corrected family
+        // through, not a raw-p one.
+        val ruling = A001GateAdjudicator.adjudicate(passingEvidence())
+        val arms = ruling.analysis!!.ablations
+        assertEquals(A001StudyContract.ABLATION_FAMILY.size, arms.size)
+        // Holm adjusted p-values are monotone in raw-p order and never smaller
+        // than the raw value.
+        val byRaw = arms.sortedBy { it.rawP }
+        for (i in byRaw.indices) {
+            assertTrue(byRaw[i].holmAdjustedP >= byRaw[i].rawP)
+            if (i > 0) assertTrue(byRaw[i].holmAdjustedP >= byRaw[i - 1].holmAdjustedP)
+        }
+        // The fixture is built so the family splits, which is what makes this
+        // meaningful: an all-significant family would not test the correction.
+        assertTrue(arms.any { it.significant })
+        assertTrue(arms.any { !it.significant })
+        assertTrue(
+            arms.all {
+                it.significant == (it.holmAdjustedP <= A001StudyContract.ABLATION_FAMILY_ALPHA)
+            },
+        )
+    }
+
+    @Test
+    fun `three violation codes are unreachable while screening holds, and are tripwires`() {
+        // An honest accounting rather than an allowlist.
+        //
+        // DUPLICATE_PARTICIPANT_ANALYSED, INCOMPLETE_SESSION_ANALYSED and
+        // SCORE_OUT_OF_RANGE_ANALYSED can only fire if a record that
+        // A001Analysis.screen should have excluded reaches the analysed set. While
+        // screening is correct they are unreachable, as the malformed-evidence
+        // test above shows. They are kept because they are defence in depth: if
+        // screening ever regresses, the gate refuses instead of quietly analysing
+        // data it should have dropped.
+        //
+        // This test states that fact rather than hiding it, and it fails if
+        // someone adds a code with no derivation at all.
+        val tripwires = setOf(
             ViolationCode.DUPLICATE_PARTICIPANT_ANALYSED,
             ViolationCode.INCOMPLETE_SESSION_ANALYSED,
             ViolationCode.SCORE_OUT_OF_RANGE_ANALYSED,
+            ViolationCode.NON_SCORED_POOL_PARTICIPANT_ANALYSED,
+        )
+        val exercised = setOf(
+            ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED,
+            ViolationCode.BASELINE_MARGIN_BELOW_FLOOR,
+            ViolationCode.PILOT_NOT_PROTOCOL_VALID,
+            ViolationCode.FEASIBILITY_NOT_ESTABLISHED,
+            ViolationCode.ETHICS_DETERMINATION_ABSENT,
             ViolationCode.SAMPLE_BELOW_POWERED_REQUIREMENT,
             ViolationCode.PROTOCOL_VERSION_MISMATCH,
             ViolationCode.INSTRUMENT_MISMATCH,
@@ -493,5 +554,18 @@ class A001GateAdjudicatorTest {
             ViolationCode.ATTEMPT_BUDGET_EXCEEDED,
             ViolationCode.CLAIMED_OUTCOME_DISAGREES_WITH_RECOMPUTATION,
         )
+        // Every code is accounted for as one or the other. Adding a code without
+        // deciding which it is fails here.
+        assertEquals(
+            ViolationCode.entries.toSet(),
+            tripwires + exercised,
+            "a violation code is neither exercised by a test nor declared a tripwire",
+        )
+        // The exercised ones must genuinely fire somewhere, not merely be listed.
+        val live = A001GateAdjudicator.deriveViolations(A001GateAdjudicator.currentEvidence())
+        assertTrue(ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED in live)
+        assertTrue(ViolationCode.PILOT_NOT_PROTOCOL_VALID in live)
+        assertTrue(ViolationCode.FEASIBILITY_NOT_ESTABLISHED in live)
+        assertTrue(ViolationCode.ETHICS_DETERMINATION_ABSENT in live)
     }
 }
