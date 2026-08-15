@@ -145,10 +145,16 @@ public abstract class ApiReviewerBackend(
             // A provider refusal and a server error are different failures, and the
             // harness retries only one of them. 4xx is the provider declining; 5xx
             // is transport-class trouble that a retry may legitimately clear.
+            // A bounded slice of the provider's own error text. "HTTP 400" alone
+            // is not a diagnosis, and a refusal that cannot be diagnosed invites
+            // a re-run, which is exactly what the single-formal-attempt rule
+            // forbids. Bounded because the body is provider-controlled text.
+            val detail = response.body.trim().replace(Regex("\\s+"), " ").take(220)
+            val suffix = if (detail.isEmpty()) "" else ": $detail"
             return if (response.status in 400..499) {
-                BackendOutcome.Refused("provider returned HTTP ${response.status}")
+                BackendOutcome.Refused("provider returned HTTP ${response.status}$suffix")
             } else {
-                BackendOutcome.TransportFailed("provider returned HTTP ${response.status}")
+                BackendOutcome.TransportFailed("provider returned HTTP ${response.status}$suffix")
             }
         }
         lastResponseId = try {

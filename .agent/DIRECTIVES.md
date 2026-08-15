@@ -330,3 +330,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-016-E
 - Status at issuance: ISSUED
+
+
+## D-016-G
+
+- Issued: 2026-08-15T08:20:00-04:00
+- Issuer: User
+- External directive: D016-G
+- Objective: Keep Paragon as the sole reviewer gateway for both A001 reviewer roles and move A001 review onto a Paragon route that performs plain model inference rather than delegating to a tool-enabled coding or assistant CLI, then execute the frozen qualification.
+- Scope: Route and profile discovery on the owner's router; a Paragon plain-inference reviewer backend; a bounded non-scored routed-boundary preflight; the real-model qualification runner against the unchanged frozen thresholds; the A001 governance audit; the A001 gate state; qualification evidence; tests; .agent synchronization; and CI.
+- Exclusions: Returning to direct OpenAI or Google APIs; requiring provider or model-family diversity; redesigning the A001 harness; bypassing Paragon; repeating filesystem jails, CLI sandboxing or further sandboxing investigations; exposing any frozen scored qualification fixture during route discovery or preflight; committing, printing, logging, hashing, storing in .agent, writing to Notion or saving in shell profiles the router credential; altering thresholds, fixtures, expected outcomes, role prompts, parser rules, evidence or qualification logic after observing formal results; rerunning a failed formal qualification until it passes; resolving reviewer disagreement automatically; participant recruitment; baseline human qualification; BlindVariancePilotV1 execution; Attempt 1; human ablations; R003 through R009; modifying A000 FULL; and creating D017.
+- Acceptance: An exact PASS, BLOCKED or FAIL state; the Paragon route reported with route or profile used, request mode, whether routing metadata was observable and the routed model or provider if exposed; the routed-boundary proof reported from bounded non-scored shell, filesystem, repository and web probes; if the boundary passed, complete primary and alternate metrics, pair-level result, fixture-level failures and abstentions, order, position, injection and stability results and disagreement cases; the A001 state reported with audit totals, outstanding blockers, attempts consumed, programme state, recruitment state, human-data count and ethics state; all relevant validation run; and the result committed and pushed to main with the exact CI head SHA equal to the pushed commit.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-F
+- Status at issuance: ISSUED

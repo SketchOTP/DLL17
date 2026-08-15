@@ -3,7 +3,9 @@ package com.animusmachinae.dll17.research.aliveness.analysis
 import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
 import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
 import com.animusmachinae.dll17.research.aliveness.agentic.ParagonBackend
+import com.animusmachinae.dll17.research.aliveness.agentic.ParagonPlainInferenceBoundary
 import com.animusmachinae.dll17.research.aliveness.agentic.ParagonReviewerBoundary
+import com.animusmachinae.dll17.research.aliveness.agentic.QualificationThresholds
 import com.animusmachinae.dll17.research.aliveness.agentic.RoutedReviewerIndependencePolicy
 import com.animusmachinae.dll17.research.aliveness.agentic.FORBIDDEN_TO_EVERY_ROLE
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
@@ -21,8 +23,8 @@ class GovernanceAuditTest {
     @Test
     fun `the audit covers every canonical activation prerequisite`() {
         // 27 through D016-A; five agentic-governance items added by D016-C, one
-        // by D016-E, one by D016-F.
-        assertEquals(35, items.size)
+        // each by D016-E, D016-F and D016-G.
+        assertEquals(36, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
     }
 
@@ -80,7 +82,7 @@ class GovernanceAuditTest {
                 "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
                 "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
-                "BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED",
+                "BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -150,14 +152,28 @@ class GovernanceAuditTest {
     }
 
     @Test
-    fun `the binding constraint is the routed reviewer tool surface, named exactly`() {
+    fun `the reviewer tool surface is now clear and says what it superseded`() {
+        // D016-G obtained a tool-free routed reviewer, so this item legitimately
+        // passes. The D016-F finding it supersedes must still be pointed at.
         val boundary = items.single { it.id == "GA-34" }
-        assertEquals(AuditState.BLOCKED, boundary.state)
-        assertEquals("BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED", boundary.blockingState)
+        assertEquals(AuditState.PASS, boundary.state)
+        assertEquals(null, boundary.blockingState)
+        assertTrue(boundary.detail.contains(ParagonPlainInferenceBoundary.RECORD_ID))
         assertTrue(boundary.detail.contains(ParagonReviewerBoundary.RECORD_ID))
-        // The demonstrating probes must be named, so the finding is not an assertion.
-        assertTrue(boundary.detail.contains("PB-4"))
-        assertTrue(boundary.detail.contains("tool_choice=none"))
+    }
+
+    @Test
+    fun `the binding constraint is the route eligibility gate, named exactly`() {
+        val route = items.single { it.id == "GA-36" }
+        assertEquals(AuditState.BLOCKED, route.state)
+        assertEquals(
+            "BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE",
+            route.blockingState,
+        )
+        // The router's own refusal code, so the finding is quoted not paraphrased.
+        assertTrue(route.detail.contains(ParagonPlainInferenceBoundary.REFUSAL_CODE))
+        // And it must say the thresholds went unapplied rather than implying a result.
+        assertTrue(route.detail.contains(QualificationThresholds.THRESHOLDS_ID))
     }
 
     @Test

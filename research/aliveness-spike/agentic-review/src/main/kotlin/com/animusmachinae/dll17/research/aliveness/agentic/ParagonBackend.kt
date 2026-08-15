@@ -85,6 +85,17 @@ public class ParagonBackend(
     sampling: SamplingParameters = SamplingParameters(),
     private val baseUrl: String = DEFAULT_BASE_URL,
     modelFamily: String = "paragon-routed",
+    /**
+     * Route selection headers, per D016-G.
+     *
+     * The router's own already-supported hint mechanism. These select a route
+     * *class* — plain inference rather than an agent loop — and deliberately do
+     * not pin a model: D016-G leaves downstream model choice to the router.
+     * They are ordinary headers, not secret ones, so they appear in the recorded
+     * request form and in its hash, which is the point: the route a ruling came
+     * through is part of that ruling's provenance.
+     */
+    private val routeHeaders: List<Pair<String, String>> = emptyList(),
 ) : ApiReviewerBackend(
     descriptor = ModelDescriptor(
         provider = "paragon",
@@ -131,7 +142,7 @@ public class ParagonBackend(
         return HttpRequestSpec(
             method = "POST",
             url = endpoint,
-            headers = listOf("Content-Type" to "application/json"),
+            headers = listOf("Content-Type" to "application/json") + routeHeaders,
             secretHeaders = listOf("Authorization" to "Bearer $apiKey"),
             body = body,
         )

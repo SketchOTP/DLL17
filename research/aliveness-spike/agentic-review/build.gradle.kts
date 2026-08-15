@@ -36,3 +36,21 @@ tasks.register<JavaExec>("agenticReviewQualification") {
 tasks.test {
     useJUnitPlatform()
 }
+
+// D016-G. Both contact the owner's private router and need a runtime credential,
+// so neither is part of CI or of `check`. The shakeout uses a synthetic review
+// and is safe to re-run; the formal qualification spends the single permitted
+// attempt and must not be re-run until it passes.
+tasks.register<JavaExec>("paragonShakeout") {
+    group = "verification"
+    mainClass.set("com.animusmachinae.dll17.research.aliveness.agentic.ParagonShakeout")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("paragonFormalQualification") {
+    group = "verification"
+    mainClass.set(
+        "com.animusmachinae.dll17.research.aliveness.agentic.ParagonFormalQualification",
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+}

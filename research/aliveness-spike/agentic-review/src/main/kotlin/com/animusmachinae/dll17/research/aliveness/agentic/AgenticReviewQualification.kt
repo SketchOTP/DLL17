@@ -101,6 +101,13 @@ public object AgenticReviewQualification {
     public const val STATE_ROUTER_UNAVAILABLE: String =
         "BLOCKED_PARAGON_ENDPOINT_UNAVAILABLE"
 
+    /**
+     * A tool-free routed reviewer exists, but the router will not carry a
+     * reviewer-sized request to it. The D016-G finding.
+     */
+    public const val STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE: String =
+        "BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE"
+
     /** The router credential is absent. Specific to the router, per D016-F. */
     public const val STATE_ROUTER_CREDENTIAL_UNAVAILABLE: String =
         "BLOCKED_PARAGON_CREDENTIAL_UNAVAILABLE"
@@ -178,7 +185,20 @@ public object AgenticReviewQualification {
      * request never reaches.
      */
     public fun routedBoundaryHolds(): Boolean =
-        ParagonReviewerBoundary.callerControlsToolSurface()
+        ParagonPlainInferenceBoundary.BOUNDARY_HOLDS
+
+    /**
+     * True when a route exists that is both tool-free and willing to carry a
+     * reviewer-sized request.
+     *
+     * D016-G separated these two properties because the router does. The
+     * tool-free route is real and proven; it simply refuses the review. Reporting
+     * only the first would imply the reviewers are ready to run, and reporting
+     * only the second would bury the fact that reviewer isolation was finally
+     * achieved.
+     */
+    public fun usableReviewRouteExists(): Boolean =
+        ParagonPlainInferenceBoundary.usableRouteExists()
 
     /**
      * The harness mechanics: does every frozen fixture produce its expected
@@ -216,6 +236,7 @@ public object AgenticReviewQualification {
         !isolationAvailable(env) -> STATE_ISOLATION_UNAVAILABLE
         !routerAvailable() -> STATE_ROUTER_UNAVAILABLE
         !routedBoundaryHolds() -> STATE_TOOL_SURFACE_UNCONTROLLED
+        !usableReviewRouteExists() -> STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
         !credentialsAvailable(env) -> STATE_ROUTER_CREDENTIAL_UNAVAILABLE
         !realReviewersAvailable(env) -> STATE_DIVERSITY_UNAVAILABLE
         else -> STATE_QUALIFIED
@@ -284,6 +305,8 @@ public object AgenticReviewQualification {
 
         append(ParagonReviewerBoundary.render())
 
+        append(ParagonPlainInferenceBoundary.render())
+
         append("================================================================\n")
         append("REVIEWER CREDENTIAL\n\n")
         for ((slot, variable) in REQUIRED_CREDENTIALS) {
@@ -304,6 +327,10 @@ public object AgenticReviewQualification {
         append(ApiReviewerIsolationSelfCheck.holds()).append('\n')
         append("ROUTER_REACHABLE=").append(routerAvailable()).append('\n')
         append("ROUTED_BOUNDARY_HOLDS=").append(routedBoundaryHolds()).append('\n')
+        append("PARAGON_PLAIN_INFERENCE_BOUNDARY=")
+        append(if (ParagonPlainInferenceBoundary.BOUNDARY_HOLDS) "PASS" else "FAIL").append('\n')
+        append("ROUTE_ACCEPTS_REVIEW_REQUESTS=")
+        append(ParagonPlainInferenceBoundary.ROUTE_ACCEPTS_REVIEW_REQUESTS).append('\n')
         append("ROUTER_CREDENTIAL_AVAILABLE=").append(credentialsAvailable(env)).append('\n')
         append("MISSING_CREDENTIALS=")
         append(missingCredentials(env).joinToString(",").ifEmpty { "none" }).append('\n')

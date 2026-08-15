@@ -249,7 +249,7 @@ A001FeasibilityBudgetV1 v1
 ================================================================
 ACTIVATION AUDIT
 
-GOVERNANCE_AUDIT=AlivenessGovernanceAuditV6 v6
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV7 v7
 SCOPE=research governance only; no organism runtime behaviour is exercised
 
 GA-01  PASS
@@ -300,7 +300,7 @@ GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
    detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
 GA-15  BLOCKED
    requirement: The gate-review roles are validly filled and qualified before Attempt 1
-   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED
+   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
    blocks:      BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
 GA-16  PASS
    requirement: The two reviewers are separate isolated executions rather than one asked twice
@@ -356,15 +356,18 @@ GA-32  PASS
 GA-33  PASS
    requirement: Each reviewer is confined to its frozen bundle, with no repository and no web reach
    detail:      derived by ApiReviewerIsolationSelfCheckV1 rather than attested: each formal reviewer backend serializes a real request through a recording transport and the emitted JSON is inspected for tool-bearing keys at any depth, so the property is checked on a machine with no credential and no provider contact; the OpenAI request additionally forces tool_choice=none and the Gemini request declares no tools at all; D016-D's environment attestation is superseded because it existed only to cover a gap that assistant-product CLIs created and direct API calls do not, and that finding is preserved in evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt
-GA-34  BLOCKED
+GA-34  PASS
    requirement: The reviewer the router selects holds no tool the caller did not send
-   detail:      derived from ParagonReviewerBoundaryV1: D016-F routes both slots through the owner's Paragon endpoint, which is reachable and accepts its credential, so this is not a connectivity or authentication finding; it reports routedProvider=codex with usageSource=provider_cli_structured, meaning it re-issues the prompt into an assistant CLI whose tools are provisioned outside the request; probes PB-3,PB-4 demonstrated shell execution and a listing of this repository's own root, the second of them under a request carrying tools=[] and tool_choice=none, so the caller's explicit refusal of tool use does not reach the reviewer; a reviewer that can read the repository it adjudicates is not independent of it, and the request-serialization proof in GA-33 cannot cover this because the router is not the model
-   blocks:      BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED
+   detail:      derived from ParagonPlainInferenceBoundaryV1: D016-G moved both slots onto a plain-inference route (openrouter (type=http, plain OpenAI-compatible inference)) selected by the router's own x-paragon-force-provider header, and six capability probes found no shell, no filesystem, no repository, no web and no connectors; two of them asked for facts the model could not guess — a commit SHA and the first line of a file committed minutes earlier — and both were refused, which is what distinguishes this from PG-1, where the model fabricated a directory listing rather than executing anything; this supersedes the D016-F finding that the default route delegates to a tool-enabled assistant CLI, which remains true of that route and is preserved in ParagonReviewerBoundaryV1
+GA-36  BLOCKED
+   requirement: The tool-free reviewer route will carry a reviewer-sized request
+   detail:      derived from ParagonPlainInferenceBoundaryV1: the router refuses the review with routing.unknownContextForLargeRequest, so the formal qualification could not run and AgenticReviewerQualificationThresholdsV1 remains unapplied; three observed causes, none of them a property of this project's request — the work-type classifier scores any prompt containing the word "review" as needing 100000 tokens of context against an actual request of about 1200, the catalog carries no context window for the plain-inference provider and cannot come to carry one because the refresh path never copies that field, and the documented-context fallback matches the start of a model id so a CLI provider's bare id counts as known while an HTTP provider's vendor-prefixed id counts as unknown; the effect is that the router steers reviewer-shaped prompts to the tool-enabled route and refuses them on the tool-free one; every remedy is a change to the owner's router rather than to this repository
+   blocks:      BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
 GA-35  PASS
    requirement: The reviewer endpoint is reachable and authenticating
    detail:      recorded by ParagonReviewerBoundaryV1 against https://atlas-2.tail1a5964.ts.net:10000/v1: the host resolved, the port answered and the owner-supplied credential was accepted, and the router discloses its downstream routing rather than hiding it, so no field is recorded as PARAGON_ROUTING_UNOBSERVABLE; this is a manual observation against a private endpoint and cannot be re-derived in CI, which is why it is recorded with its probes; the router credential ROUTER=PARAGON_API_KEY is absent in this environment (missing: PARAGON_API_KEY), recorded by presence only and never read into evidence, hashed or rendered; D016-F's provider-diversity and dual provider-credential requirements are retired, so BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE no longer applies
 
-PASS=26 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
+PASS=27 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
 A001_PROGRAM_STATE=ALIVENESS_UNTESTED
 A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 HUMAN_SCORED_RECRUITMENT=BLOCKED
@@ -373,5 +376,5 @@ OUTSTANDING_BLOCKERS=5
   BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
   BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
-  BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED
+  BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
 

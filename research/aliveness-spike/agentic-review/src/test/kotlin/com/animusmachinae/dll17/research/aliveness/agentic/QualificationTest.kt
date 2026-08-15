@@ -148,28 +148,29 @@ class QualificationTest {
     }
 
     @Test
-    fun `a tool-free request does not make the routed reviewer tool-free`() {
-        // The whole D016-F finding, as an assertion. Both are true at once: the
-        // project sends no tools, and the reviewer has them anyway. If these two
-        // ever stopped disagreeing the harness would stop blocking, which is why
-        // the second is derived from the probes rather than written down as false.
+    fun `the default route stays disqualified while the plain-inference route holds`() {
+        // D016-F and D016-G at once. The default route still delegates to a
+        // tool-enabled assistant and its demonstrations are preserved rather than
+        // erased; the D016-G plain-inference route is the one now in use, and it
+        // is the first routed reviewer in D016 shown to hold nothing.
         assertTrue(ApiReviewerIsolationSelfCheck.holds())
-        assertFalse(AgenticReviewQualification.routedBoundaryHolds())
         assertTrue(ParagonReviewerBoundary.demonstrations().isNotEmpty())
+        assertFalse(ParagonReviewerBoundary.callerControlsToolSurface())
+        assertTrue(AgenticReviewQualification.routedBoundaryHolds())
     }
 
     @Test
-    fun `the routed boundary outranks the credential and is what the state reports`() {
+    fun `the route blocker outranks the credential and is what the state reports`() {
         // A missing key would suggest the run is one secret away from being valid.
-        // It is not, so the stronger finding must be the one that surfaces — with
+        // It is not, so the binding finding must be the one that surfaces — with
         // or without a credential present.
         assertFalse(AgenticReviewQualification.credentialsAvailable(env()))
         assertEquals(
-            AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED,
+            AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE,
             AgenticReviewQualification.state(env(), results),
         )
         assertEquals(
-            AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED,
+            AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE,
             AgenticReviewQualification.state(env(*credentialed()), results),
         )
     }
@@ -227,11 +228,13 @@ class QualificationTest {
         assertTrue(
             a.contains(
                 "AGENTIC_REVIEW_STATE=" +
-                    AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED,
+                    AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE,
             ),
         )
         assertTrue(a.contains("REQUEST_TOOL_SURFACE_PROVEN=true"))
-        assertTrue(a.contains("ROUTED_BOUNDARY_HOLDS=false"))
+        assertTrue(a.contains("ROUTED_BOUNDARY_HOLDS=true"))
+        assertTrue(a.contains("PARAGON_PLAIN_INFERENCE_BOUNDARY=PASS"))
+        assertTrue(a.contains("ROUTE_ACCEPTS_REVIEW_REQUESTS=false"))
         assertTrue(a.contains("ROUTER_REACHABLE=true"))
         assertTrue(a.contains("MISSING_CREDENTIALS=${ParagonBackend.CREDENTIAL_ENV}"))
     }

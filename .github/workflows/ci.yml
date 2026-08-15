@@ -230,7 +230,7 @@ jobs:
             --no-daemon --quiet > agentic_review.txt
           diff -u research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt \
             agentic_review.txt
-          grep -q 'AGENTIC_REVIEW_STATE=BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED' \
+          grep -q 'AGENTIC_REVIEW_STATE=BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE' \
             agentic_review.txt \
             || { echo '::error::the agentic review harness changed its qualification state'; exit 1; }
           # The D016-E property, still checked: the reviewer requests this project
@@ -240,12 +240,18 @@ jobs:
             || { echo '::error::a formal reviewer request now serializes a tool surface'; exit 1; }
           grep -q 'tool_choice=none' agentic_review.txt \
             || { echo '::error::a reviewer request no longer forces tool_choice=none'; exit 1; }
-          # The D016-F finding: a tool-free request is not a tool-free reviewer once
-          # a router re-issues it into an assistant. This must stay false until a
-          # route exists whose reviewer holds only what the caller sent. Flipping it
-          # to true without new probe evidence is the alarm.
-          grep -q 'ROUTED_BOUNDARY_HOLDS=false' agentic_review.txt \
-            || { echo '::error::the routed reviewer boundary changed; re-run the D016-F probes before trusting it'; exit 1; }
+          # D016-G obtained a tool-free routed reviewer, so the D016-F blocker is
+          # cleared and this is now expected to hold. It must not silently revert.
+          grep -q 'ROUTED_BOUNDARY_HOLDS=true' agentic_review.txt \
+            || { echo '::error::the routed reviewer boundary regressed; re-run the probes'; exit 1; }
+          grep -q 'PARAGON_PLAIN_INFERENCE_BOUNDARY=PASS' agentic_review.txt \
+            || { echo '::error::the plain-inference reviewer boundary regressed'; exit 1; }
+          # The D016-G blocker. It must stay false until the router will actually
+          # carry a reviewer-sized request to the tool-free route. Flipping it to
+          # true without new probe evidence is the alarm, because it would mean the
+          # harness believes a formal qualification is runnable when none has run.
+          grep -q 'ROUTE_ACCEPTS_REVIEW_REQUESTS=false' agentic_review.txt \
+            || { echo '::error::the route eligibility finding changed; re-run the D016-G probes before trusting it'; exit 1; }
           grep -q 'ROUTER_REACHABLE=true' agentic_review.txt \
             || { echo '::error::the recorded router reachability changed'; exit 1; }
           grep -q 'MISSING_CREDENTIALS=PARAGON_API_KEY' agentic_review.txt \

@@ -1,8 +1,8 @@
 # AgenticReviewHarnessV1
 
 - Status: implemented; **not qualified**
-- State: `BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED`
-- Directive: D016, boundary `D016-F`, under the D016-B architect decision
+- State: `BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE`
+- Directive: D016, boundary `D016-G`, under the D016-B architect decision
 - Evidence: `research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt`
   and `research/aliveness-spike/evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`
 
@@ -200,46 +200,57 @@ and direct API calls do not.
 
 ## What is blocking now
 
-`BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED`.
+`BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE`.
 
-Not connectivity and not authentication. Under D016-F the router was reached, it
-accepted its credential, it served requests, and it disclosed its downstream
-routing rather than hiding it. The blocker is what it routes to.
+Two things are true at once, and both matter.
 
-`ParagonReviewerBoundaryV1` records the preflight. The router reports
-`routedProvider=codex` with `paragon_usage_source=provider_cli_structured`: it
-does not call a model API, it re-issues the prompt into an assistant CLI whose
-tool surface was provisioned when that assistant was installed rather than when
-the request arrived. Probe PB-3 had it execute a shell command and return a real
-directory listing. Probe PB-4 repeated that under a request carrying both
-`tools: []` and `tool_choice: "none"` — the two strongest statements the protocol
-lets a caller make — and it executed anyway, returning the true contents of this
-repository's root.
+**A tool-free routed reviewer now exists.** D016-G moved both slots onto a
+plain-inference route — an OpenAI-compatible provider the router calls directly,
+with no agent loop — selected with the router's own `x-paragon-force-provider`
+header. No router configuration was changed and no router source was modified.
+Six capability probes found no shell, no filesystem, no repository, no web and no
+connectors. Two of them, `PG-5` and `PG-6`, asked for facts the model could not
+guess: a commit SHA, and the first line of a file committed minutes earlier. Both
+were refused. Those two are what make this a finding rather than an absence of
+evidence, because an earlier probe had shown the model will *fabricate* a
+directory listing when asked to run a shell command, and a fabrication proves
+nothing in either direction. `PARAGON_PLAIN_INFERENCE_BOUNDARY=PASS`.
 
-So the two halves of tool-freeness, which D016-E was able to collapse into one,
-come apart again. The request this project serializes is still provably
-tool-free, and is checked in CI for the Paragon backend exactly as for the other
-two. It now proves strictly less, because behind a router the serialized request
-and the reviewer's tool surface are different objects.
+This is the first routed reviewer in D016 demonstrated to hold nothing. D016-D
+could not deny tools and still get output; D016-E had no credential; D016-F got a
+reviewer that executed shell against this repository.
 
-A reviewer that can read the repository it adjudicates is not reviewing the
-evidence bundle; it can consult the answer. The formal qualification was
-therefore not run. Running it would have spent the single permitted formal
-attempt measuring a system the frozen thresholds were not frozen for.
+**The same route will not carry the review.** Paragon's eligibility gate refuses a
+reviewer-sized request with `routing.unknownContextForLargeRequest`. Three
+observed causes, none of them a property of this project's request:
 
-The router credential is `PARAGON_API_KEY`, supplied at runtime and never
-persisted here. It is not the blocker: the state is the same with or without it,
-and a test asserts that, so a missing key cannot be mistaken for the constraint.
+- the work-type classifier scores any prompt containing the word "review" as
+  needing 100,000 tokens of context; the reviewer prompt is about 1,200. The
+  demand is a heuristic about the kind of work, and a governance reviewer trips it
+  by construction, because the role is called reviewer;
+- the model catalog holds no context window for that provider and cannot come to,
+  because the refresh path never copies `context_length` out of the provider's own
+  models endpoint;
+- the documented-context fallback matches the start of a model id, so a CLI
+  provider's bare id counts as known while an HTTP provider's vendor-prefixed id
+  counts as unknown.
 
-Credential handling is structural rather than procedural. A request's secret
-headers live in a separate field from its ordinary headers, and the recorded form
-— which is what gets hashed into provenance — renders them as `REDACTED`. There
-is no field in the recorded form for a credential to land in, and CI additionally
-scans the reviewer evidence for credential-shaped strings.
+The combined effect runs exactly the wrong way for independent review: the router
+treats the tool-enabled route as having known capacity and the tool-free route as
+unknown, so reviewer-shaped prompts are steered to the assistant that can read the
+repository and refused on the one that cannot.
 
-No scored meta-evaluation fixture has been shown to any model. The frozen
-thresholds remain unapplied, and therefore still cannot have been fitted to a
-result.
+Nothing was changed on the router to force this through. Setting a provider-level
+context window would clear the gate today and was deliberately not done: it
+asserts one window across several hundred models with genuinely different limits,
+it would apply to the owner's unrelated traffic, and a wrong value truncates
+silently instead of refusing cleanly. The remedies are recorded in
+`evidence/D016G_PLAIN_INFERENCE_ROUTE.txt` and they belong to the owner.
+
+The formal qualification therefore did not run, and
+`AgenticReviewerQualificationThresholdsV1` remains unapplied and unfitted. The
+runner that would execute it is implemented, tested and committed, and it reads
+the frozen thresholds rather than restating them.
 
 ## Ethics is unchanged
 

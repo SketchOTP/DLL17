@@ -471,3 +471,78 @@ exclusion ordering and the sealed pilot channel are untouched and still checked 
 CI. No participant was recruited and no human outcome data exists anywhere in this
 repository. `GA-26` still reports that no ethics determination exists and none is
 claimed. Recorded as O-0021 and DEC-0044.
+
+## D016-G — a tool-free reviewer at last, and a router that will not carry the question
+
+The architect kept Paragon as the sole gateway and required only that the route
+perform plain inference rather than delegating to a tool-enabled assistant.
+
+Both halves of that were investigated and the answers diverge.
+
+### Cleared: `BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED`
+
+Paragon distinguishes builtin CLI providers, driven through an agent loop, from
+HTTP providers it calls directly as ordinary OpenAI-compatible inference. An HTTP
+provider was already configured and enabled, and is selected with the router's own
+`x-paragon-force-provider` header. No router configuration was changed, no router
+source was modified, and no route or profile was created.
+
+Six capability probes found no shell, no filesystem, no repository, no web and no
+connectors. `PG-5` and `PG-6` are the decisive pair: they asked for a commit SHA
+and the first line of a file committed minutes earlier, neither guessable, and
+both were refused. They exist because `PG-1` had shown the model will fabricate a
+directory listing when asked to execute — an invented answer is not access, but it
+is not proof of absence either, so the boundary had to rest on probes where
+invention would be detectable. A self-reported tool enumeration was also taken and
+is recorded, and is deliberately not load-bearing: the D016-D rule that an
+enumeration is only ever a lower bound does not stop applying because the answer
+is now the one we wanted.
+
+`GA-34` therefore passes, and names the D016-F record it supersedes rather than
+erasing it. The default route is still tool-enabled; it is simply no longer the
+route in use.
+
+### New: `GA-36`, `BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE`
+
+The same route refuses a reviewer-sized request with
+`routing.unknownContextForLargeRequest`. The work-type classifier scores any
+prompt containing the word "review" as needing 100,000 tokens against an actual
+request of about 1,200; the catalog carries no context window for that provider
+and cannot come to, because the refresh path never copies the field; and the
+documented-context fallback matches the start of a model id, so a CLI provider's
+bare id resolves to a known window while an HTTP provider's vendor-prefixed id
+resolves to unknown. The router thus steers reviewer-shaped prompts toward the
+tool-enabled route and refuses them on the tool-free one.
+
+Letting the router choose returns HTTP 200 by routing to the assistant CLI D016-F
+disqualified. An available answer is not a usable one.
+
+### What was deliberately not done
+
+A provider-level context window would clear the gate today. It was not set. That
+value asserts one window across every model the provider can reach, which is false
+for many of them, it applies to the owner's traffic unrelated to this project, and
+a wrong value causes silent truncation rather than a clean refusal. D016-G
+authorises a *minimal* route or profile configuration change; a policy change to a
+shared production service made to suit one caller is not minimal. The remedies are
+recorded and belong to the owner.
+
+### Why no formal qualification ran
+
+There was no reviewer execution to qualify. No frozen scored fixture was sent to
+any model; a synthetic non-scored review was used to check the transport, and that
+is what surfaced the gate. There is consequently no primary or alternate metric
+set, no pair-level result, no order, position, injection or stability figure and
+no disagreement case, and fabricating any of them would be worse than reporting
+none.
+
+### Unchanged
+
+`AgenticReviewerQualificationThresholdsV1` remains unapplied, unmodified and still
+cannot have been fitted to a result. Attempts consumed remains `0 / 3`. Programme
+state remains `ALIVENESS_UNTESTED`. The owner ceiling, the +10 floor, the scripted
+comparator, the frozen instrument, the multiplicity correction, the exclusion
+ordering and the sealed pilot channel are untouched and still checked by CI. No
+participant was recruited and no human outcome data exists anywhere in this
+repository. `GA-26` still reports that no ethics determination exists and none is
+claimed. Recorded as O-0022 and DEC-0045.

@@ -10,6 +10,7 @@ import com.animusmachinae.dll17.research.aliveness.agentic.FailureMode
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
 import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
 import com.animusmachinae.dll17.research.aliveness.agentic.PARAGON_ROUTING_UNOBSERVABLE
+import com.animusmachinae.dll17.research.aliveness.agentic.ParagonPlainInferenceBoundary
 import com.animusmachinae.dll17.research.aliveness.agentic.ParagonReviewerBoundary
 import com.animusmachinae.dll17.research.aliveness.agentic.RoutedReviewerIndependencePolicy
 import com.animusmachinae.dll17.research.aliveness.agentic.QualificationThresholds
@@ -60,8 +61,8 @@ public class AuditItem(
  */
 public object AlivenessGovernanceAudit {
 
-    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV6"
-    public const val AUDIT_VERSION: Int = 6
+    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV7"
+    public const val AUDIT_VERSION: Int = 7
 
     /**
      * The agentic-governance facts, read from the harness rather than restated.
@@ -83,6 +84,7 @@ public object AlivenessGovernanceAudit {
         AgenticReviewQualification.missingCredentials(System::getenv)
     private val routerAvailable = AgenticReviewQualification.routerAvailable()
     private val routedBoundaryHolds = AgenticReviewQualification.routedBoundaryHolds()
+    private val usableReviewRoute = AgenticReviewQualification.usableReviewRouteExists()
     private val routedIndependence = RoutedReviewerIndependencePolicy.evaluate(
         AgenticRoleContracts.PRIMARY,
         AgenticRoleContracts.ALTERNATE,
@@ -458,24 +460,47 @@ public object AlivenessGovernanceAudit {
             "GA-34",
             "The reviewer the router selects holds no tool the caller did not send",
             if (routedBoundaryHolds) AuditState.PASS else AuditState.BLOCKED,
-            "derived from ${ParagonReviewerBoundary.RECORD_ID}: D016-F routes both slots " +
-                "through the owner's Paragon endpoint, which is reachable and accepts its " +
-                "credential, so this is not a connectivity or authentication finding; it " +
-                "reports routedProvider=${ParagonReviewerBoundary.ROUTED_PROVIDER} with " +
-                "usageSource=${ParagonReviewerBoundary.USAGE_SOURCE}, meaning it re-issues " +
-                "the prompt into an assistant CLI whose tools are provisioned outside the " +
-                "request; probes " +
-                ParagonReviewerBoundary.demonstrations().joinToString(",") { it.id } +
-                " demonstrated shell execution and a listing of this repository's own root, " +
-                "the second of them under a request carrying tools=[] and tool_choice=none, " +
-                "so the caller's explicit refusal of tool use does not reach the reviewer; a " +
-                "reviewer that can read the repository it adjudicates is not independent of " +
-                "it, and the request-serialization proof in GA-33 cannot cover this because " +
-                "the router is not the model",
+            "derived from ${ParagonPlainInferenceBoundary.RECORD_ID}: D016-G moved both slots " +
+                "onto a plain-inference route (${ParagonPlainInferenceBoundary.ROUTE}) selected " +
+                "by the router's own ${ParagonPlainInferenceBoundary.ROUTE_HEADER} header, and " +
+                "six capability probes found no shell, no filesystem, no repository, no web and " +
+                "no connectors; two of them asked for facts the model could not guess — a commit " +
+                "SHA and the first line of a file committed minutes earlier — and both were " +
+                "refused, which is what distinguishes this from PG-1, where the model fabricated " +
+                "a directory listing rather than executing anything; this supersedes the D016-F " +
+                "finding that the default route delegates to a tool-enabled assistant CLI, " +
+                "which remains true of that route and is preserved in " +
+                "${ParagonReviewerBoundary.RECORD_ID}",
             blockingState = if (routedBoundaryHolds) {
                 null
             } else {
                 AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED
+            },
+        ),
+        AuditItem(
+            "GA-36",
+            "The tool-free reviewer route will carry a reviewer-sized request",
+            if (usableReviewRoute) AuditState.PASS else AuditState.BLOCKED,
+            "derived from ${ParagonPlainInferenceBoundary.RECORD_ID}: the router refuses the " +
+                "review with ${ParagonPlainInferenceBoundary.REFUSAL_CODE}, so the formal " +
+                "qualification could not run and " +
+                "${QualificationThresholds.THRESHOLDS_ID} remains unapplied; three observed " +
+                "causes, none of them a property of this project's request — the work-type " +
+                "classifier scores any prompt containing the word \"review\" as needing " +
+                "${ParagonPlainInferenceBoundary.ESTIMATED_REQUIRED_CONTEXT_TOKENS} tokens of " +
+                "context against an actual request of about " +
+                "${ParagonPlainInferenceBoundary.ACTUAL_REQUEST_TOKENS_APPROX}, the catalog " +
+                "carries no context window for the plain-inference provider and cannot come to " +
+                "carry one because the refresh path never copies that field, and the " +
+                "documented-context fallback matches the start of a model id so a CLI " +
+                "provider's bare id counts as known while an HTTP provider's vendor-prefixed " +
+                "id counts as unknown; the effect is that the router steers reviewer-shaped " +
+                "prompts to the tool-enabled route and refuses them on the tool-free one; every " +
+                "remedy is a change to the owner's router rather than to this repository",
+            blockingState = if (usableReviewRoute) {
+                null
+            } else {
+                AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
             },
         ),
         AuditItem(
