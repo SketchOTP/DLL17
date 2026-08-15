@@ -404,3 +404,70 @@ ordering and the sealed pilot channel are untouched and still checked by CI. No
 participant was recruited and no human outcome data exists anywhere in this
 repository. `GA-26` still reports that no ethics determination exists and none is
 claimed. Recorded as O-0020 and DEC-0043.
+
+## D016-F — the router as reviewer, and the boundary that came apart
+
+The architect retired provider diversity. Both reviewer slots were pointed at the
+owner's Paragon router, which owns downstream model selection, with an explicit
+instruction not to block merely because the project cannot prove which model the
+router picked. The tool-free reviewer boundary was preserved verbatim.
+
+The router was reached. It resolved, it accepted its credential, it served
+requests, and — unlike the provider control planes of D016-E — it disclosed its
+own routing, so nothing had to be recorded as `PARAGON_ROUTING_UNOBSERVABLE`.
+None of the anticipated connectivity or opacity blockers applied.
+
+### Retired: `BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE` and `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE`
+
+Both are gone from the audit, not merely from the prose. `GA-16` no longer asks
+for two commercial providers or two model families; it now derives from
+`RoutedReviewerIndependencePolicyV1`, which keeps the requirement that the two
+reviewers be distinct role contracts executed separately with no visibility of
+each other, and drops the requirement to prove vendor identity. The paired
+provider credentials collapse to one router credential. `GA-35` records the
+router as reachable and authenticating, so no later reader can mistake the
+remaining blocker for a connectivity problem.
+
+This is a substitution, not progress: outstanding blockers went from six to five
+because two were retired and one was added, and the gate is no closer to opening.
+
+### New: `GA-34`, `BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED`
+
+`ParagonReviewerBoundaryV1`. The router reports `routedProvider=codex` with
+`paragon_usage_source=provider_cli_structured` — it does not call a model API, it
+re-issues the prompt into an assistant CLI. Probe PB-3 had that assistant execute
+a shell command and return a real directory listing. Probe PB-4 repeated it under
+a request carrying both `tools: []` and `tool_choice: "none"`, and it executed
+anyway, returning the true contents of this repository's root. A self-reported
+tool enumeration was also taken and is recorded, but is deliberately not
+load-bearing: D016-D established that enumeration is a lower bound on exposure
+and never proof, and that caution applies to an alarming enumeration too.
+
+So the D016-E proof still holds and now covers less. What this project serializes
+is still provably tool-free, and CI checks it for the Paragon backend exactly as
+for the other two. Behind a router, the serialized request and the reviewer's
+tool surface are simply different objects, and only the first is visible from
+here. No client flag reaches the second, and no local jail does either: the tools
+execute on the router host.
+
+### Why no formal qualification ran
+
+A reviewer that can read the repository it adjudicates is not reviewing the
+evidence bundle — it can consult the answer. Every frozen metric would have been
+measuring a different system than the one the thresholds were frozen for, and the
+first completed formal result is evidence that may not be re-run until it passes.
+Spending that single attempt on a reviewer known in advance to be compromised
+would have destroyed the one clean measurement the programme still has. No scored
+fixture was shown to any model; the probes asked only about shell access and
+directory listings, and a test asserts that of the recorded probes.
+
+### Unchanged
+
+`AgenticReviewerQualificationThresholdsV1` remains unapplied, unmodified and
+still cannot have been fitted to a result. Attempts consumed remains `0 / 3`.
+Programme state remains `ALIVENESS_UNTESTED`. The owner ceiling, the +10 floor,
+the scripted comparator, the frozen instrument, the multiplicity correction, the
+exclusion ordering and the sealed pilot channel are untouched and still checked by
+CI. No participant was recruited and no human outcome data exists anywhere in this
+repository. `GA-26` still reports that no ethics determination exists and none is
+claimed. Recorded as O-0021 and DEC-0044.

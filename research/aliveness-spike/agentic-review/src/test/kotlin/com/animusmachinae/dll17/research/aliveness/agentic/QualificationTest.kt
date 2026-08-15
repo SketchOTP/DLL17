@@ -132,93 +132,90 @@ class QualificationTest {
         return { map[it] }
     }
 
-    /** Both formal reviewer credentials, per D016-E. */
+    /** The single router credential, per D016-F. */
     private fun credentialed(): Array<Pair<String, String>> = arrayOf(
-        "OPENAI_API_KEY" to "not-a-real-key",
-        "GEMINI_API_KEY" to "not-a-real-key",
+        ParagonBackend.CREDENTIAL_ENV to "not-a-real-key",
     )
 
     @Test
-    fun `the tool surface is proven from the request bytes rather than attested`() {
+    fun `the request tool surface is proven from the bytes rather than attested`() {
         // D016-D had to trust an environment attestation because a CLI reviewer's
-        // tools came from a provider account. A direct API request carries only the
-        // tools this repository serializes, so the property is now derived, and it
-        // holds on a machine with no credential at all.
+        // tools came from a provider account. A serialized request carries only the
+        // tools this repository puts in it, so the property is derived, and it holds
+        // on a machine with no credential at all.
         assertTrue(AgenticReviewQualification.isolationAvailable(env()))
         assertTrue(ApiReviewerIsolationSelfCheck.holds())
     }
 
     @Test
-    fun `with no credentials the harness reports provider credentials unavailable`() {
+    fun `a tool-free request does not make the routed reviewer tool-free`() {
+        // The whole D016-F finding, as an assertion. Both are true at once: the
+        // project sends no tools, and the reviewer has them anyway. If these two
+        // ever stopped disagreeing the harness would stop blocking, which is why
+        // the second is derived from the probes rather than written down as false.
+        assertTrue(ApiReviewerIsolationSelfCheck.holds())
+        assertFalse(AgenticReviewQualification.routedBoundaryHolds())
+        assertTrue(ParagonReviewerBoundary.demonstrations().isNotEmpty())
+    }
+
+    @Test
+    fun `the routed boundary outranks the credential and is what the state reports`() {
+        // A missing key would suggest the run is one secret away from being valid.
+        // It is not, so the stronger finding must be the one that surfaces — with
+        // or without a credential present.
         assertFalse(AgenticReviewQualification.credentialsAvailable(env()))
         assertEquals(
-            listOf("OPENAI_API_KEY", "GEMINI_API_KEY"),
-            AgenticReviewQualification.missingCredentials(env()),
-        )
-        // Isolation is no longer the binding constraint, so the state must name the
-        // one that actually is rather than reporting the older, broader blocker.
-        assertEquals(
-            AgenticReviewQualification.STATE_CREDENTIALS_UNAVAILABLE,
+            AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED,
             AgenticReviewQualification.state(env(), results),
         )
-    }
-
-    @Test
-    fun `one credential is not enough and the missing one is named`() {
-        val e = env("OPENAI_API_KEY" to "not-a-real-key")
-        assertFalse(AgenticReviewQualification.credentialsAvailable(e))
-        assertEquals(listOf("GEMINI_API_KEY"), AgenticReviewQualification.missingCredentials(e))
-    }
-
-    @Test
-    fun `credentials present but reviewers undeclared reports diversity unavailable`() {
-        val e = env(*credentialed())
-        assertTrue(AgenticReviewQualification.credentialsAvailable(e))
         assertEquals(
-            AgenticReviewQualification.STATE_DIVERSITY_UNAVAILABLE,
-            AgenticReviewQualification.state(e, results),
+            AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED,
+            AgenticReviewQualification.state(env(*credentialed()), results),
         )
     }
 
     @Test
-    fun `a declared reviewer without a present credential is not available`() {
-        val partial = env(
-            "A001_PRIMARY_REVIEWER_PROVIDER" to "acme",
-            "A001_PRIMARY_REVIEWER_MODEL" to "m-1",
-            "A001_PRIMARY_REVIEWER_FAMILY" to "fam-a",
-            "A001_PRIMARY_REVIEWER_CREDENTIAL_ENV" to "ACME_KEY",
-        )
-        assertFalse(AgenticReviewQualification.realReviewersAvailable(partial))
-    }
-
-    @Test
-    fun `qualification requires the mechanics as well as real reviewers`() {
-        val fullyConfigured = env(
-            *credentialed(),
-            "A001_PRIMARY_REVIEWER_PROVIDER" to "acme",
-            "A001_PRIMARY_REVIEWER_MODEL" to "m-1",
-            "A001_PRIMARY_REVIEWER_FAMILY" to "fam-a",
-            "A001_PRIMARY_REVIEWER_CREDENTIAL_ENV" to "ACME_KEY",
-            "ACME_KEY" to "value",
-            "A001_ALTERNATE_REVIEWER_PROVIDER" to "borealis",
-            "A001_ALTERNATE_REVIEWER_MODEL" to "m-9",
-            "A001_ALTERNATE_REVIEWER_FAMILY" to "fam-b",
-            "A001_ALTERNATE_REVIEWER_CREDENTIAL_ENV" to "BOREALIS_KEY",
-            "BOREALIS_KEY" to "value",
-        )
-        assertTrue(AgenticReviewQualification.realReviewersAvailable(fullyConfigured))
+    fun `the router credential is the only one required and is named when absent`() {
+        // D016-F retired the paired provider credentials of D016-E.
         assertEquals(
-            AgenticReviewQualification.STATE_QUALIFIED,
-            AgenticReviewQualification.state(fullyConfigured, results),
+            listOf(ParagonBackend.CREDENTIAL_ENV),
+            AgenticReviewQualification.missingCredentials(env()),
         )
-        // and a broken mechanic outranks an available reviewer pair
+        assertTrue(AgenticReviewQualification.credentialsAvailable(env(*credentialed())))
+    }
+
+    @Test
+    fun `the router is recorded as reachable and authenticating`() {
+        // So the blocker cannot be mistaken for a connectivity or auth failure.
+        assertTrue(AgenticReviewQualification.routerAvailable())
+        assertTrue(ParagonReviewerBoundary.ROUTING_OBSERVABLE)
+    }
+
+    @Test
+    fun `broken mechanics outrank every later finding`() {
         val broken = results.take(1).map {
             MetaResult(it.fixture, "SOMETHING_ELSE", "forced")
         }
         assertEquals(
             AgenticReviewQualification.STATE_UNQUALIFIED,
-            AgenticReviewQualification.state(fullyConfigured, broken),
+            AgenticReviewQualification.state(env(*credentialed()), broken),
         )
+    }
+
+    @Test
+    fun `routed independence rests on role contracts rather than vendor names`() {
+        val outcome = RoutedReviewerIndependencePolicy.evaluate(
+            AgenticRoleContracts.PRIMARY,
+            AgenticRoleContracts.ALTERNATE,
+        )
+        assertTrue(outcome.satisfied)
+        assertTrue(outcome.distinctRoleContracts)
+        // One contract asked twice is one reviewer sampled twice, and is refused.
+        val same = RoutedReviewerIndependencePolicy.evaluate(
+            AgenticRoleContracts.PRIMARY,
+            AgenticRoleContracts.PRIMARY,
+        )
+        assertFalse(same.satisfied)
     }
 
     @Test
@@ -230,10 +227,18 @@ class QualificationTest {
         assertTrue(
             a.contains(
                 "AGENTIC_REVIEW_STATE=" +
-                    AgenticReviewQualification.STATE_CREDENTIALS_UNAVAILABLE,
+                    AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED,
             ),
         )
-        assertTrue(a.contains("TOOL_SURFACE_PROVEN=true"))
-        assertTrue(a.contains("MISSING_CREDENTIALS=OPENAI_API_KEY,GEMINI_API_KEY"))
+        assertTrue(a.contains("REQUEST_TOOL_SURFACE_PROVEN=true"))
+        assertTrue(a.contains("ROUTED_BOUNDARY_HOLDS=false"))
+        assertTrue(a.contains("ROUTER_REACHABLE=true"))
+        assertTrue(a.contains("MISSING_CREDENTIALS=${ParagonBackend.CREDENTIAL_ENV}"))
+    }
+
+    @Test
+    fun `no credential value ever reaches the qualification evidence`() {
+        val rendered = AgenticReviewQualification.render(env(*credentialed()))
+        assertFalse(rendered.contains("not-a-real-key"))
     }
 }

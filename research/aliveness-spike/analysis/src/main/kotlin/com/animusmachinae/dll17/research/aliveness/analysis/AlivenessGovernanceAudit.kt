@@ -9,6 +9,9 @@ import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
 import com.animusmachinae.dll17.research.aliveness.agentic.FailureMode
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
 import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
+import com.animusmachinae.dll17.research.aliveness.agentic.PARAGON_ROUTING_UNOBSERVABLE
+import com.animusmachinae.dll17.research.aliveness.agentic.ParagonReviewerBoundary
+import com.animusmachinae.dll17.research.aliveness.agentic.RoutedReviewerIndependencePolicy
 import com.animusmachinae.dll17.research.aliveness.agentic.QualificationThresholds
 import com.animusmachinae.dll17.research.aliveness.agentic.RulingParser
 import com.animusmachinae.dll17.research.aliveness.agentic.RulingVerdict
@@ -57,8 +60,8 @@ public class AuditItem(
  */
 public object AlivenessGovernanceAudit {
 
-    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV5"
-    public const val AUDIT_VERSION: Int = 5
+    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV6"
+    public const val AUDIT_VERSION: Int = 6
 
     /**
      * The agentic-governance facts, read from the harness rather than restated.
@@ -72,14 +75,18 @@ public object AlivenessGovernanceAudit {
     private val agenticState = AgenticReviewQualification.state(System::getenv, agenticResults)
     private val agenticQualified =
         agenticState == AgenticReviewQualification.STATE_QUALIFIED
-    private val realReviewersAvailable =
-        AgenticReviewQualification.realReviewersAvailable(System::getenv)
     private val reviewerIsolationAttested =
         AgenticReviewQualification.isolationAvailable(System::getenv)
-    private val providerCredentialsAvailable =
+    private val routerCredentialAvailable =
         AgenticReviewQualification.credentialsAvailable(System::getenv)
     private val missingCredentials =
         AgenticReviewQualification.missingCredentials(System::getenv)
+    private val routerAvailable = AgenticReviewQualification.routerAvailable()
+    private val routedBoundaryHolds = AgenticReviewQualification.routedBoundaryHolds()
+    private val routedIndependence = RoutedReviewerIndependencePolicy.evaluate(
+        AgenticRoleContracts.PRIMARY,
+        AgenticRoleContracts.ALTERNATE,
+    ).satisfied
 
     @JvmStatic
     public fun main(args: Array<String>) {
@@ -222,17 +229,24 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-16",
-            "The two reviewers are meaningfully heterogeneous rather than one configuration twice",
-            if (realReviewersAvailable) AuditState.PASS else AuditState.BLOCKED,
-            "reviewer heterogeneity is machine-enforced by " +
-                "${com.animusmachinae.dll17.research.aliveness.agentic.DiversityPolicy.POLICY_ID}: " +
-                "identical models, same-family pairs and in-repository fixtures are all " +
-                "refused; no reviewer model or credential is configured in this environment, " +
-                "so no real pair exists to enforce it against and none is invented",
-            blockingState = if (realReviewersAvailable) {
+            "The two reviewers are separate isolated executions rather than one asked twice",
+            if (routedIndependence) AuditState.PASS else AuditState.BLOCKED,
+            "D016-F retires the provider and model-family diversity requirement: both slots " +
+                "address the owner's router, which owns downstream model selection, and the " +
+                "project is directed not to block on what it cannot prove about that choice; " +
+                "${RoutedReviewerIndependencePolicy.POLICY_ID} supersedes " +
+                "${com.animusmachinae.dll17.research.aliveness.agentic.DiversityPolicy.POLICY_ID}" +
+                " for routed reviewers and keeps the part that was always the point — " +
+                "distinct role contracts, separate executions, no shared conversation state, " +
+                "and no parameter through which one reviewer's ruling could reach the other; " +
+                "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE is retired with the " +
+                "requirement, and the older policy is preserved unchanged for the " +
+                "direct-provider backends rather than deleted; this item says nothing about " +
+                "whether a reviewer has ever run, which is GA-15 and GA-34",
+            blockingState = if (routedIndependence) {
                 null
             } else {
-                "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE"
+                "BLOCKED_AGENTIC_REVIEW_INDEPENDENCE_UNAVAILABLE"
             },
         ),
         AuditItem(
@@ -442,22 +456,53 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-34",
-            "A credential exists for each formal reviewer slot's provider API",
-            if (providerCredentialsAvailable) AuditState.PASS else AuditState.BLOCKED,
-            "the formal reviewers are direct API calls, so each slot needs its own " +
-                "provider credential: " +
+            "The reviewer the router selects holds no tool the caller did not send",
+            if (routedBoundaryHolds) AuditState.PASS else AuditState.BLOCKED,
+            "derived from ${ParagonReviewerBoundary.RECORD_ID}: D016-F routes both slots " +
+                "through the owner's Paragon endpoint, which is reachable and accepts its " +
+                "credential, so this is not a connectivity or authentication finding; it " +
+                "reports routedProvider=${ParagonReviewerBoundary.ROUTED_PROVIDER} with " +
+                "usageSource=${ParagonReviewerBoundary.USAGE_SOURCE}, meaning it re-issues " +
+                "the prompt into an assistant CLI whose tools are provisioned outside the " +
+                "request; probes " +
+                ParagonReviewerBoundary.demonstrations().joinToString(",") { it.id } +
+                " demonstrated shell execution and a listing of this repository's own root, " +
+                "the second of them under a request carrying tools=[] and tool_choice=none, " +
+                "so the caller's explicit refusal of tool use does not reach the reviewer; a " +
+                "reviewer that can read the repository it adjudicates is not independent of " +
+                "it, and the request-serialization proof in GA-33 cannot cover this because " +
+                "the router is not the model",
+            blockingState = if (routedBoundaryHolds) {
+                null
+            } else {
+                AgenticReviewQualification.STATE_TOOL_SURFACE_UNCONTROLLED
+            },
+        ),
+        AuditItem(
+            "GA-35",
+            "The reviewer endpoint is reachable and authenticating",
+            if (routerAvailable) AuditState.PASS else AuditState.BLOCKED,
+            "recorded by ${ParagonReviewerBoundary.RECORD_ID} against " +
+                "${ParagonReviewerBoundary.ENDPOINT}: the host resolved, the port answered " +
+                "and the owner-supplied credential was accepted, and the router discloses " +
+                "its downstream routing rather than hiding it, so no field is recorded as " +
+                "$PARAGON_ROUTING_UNOBSERVABLE; this is a manual observation against a " +
+                "private endpoint and cannot be re-derived in CI, which is why it is " +
+                "recorded with its probes; the router credential " +
                 AgenticReviewQualification.REQUIRED_CREDENTIALS.joinToString(", ") {
                     "${it.first}=${it.second}"
                 } +
-                "; missing here: " +
+                " is " + (if (routerCredentialAvailable) "present" else "absent") +
+                " in this environment (missing: " +
                 missingCredentials.joinToString(",").ifEmpty { "none" } +
-                "; presence is read from the environment and no credential value is ever " +
-                "read into evidence, hashed or rendered, and D016-E forbids creating " +
-                "accounts, keys, billing or paid resources to satisfy this",
-            blockingState = if (providerCredentialsAvailable) {
+                "), recorded by presence only and never read into evidence, hashed or " +
+                "rendered; D016-F's provider-diversity and dual provider-credential " +
+                "requirements are retired, so BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE no " +
+                "longer applies",
+            blockingState = if (routerAvailable) {
                 null
             } else {
-                "BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE"
+                AgenticReviewQualification.STATE_ROUTER_UNAVAILABLE
             },
         ),
     )

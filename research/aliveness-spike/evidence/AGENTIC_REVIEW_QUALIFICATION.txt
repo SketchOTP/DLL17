@@ -18,12 +18,14 @@ REVIEWER CONFIGURATION
   PRIMARY provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false isolationAttested=false toolDenial=UNKNOWN
   ALTERNATE provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false isolationAttested=false toolDenial=UNKNOWN
 
-  AgenticReviewerDiversityPolicyV1
-  diversitySatisfied=false
-  detail: at least one configured reviewer is not a real language model (primary realModel=false, alternate realModel=false); deterministic doubles qualify the harness mechanics and can never qualify the reviewers
-  note:   the pair evaluated above is the in-repository fixture pair, which is
-          the only pair this environment can construct. It is reported so the
-          refusal is visible rather than implied.
+  RoutedReviewerIndependencePolicyV1
+  supersedes=AgenticReviewerDiversityPolicyV1 (routed reviewers only)
+  independenceSatisfied=true
+  distinctRoleContracts=true  separateExecutions=true
+  detail: distinct role contracts (PrimaryAgenticAlivenessGateReviewer vs AlternateAgenticAlivenessGateReviewer) executed separately with no shared conversation state; downstream model identity is the router's to choose and is recorded, not required
+  note:   provider and model-family diversity are no longer required. D016-F
+          made the router the reviewer, so requiring the project to prove two
+          vendors would be requiring it to prove something it cannot see.
 
 THRESHOLDS=AgenticReviewerQualificationThresholdsV1
   frozen before any reviewer execution existed; not chosen after results
@@ -153,18 +155,57 @@ REVIEWER TOOL SURFACE (ApiReviewerIsolationSelfCheckV1)
   TOOL_FREE google-gemini
              endpoint=https://generativelanguage.googleapis.com/v1beta/models/self-check-model:generateContent
              topLevelKeys=contents  toolBearingKeys=none  secretHeaders=x-goog-api-key (redacted, never hashed)
+  TOOL_FREE paragon-router
+             endpoint=https://atlas-2.tail1a5964.ts.net:10000/v1/chat/completions
+             topLevelKeys=model|messages|tool_choice  toolBearingKeys=tool_choice  tool_choice=none  secretHeaders=Authorization (redacted, never hashed)
 
   toolSurfaceProven=true
   method: each backend serializes a real request through a recording
           transport and the emitted JSON is inspected for tool-bearing
           keys at any depth. No credential and no provider is involved,
           so this check runs in CI exactly as it runs here.
+  scope:  this proves what the project SENDS. For a direct provider API
+          that is the whole tool surface. For a router that re-issues the
+          prompt into an assistant, it is not — see the routed reviewer
+          boundary below, which is where D016-F actually blocks.
 
 ================================================================
-PROVIDER CREDENTIALS
+ROUTED REVIEWER BOUNDARY (ParagonReviewerBoundaryV1)
 
-  PRIMARY   OPENAI_API_KEY    absent
-  ALTERNATE GEMINI_API_KEY    absent
+  endpoint=https://atlas-2.tail1a5964.ts.net:10000/v1
+  reachable=true  authenticated=true
+  routingObservable=true  routedProvider=codex  usageSource=provider_cli_structured
+  routingRecorded=yes
+
+  OBSERVED     PB-1
+               request=POST /chat/completions, no tools, no tool_choice
+               asked=reply with a single word
+               observed=HTTP 200, routed to codex, 16389 prompt tokens billed for a 16-token prompt, so roughly 16k tokens of preamble the project did not send
+  OBSERVED     PB-2
+               request=POST /chat/completions, no tools, no tool_choice
+               asked=enumerate every available tool, connector and capability
+               observed=enumerated 80+ tools including exec_command, apply_patch, web__run, request_plugin_install, multi_agent_v1__spawn_agent and an MCP server indexing this repository (search_code, get_code_snippet, query_graph); self-report only, treated as a lower bound
+  DEMONSTRATED PB-3
+               request=POST /chat/completions, no tools, no tool_choice
+               asked=run a shell command and report its raw output
+               observed=executed it on the router host and returned a real directory listing containing this project; demonstration, not self-report
+  DEMONSTRATED PB-4
+               request=POST /chat/completions, tools=[] AND tool_choice=none
+               asked=run a shell command listing this repository's root
+               observed=executed it anyway and returned the true contents of the repository root; the caller's explicit refusal of tool use did not reach the downstream assistant
+
+  callerControlsToolSurface=false
+  demonstratingProbes=PB-3,PB-4
+  method: manual preflight against the owner's router. Unlike the request
+          serialization check, this cannot run in CI, because it is a fact
+          about a remote host rather than about this repository. It is
+          recorded with its probes so the finding can be re-run and
+          contradicted rather than taken on trust.
+
+================================================================
+REVIEWER CREDENTIAL
+
+  ROUTER    PARAGON_API_KEY   absent
 
   Presence only. No credential value is read into evidence, hashed, or
   rendered anywhere in this file, and the request builders keep secret
@@ -174,11 +215,13 @@ PROVIDER CREDENTIALS
 ================================================================
 STATE
 
-AGENTIC_REVIEW_STATE=BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE
+AGENTIC_REVIEW_STATE=BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED
 MECHANICS_QUALIFIED=true
-TOOL_SURFACE_PROVEN=true
-PROVIDER_CREDENTIALS_AVAILABLE=false
-MISSING_CREDENTIALS=OPENAI_API_KEY,GEMINI_API_KEY
+REQUEST_TOOL_SURFACE_PROVEN=true
+ROUTER_REACHABLE=true
+ROUTED_BOUNDARY_HOLDS=false
+ROUTER_CREDENTIAL_AVAILABLE=false
+MISSING_CREDENTIALS=PARAGON_API_KEY
 REAL_REVIEWERS_AVAILABLE=false
 HUMAN_PARTICIPANT_DATA=0 records; agents govern the study and never replace
                        the people whose perception A001 measures

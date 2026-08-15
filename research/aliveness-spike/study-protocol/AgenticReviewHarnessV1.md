@@ -1,8 +1,8 @@
 # AgenticReviewHarnessV1
 
 - Status: implemented; **not qualified**
-- State: `BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE`
-- Directive: D016, boundary `D016-E`, under the D016-B architect decision
+- State: `BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED`
+- Directive: D016, boundary `D016-F`, under the D016-B architect decision
 - Evidence: `research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt`
   and `research/aliveness-spike/evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`
 
@@ -50,10 +50,25 @@ in verdict is material and produces `BLOCKED_AGENTIC_REVIEW_DISAGREEMENT`, which
 is returned to the architect. The harness does not resolve it, and the comparison
 does not depend on which reviewer was asked first.
 
-## Diversity
+## Independence
 
-`AgenticReviewerDiversityPolicyV1`. Two sessions of one configuration are two
-samples of the same judgement, not two judgements. The policy refuses:
+`RoutedReviewerIndependencePolicyV1`, since D016-F. Both reviewer slots address
+the owner's Paragon router, which owns downstream model selection, and the
+project is directed not to block on what it cannot prove about that choice. So
+provider and model-family diversity are no longer required, and
+`BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE` is retired.
+
+What is still required is the part that was always the point: distinct role
+contracts, separate executions, no shared conversation state, and no parameter
+through which one reviewer's ruling could reach the other. Two calls are two
+reviewers when neither can see the other, not when they carry different vendor
+names.
+
+### `AgenticReviewerDiversityPolicyV1` (superseded for routed reviewers)
+
+Retained unchanged for the direct-provider backends. Two sessions of one
+configuration are two samples of the same judgement, not two judgements. The
+policy refuses:
 
 - identical model identifiers;
 - same model family, even across providers;
@@ -185,13 +200,36 @@ and direct API calls do not.
 
 ## What is blocking now
 
-`BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE`, and nothing broader.
+`BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED`.
 
-The reviewers are implemented and their transports are fully tested against mock
-transports. What does not exist is a credential for either slot:
-`OPENAI_API_KEY` and `GEMINI_API_KEY` are both absent, from the environment and
-from every shell profile. D016-E forbids creating accounts, keys, billing or paid
-resources, so this is an input the programme owner supplies or does not.
+Not connectivity and not authentication. Under D016-F the router was reached, it
+accepted its credential, it served requests, and it disclosed its downstream
+routing rather than hiding it. The blocker is what it routes to.
+
+`ParagonReviewerBoundaryV1` records the preflight. The router reports
+`routedProvider=codex` with `paragon_usage_source=provider_cli_structured`: it
+does not call a model API, it re-issues the prompt into an assistant CLI whose
+tool surface was provisioned when that assistant was installed rather than when
+the request arrived. Probe PB-3 had it execute a shell command and return a real
+directory listing. Probe PB-4 repeated that under a request carrying both
+`tools: []` and `tool_choice: "none"` — the two strongest statements the protocol
+lets a caller make — and it executed anyway, returning the true contents of this
+repository's root.
+
+So the two halves of tool-freeness, which D016-E was able to collapse into one,
+come apart again. The request this project serializes is still provably
+tool-free, and is checked in CI for the Paragon backend exactly as for the other
+two. It now proves strictly less, because behind a router the serialized request
+and the reviewer's tool surface are different objects.
+
+A reviewer that can read the repository it adjudicates is not reviewing the
+evidence bundle; it can consult the answer. The formal qualification was
+therefore not run. Running it would have spent the single permitted formal
+attempt measuring a system the frozen thresholds were not frozen for.
+
+The router credential is `PARAGON_API_KEY`, supplied at runtime and never
+persisted here. It is not the blocker: the state is the same with or without it,
+and a test asserts that, so a missing key cannot be mistaken for the constraint.
 
 Credential handling is structural rather than procedural. A request's secret
 headers live in a separate field from its ordinary headers, and the recorded form

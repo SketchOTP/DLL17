@@ -249,7 +249,7 @@ A001FeasibilityBudgetV1 v1
 ================================================================
 ACTIVATION AUDIT
 
-GOVERNANCE_AUDIT=AlivenessGovernanceAuditV5 v5
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV6 v6
 SCOPE=research governance only; no organism runtime behaviour is exercised
 
 GA-01  PASS
@@ -300,12 +300,11 @@ GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
    detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
 GA-15  BLOCKED
    requirement: The gate-review roles are validly filled and qualified before Attempt 1
-   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE
+   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED
    blocks:      BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
-GA-16  BLOCKED
-   requirement: The two reviewers are meaningfully heterogeneous rather than one configuration twice
-   detail:      reviewer heterogeneity is machine-enforced by AgenticReviewerDiversityPolicyV1: identical models, same-family pairs and in-repository fixtures are all refused; no reviewer model or credential is configured in this environment, so no real pair exists to enforce it against and none is invented
-   blocks:      BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
+GA-16  PASS
+   requirement: The two reviewers are separate isolated executions rather than one asked twice
+   detail:      D016-F retires the provider and model-family diversity requirement: both slots address the owner's router, which owns downstream model selection, and the project is directed not to block on what it cannot prove about that choice; RoutedReviewerIndependencePolicyV1 supersedes AgenticReviewerDiversityPolicyV1 for routed reviewers and keeps the part that was always the point — distinct role contracts, separate executions, no shared conversation state, and no parameter through which one reviewer's ruling could reach the other; BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE is retired with the requirement, and the older policy is preserved unchanged for the direct-provider backends rather than deleted; this item says nothing about whether a reviewer has ever run, which is GA-15 and GA-34
 GA-17  PASS
    requirement: Viewer/expression/interaction contract hashes match across cohorts
    detail:      every cohort renders through SpikeExpressionContractV1 v1; the contract has no cohort parameter and the viewer has no reference to Cohort
@@ -358,19 +357,21 @@ GA-33  PASS
    requirement: Each reviewer is confined to its frozen bundle, with no repository and no web reach
    detail:      derived by ApiReviewerIsolationSelfCheckV1 rather than attested: each formal reviewer backend serializes a real request through a recording transport and the emitted JSON is inspected for tool-bearing keys at any depth, so the property is checked on a machine with no credential and no provider contact; the OpenAI request additionally forces tool_choice=none and the Gemini request declares no tools at all; D016-D's environment attestation is superseded because it existed only to cover a gap that assistant-product CLIs created and direct API calls do not, and that finding is preserved in evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt
 GA-34  BLOCKED
-   requirement: A credential exists for each formal reviewer slot's provider API
-   detail:      the formal reviewers are direct API calls, so each slot needs its own provider credential: PRIMARY=OPENAI_API_KEY, ALTERNATE=GEMINI_API_KEY; missing here: OPENAI_API_KEY,GEMINI_API_KEY; presence is read from the environment and no credential value is ever read into evidence, hashed or rendered, and D016-E forbids creating accounts, keys, billing or paid resources to satisfy this
-   blocks:      BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE
+   requirement: The reviewer the router selects holds no tool the caller did not send
+   detail:      derived from ParagonReviewerBoundaryV1: D016-F routes both slots through the owner's Paragon endpoint, which is reachable and accepts its credential, so this is not a connectivity or authentication finding; it reports routedProvider=codex with usageSource=provider_cli_structured, meaning it re-issues the prompt into an assistant CLI whose tools are provisioned outside the request; probes PB-3,PB-4 demonstrated shell execution and a listing of this repository's own root, the second of them under a request carrying tools=[] and tool_choice=none, so the caller's explicit refusal of tool use does not reach the reviewer; a reviewer that can read the repository it adjudicates is not independent of it, and the request-serialization proof in GA-33 cannot cover this because the router is not the model
+   blocks:      BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED
+GA-35  PASS
+   requirement: The reviewer endpoint is reachable and authenticating
+   detail:      recorded by ParagonReviewerBoundaryV1 against https://atlas-2.tail1a5964.ts.net:10000/v1: the host resolved, the port answered and the owner-supplied credential was accepted, and the router discloses its downstream routing rather than hiding it, so no field is recorded as PARAGON_ROUTING_UNOBSERVABLE; this is a manual observation against a private endpoint and cannot be re-derived in CI, which is why it is recorded with its probes; the router credential ROUTER=PARAGON_API_KEY is absent in this environment (missing: PARAGON_API_KEY), recorded by presence only and never read into evidence, hashed or rendered; D016-F's provider-diversity and dual provider-credential requirements are retired, so BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE no longer applies
 
-PASS=24 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=7 
+PASS=26 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
 A001_PROGRAM_STATE=ALIVENESS_UNTESTED
 A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 HUMAN_SCORED_RECRUITMENT=BLOCKED
-OUTSTANDING_BLOCKERS=6
+OUTSTANDING_BLOCKERS=5
   BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
   BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
   BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
-  BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
-  BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE
+  BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED
 

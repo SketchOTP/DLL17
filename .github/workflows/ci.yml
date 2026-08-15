@@ -230,17 +230,25 @@ jobs:
             --no-daemon --quiet > agentic_review.txt
           diff -u research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt \
             agentic_review.txt
-          grep -q 'AGENTIC_REVIEW_STATE=BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE' \
+          grep -q 'AGENTIC_REVIEW_STATE=BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED' \
             agentic_review.txt \
             || { echo '::error::the agentic review harness changed its qualification state'; exit 1; }
-          # The load-bearing D016-E property: the formal reviewer requests carry no
-          # tool surface. It is derived from the serialized request bytes, so CI
+          # The D016-E property, still checked: the reviewer requests this project
+          # serializes carry no tool surface. Derived from the request bytes, so CI
           # verifies it on a runner with no credential and no provider contact.
-          grep -q 'toolSurfaceProven=true' agentic_review.txt \
+          grep -q 'REQUEST_TOOL_SURFACE_PROVEN=true' agentic_review.txt \
             || { echo '::error::a formal reviewer request now serializes a tool surface'; exit 1; }
           grep -q 'tool_choice=none' agentic_review.txt \
-            || { echo '::error::the OpenAI reviewer no longer forces tool_choice=none'; exit 1; }
-          grep -q 'MISSING_CREDENTIALS=OPENAI_API_KEY,GEMINI_API_KEY' agentic_review.txt \
+            || { echo '::error::a reviewer request no longer forces tool_choice=none'; exit 1; }
+          # The D016-F finding: a tool-free request is not a tool-free reviewer once
+          # a router re-issues it into an assistant. This must stay false until a
+          # route exists whose reviewer holds only what the caller sent. Flipping it
+          # to true without new probe evidence is the alarm.
+          grep -q 'ROUTED_BOUNDARY_HOLDS=false' agentic_review.txt \
+            || { echo '::error::the routed reviewer boundary changed; re-run the D016-F probes before trusting it'; exit 1; }
+          grep -q 'ROUTER_REACHABLE=true' agentic_review.txt \
+            || { echo '::error::the recorded router reachability changed'; exit 1; }
+          grep -q 'MISSING_CREDENTIALS=PARAGON_API_KEY' agentic_review.txt \
             || { echo '::error::CI credential state changed; CI must never hold reviewer credentials'; exit 1; }
           if grep -qE '(sk-|AIza)[A-Za-z0-9_-]{10}' agentic_review.txt; then
             echo '::error::a credential-shaped string appeared in reviewer evidence'

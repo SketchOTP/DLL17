@@ -315,3 +315,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-016-D
 - Status at issuance: ISSUED
+
+
+## D-016-F
+
+- Issued: 2026-08-15T07:00:00-04:00
+- Issuer: User
+- External directive: D016-F
+- Objective: Stop treating OpenAI-versus-Google provider diversity as a project requirement, route both isolated A001 reviewer roles through the owner's Paragon model router, and evaluate whether the resulting independent reviewer executions satisfy the frozen qualification criteria.
+- Scope: A Paragon reviewer backend over the router's OpenAI-compatible request form; a minimal non-scored connectivity and protocol preflight; routing metadata capture; retirement of the provider-credential and provider or model-family diversity blockers; state derived from actual router reachability and qualification; the A001 governance audit; the A001 gate state; qualification evidence; tests; .agent synchronization; and CI.
+- Exclusions: Redesigning the harness; exposing formal scored fixtures during protocol discovery; committing, logging, hashing, printing or persisting the router credential in the repository, in .agent, in Notion, in evidence, in CI or in shell profiles; bypassing Paragon to inspect its internal routing logic; modifying fixtures, expected results, thresholds, role prompts or parser behaviour after seeing formal results; rerunning a failed formal qualification until it passes; resolving reviewer disagreement automatically; participant recruitment; baseline human qualification; BlindVariancePilotV1 execution; Attempt 1; human ablations; R003 through R009; organism changes; A000 FULL changes; and creating D017.
+- Acceptance: An exact PASS, BLOCKED or FAIL state; the Paragon integration reported with endpoint, requested model, protocol form, confirmation that the credential was not persisted, and tool-surface proof; per-slot reviewer executions with role contract, request hash, evidence hash, raw-response hash, routing metadata or PARAGON_ROUTING_UNOBSERVABLE, and structured ruling; full metric results against the unchanged frozen thresholds; proof that reviewer calls were independent and neither saw the other's ruling; the A001 state reported with audit totals, outstanding blockers, attempts consumed, programme state, recruitment state, human-data count and ethics state; all relevant validation run; and the result committed and pushed to main with the exact CI head SHA equal to the pushed commit.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-E
+- Status at issuance: ISSUED

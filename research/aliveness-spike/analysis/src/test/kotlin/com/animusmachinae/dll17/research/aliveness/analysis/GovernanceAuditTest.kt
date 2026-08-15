@@ -2,6 +2,9 @@ package com.animusmachinae.dll17.research.aliveness.analysis
 
 import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
 import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
+import com.animusmachinae.dll17.research.aliveness.agentic.ParagonBackend
+import com.animusmachinae.dll17.research.aliveness.agentic.ParagonReviewerBoundary
+import com.animusmachinae.dll17.research.aliveness.agentic.RoutedReviewerIndependencePolicy
 import com.animusmachinae.dll17.research.aliveness.agentic.FORBIDDEN_TO_EVERY_ROLE
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
 import kotlin.test.Test
@@ -17,8 +20,9 @@ class GovernanceAuditTest {
 
     @Test
     fun `the audit covers every canonical activation prerequisite`() {
-        // 27 through D016-A; five agentic-governance items added by D016-C.
-        assertEquals(34, items.size)
+        // 27 through D016-A; five agentic-governance items added by D016-C, one
+        // by D016-E, one by D016-F.
+        assertEquals(35, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
     }
 
@@ -28,7 +32,10 @@ class GovernanceAuditTest {
         // decision that now actually exists, so it is the one item in this family
         // that may legitimately pass. Every other item here still depends on
         // evidence nobody has produced.
-        val humanDependent = setOf("GA-04", "GA-05", "GA-06", "GA-10", "GA-15", "GA-16")
+        // GA-16 left this family at D016-F: it no longer asserts anything about a
+        // reviewer pair existing, only that two routed executions carry distinct
+        // role contracts, which is a property of this repository.
+        val humanDependent = setOf("GA-04", "GA-05", "GA-06", "GA-10", "GA-15")
         for (item in items.filter { it.id in humanDependent }) {
             assertTrue(
                 item.state != AuditState.PASS,
@@ -73,8 +80,7 @@ class GovernanceAuditTest {
                 "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
                 "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
-                "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE",
-                "BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE",
+                "BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -111,10 +117,23 @@ class GovernanceAuditTest {
     }
 
     @Test
-    fun `reviewer diversity is blocked because no real reviewer pair exists`() {
-        val diversity = items.single { it.id == "GA-16" }
-        assertEquals(AuditState.BLOCKED, diversity.state)
-        assertEquals("BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE", diversity.blockingState)
+    fun `reviewer independence rests on role contracts rather than vendor names`() {
+        // D016-F retired the provider and model-family diversity requirement,
+        // because the router owns model selection and the project was directed not
+        // to block on what it cannot prove about that choice.
+        val independence = items.single { it.id == "GA-16" }
+        assertEquals(AuditState.PASS, independence.state)
+        assertEquals(null, independence.blockingState)
+        assertTrue(independence.detail.contains(RoutedReviewerIndependencePolicy.POLICY_ID))
+        // The retired blocker must not survive anywhere in the audit.
+        assertFalse(
+            AlivenessGovernanceAudit.blockers(items)
+                .contains("BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE"),
+        )
+        assertFalse(
+            AlivenessGovernanceAudit.blockers(items)
+                .contains("BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE"),
+        )
     }
 
     @Test
@@ -131,12 +150,22 @@ class GovernanceAuditTest {
     }
 
     @Test
-    fun `the binding constraint is now the missing provider credentials, named exactly`() {
-        val credentials = items.single { it.id == "GA-34" }
-        assertEquals(AuditState.BLOCKED, credentials.state)
-        assertEquals("BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE", credentials.blockingState)
-        assertTrue(credentials.detail.contains("OPENAI_API_KEY"))
-        assertTrue(credentials.detail.contains("GEMINI_API_KEY"))
+    fun `the binding constraint is the routed reviewer tool surface, named exactly`() {
+        val boundary = items.single { it.id == "GA-34" }
+        assertEquals(AuditState.BLOCKED, boundary.state)
+        assertEquals("BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED", boundary.blockingState)
+        assertTrue(boundary.detail.contains(ParagonReviewerBoundary.RECORD_ID))
+        // The demonstrating probes must be named, so the finding is not an assertion.
+        assertTrue(boundary.detail.contains("PB-4"))
+        assertTrue(boundary.detail.contains("tool_choice=none"))
+    }
+
+    @Test
+    fun `the router is recorded reachable so the blocker cannot be read as connectivity`() {
+        val reach = items.single { it.id == "GA-35" }
+        assertEquals(AuditState.PASS, reach.state)
+        assertEquals(null, reach.blockingState)
+        assertTrue(reach.detail.contains(ParagonBackend.CREDENTIAL_ENV))
     }
 
     @Test

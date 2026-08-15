@@ -400,6 +400,21 @@ public object ApiReviewerIsolationSelfCheck {
             gemini.invoke(it)
             gemini.lastRequest
         }
+
+        // D016-F. The router is the configured reviewer path, so its request has to
+        // be held to the same standard as the two direct-provider ones. It passes:
+        // the request the project sends carries no tools. What that no longer
+        // settles is recorded separately by ParagonReviewerBoundary, because the
+        // router does not hand the request straight to a model.
+        val paragon = ParagonBackend(
+            modelId = "paragon",
+            transport = RecordingTransport(HttpResponseSpec(200, "{}")),
+            apiKey = "unused-by-the-recording-transport",
+        )
+        results += evaluate("paragon-router", paragon.endpoint, request) {
+            paragon.invoke(it)
+            paragon.lastRequest
+        }
         return results
     }
 
@@ -455,6 +470,10 @@ public object ApiReviewerIsolationSelfCheck {
         append("  method: each backend serializes a real request through a recording\n")
         append("          transport and the emitted JSON is inspected for tool-bearing\n")
         append("          keys at any depth. No credential and no provider is involved,\n")
-        append("          so this check runs in CI exactly as it runs here.\n\n")
+        append("          so this check runs in CI exactly as it runs here.\n")
+        append("  scope:  this proves what the project SENDS. For a direct provider API\n")
+        append("          that is the whole tool surface. For a router that re-issues the\n")
+        append("          prompt into an assistant, it is not — see the routed reviewer\n")
+        append("          boundary below, which is where D016-F actually blocks.\n\n")
     }
 }

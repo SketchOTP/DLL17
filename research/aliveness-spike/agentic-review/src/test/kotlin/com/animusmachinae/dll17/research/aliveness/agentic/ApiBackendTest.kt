@@ -71,9 +71,15 @@ class ApiBackendTest {
     }
 
     @Test
-    fun `the self check proves both backends tool free and is what the state reads`() {
+    fun `the self check proves every backend tool free and is what the state reads`() {
+        // Three since D016-F added the router backend. The count is asserted so a
+        // new backend cannot be introduced without its request being checked.
         val findings = ApiReviewerIsolationSelfCheck.findings()
-        assertEquals(2, findings.size)
+        assertEquals(3, findings.size)
+        assertEquals(
+            listOf("openai-responses", "google-gemini", "paragon-router"),
+            findings.map { it.label },
+        )
         assertTrue(findings.all { it.toolFree }, "a backend serialized a tool surface")
         assertTrue(ApiReviewerIsolationSelfCheck.holds())
     }

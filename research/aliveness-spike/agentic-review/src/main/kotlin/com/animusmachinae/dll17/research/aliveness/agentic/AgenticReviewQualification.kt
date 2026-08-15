@@ -89,17 +89,33 @@ public object AgenticReviewQualification {
         "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE"
     public const val STATE_ISOLATION_UNAVAILABLE: String =
         "BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE"
-    public const val STATE_CREDENTIALS_UNAVAILABLE: String =
-        "BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE"
 
     /**
-     * The environment variable each formal reviewer slot's credential is read
-     * from, per D016-E. Names only: no value is ever read into evidence, and the
-     * qualification records presence rather than content.
+     * The router is reachable and authenticating, but the reviewer it routes to
+     * holds tools the caller cannot remove. This is the D016-F finding.
+     */
+    public const val STATE_TOOL_SURFACE_UNCONTROLLED: String =
+        "BLOCKED_REVIEWER_TOOL_SURFACE_UNCONTROLLED"
+
+    /** The specific Paragon connectivity/authentication blocker D016-F asks for. */
+    public const val STATE_ROUTER_UNAVAILABLE: String =
+        "BLOCKED_PARAGON_ENDPOINT_UNAVAILABLE"
+
+    /** The router credential is absent. Specific to the router, per D016-F. */
+    public const val STATE_ROUTER_CREDENTIAL_UNAVAILABLE: String =
+        "BLOCKED_PARAGON_CREDENTIAL_UNAVAILABLE"
+
+    /**
+     * The environment variable the reviewer credential is read from.
+     *
+     * D016-F retired the two provider-specific credentials of D016-E. Both slots
+     * now address one router, so there is one credential rather than a matched
+     * pair, and `BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE` is retired with them.
+     * Names only: no value is ever read into evidence, and the qualification
+     * records presence rather than content.
      */
     public val REQUIRED_CREDENTIALS: List<Pair<String, String>> = listOf(
-        "PRIMARY" to "OPENAI_API_KEY",
-        "ALTERNATE" to "GEMINI_API_KEY",
+        "ROUTER" to ParagonBackend.CREDENTIAL_ENV,
     )
 
     /** Which required credentials are absent, by variable name. */
@@ -141,6 +157,30 @@ public object AgenticReviewQualification {
         ApiReviewerIsolationSelfCheck.holds()
 
     /**
+     * True when the router answered and accepted its credential.
+     *
+     * Derived from the recorded preflight rather than from a live call, because
+     * this must produce the same answer in CI, which cannot reach the owner's
+     * private network.
+     */
+    public fun routerAvailable(): Boolean =
+        ParagonReviewerBoundary.ENDPOINT_REACHABLE &&
+            ParagonReviewerBoundary.AUTHENTICATION_ACCEPTED
+
+    /**
+     * True when the reviewer the router selects holds only the tools the caller
+     * put in the request.
+     *
+     * This is the second half of tool-freeness, and D016-F is where the two halves
+     * come apart. [isolationAvailable] asks what the project serializes and can
+     * answer from the request bytes. This asks what the reviewer actually holds,
+     * which for a router fronting an assistant CLI is decided somewhere the
+     * request never reaches.
+     */
+    public fun routedBoundaryHolds(): Boolean =
+        ParagonReviewerBoundary.callerControlsToolSurface()
+
+    /**
      * The harness mechanics: does every frozen fixture produce its expected
      * governance outcome? This is the half that does not need a model.
      */
@@ -161,6 +201,12 @@ public object AgenticReviewQualification {
      * no useful sense in which such a pair is closer to qualified than a single
      * isolated reviewer would be, so the weaker finding must not mask the stronger
      * one.
+     *
+     * The routed boundary is checked ahead of the credential for the same reason.
+     * A missing key is a thing the owner can hand over in a minute; a reviewer
+     * that can read the repository it judges is a reason not to run at all. If the
+     * credential were reported first it would suggest the run is one secret away
+     * from being valid, which would be false.
      */
     public fun state(
         env: (String) -> String?,
@@ -168,7 +214,9 @@ public object AgenticReviewQualification {
     ): String = when {
         !mechanicsHold(results) -> STATE_UNQUALIFIED
         !isolationAvailable(env) -> STATE_ISOLATION_UNAVAILABLE
-        !credentialsAvailable(env) -> STATE_CREDENTIALS_UNAVAILABLE
+        !routerAvailable() -> STATE_ROUTER_UNAVAILABLE
+        !routedBoundaryHolds() -> STATE_TOOL_SURFACE_UNCONTROLLED
+        !credentialsAvailable(env) -> STATE_ROUTER_CREDENTIAL_UNAVAILABLE
         !realReviewersAvailable(env) -> STATE_DIVERSITY_UNAVAILABLE
         else -> STATE_QUALIFIED
     }
@@ -202,16 +250,8 @@ public object AgenticReviewQualification {
         append("REVIEWER CONFIGURATION\n\n")
         for (config in configs) append("  ").append(config.render()).append('\n')
         append('\n')
-        val diversity = DiversityPolicy.evaluate(
-            CompliantScriptedReviewer().descriptor,
-            CompliantScriptedReviewer("compliant-scripted-reviewer-b").descriptor,
-        )
-        append("  ").append(DiversityPolicy.POLICY_ID).append('\n')
-        append("  diversitySatisfied=").append(diversity.satisfied).append('\n')
-        append("  detail: ").append(diversity.detail).append('\n')
-        append("  note:   the pair evaluated above is the in-repository fixture pair, which is\n")
-        append("          the only pair this environment can construct. It is reported so the\n")
-        append("          refusal is visible rather than implied.\n\n")
+        append(RoutedReviewerIndependencePolicy.render())
+        append('\n')
 
         append(QualificationThresholds.render()).append('\n')
 
@@ -242,8 +282,10 @@ public object AgenticReviewQualification {
 
         append(ApiReviewerIsolationSelfCheck.render())
 
+        append(ParagonReviewerBoundary.render())
+
         append("================================================================\n")
-        append("PROVIDER CREDENTIALS\n\n")
+        append("REVIEWER CREDENTIAL\n\n")
         for ((slot, variable) in REQUIRED_CREDENTIALS) {
             append("  ").append(slot.padEnd(10)).append(variable.padEnd(18))
             append(if (env(variable).isNullOrBlank()) "absent" else "present")
@@ -258,8 +300,11 @@ public object AgenticReviewQualification {
         append("STATE\n\n")
         append("AGENTIC_REVIEW_STATE=").append(state(env, results)).append('\n')
         append("MECHANICS_QUALIFIED=").append(mechanicsHold(results)).append('\n')
-        append("TOOL_SURFACE_PROVEN=").append(ApiReviewerIsolationSelfCheck.holds()).append('\n')
-        append("PROVIDER_CREDENTIALS_AVAILABLE=").append(credentialsAvailable(env)).append('\n')
+        append("REQUEST_TOOL_SURFACE_PROVEN=")
+        append(ApiReviewerIsolationSelfCheck.holds()).append('\n')
+        append("ROUTER_REACHABLE=").append(routerAvailable()).append('\n')
+        append("ROUTED_BOUNDARY_HOLDS=").append(routedBoundaryHolds()).append('\n')
+        append("ROUTER_CREDENTIAL_AVAILABLE=").append(credentialsAvailable(env)).append('\n')
         append("MISSING_CREDENTIALS=")
         append(missingCredentials(env).joinToString(",").ifEmpty { "none" }).append('\n')
         append("REAL_REVIEWERS_AVAILABLE=").append(realReviewersAvailable(env)).append('\n')
