@@ -1,4 +1,4 @@
-GOVERNANCE_AUDIT=AlivenessGovernanceAuditV3 v3
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV4 v4
 SCOPE=research governance only; no organism runtime behaviour is exercised
 
 GA-01  PASS
@@ -49,7 +49,7 @@ GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
    detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
 GA-15  BLOCKED
    requirement: The gate-review roles are validly filled and qualified before Attempt 1
-   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
+   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE
    blocks:      BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
 GA-16  BLOCKED
    requirement: The two reviewers are meaningfully heterogeneous rather than one configuration twice
@@ -103,15 +103,20 @@ GA-31  PASS
 GA-32  PASS
    requirement: Agents govern and operate the study; they never stand in for its participants
    detail:      A001 measures whether people perceive the organism as more alive, so the human arms — baseline qualification, the variance pilot, Attempt 1 and the human ablations — still require real blinded participants and are still blocked on them; no model-generated score exists anywhere and no agentic role may create one
+GA-33  BLOCKED
+   requirement: Each reviewer is confined to its frozen bundle, with no repository and no web reach
+   detail:      a slot counts as isolated only when its environment carries A001_{SLOT}_REVIEWER_TOOL_DENIAL=VERIFIED_NO_REPOSITORY_NO_WEB; D016-D attempted this against two authenticated assistant CLIs and could not obtain it from either, because the tools that breach the boundary are provisioned by the provider account rather than by the client, and therefore survive every client flag and an operating-system jail that removes the repository from the filesystem entirely; the finding is preserved in evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt
+   blocks:      BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE
 
-PASS=23 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
+PASS=23 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=7 
 A001_PROGRAM_STATE=ALIVENESS_UNTESTED
 A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 HUMAN_SCORED_RECRUITMENT=BLOCKED
-OUTSTANDING_BLOCKERS=5
+OUTSTANDING_BLOCKERS=6
   BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
   BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
   BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
   BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
+  BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE
 

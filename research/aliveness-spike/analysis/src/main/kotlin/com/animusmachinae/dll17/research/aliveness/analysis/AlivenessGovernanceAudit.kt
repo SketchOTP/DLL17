@@ -9,6 +9,7 @@ import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
 import com.animusmachinae.dll17.research.aliveness.agentic.FailureMode
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
 import com.animusmachinae.dll17.research.aliveness.agentic.QualificationThresholds
+import com.animusmachinae.dll17.research.aliveness.agentic.ReviewerConfiguration
 import com.animusmachinae.dll17.research.aliveness.agentic.RulingParser
 import com.animusmachinae.dll17.research.aliveness.agentic.RulingVerdict
 
@@ -56,8 +57,8 @@ public class AuditItem(
  */
 public object AlivenessGovernanceAudit {
 
-    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV3"
-    public const val AUDIT_VERSION: Int = 3
+    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV4"
+    public const val AUDIT_VERSION: Int = 4
 
     /**
      * The agentic-governance facts, read from the harness rather than restated.
@@ -73,6 +74,8 @@ public object AlivenessGovernanceAudit {
         agenticState == AgenticReviewQualification.STATE_QUALIFIED
     private val realReviewersAvailable =
         AgenticReviewQualification.realReviewersAvailable(System::getenv)
+    private val reviewerIsolationAttested =
+        AgenticReviewQualification.isolationAvailable(System::getenv)
 
     @JvmStatic
     public fun main(args: Array<String>) {
@@ -413,6 +416,25 @@ public object AlivenessGovernanceAudit {
                 "ablations — still require real blinded participants and are still blocked on " +
                 "them; no model-generated score exists anywhere and no agentic role may " +
                 "create one",
+        ),
+        AuditItem(
+            "GA-33",
+            "Each reviewer is confined to its frozen bundle, with no repository and no web reach",
+            if (reviewerIsolationAttested) AuditState.PASS else AuditState.BLOCKED,
+            "a slot counts as isolated only when its environment carries " +
+                "A001_{SLOT}_REVIEWER_TOOL_DENIAL=" +
+                "${ReviewerConfiguration.REQUIRED_ATTESTATION}; D016-D attempted this against " +
+                "two authenticated assistant CLIs and could not obtain it from either, because " +
+                "the tools that breach the boundary are provisioned by the provider account " +
+                "rather than by the client, and therefore survive every client flag and an " +
+                "operating-system jail that removes the repository from the filesystem " +
+                "entirely; the finding is preserved in " +
+                "evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt",
+            blockingState = if (reviewerIsolationAttested) {
+                null
+            } else {
+                "BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE"
+            },
         ),
     )
 

@@ -285,3 +285,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016
 - Status at issuance: ISSUED
+
+
+## D-016-D
+
+- Issued: 2026-08-15T00:05:00-04:00
+- Issuer: User
+- External directive: D016-D
+- Objective: Complete the missing real-model qualification of AgenticReviewHarnessV1 by executing two genuinely heterogeneous agentic reviewers already authenticated on this workstation, using the accepted D016-C mechanics unchanged.
+- Scope: Codex reviewer backend, Gemini reviewer backend, invocation isolation, tool-denial configuration, provenance capture, qualification runner, qualification evidence, tests, the A001 governance audit, the A001 gate state, .agent synchronization, and CI deterministic validation where possible.
+- Exclusions: Baseline human qualification; participant recruitment; BlindVariancePilotV1 execution; Attempt 1; human ablation studies; R003 through R009; organism changes; A000 FULL changes; new infrastructure work; creating new API keys; exposing, printing, copying or committing credentials; changing billing, plans or subscriptions; tuning thresholds after seeing results; rewriting fixtures after seeing results; rerunning a failed formal qualification until it passes; substituting Claude into either adjudicating reviewer slot; beginning human A001 execution; and creating D017.
+- Acceptance: Twenty criteria, all required. Real Codex and Gemini reviewer executions occurred; the pair is genuinely heterogeneous; both executed in isolated fresh sessions; Codex remained inside the frozen evidence boundary; the Google reviewer had all external tools denied; reviewers could not see each other's outputs; project-controlled provenance is complete; provider-hidden provenance is honestly marked unavailable; all frozen meta-evaluation cases were executed; both reviewers meet every frozen threshold; disagreement handling remains fail-closed; the operator remains non-adjudicating; no human evidence was generated; attempts remain zero of three; the programme remains ALIVENESS_UNTESTED; human recruitment remains blocked; governance validation passes; full relevant CI passes; and the exact CI head SHA equals the pushed qualification commit.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-C
+- Status at issuance: ISSUED

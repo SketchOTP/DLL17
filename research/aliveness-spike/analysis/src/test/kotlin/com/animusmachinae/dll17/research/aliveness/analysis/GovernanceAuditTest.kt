@@ -17,7 +17,7 @@ class GovernanceAuditTest {
     @Test
     fun `the audit covers every canonical activation prerequisite`() {
         // 27 through D016-A; five agentic-governance items added by D016-C.
-        assertEquals(32, items.size)
+        assertEquals(33, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
     }
 
@@ -73,6 +73,7 @@ class GovernanceAuditTest {
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
                 "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
                 "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE",
+                "BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -113,6 +114,18 @@ class GovernanceAuditTest {
         val diversity = items.single { it.id == "GA-16" }
         assertEquals(AuditState.BLOCKED, diversity.state)
         assertEquals("BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE", diversity.blockingState)
+    }
+
+    @Test
+    fun `reviewer isolation is blocked and names why a local jail is not sufficient`() {
+        val isolation = items.single { it.id == "GA-33" }
+        assertEquals(AuditState.BLOCKED, isolation.state)
+        assertEquals("BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE", isolation.blockingState)
+        // The D016-D finding is the load-bearing part: the boundary failed on tools
+        // the client does not control, so a future attempt is not tempted to retry
+        // the same jail and expect a different answer.
+        assertTrue(isolation.detail.contains("provisioned by the provider account"))
+        assertTrue(isolation.detail.contains("AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt"))
     }
 
     @Test

@@ -132,13 +132,57 @@ class QualificationTest {
         return { map[it] }
     }
 
+    /**
+     * The attestation both slots need before any reviewer property is measurable.
+     * Kept as a helper so the tests below read as statements about state ordering
+     * rather than about environment plumbing.
+     */
+    private fun attested(): Array<Pair<String, String>> = arrayOf(
+        "A001_PRIMARY_REVIEWER_TOOL_DENIAL" to ReviewerConfiguration.REQUIRED_ATTESTATION,
+        "A001_ALTERNATE_REVIEWER_TOOL_DENIAL" to ReviewerConfiguration.REQUIRED_ATTESTATION,
+    )
+
     @Test
-    fun `with no configured reviewers the harness reports diversity unavailable`() {
+    fun `with nothing configured the harness reports isolation unavailable first`() {
+        assertFalse(AgenticReviewQualification.isolationAvailable(env()))
         assertFalse(AgenticReviewQualification.realReviewersAvailable(env()))
+        // Both are missing; the stronger finding must be the one reported, because a
+        // reviewer that can reach the repository is not made acceptable by adding a
+        // second one of a different family.
         assertEquals(
-            AgenticReviewQualification.STATE_DIVERSITY_UNAVAILABLE,
+            AgenticReviewQualification.STATE_ISOLATION_UNAVAILABLE,
             AgenticReviewQualification.state(env(), results),
         )
+    }
+
+    @Test
+    fun `an attested pair with no credentials reports diversity unavailable`() {
+        val e = env(*attested())
+        assertTrue(AgenticReviewQualification.isolationAvailable(e))
+        assertEquals(
+            AgenticReviewQualification.STATE_DIVERSITY_UNAVAILABLE,
+            AgenticReviewQualification.state(e, results),
+        )
+    }
+
+    @Test
+    fun `the attestation is one exact string and nothing else counts`() {
+        for (bogus in listOf("true", "yes", "VERIFIED", "verified_no_repository_no_web", "1")) {
+            val e = env(
+                "A001_PRIMARY_REVIEWER_TOOL_DENIAL" to bogus,
+                "A001_ALTERNATE_REVIEWER_TOOL_DENIAL" to bogus,
+            )
+            assertFalse(
+                AgenticReviewQualification.isolationAvailable(e),
+                "'$bogus' must not satisfy the isolation attestation",
+            )
+        }
+    }
+
+    @Test
+    fun `one attested slot is not enough`() {
+        val e = env("A001_PRIMARY_REVIEWER_TOOL_DENIAL" to ReviewerConfiguration.REQUIRED_ATTESTATION)
+        assertFalse(AgenticReviewQualification.isolationAvailable(e))
     }
 
     @Test
@@ -155,6 +199,7 @@ class QualificationTest {
     @Test
     fun `qualification requires the mechanics as well as real reviewers`() {
         val fullyConfigured = env(
+            *attested(),
             "A001_PRIMARY_REVIEWER_PROVIDER" to "acme",
             "A001_PRIMARY_REVIEWER_MODEL" to "m-1",
             "A001_PRIMARY_REVIEWER_FAMILY" to "fam-a",
@@ -190,8 +235,9 @@ class QualificationTest {
         assertTrue(
             a.contains(
                 "AGENTIC_REVIEW_STATE=" +
-                    AgenticReviewQualification.STATE_DIVERSITY_UNAVAILABLE,
+                    AgenticReviewQualification.STATE_ISOLATION_UNAVAILABLE,
             ),
         )
+        assertTrue(a.contains("REVIEWER_ISOLATION_ATTESTED=false"))
     }
 }

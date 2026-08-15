@@ -1,9 +1,10 @@
 # AgenticReviewHarnessV1
 
 - Status: implemented; **not qualified**
-- State: `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE`
-- Directive: D016, boundary `D016-C`, under the D016-B architect decision
+- State: `BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE`
+- Directive: D016, boundary `D016-D`, under the D016-B architect decision
 - Evidence: `research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt`
+  and `research/aliveness-spike/evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`
 
 D016-B replaced the previously planned external human reviewer and study-operator
 roles with isolated agentic ones. This document is the contract for the harness
@@ -142,9 +143,38 @@ order sensitivity, abstention rate, real injection resistance. Those need real
 heterogeneous models, and no provider credential is configured in this
 environment.
 
-Hence `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE`. The frozen thresholds
-therefore have nothing yet to be applied to, which is exactly why they can be
-trusted not to have been fitted to a result.
+Hence the harness is unqualified. The frozen thresholds therefore have nothing
+yet to be applied to, which is exactly why they can be trusted not to have been
+fitted to a result.
+
+## Isolation is a precondition, not part of diversity
+
+D016-D tried to qualify a real pair and found a boundary failure underneath the
+diversity one, so the state is now
+`BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE`.
+
+A slot counts as isolated only when its environment carries
+`A001_{SLOT}_REVIEWER_TOOL_DENIAL=VERIFIED_NO_REPOSITORY_NO_WEB`. The harness
+accepts that one exact string and nothing else, so setting it is a positive
+claim that both halves were checked rather than an incidental truthy value.
+
+The check is ordered ahead of diversity deliberately. Two heterogeneous models
+that can both read the repository they are adjudicating are not two independent
+reviewers; they are one leak sampled twice, and the weaker finding must not mask
+the stronger one.
+
+What D016-D established is that a filesystem jail is not where this is decided.
+An unprivileged bubblewrap jail removing the repository from the filesystem
+entirely was built and verified, and the candidate reviewer still held
+account-level tools that fetch files from GitHub — where this repository is
+public — along with general web access, because those tools are provisioned by
+the provider account and executed server-side. No client flag and no local jail
+is in the path of such a call.
+
+So an acceptable reviewer needs an access path whose tool set the caller
+defines, rather than an assistant product whose account carries connectors. The
+full probe, including what was tried and what the exact failure messages were,
+is in `evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`.
 
 ## Ethics is unchanged
 

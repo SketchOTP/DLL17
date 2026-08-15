@@ -266,3 +266,84 @@ correction, the exclusion ordering and the sealed pilot channel are all untouche
 and still checked by CI. No participant was recruited, no session was run, and no
 human outcome data exists anywhere in this repository. `GA-26` still reports that
 no ethics determination exists and none is claimed. Recorded as O-0018.
+
+## D016-D — the first attempt to execute real reviewers
+
+`BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE`. Six outstanding blockers, up from
+five. The audit is now `AlivenessGovernanceAuditV4` with 33 items.
+
+D016-D authorised bounded use of two assistant CLIs already authenticated on the
+workstation, to measure what D016-C could not: repeated-run stability, order and
+position sensitivity, abstention rate and real injection resistance. None of
+those was measured. The attempt stopped at preflight, which is where §7 says to
+stop when a hard boundary cannot be satisfied.
+
+### What was achieved
+
+Filesystem isolation, and it is committed as
+`agentic-review/tools/reviewer_jail.sh`. Inside an unprivileged bubblewrap jail
+the reviewer's `HOME` contains only a read-only **bind** of its own auth file —
+bound, never copied, never printed — plus an interpreter and an empty working
+directory. `/home/sketch/Projects` does not exist inside it. No client config, no
+plugin directory, no skills directory and no MCP definition is reachable, because
+none is bound in.
+
+### Why that was not enough
+
+The Primary slot's reviewer, running read-only in that jail with user config,
+execpolicy rules, plugins and MCP servers all disabled, still held several hundred
+account-level connector tools. Among them: `github_fetch_file`, `github_search`,
+`github_get_pr_diff`, `github_fetch_commit` and `web__run`. This repository is
+public on GitHub, so those are not theoretical exposure — they are a working
+route from inside a jailed filesystem back to the exact files being adjudicated,
+and to this repository's commit and CI history. The same surface carried Gmail,
+Drive, Slack, Notion, Supabase and site-deployment authority no reviewer should
+hold.
+
+Nothing removes them. `tools.web_search=false` is a valid key and does not remove
+`web__run`; every readable-root restriction key is rejected as an unknown field;
+the read-only sandbox restricts writes, not reads; and the surface was identical
+across three models. The tools are provisioned by the provider account and
+executed server-side, so neither a client flag nor a local jail is in the path of
+the call.
+
+The Alternate slot failed differently. The Gemini CLI can no longer authenticate
+at all — its personal tier was withdrawn (`IneligibleTierError`,
+`UNSUPPORTED_CLIENT`) and no Google API key exists here — so the architect
+authorised the Antigravity CLI as the Google/Gemini client. That client denies
+tools correctly: headless mode auto-denies anything needing a permission prompt,
+which is exactly §6's posture, enforced rather than instructed. But its agent
+invokes a command tool even for a prompt that needs none, and under denial it
+returned no output at all on every model tried. It can be given no tools, or it
+can produce a ruling, but not both.
+
+### How the repository now holds this
+
+Derived, not declared. A slot counts as isolated only when its environment
+carries `A001_{SLOT}_REVIEWER_TOOL_DENIAL=VERIFIED_NO_REPOSITORY_NO_WEB` — one
+exact string, so setting it is a positive claim that both halves were checked
+rather than an incidental truthy value. `GA-33` blocks on it and names why a
+local jail is insufficient, so the next attempt is not tempted to rebuild the
+jail and expect a different answer. The check is ordered ahead of diversity:
+two heterogeneous models that can both read the repository they adjudicate are
+one leak sampled twice, and the weaker finding must not mask the stronger one.
+
+### Preserved
+
+The full probe is `evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`, including a
+recorded correction: an earlier probe in the same session appeared to show the
+connector tools removed by a plugins feature flag, and was wrong. The enumeration
+is self-reported by the model and is a **lower bound** on exposure, never proof
+of absence.
+
+### Unchanged
+
+No formal qualification ran. No scored meta-evaluation fixture was shown to any
+model, so `AgenticReviewerQualificationThresholdsV1` remains unapplied and
+therefore still cannot have been fitted to a result. Attempts consumed remains
+`0 / 3`. Programme state remains `ALIVENESS_UNTESTED`. The owner ceiling, the +10
+floor, the scripted comparator, the frozen instrument, the multiplicity
+correction, the exclusion ordering and the sealed pilot channel are untouched and
+still checked by CI. No participant was recruited and no human outcome data
+exists anywhere in this repository. `GA-26` still reports that no ethics
+determination exists and none is claimed. Recorded as O-0019 and DEC-0042.

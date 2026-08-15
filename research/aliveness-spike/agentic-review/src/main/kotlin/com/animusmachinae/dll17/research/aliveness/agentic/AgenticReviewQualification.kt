@@ -15,18 +15,41 @@ public class ReviewerConfiguration(
     public val modelFamily: String?,
     public val modelSnapshot: String?,
     public val credentialPresent: Boolean,
+    public val toolDenialAttestation: String?,
 ) {
     public val complete: Boolean
         get() = !provider.isNullOrBlank() && !modelId.isNullOrBlank() &&
             !modelFamily.isNullOrBlank() && credentialPresent
 
+    /**
+     * Whether this slot's reviewer has been shown to reach nothing but its frozen
+     * bundle.
+     *
+     * D016-D established that a jailed filesystem is not sufficient on its own.
+     * A hosted assistant can carry server-side tools its client cannot remove, and
+     * a repository-reading tool provisioned by the provider defeats an evidence
+     * boundary enforced only locally. So the attestation must name both halves,
+     * and an unattested slot is never treated as isolated.
+     */
+    public val isolationAttested: Boolean
+        get() = toolDenialAttestation == REQUIRED_ATTESTATION
+
     public fun render(): String =
         "$slot provider=${provider ?: UNKNOWN} model=${modelId ?: UNKNOWN} " +
             "family=${modelFamily ?: UNKNOWN} snapshot=${modelSnapshot ?: UNKNOWN} " +
             "credential=${if (credentialPresent) "present" else "absent"} " +
-            "complete=$complete"
+            "complete=$complete isolationAttested=$isolationAttested " +
+            "toolDenial=${toolDenialAttestation ?: UNKNOWN}"
 
     public companion object {
+        /**
+         * The only accepted attestation value. It is deliberately a single exact
+         * string rather than a boolean, so that setting it is a positive claim
+         * about what was verified and cannot be satisfied by an incidental
+         * truthy value.
+         */
+        public const val REQUIRED_ATTESTATION: String = "VERIFIED_NO_REPOSITORY_NO_WEB"
+
         /** The environment contract, documented in AgenticReviewHarnessV1.md. */
         public fun discover(slot: String, env: (String) -> String?): ReviewerConfiguration {
             val prefix = "A001_${slot}_REVIEWER"
@@ -39,6 +62,7 @@ public class ReviewerConfiguration(
                 modelSnapshot = env("${prefix}_SNAPSHOT"),
                 credentialPresent = !credentialVar.isNullOrBlank() &&
                     !env(credentialVar).isNullOrBlank(),
+                toolDenialAttestation = env("${prefix}_TOOL_DENIAL"),
             )
         }
     }
@@ -63,6 +87,8 @@ public object AgenticReviewQualification {
     public const val STATE_UNQUALIFIED: String = "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED"
     public const val STATE_DIVERSITY_UNAVAILABLE: String =
         "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE"
+    public const val STATE_ISOLATION_UNAVAILABLE: String =
+        "BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE"
 
     @JvmStatic
     public fun main(args: Array<String>) {
@@ -80,6 +106,17 @@ public object AgenticReviewQualification {
         configurations(env).all { it.complete }
 
     /**
+     * True only when both slots carry the exact tool-denial attestation.
+     *
+     * Nothing in this repository can verify the claim, because the boundary being
+     * attested is a property of a provider account rather than of a checkout. What
+     * the repository can do is refuse to proceed without the claim, and refuse to
+     * accept any value other than the one that names what had to be verified.
+     */
+    public fun isolationAvailable(env: (String) -> String?): Boolean =
+        configurations(env).all { it.isolationAttested }
+
+    /**
      * The harness mechanics: does every frozen fixture produce its expected
      * governance outcome? This is the half that does not need a model.
      */
@@ -89,16 +126,24 @@ public object AgenticReviewQualification {
     /**
      * The state, derived.
      *
-     * Qualification requires both halves. The mechanics can hold completely and
+     * Qualification requires every half. The mechanics can hold completely and
      * the harness still be unqualified, because a reviewer whose stability,
      * order-sensitivity and injection resistance have never been measured on a
      * real model is not a qualified reviewer — it is an untested one.
+     *
+     * Isolation is checked before diversity, and deliberately so. Two
+     * heterogeneous models that can both read the repository they are adjudicating
+     * are not two independent reviewers; they are one leak sampled twice. There is
+     * no useful sense in which such a pair is closer to qualified than a single
+     * isolated reviewer would be, so the weaker finding must not mask the stronger
+     * one.
      */
     public fun state(
         env: (String) -> String?,
         results: List<MetaResult> = MetaEvaluationSuite.run(),
     ): String = when {
         !mechanicsHold(results) -> STATE_UNQUALIFIED
+        !isolationAvailable(env) -> STATE_ISOLATION_UNAVAILABLE
         !realReviewersAvailable(env) -> STATE_DIVERSITY_UNAVAILABLE
         else -> STATE_QUALIFIED
     }
@@ -171,9 +216,22 @@ public object AgenticReviewQualification {
         append("  trusted not to have been fitted to a result.\n\n")
 
         append("================================================================\n")
+        append("ISOLATION PRECONDITION\n\n")
+        append("  A reviewer slot counts as isolated only when its environment carries\n")
+        append("  A001_{SLOT}_REVIEWER_TOOL_DENIAL=")
+        append(ReviewerConfiguration.REQUIRED_ATTESTATION).append(".\n")
+        append("  D016-D established why this is a separate precondition rather than part\n")
+        append("  of the diversity check: a hosted assistant can carry provider-side tools\n")
+        append("  that no client flag and no operating-system jail can remove, and a\n")
+        append("  repository-reading tool among them defeats an evidence boundary that is\n")
+        append("  enforced only on the local filesystem. See\n")
+        append("  evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt.\n\n")
+
+        append("================================================================\n")
         append("STATE\n\n")
         append("AGENTIC_REVIEW_STATE=").append(state(env, results)).append('\n')
         append("MECHANICS_QUALIFIED=").append(mechanicsHold(results)).append('\n')
+        append("REVIEWER_ISOLATION_ATTESTED=").append(isolationAvailable(env)).append('\n')
         append("REAL_REVIEWERS_AVAILABLE=").append(realReviewersAvailable(env)).append('\n')
         append("HUMAN_PARTICIPANT_DATA=0 records; agents govern the study and never replace\n")
         append("                       the people whose perception A001 measures\n")

@@ -15,8 +15,8 @@ ROLE CONTRACTS
 ================================================================
 REVIEWER CONFIGURATION
 
-  PRIMARY provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false
-  ALTERNATE provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false
+  PRIMARY provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false isolationAttested=false toolDenial=UNKNOWN
+  ALTERNATE provider=UNKNOWN model=UNKNOWN family=UNKNOWN snapshot=UNKNOWN credential=absent complete=false isolationAttested=false toolDenial=UNKNOWN
 
   AgenticReviewerDiversityPolicyV1
   diversitySatisfied=false
@@ -145,10 +145,23 @@ WHAT THIS RUN DID NOT MEASURE
   trusted not to have been fitted to a result.
 
 ================================================================
+ISOLATION PRECONDITION
+
+  A reviewer slot counts as isolated only when its environment carries
+  A001_{SLOT}_REVIEWER_TOOL_DENIAL=VERIFIED_NO_REPOSITORY_NO_WEB.
+  D016-D established why this is a separate precondition rather than part
+  of the diversity check: a hosted assistant can carry provider-side tools
+  that no client flag and no operating-system jail can remove, and a
+  repository-reading tool among them defeats an evidence boundary that is
+  enforced only on the local filesystem. See
+  evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt.
+
+================================================================
 STATE
 
-AGENTIC_REVIEW_STATE=BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE
+AGENTIC_REVIEW_STATE=BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE
 MECHANICS_QUALIFIED=true
+REVIEWER_ISOLATION_ATTESTED=false
 REAL_REVIEWERS_AVAILABLE=false
 HUMAN_PARTICIPANT_DATA=0 records; agents govern the study and never replace
                        the people whose perception A001 measures
