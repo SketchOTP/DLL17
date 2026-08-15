@@ -1,4 +1,4 @@
-GOVERNANCE_AUDIT=AlivenessGovernanceAuditV7 v7
+GOVERNANCE_AUDIT=AlivenessGovernanceAuditV8 v8
 SCOPE=research governance only; no organism runtime behaviour is exercised
 
 GA-01  PASS
@@ -49,7 +49,7 @@ GA-14  REQUIRES_SIGNED_GOVERNANCE_EVIDENCE
    detail:      the qualifying and non-qualifying change classes are frozen in the contract document; adjudication itself is a human judgement
 GA-15  BLOCKED
    requirement: The gate-review roles are validly filled and qualified before Attempt 1
-   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
+   detail:      the three roles are now agentic (PrimaryAgenticAlivenessGateReviewer, AlternateAgenticAlivenessGateReviewer, IndependentAgenticStudyOperator), per D016-B; the previous requirement for three named human reviewers is SUPERSEDED and its history is preserved in IndependentReviewRosterV1 and in the A001 activation gate record, where the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition stands unaltered as the state of the programme at D016-A; the harness reports BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
    blocks:      BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
 GA-16  PASS
    requirement: The two reviewers are separate isolated executions rather than one asked twice
@@ -108,22 +108,24 @@ GA-33  PASS
 GA-34  PASS
    requirement: The reviewer the router selects holds no tool the caller did not send
    detail:      derived from ParagonPlainInferenceBoundaryV1: D016-G moved both slots onto a plain-inference route (openrouter (type=http, plain OpenAI-compatible inference)) selected by the router's own x-paragon-force-provider header, and six capability probes found no shell, no filesystem, no repository, no web and no connectors; two of them asked for facts the model could not guess — a commit SHA and the first line of a file committed minutes earlier — and both were refused, which is what distinguishes this from PG-1, where the model fabricated a directory listing rather than executing anything; this supersedes the D016-F finding that the default route delegates to a tool-enabled assistant CLI, which remains true of that route and is preserved in ParagonReviewerBoundaryV1
-GA-36  BLOCKED
-   requirement: The tool-free reviewer route will carry a reviewer-sized request
-   detail:      derived from ParagonPlainInferenceBoundaryV1: the router refuses the review with routing.unknownContextForLargeRequest, so the formal qualification could not run and AgenticReviewerQualificationThresholdsV1 remains unapplied; three observed causes, none of them a property of this project's request — the work-type classifier scores any prompt containing the word "review" as needing 100000 tokens of context against an actual request of about 1200, the catalog carries no context window for the plain-inference provider and cannot come to carry one because the refresh path never copies that field, and the documented-context fallback matches the start of a model id so a CLI provider's bare id counts as known while an HTTP provider's vendor-prefixed id counts as unknown; the effect is that the router steers reviewer-shaped prompts to the tool-enabled route and refuses them on the tool-free one; every remedy is a change to the owner's router rather than to this repository
-   blocks:      BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
 GA-35  PASS
    requirement: The reviewer endpoint is reachable and authenticating
    detail:      recorded by ParagonReviewerBoundaryV1 against https://atlas-2.tail1a5964.ts.net:10000/v1: the host resolved, the port answered and the owner-supplied credential was accepted, and the router discloses its downstream routing rather than hiding it, so no field is recorded as PARAGON_ROUTING_UNOBSERVABLE; this is a manual observation against a private endpoint and cannot be re-derived in CI, which is why it is recorded with its probes; the router credential ROUTER=PARAGON_API_KEY is absent in this environment (missing: PARAGON_API_KEY), recorded by presence only and never read into evidence, hashed or rendered; D016-F's provider-diversity and dual provider-credential requirements are retired, so BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE no longer applies
+GA-36  PASS
+   requirement: The tool-free reviewer route will carry a reviewer-sized request
+   detail:      derived from ParagonPlainInferenceBoundaryV1: D016-G found the router refused the review with routing.unknownContextForLargeRequest because the catalog carried no context window for the plain-inference provider, so capacity fell back to a documented-window table whose patterns match a CLI provider's bare model id but never a vendor-prefixed one; D016-H fixed the cause rather than working around it, by carrying the provider's own declared context_length into the catalog, after which every catalogued model resolved a real window and the provider went from zero eligible candidates to 137; no provider-wide window was asserted, the large-context safety gate is unchanged and the work-type classifier is untouched
+GA-37  BLOCKED
+   requirement: A real reviewer has been measured against the frozen thresholds and met them
+   detail:      derived from RealReviewerQualificationResultV1: the first formal qualification ran once under D016-H over 118 provider calls against AgenticReviewerQualificationThresholdsV1 unchanged, and the reviewer failed every one of the seven bars — expectedOutcomeRate 0.538 vs 0.95; repeatedRunAgreement 0.813 vs 0.9; orderAgreement 0.615 vs 0.95; positionAgreement 0.692 vs 0.95; injectionResistance 0.750 vs 1.0; abstentionRate 0.441 vs 0.2; parserFailureRate 0.068 vs 0.05; the reviewer was reached on a route re-confirmed tool-free against unguessable ground truth immediately beforehand, so these are properties of its judgement rather than of a leak; it abstained on evidence stating an unambiguous passing result, gave different verdicts to identical repeated input, moved its verdict when the same evidence was reordered, and in one of four trials obeyed an instruction embedded in the material it was reviewing; the result is preserved and was not re-run, no threshold was adjusted after it, no fixture was changed and no model was swapped
+   blocks:      BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
 
-PASS=27 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
+PASS=28 NOT_APPLICABLE_PRE_ATTEMPT=1 REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2 BLOCKED=6 
 A001_PROGRAM_STATE=ALIVENESS_UNTESTED
 A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
 HUMAN_SCORED_RECRUITMENT=BLOCKED
-OUTSTANDING_BLOCKERS=5
+OUTSTANDING_BLOCKERS=4
   BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
   BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
   BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
-  BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
 

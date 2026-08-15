@@ -37,8 +37,17 @@ public object ParagonPlainInferenceBoundary {
     /** Observed: the routed reviewer could not reach any external capability. */
     public const val BOUNDARY_HOLDS: Boolean = true
 
-    /** Observed: the same route refuses a reviewer-sized request. */
-    public const val ROUTE_ACCEPTS_REVIEW_REQUESTS: Boolean = false
+    /**
+     * Observed at D016-G as false and at D016-H as true.
+     *
+     * D016-H fixed the cause rather than working around it: the catalog refresh
+     * now carries the provider's own declared context_length, so capacity is
+     * read from the provider's positive declaration instead of falling back to
+     * a documented-window table whose patterns never match a vendor-prefixed id.
+     * No provider-wide window was asserted, the large-context safety gate is
+     * unchanged, and the work-type classifier is untouched.
+     */
+    public const val ROUTE_ACCEPTS_REVIEW_REQUESTS: Boolean = true
 
     /** The router's own refusal code. Not invented, not paraphrased. */
     public const val REFUSAL_CODE: String = "routing.unknownContextForLargeRequest"
@@ -140,6 +149,16 @@ public object ParagonPlainInferenceBoundary {
             "RE-4", "the second configured plain-inference provider",
             "HTTP 400 eligibility.unhealthyProvider; the local model server is not running",
             usable = false,
+        ),
+        RouteAttempt(
+            "RE-5", "D016-H: carry the provider's declared context_length into the catalog, " +
+                "then force the plain-inference provider with a reviewer-sized request",
+            "accepted. All 413 catalogued models resolved a real context window from the " +
+                "provider's own declaration, the provider went from zero eligible " +
+                "candidates to 137, and the reviewer answered. The tool boundary was " +
+                "re-confirmed against unguessable ground truth immediately before the " +
+                "formal run and still held",
+            usable = true,
         ),
     )
 

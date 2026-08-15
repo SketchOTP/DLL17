@@ -4,6 +4,7 @@ import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
 import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
 import com.animusmachinae.dll17.research.aliveness.agentic.ParagonBackend
 import com.animusmachinae.dll17.research.aliveness.agentic.ParagonPlainInferenceBoundary
+import com.animusmachinae.dll17.research.aliveness.agentic.RealQualificationRecord
 import com.animusmachinae.dll17.research.aliveness.agentic.ParagonReviewerBoundary
 import com.animusmachinae.dll17.research.aliveness.agentic.QualificationThresholds
 import com.animusmachinae.dll17.research.aliveness.agentic.RoutedReviewerIndependencePolicy
@@ -23,8 +24,8 @@ class GovernanceAuditTest {
     @Test
     fun `the audit covers every canonical activation prerequisite`() {
         // 27 through D016-A; five agentic-governance items added by D016-C, one
-        // each by D016-E, D016-F and D016-G.
-        assertEquals(36, items.size)
+        // each by D016-E, D016-F, D016-G and D016-H.
+        assertEquals(37, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
     }
 
@@ -82,7 +83,6 @@ class GovernanceAuditTest {
                 "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
                 "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
-                "BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -163,17 +163,30 @@ class GovernanceAuditTest {
     }
 
     @Test
-    fun `the binding constraint is the route eligibility gate, named exactly`() {
+    fun `the route eligibility gate is cleared and says how`() {
         val route = items.single { it.id == "GA-36" }
-        assertEquals(AuditState.BLOCKED, route.state)
-        assertEquals(
-            "BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE",
-            route.blockingState,
-        )
-        // The router's own refusal code, so the finding is quoted not paraphrased.
+        assertEquals(AuditState.PASS, route.state)
+        assertEquals(null, route.blockingState)
+        // The refusal it used to carry must still be named, so the fix is legible.
         assertTrue(route.detail.contains(ParagonPlainInferenceBoundary.REFUSAL_CODE))
-        // And it must say the thresholds went unapplied rather than implying a result.
-        assertTrue(route.detail.contains(QualificationThresholds.THRESHOLDS_ID))
+        assertTrue(route.detail.contains("context_length"))
+    }
+
+    @Test
+    fun `the binding constraint is a measured reviewer failure, named exactly`() {
+        // The strongest statement in the audit: a reviewer was run against the
+        // frozen thresholds and failed. This must never be reported as a pending
+        // or environmental problem.
+        val qual = items.single { it.id == "GA-37" }
+        assertEquals(AuditState.BLOCKED, qual.state)
+        assertEquals("BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED", qual.blockingState)
+        assertTrue(qual.detail.contains(RealQualificationRecord.RECORD_ID))
+        assertTrue(qual.detail.contains(QualificationThresholds.THRESHOLDS_ID))
+        // Every failed metric must be named with its measured value.
+        assertEquals(7, RealQualificationRecord.failed().size)
+        for (metric in RealQualificationRecord.failed()) {
+            assertTrue(qual.detail.contains(metric.id), "GA-37 omits ${metric.id}")
+        }
     }
 
     @Test

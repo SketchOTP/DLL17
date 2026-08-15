@@ -345,3 +345,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-016-F
 - Status at issuance: ISSUED
+
+
+## D-016-H
+
+- Issued: 2026-08-15T09:30:00-04:00
+- Issuer: User
+- External directive: D016-H
+- Objective: Fix Paragon's per-model context metadata ingestion so the already-proven tool-free HTTP route accepts the reviewer request, then run the frozen real reviewer qualification once.
+- Scope: Carrying the actual per-model context_length or equivalent from the provider model catalog into Paragon; a regression test for that ingestion; verification that the route accepts a synthetic reviewer-sized request; one execution of the frozen real reviewer qualification; the A001 governance audit; the A001 gate state; qualification evidence; tests; .agent synchronization; and CI.
+- Exclusions: Faking a provider-wide context window; weakening the large-context safety gate; altering the review classifier for this project; reopening the previous provider, credential or sandbox work; exposing any frozen scored qualification fixture outside the single formal run; committing, printing, logging, hashing or persisting the router credential; altering thresholds, fixtures, expected outcomes, role prompts, parser rules or qualification logic after observing the formal result; rerunning a failed formal qualification until it passes; participant recruitment; baseline human qualification; BlindVariancePilotV1 execution; Attempt 1; human ablations; R003 through R009; modifying A000 FULL; and creating D017.
+- Acceptance: The per-model context metadata is carried from the provider's own declaration rather than invented; the tool-free route accepts a synthetic reviewer-sized request; the frozen qualification is executed exactly once against unchanged thresholds; the result is preserved whether it passes or fails; the A001 state is reported with audit totals, outstanding blockers, attempts consumed, programme state, recruitment state, human-data count and ethics state; all relevant validation is run; and the result is committed and pushed to main with the exact CI head SHA equal to the pushed commit.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-G
+- Status at issuance: ISSUED

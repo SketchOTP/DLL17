@@ -160,17 +160,17 @@ class QualificationTest {
     }
 
     @Test
-    fun `the route blocker outranks the credential and is what the state reports`() {
+    fun `the measured failure outranks the credential and is what the state reports`() {
         // A missing key would suggest the run is one secret away from being valid.
         // It is not, so the binding finding must be the one that surfaces — with
         // or without a credential present.
         assertFalse(AgenticReviewQualification.credentialsAvailable(env()))
         assertEquals(
-            AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE,
+            AgenticReviewQualification.STATE_UNQUALIFIED,
             AgenticReviewQualification.state(env(), results),
         )
         assertEquals(
-            AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE,
+            AgenticReviewQualification.STATE_UNQUALIFIED,
             AgenticReviewQualification.state(env(*credentialed()), results),
         )
     }
@@ -228,13 +228,14 @@ class QualificationTest {
         assertTrue(
             a.contains(
                 "AGENTIC_REVIEW_STATE=" +
-                    AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE,
+                    AgenticReviewQualification.STATE_UNQUALIFIED,
             ),
         )
         assertTrue(a.contains("REQUEST_TOOL_SURFACE_PROVEN=true"))
         assertTrue(a.contains("ROUTED_BOUNDARY_HOLDS=true"))
         assertTrue(a.contains("PARAGON_PLAIN_INFERENCE_BOUNDARY=PASS"))
-        assertTrue(a.contains("ROUTE_ACCEPTS_REVIEW_REQUESTS=false"))
+        assertTrue(a.contains("ROUTE_ACCEPTS_REVIEW_REQUESTS=true"))
+        assertTrue(a.contains("REVIEWER_QUALIFIED=false"))
         assertTrue(a.contains("ROUTER_REACHABLE=true"))
         assertTrue(a.contains("MISSING_CREDENTIALS=${ParagonBackend.CREDENTIAL_ENV}"))
     }

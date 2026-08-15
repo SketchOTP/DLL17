@@ -39,19 +39,28 @@ class PlainInferenceBoundaryTest {
     }
 
     @Test
-    fun `no usable route exists because every attempt was refused`() {
-        assertFalse(ParagonPlainInferenceBoundary.ROUTE_ACCEPTS_REVIEW_REQUESTS)
-        assertFalse(ParagonPlainInferenceBoundary.usableRouteExists())
-        assertTrue(ParagonPlainInferenceBoundary.ROUTE_ATTEMPTS.none { it.usable })
-        assertFalse(AgenticReviewQualification.usableReviewRouteExists())
+    fun `the route became usable only after the ingestion fix, and the history is kept`() {
+        // D016-H cleared this. The four D016-G refusals stay recorded rather than
+        // being deleted, because the reason the route works now is exactly the
+        // reason it did not work then.
+        assertTrue(ParagonPlainInferenceBoundary.ROUTE_ACCEPTS_REVIEW_REQUESTS)
+        assertTrue(ParagonPlainInferenceBoundary.usableRouteExists())
+        assertTrue(AgenticReviewQualification.usableReviewRouteExists())
+        assertEquals(4, ParagonPlainInferenceBoundary.ROUTE_ATTEMPTS.count { !it.usable })
+        assertEquals(
+            listOf("RE-5"),
+            ParagonPlainInferenceBoundary.ROUTE_ATTEMPTS.filter { it.usable }.map { it.id },
+        )
     }
 
     @Test
-    fun `the state names the route blocker rather than the superseded tool blocker`() {
-        // The tool-surface blocker is genuinely cleared, so reporting it would be
-        // false; the route blocker is the one that actually stopped the run.
+    fun `the state names the measured qualification failure, not a superseded blocker`() {
+        // Both the tool-surface and route blockers are genuinely cleared, so
+        // reporting either would be false. The harness is unqualified now because
+        // a reviewer was measured and failed, which is a different and stronger
+        // statement than never having run one.
         assertEquals(
-            AgenticReviewQualification.STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE,
+            AgenticReviewQualification.STATE_UNQUALIFIED,
             AgenticReviewQualification.state(
                 { if (it == ParagonBackend.CREDENTIAL_ENV) "present" else null },
                 MetaEvaluationSuite.run(),

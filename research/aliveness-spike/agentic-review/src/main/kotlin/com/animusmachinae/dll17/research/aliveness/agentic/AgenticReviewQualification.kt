@@ -201,6 +201,17 @@ public object AgenticReviewQualification {
         ParagonPlainInferenceBoundary.usableRouteExists()
 
     /**
+     * True only when a real reviewer has been measured against every frozen
+     * threshold and met all of them.
+     *
+     * D016-H produced the first such measurement and it failed on all seven, so
+     * this is false for a reason that is now empirical rather than pending. The
+     * harness is unqualified because a reviewer was tested and did not pass, not
+     * because no reviewer had ever run.
+     */
+    public fun reviewerQualified(): Boolean = RealQualificationRecord.qualified()
+
+    /**
      * The harness mechanics: does every frozen fixture produce its expected
      * governance outcome? This is the half that does not need a model.
      */
@@ -237,8 +248,15 @@ public object AgenticReviewQualification {
         !routerAvailable() -> STATE_ROUTER_UNAVAILABLE
         !routedBoundaryHolds() -> STATE_TOOL_SURFACE_UNCONTROLLED
         !usableReviewRouteExists() -> STATE_PLAIN_INFERENCE_ROUTE_UNAVAILABLE
+        // The measured failure outranks the credential, and deliberately so. A
+        // missing key is a fact about whichever machine is running this; the
+        // qualification result is a fact about the reviewer, it is recorded, and
+        // it does not stop being true on a machine that happens to hold no
+        // secret. CI holds no credential, so the other order would let CI report
+        // a missing key as the headline and bury the finding that a reviewer was
+        // measured and failed.
+        !reviewerQualified() -> STATE_UNQUALIFIED
         !credentialsAvailable(env) -> STATE_ROUTER_CREDENTIAL_UNAVAILABLE
-        !realReviewersAvailable(env) -> STATE_DIVERSITY_UNAVAILABLE
         else -> STATE_QUALIFIED
     }
 
@@ -307,6 +325,8 @@ public object AgenticReviewQualification {
 
         append(ParagonPlainInferenceBoundary.render())
 
+        append(RealQualificationRecord.render())
+
         append("================================================================\n")
         append("REVIEWER CREDENTIAL\n\n")
         for ((slot, variable) in REQUIRED_CREDENTIALS) {
@@ -331,6 +351,10 @@ public object AgenticReviewQualification {
         append(if (ParagonPlainInferenceBoundary.BOUNDARY_HOLDS) "PASS" else "FAIL").append('\n')
         append("ROUTE_ACCEPTS_REVIEW_REQUESTS=")
         append(ParagonPlainInferenceBoundary.ROUTE_ACCEPTS_REVIEW_REQUESTS).append('\n')
+        append("REVIEWER_QUALIFIED=").append(reviewerQualified()).append('\n')
+        append("FAILED_METRICS=")
+        append(RealQualificationRecord.failed().joinToString(",") { it.id }
+            .ifEmpty { "none" }).append('\n')
         append("ROUTER_CREDENTIAL_AVAILABLE=").append(credentialsAvailable(env)).append('\n')
         append("MISSING_CREDENTIALS=")
         append(missingCredentials(env).joinToString(",").ifEmpty { "none" }).append('\n')

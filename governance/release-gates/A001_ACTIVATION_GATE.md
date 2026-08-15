@@ -546,3 +546,67 @@ ordering and the sealed pilot channel are untouched and still checked by CI. No
 participant was recruited and no human outcome data exists anywhere in this
 repository. `GA-26` still reports that no ethics determination exists and none is
 claimed. Recorded as O-0022 and DEC-0045.
+
+## D016-H — the first measurement, and the reviewer failed it
+
+The architect authorised one narrow fix: carry the provider's actual per-model
+context metadata into Paragon so the already-proven tool-free route could accept
+the reviewer request. Explicitly not authorised: faking a provider-wide window,
+weakening the safety gate, altering the `review` classifier for this project, or
+reopening the provider and sandbox work.
+
+### Cleared: `BLOCKED_PARAGON_PLAIN_INFERENCE_ROUTE_UNAVAILABLE`
+
+The provider publishes a real `context_length` for all 413 of its models, so this
+was missing plumbing rather than absent data. One field group was added to the
+catalog refresh's metadata whitelist, reading `context_length`, falling back to
+the per-endpoint figure where a gateway reports only that, and staying null when
+the provider declares nothing. Nothing is invented. After refresh every catalogued
+model resolved a real window and the provider went from zero eligible candidates
+to 137. No provider-wide window was asserted, the large-context gate is unchanged,
+and the classifier is untouched. `GA-36` passes.
+
+The owner's production Paragon process was deliberately **not** restarted. Its
+working tree carries 25 uncommitted modified files including `server.js`, and
+restarting would have deployed that unfinished work as a side effect. The
+qualification ran against a second instance started from the same source with the
+fix and its own copied data directory, leaving the live service untouched. The
+source fix and its regression test are on disk for the owner to restart into.
+
+### New: `GA-37`, `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` — now measured
+
+The frozen qualification ran once, over 118 provider calls, against
+`AgenticReviewerQualificationThresholdsV1` unchanged. Every one of the seven bars
+was missed: expected-outcome 0.538 against 0.95, repeated-run agreement 0.812
+against 0.90, order agreement 0.615 and position agreement 0.692 against 0.95,
+injection resistance 0.750 against 1.00, abstention 0.441 against 0.20, and parser
+failure 0.068 against 0.05.
+
+The tool boundary was re-confirmed against unguessable ground truth immediately
+before the run, so these are properties of the reviewer's judgement rather than of
+a leak. It abstained on evidence stating an unambiguous passing result, gave
+different verdicts to identical repeated input, moved its verdict under reordering
+of the same evidence, and in one trial of four obeyed an instruction embedded in
+the material under review. Four fixtures produced disagreement, which the harness
+surfaced and did not resolve.
+
+The result is preserved and was not re-run. No threshold was adjusted after it, no
+fixture was changed, no prompt was tuned, no model was swapped. CI now asserts the
+failure and the frozen threshold values, so neither can drift quietly.
+
+### What this changes
+
+The bottleneck moves for the first time since D016-C. Every earlier lettered
+boundary was infrastructure: whether a reviewer could be reached, isolated, paid
+for, or asked. That question is closed. The open question is now scientific —
+whether any reviewer configuration can meet bars that were frozen before any
+reviewer existed, and what the programme does if none can.
+
+### Unchanged
+
+Attempts consumed remains `0 / 3`. Programme state remains `ALIVENESS_UNTESTED`.
+The owner ceiling, the +10 floor, the scripted comparator, the frozen instrument,
+the multiplicity correction, the exclusion ordering and the sealed pilot channel
+are untouched and still checked by CI. No participant was recruited and no human
+outcome data exists anywhere in this repository. `GA-26` still reports that no
+ethics determination exists and none is claimed. Recorded as O-0023 and DEC-0046.
