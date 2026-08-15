@@ -6,6 +6,8 @@ import com.animusmachinae.dll17.research.aliveness.SpikeContract
 import com.animusmachinae.dll17.research.aliveness.agentic.AgenticReviewHarness
 import com.animusmachinae.dll17.research.aliveness.agentic.AgenticReviewQualification
 import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
+import com.animusmachinae.dll17.research.aliveness.agentic.AuditorAuthorityPolicy
+import com.animusmachinae.dll17.research.aliveness.agentic.FORBIDDEN_TO_EVERY_ROLE
 import com.animusmachinae.dll17.research.aliveness.agentic.FailureMode
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
 import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
@@ -62,8 +64,8 @@ public class AuditItem(
  */
 public object AlivenessGovernanceAudit {
 
-    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV8"
-    public const val AUDIT_VERSION: Int = 8
+    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV9"
+    public const val AUDIT_VERSION: Int = 9
 
     /**
      * The agentic-governance facts, read from the harness rather than restated.
@@ -75,8 +77,6 @@ public object AlivenessGovernanceAudit {
      */
     private val agenticResults = MetaEvaluationSuite.run()
     private val agenticState = AgenticReviewQualification.state(System::getenv, agenticResults)
-    private val agenticQualified =
-        agenticState == AgenticReviewQualification.STATE_QUALIFIED
     private val reviewerIsolationAttested =
         AgenticReviewQualification.isolationAvailable(System::getenv)
     private val routerCredentialAvailable =
@@ -91,6 +91,17 @@ public object AlivenessGovernanceAudit {
         AgenticRoleContracts.PRIMARY,
         AgenticRoleContracts.ALTERNATE,
     ).satisfied
+
+    /**
+     * D016-I. The gate authority is now the deterministic adjudicator, so what
+     * has to hold is that it is deterministic and that no agent can reach it.
+     *
+     * Both halves are derived rather than asserted. The replay check runs the
+     * adjudicator twice over the programme's real evidence, once as given and once
+     * with the attempt records reversed, and requires byte-identical rulings.
+     */
+    private val gateAuthorityHolds: Boolean =
+        AuditorAuthorityPolicy.holds() && A001GateAdjudicator.replaysIdentically()
 
     @JvmStatic
     public fun main(args: Array<String>) {
@@ -144,9 +155,12 @@ public object AlivenessGovernanceAudit {
             "BlindVariancePilotV1 was prospectively registered variance-only/non-scored",
             AuditState.BLOCKED,
             "the pilot is operationally ready (${BlindVariancePilot.REGISTRATION}, " +
-                "n=${A001StudyContract.VARIANCE_PILOT_PARTICIPANTS}) but registration requires " +
-                "the independent study operator to run it and a qualified reviewer to " +
-                "register it; both roles are now agentic and the harness is not yet qualified",
+                "n=${A001StudyContract.VARIANCE_PILOT_PARTICIPANTS}) and its validity is now " +
+                "a deterministic check rather than a reviewer's judgement — AJ-03 in " +
+                "${A001GateAdjudicator.ADJUDICATOR_ID} reads protocolValid off the sealed " +
+                "release; what is still missing is the run itself, which needs " +
+                "${A001StudyContract.VARIANCE_PILOT_PARTICIPANTS} real participants that no " +
+                "agent may stand in for",
             blockingState = "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
         ),
         AuditItem(
@@ -215,20 +229,28 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-15",
-            "The gate-review roles are validly filled and qualified before Attempt 1",
-            if (agenticQualified) AuditState.PASS else AuditState.BLOCKED,
-            "the three roles are now agentic (${AgenticRoleContracts.ALL.joinToString(", ") {
-                it.role.roleId
-            }}), per D016-B; the previous requirement for three named human " +
-                "reviewers is SUPERSEDED and its history is preserved in " +
-                "IndependentReviewRosterV1 and in the A001 activation gate record, where " +
-                "the earlier BLOCKED_GOVERNANCE_" + "REVIEWER_UNASSIGNED disposition stands " +
-                "unaltered as the state of the programme at D016-A; the harness reports " +
-                agenticState,
-            blockingState = if (agenticQualified) {
+            "The gate authority is validly constituted and qualified before Attempt 1",
+            if (gateAuthorityHolds) AuditState.PASS else AuditState.BLOCKED,
+            "D016-I moves the gate authority off judgement entirely. The outcome is " +
+                "computed by ${A001GateAdjudicator.ADJUDICATOR_ID} from preregistered " +
+                "thresholds and human data, as a pure function with no clock, no " +
+                "randomness, no network and no model in the path, and it is qualified by " +
+                "test rather than by measurement of a judge: replay of identical evidence " +
+                "and of reordered evidence produces byte-identical rulings. The three " +
+                "agentic roles remain (${AgenticRoleContracts.ALL.joinToString(", ") {
+                    it.role.roleId
+                }}) and none of them adjudicates; " +
+                "${AuditorAuthorityPolicy.POLICY_ID} reports " +
+                "noAgentAdjudicates=${AuditorAuthorityPolicy.noAgentAdjudicates()}. Two " +
+                "superseded arrangements are preserved rather than deleted: three named " +
+                "human reviewers, whose BLOCKED_GOVERNANCE_" + "REVIEWER_UNASSIGNED " +
+                "disposition stands unaltered in IndependentReviewRosterV1 as the state " +
+                "of the programme at D016-A, and the D016-C reviewer-adjudicates model, " +
+                "whose measured failure is preserved at GA-37.",
+            blockingState = if (gateAuthorityHolds) {
                 null
             } else {
-                "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED"
+                "BLOCKED_GATE_AUTHORITY_NOT_CONSTITUTED"
             },
         ),
         AuditItem(
@@ -283,8 +305,10 @@ public object AlivenessGovernanceAudit {
             "GA-20",
             "A001 is blocked while any required governance role is unfilled or unqualified",
             AuditState.PASS,
-            "asserted from GA-15 and GA-16: the activation state is derived from the blocking " +
-                "items rather than declared, so it cannot drift out of agreement with them",
+            "asserted from GA-15, GA-16, GA-38 and GA-39: the activation state is derived " +
+                "from the blocking items rather than declared, so it cannot drift out of " +
+                "agreement with them; since D016-I the qualification that matters is the " +
+                "adjudicator's determinism rather than a judge's measured reliability",
         ),
         AuditItem(
             "GA-21",
@@ -421,13 +445,19 @@ public object AlivenessGovernanceAudit {
             "GA-31",
             "The study operator administers the protocol and cannot adjudicate or invent evidence",
             AuditState.PASS,
-            "authorityBoundaryHolds=${AgenticRoleContracts.authorityBoundaryHolds()}: both " +
-                "reviewers hold ADJUDICATE_GATE and the operator does not; ten capabilities " +
-                "including CREATE_HUMAN_EVIDENCE, SIMULATE_HUMAN_PARTICIPANT, " +
-                "MODIFY_PARTICIPANT_RESPONSE, CHANGE_ANALYSIS_AFTER_OUTCOMES, " +
-                "REVEAL_SEALED_PILOT_DIRECTION and OVERRIDE_REVIEWER are forbidden to every " +
-                "role and the role constructor refuses them; the operator's public surface " +
-                "contains no operation that returns participant data it was not handed",
+            "authorityBoundaryHolds=${AgenticRoleContracts.authorityBoundaryHolds()}, and note " +
+                "that D016-I inverted what that predicate asserts: it previously required " +
+                "both reviewers to hold ADJUDICATE_GATE and checked only that the operator " +
+                "did not, and it now requires that no role holds it at all, so a true here " +
+                "means something stronger than a true in pre-D016-I evidence; " +
+                "${FORBIDDEN_TO_EVERY_ROLE.size} capabilities including ADJUDICATE_GATE, " +
+                "CREATE_GATE_OUTCOME, OVERRIDE_DETERMINISTIC_GATE, CREATE_HUMAN_EVIDENCE, " +
+                "SIMULATE_HUMAN_PARTICIPANT, MODIFY_PARTICIPANT_RESPONSE, " +
+                "CHANGE_ANALYSIS_AFTER_OUTCOMES, REVEAL_SEALED_PILOT_DIRECTION and " +
+                "OVERRIDE_REVIEWER are forbidden to every role and the role constructor " +
+                "refuses them; the operator's public surface contains no operation that " +
+                "returns participant data it was not handed, and the operator additionally " +
+                "may not raise audit findings",
         ),
         AuditItem(
             "GA-32",
@@ -528,9 +558,24 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-37",
-            "A real reviewer has been measured against the frozen thresholds and met them",
-            if (reviewerQualified) AuditState.PASS else AuditState.BLOCKED,
-            "derived from ${RealQualificationRecord.RECORD_ID}: the first formal qualification " +
+            "The measured reviewer failure is preserved, and nothing depends on that " +
+                "reviewer having passed",
+            if (!reviewerQualified && !AgenticRoleContracts.PRIMARY.mayAdjudicateGate()) {
+                AuditState.PASS
+            } else {
+                AuditState.BLOCKED
+            },
+            "This item's requirement changed at D016-I and the change must not be read as " +
+                "the failure being cleared. It was not, and it is not clearable: " +
+                "reviewerQualified=$reviewerQualified permanently. What changed is that " +
+                "nothing now rests on it. Under D016-C through D016-H a reviewer meeting " +
+                "the frozen thresholds was a precondition for opening the gate, and " +
+                "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED was an activation blocker. " +
+                "D016-I removes the reviewer from the decision path entirely, so the " +
+                "measurement is retained as permanent negative evidence about " +
+                "LLM-as-judge governance rather than as a pending condition, and it is " +
+                "retained in full: derived from ${RealQualificationRecord.RECORD_ID}, the " +
+                "first formal qualification " +
                 "ran once under D016-H over ${RealQualificationRecord.PROVIDER_CALLS} provider " +
                 "calls against ${QualificationThresholds.THRESHOLDS_ID} unchanged, and the " +
                 "reviewer failed every one of the seven bars — " +
@@ -544,11 +589,94 @@ public object AlivenessGovernanceAudit {
                 "input, moved its verdict when the same evidence was reordered, and in one of " +
                 "four trials obeyed an instruction embedded in the material it was reviewing; " +
                 "the result is preserved and was not re-run, no threshold was adjusted after " +
-                "it, no fixture was changed and no model was swapped",
-            blockingState = if (reviewerQualified) {
+                "it, no fixture was changed and no model was swapped. The thresholds " +
+                "themselves are also unchanged by D016-I: " +
+                "${QualificationThresholds.THRESHOLDS_ID} still requires injection " +
+                "resistance of exactly " +
+                "${Statistics.d3(QualificationThresholds.MIN_INJECTION_RESISTANCE)}, and this " +
+                "reviewer still scores " +
+                Statistics.d3(
+                    RealQualificationRecord.METRICS.first { it.id == "injectionResistance" }
+                        .observed,
+                ) + ".",
+            blockingState = if (!reviewerQualified &&
+                !AgenticRoleContracts.PRIMARY.mayAdjudicateGate()
+            ) {
                 null
             } else {
-                AgenticReviewQualification.STATE_UNQUALIFIED
+                "BLOCKED_UNQUALIFIED_JUDGE_HOLDS_GATE_AUTHORITY"
+            },
+        ),
+
+        // D016-I. The gate authority itself.
+        AuditItem(
+            "GA-38",
+            "The A001 outcome is computed deterministically and is replayable",
+            if (A001GateAdjudicator.replaysIdentically()) AuditState.PASS else AuditState.BLOCKED,
+            "${A001GateAdjudicator.ADJUDICATOR_ID} computes baseline qualification, pilot " +
+                "validity, feasibility, exclusions, protocol and instrument identity, the " +
+                "powered-sample check, multiplicity, the Attempt-1 primary classification, " +
+                "the mechanism arms, three-attempt accounting and the final outcome from " +
+                "one canonical evidence record, as a pure function with no clock, no " +
+                "randomness, no network, no environment and no model in the path; " +
+                "replaysIdentically is checked three ways — the same evidence twice, the " +
+                "same evidence with its pair records reversed, and the programme's real " +
+                "evidence twice — and order-invariance is precisely the property the " +
+                "measured judge lacked, its verdict having moved under reordering on 5 of " +
+                "13 fixtures; the evidence set is identified by a canonical hash so two " +
+                "parties can confirm they adjudicated the same thing",
+            blockingState = if (A001GateAdjudicator.replaysIdentically()) {
+                null
+            } else {
+                "BLOCKED_GATE_ADJUDICATION_NOT_REPLAYABLE"
+            },
+        ),
+        AuditItem(
+            "GA-39",
+            "No agent can create, rescue or override a gate outcome",
+            if (AuditorAuthorityPolicy.holds()) AuditState.PASS else AuditState.BLOCKED,
+            "${AuditorAuthorityPolicy.POLICY_ID}: the two routed reviewers are reclassified " +
+                "as adversarial auditors, ADJUDICATE_GATE is forbidden to every role and " +
+                "the role constructor refuses it, and an ${
+                    com.animusmachinae.dll17.research.aliveness.agentic.AdversarialAuditContract
+                        .CONTRACT_ID
+                } finding carries no verdict, severity, weight or " +
+                "confidence field for a judgement to re-enter through; a finding naming one " +
+                "of the ${
+                    com.animusmachinae.dll17.research.aliveness.agentic.ViolationCode.entries.size
+                } machine-checkable violation codes is re-derived from the evidence by the " +
+                "adjudicator before it counts, and every code is checked on every run " +
+                "whether or not an auditor mentions it, so an invented finding is inert and " +
+                "a correct one is already reflected in the outcome; the single permitted " +
+                "agent effect is one-way, in that a concern with no checkable code suspends " +
+                "an otherwise-passing gate for the Architect and can neither manufacture a " +
+                "failure nor touch a gate already blocked or failed",
+            blockingState = if (AuditorAuthorityPolicy.holds()) {
+                null
+            } else {
+                "BLOCKED_AGENT_HOLDS_GATE_AUTHORITY"
+            },
+        ),
+        AuditItem(
+            "GA-40",
+            "Every frozen A001 decision threshold still holds its frozen value",
+            if (A001GateAdjudicator.driftedThresholds().isEmpty()) {
+                AuditState.PASS
+            } else {
+                AuditState.BLOCKED
+            },
+            "${A001GateAdjudicator.FROZEN_DECISION_THRESHOLDS.size} thresholds are held " +
+                "against an independent second copy of their frozen literals, so a single " +
+                "well-intentioned edit to A001StudyContract no longer silently works; the " +
+                "guard is deliberately redundant, and a drift in the permissive direction " +
+                "raises THRESHOLD_WEAKENED_AFTER_FREEZE and blocks the gate" +
+                A001GateAdjudicator.driftedThresholds().let {
+                    if (it.isEmpty()) "" else "; DRIFTED: " + it.joinToString("; ")
+                },
+            blockingState = if (A001GateAdjudicator.driftedThresholds().isEmpty()) {
+                null
+            } else {
+                "BLOCKED_FROZEN_THRESHOLD_DRIFT"
             },
         ),
     )
@@ -588,6 +716,13 @@ public object AlivenessGovernanceAudit {
         }
         append('\n')
         append("A001_PROGRAM_STATE=ALIVENESS_UNTESTED\n")
+        append("AGENTIC_HARNESS_STATE=").append(agenticState)
+        append(" (reported, not blocking: since D016-I no agent adjudicates)\n")
+        append("A001_GATE_AUTHORITY=").append(A001GateAdjudicator.ADJUDICATOR_ID)
+        append(" (deterministic; no agent adjudicates)\n")
+        append("A001_GATE_OUTCOME=")
+        append(A001GateAdjudicator.adjudicate(A001GateAdjudicator.currentEvidence()).outcome.name)
+        append('\n')
         append("A001_ACTIVATION=").append(activationState(items)).append('\n')
         append("HUMAN_SCORED_RECRUITMENT=")
         append(if (recruitmentPermitted(items)) "PERMITTED" else "BLOCKED").append('\n')

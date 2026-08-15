@@ -24,8 +24,9 @@ class GovernanceAuditTest {
     @Test
     fun `the audit covers every canonical activation prerequisite`() {
         // 27 through D016-A; five agentic-governance items added by D016-C, one
-        // each by D016-E, D016-F, D016-G and D016-H.
-        assertEquals(37, items.size)
+        // each by D016-E, D016-F, D016-G and D016-H; three by D016-I for the
+        // deterministic gate authority, agent-authority removal and threshold guard.
+        assertEquals(40, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
     }
 
@@ -38,7 +39,10 @@ class GovernanceAuditTest {
         // GA-16 left this family at D016-F: it no longer asserts anything about a
         // reviewer pair existing, only that two routed executions carry distinct
         // role contracts, which is a property of this repository.
-        val humanDependent = setOf("GA-04", "GA-05", "GA-06", "GA-10", "GA-15")
+        // GA-15 left this family at D016-I: the gate authority is now a
+        // deterministic adjudicator qualified by test, not a judge qualified by
+        // measurement, so it no longer depends on evidence nobody has produced.
+        val humanDependent = setOf("GA-04", "GA-05", "GA-06", "GA-10")
         for (item in items.filter { it.id in humanDependent }) {
             assertTrue(
                 item.state != AuditState.PASS,
@@ -82,7 +86,6 @@ class GovernanceAuditTest {
                 "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
                 "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
-                "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -95,27 +98,30 @@ class GovernanceAuditTest {
         assertEquals("A001_READY_FOR_ACTIVATION", AlivenessGovernanceAudit.activationState(unblocked))
         assertTrue(AlivenessGovernanceAudit.recruitmentPermitted(unblocked))
 
-        val oneLeft = unblocked + items.first { it.id == "GA-15" }
+        val oneLeft = unblocked + items.first { it.id == "GA-04" }
         assertEquals(
-            "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
+            "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
             AlivenessGovernanceAudit.activationState(oneLeft),
         )
         assertFalse(AlivenessGovernanceAudit.recruitmentPermitted(oneLeft))
     }
 
     @Test
-    fun `the gate-review item is blocked on the agentic harness and preserves what it superseded`() {
+    fun `the gate authority is the deterministic adjudicator and preserves what it superseded`() {
         val review = items.single { it.id == "GA-15" }
-        assertEquals(AuditState.BLOCKED, review.state)
-        assertEquals("BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED", review.blockingState)
-        // The three roles are the agentic ones...
-        assertTrue(review.detail.contains("PrimaryAgenticAlivenessGateReviewer"))
-        assertTrue(review.detail.contains("AlternateAgenticAlivenessGateReviewer"))
+        assertEquals(AuditState.PASS, review.state)
+        assertEquals(null, review.blockingState)
+        assertTrue(review.detail.contains(A001GateAdjudicator.ADJUDICATOR_ID))
+        // The three agentic roles still exist, under their auditor identifiers...
+        assertTrue(review.detail.contains("PrimaryAdversarialAlivenessAuditor"))
+        assertTrue(review.detail.contains("AlternateAdversarialAlivenessAuditor"))
         assertTrue(review.detail.contains("IndependentAgenticStudyOperator"))
-        // ...and the human-roster requirement they replaced is recorded as
-        // superseded rather than deleted, with its historical disposition named.
-        assertTrue(review.detail.contains("SUPERSEDED"))
+        // ...and both superseded arrangements are recorded rather than deleted:
+        // the human roster with its historical disposition, and the D016-C
+        // reviewer-adjudicates model whose measured failure is kept at GA-37.
         assertTrue(review.detail.contains("BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED"))
+        assertTrue(review.detail.contains("GA-37"))
+        assertTrue(review.detail.contains("noAgentAdjudicates=true"))
     }
 
     @Test
@@ -173,13 +179,17 @@ class GovernanceAuditTest {
     }
 
     @Test
-    fun `the binding constraint is a measured reviewer failure, named exactly`() {
-        // The strongest statement in the audit: a reviewer was run against the
-        // frozen thresholds and failed. This must never be reported as a pending
-        // or environmental problem.
+    fun `the measured reviewer failure is preserved in full and never reported as cleared`() {
+        // D016-I removed the reviewer from the decision path; it did not and
+        // cannot clear the measurement. The item passes because nothing depends
+        // on the reviewer any more, and it must still name every failed metric
+        // with its measured value.
         val qual = items.single { it.id == "GA-37" }
-        assertEquals(AuditState.BLOCKED, qual.state)
-        assertEquals("BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED", qual.blockingState)
+        assertEquals(AuditState.PASS, qual.state)
+        assertEquals(null, qual.blockingState)
+        assertFalse(RealQualificationRecord.qualified())
+        assertTrue(qual.detail.contains("reviewerQualified=false permanently"))
+        assertTrue(qual.detail.contains("0.750"))
         assertTrue(qual.detail.contains(RealQualificationRecord.RECORD_ID))
         assertTrue(qual.detail.contains(QualificationThresholds.THRESHOLDS_ID))
         // Every failed metric must be named with its measured value.

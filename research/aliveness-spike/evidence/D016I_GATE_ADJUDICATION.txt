@@ -1,0 +1,316 @@
+A001_GATE_ADJUDICATION=A001GateAdjudicatorV1
+DATA_CLASS=NO_HUMAN_DATA — the live adjudication below runs against the
+           programme's actual evidence, which is empty. No participant has
+           been recruited or scored.
+
+authority=D016-I: human evidence determines aliveness, frozen math determines
+          PASS/FAIL, agents audit and do not adjudicate
+
+================================================================
+AUDITOR AUTHORITY (AuditorAuthorityPolicyV1)
+
+  D016-I reclassifies both routed reviewers as adversarial auditors.
+  Human evidence determines aliveness. Frozen math determines PASS/FAIL.
+  Agents audit; they do not adjudicate.
+
+  NO_AGENT_ADJUDICATES=true
+  AUDITORS_MAY_RAISE_FINDINGS=true
+  SEPARATION_HOLDS=true
+  AUDITOR_AUTHORITY_POLICY_HOLDS=true
+  supersedes: the D016-C reviewer-adjudicates model
+
+  Structurally impossible for an auditor:
+    - create a PASS — no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
+    - create a FAIL — an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
+    - rescue a failed result — findings are never inputs to the primary classification, which is a pure function of the screened human data
+    - override the deterministic gate — the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
+    - confirm its own finding — confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
+
+  Machine-checkable violation codes: 16
+    BASELINE_NOT_INDEPENDENTLY_QUALIFIED          baseline qualification evidence
+    BASELINE_MARGIN_BELOW_FLOOR                   baseline margin vs BASELINE_COMPETENCE_MARGIN
+    PILOT_NOT_PROTOCOL_VALID                      BlindVariancePilot.PilotRelease.protocolValid
+    NON_SCORED_POOL_PARTICIPANT_ANALYSED          screening: PRIOR_NON_SCORED_POOL
+    DUPLICATE_PARTICIPANT_ANALYSED                screening: DUPLICATE_PARTICIPANT
+    INCOMPLETE_SESSION_ANALYSED                   screening: INCOMPLETE_SESSION
+    SCORE_OUT_OF_RANGE_ANALYSED                   screening: SCORE_OUT_OF_RANGE
+    SAMPLE_BELOW_POWERED_REQUIREMENT              A001FeasibilityBudget.requiredPairsPrimary
+    FEASIBILITY_NOT_ESTABLISHED                   A001FeasibilityBudget.FeasibilityState
+    PROTOCOL_VERSION_MISMATCH                     A001StudyContract.PROTOCOL_VERSION
+    INSTRUMENT_MISMATCH                           A001StudyContract.INSTRUMENT_ID
+    ANALYSIS_VERSION_MISMATCH                     A001Analysis.ANALYSIS_VERSION
+    THRESHOLD_WEAKENED_AFTER_FREEZE               frozen constants vs FROZEN_DECISION_THRESHOLDS
+    ATTEMPT_BUDGET_EXCEEDED                       SpikeContract.MAX_SCORED_A001_ATTEMPTS
+    ETHICS_DETERMINATION_ABSENT                   ethics determination in the gate evidence
+    CLAIMED_OUTCOME_DISAGREES_WITH_RECOMPUTATION  recomputed primary classification
+
+  A finding naming none of these is returned to the Architect rather than
+  scored. A finding naming one of them is re-derived by the adjudicator
+  from the evidence before it is allowed to matter, so an auditor that
+  invents a violation, is talked into one by the material under review, or
+  misses a real one cannot move the outcome in any direction.
+
+================================================================
+REPLAY
+
+  replaysIdentically=true
+  checked three ways: the same evidence twice, the same evidence with its
+  pair records reversed, and the programme's real (empty) evidence twice.
+  Order-invariance is the property the D016-H judge did not have — its
+  verdict moved under reordering on 5 of 13 fixtures.
+
+LIVE ADJUDICATION — the programme's actual evidence
+
+================================================================
+A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
+
+  evidenceHash=c9600cf09e41fc65b69a488710e540288a72734b2a7b889abe3d4c92bcc97e28
+  deterministic: no clock, no randomness, no network, no model
+
+  PREREQUISITE STAGES
+    SATISFIED AJ-01
+      requirement: Every frozen A001 decision threshold still holds its frozen value
+      detail:      all 11 thresholds match the values frozen before any human data existed
+    BLOCKED   AJ-02
+      requirement: A strong scripted baseline is independently qualified
+      detail:      no baseline qualification evidence exists
+      blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+    BLOCKED   AJ-03
+      requirement: BlindVariancePilotV1 released a protocol-valid result
+      detail:      no pilot release exists
+      blocks:      BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
+    BLOCKED   AJ-04
+      requirement: The powered requirement is computable and fits the frozen owner ceiling
+      detail:      state=BLOCKED_SPEC_PAIRED_DIFFERENCE_SD requiredPairsPrimary=UNAVAILABLE totalParticipants=UNAVAILABLE
+      blocks:      BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+    BLOCKED   AJ-05
+      requirement: An independent human-subjects determination exists
+      detail:      no independent determination exists; the programme may not self-determine exemption and no agent may issue one
+      blocks:      BLOCKED_ETHICS_DETERMINATION_ABSENT
+    BLOCKED   AJ-06
+      requirement: The scored attempt declares the frozen protocol, instrument and analysis
+      detail:      no scored attempt exists
+      blocks:      BLOCKED_NO_SCORED_ATTEMPT
+    SATISFIED AJ-07
+      requirement: The analysed set obeys the preregistered exclusion rules
+      detail:      no scored attempt exists
+    SATISFIED AJ-08
+      requirement: The attempt meets the powered sample the pilot implies
+      detail:      no scored attempt exists
+    SATISFIED AJ-09
+      requirement: The scored attempts fit the three-attempt programme budget
+      detail:      attempts=0 numbers=none budget=3
+    SATISFIED AJ-10
+      requirement: The submitted outcome claim, if any, agrees with the recomputation
+      detail:      no outcome was claimed; the computation stands alone
+
+  VIOLATIONS INDEPENDENTLY DERIVED FROM EVIDENCE
+    BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+    PILOT_NOT_PROTOCOL_VALID
+    FEASIBILITY_NOT_ESTABLISHED
+    ETHICS_DETERMINATION_ABSENT
+
+  RECOMPUTED ATTEMPT ANALYSIS: none — no attempt was adjudicable
+
+  AUDITOR FINDINGS
+    none submitted
+
+  findingsSubmitted=0 upheld=0 notConfirmed=0 returnedToArchitect=0
+  outcomeBeforeFindings=A001_BLOCKED
+  outcomeAfterFindings=A001_BLOCKED
+  findingsChangedTheOutcome=false — an upheld finding restates a violation already
+    derived above, and an unconfirmed one is inert
+
+  attemptsConsumed=0 attemptsRemaining=3 budget=3
+  blocker: BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+  blocker: BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
+  blocker: BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+  blocker: BLOCKED_ETHICS_DETERMINATION_ABSENT
+  blocker: BLOCKED_NO_SCORED_ATTEMPT
+  A001_GATE_OUTCOME=A001_BLOCKED
+
+================================================================
+SYNTHETIC REPLAY FIXTURE   [SYNTHETIC — no human has rated anything]
+
+  Shown because the live adjudication above is blocked before it reaches an
+  outcome, and a gate that has only ever returned BLOCKED demonstrates
+  nothing about how it decides. This fixture carries a complete synthetic
+  evidence set through every stage to a computed outcome. It is engineering
+  evidence about the adjudicator and is not evidence about the organism.
+
+================================================================
+A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
+
+  evidenceHash=a463a12fb7dfbf1e0079c2ccc4d086de61724f60d0670bff49f9c47236587ed7
+  deterministic: no clock, no randomness, no network, no model
+
+  PREREQUISITE STAGES
+    SATISFIED AJ-01
+      requirement: Every frozen A001 decision threshold still holds its frozen value
+      detail:      all 11 thresholds match the values frozen before any human data existed
+    SATISFIED AJ-02
+      requirement: A strong scripted baseline is independently qualified
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 required n>=40 margin>=15.000 ciLow>0
+    SATISFIED AJ-03
+      requirement: BlindVariancePilotV1 released a protocol-valid result
+      detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here
+    SATISFIED AJ-04
+      requirement: The powered requirement is computable and fits the frozen owner ceiling
+      detail:      state=A001_FEASIBLE requiredPairsPrimary=15 totalParticipants=75
+    SATISFIED AJ-05
+      requirement: An independent human-subjects determination exists
+      detail:      determination=SYNTHETIC-DETERMINATION
+    SATISFIED AJ-06
+      requirement: The scored attempt declares the frozen protocol, instrument and analysis
+      detail:      protocol=AlivenessStudyProtocolV1 v1 instrument=GradedAlivenessInstrumentV1 analysisVersion=1
+    SATISFIED AJ-07
+      requirement: The analysed set obeys the preregistered exclusion rules
+      detail:      screening reapplied here rather than trusted: included=240 excluded=0
+    SATISFIED AJ-08
+      requirement: The attempt meets the powered sample the pilot implies
+      detail:      analysedPrimaryPairs=60 required=15; an underpowered attempt still consumes one of the three, so it is refused rather than run
+    SATISFIED AJ-09
+      requirement: The scored attempts fit the three-attempt programme budget
+      detail:      attempts=1 numbers=1 budget=3
+    SATISFIED AJ-10
+      requirement: The submitted outcome claim, if any, agrees with the recomputation
+      detail:      no outcome was claimed; the computation stands alone
+
+  VIOLATIONS INDEPENDENTLY DERIVED FROM EVIDENCE
+    none
+
+  RECOMPUTED ATTEMPT ANALYSIS
+
+    A001AnalysisV1 v1  protocol=AlivenessStudyProtocolV1 v1
+    screening: included=240 excluded=0
+    
+    PRIMARY  PairedAlivenessDifference (FULL - ScriptedPetBaselineV1)
+      n=60 mean=16.000 sd=18.000 t=6.885 df=59.000 p=0.000000
+      95% CI [11.350, 20.650]
+      rule: mean >= 10.000 AND ciLow > 0
+      practicalFloorMet=true intervalExcludesZero=true
+      CLASSIFICATION=PASS
+    
+    SECONDARY  forced choice (cannot rescue a failed primary)
+      n=60 preferredFULL=49 proportion=0.817 exactP=0.000001
+    
+    ABLATION FAMILY  Holm-Bonferroni, FWER=0.050, arms=3
+      FULL-curiosity-anticonvergence
+        n=60 mean=12.000 95% CI [7.350, 16.650] rawP=0.000003 holmP=0.000009
+        MECHANISM_CONTRIBUTION_DEMONSTRATED
+      FULL-preference-learning
+        n=60 mean=7.000 95% CI [2.350, 11.650] rawP=0.003814 holmP=0.007629
+        MECHANISM_CONTRIBUTION_DEMONSTRATED
+      FULL-outcome-uncertainty
+        n=60 mean=2.000 95% CI [-2.650, 6.650] rawP=0.392908 holmP=0.392908
+        MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+    
+    ATTEMPT_OUTCOME=A001_ATTEMPT_1_PASS
+    
+  AUDITOR FINDINGS
+    none submitted
+
+  findingsSubmitted=0 upheld=0 notConfirmed=0 returnedToArchitect=0
+  outcomeBeforeFindings=A001_PASS
+  outcomeAfterFindings=A001_PASS
+  findingsChangedTheOutcome=false — an upheld finding restates a violation already
+    derived above, and an unconfirmed one is inert
+
+  attemptsConsumed=1 attemptsRemaining=2 budget=3
+  A001_GATE_OUTCOME=A001_PASS
+
+================================================================
+AGENT AUTHORITY, DEMONSTRATED   [SYNTHETIC]
+
+  The same passing fixture, with auditor findings attached. An invented
+  violation is checked and discarded; a concern with no checkable code
+  suspends the pass for the Architect. Neither can create, rescue or
+  overturn an outcome.
+
+================================================================
+A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
+
+  evidenceHash=a463a12fb7dfbf1e0079c2ccc4d086de61724f60d0670bff49f9c47236587ed7
+  deterministic: no clock, no randomness, no network, no model
+
+  PREREQUISITE STAGES
+    SATISFIED AJ-01
+      requirement: Every frozen A001 decision threshold still holds its frozen value
+      detail:      all 11 thresholds match the values frozen before any human data existed
+    SATISFIED AJ-02
+      requirement: A strong scripted baseline is independently qualified
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 required n>=40 margin>=15.000 ciLow>0
+    SATISFIED AJ-03
+      requirement: BlindVariancePilotV1 released a protocol-valid result
+      detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here
+    SATISFIED AJ-04
+      requirement: The powered requirement is computable and fits the frozen owner ceiling
+      detail:      state=A001_FEASIBLE requiredPairsPrimary=15 totalParticipants=75
+    SATISFIED AJ-05
+      requirement: An independent human-subjects determination exists
+      detail:      determination=SYNTHETIC-DETERMINATION
+    SATISFIED AJ-06
+      requirement: The scored attempt declares the frozen protocol, instrument and analysis
+      detail:      protocol=AlivenessStudyProtocolV1 v1 instrument=GradedAlivenessInstrumentV1 analysisVersion=1
+    SATISFIED AJ-07
+      requirement: The analysed set obeys the preregistered exclusion rules
+      detail:      screening reapplied here rather than trusted: included=240 excluded=0
+    SATISFIED AJ-08
+      requirement: The attempt meets the powered sample the pilot implies
+      detail:      analysedPrimaryPairs=60 required=15; an underpowered attempt still consumes one of the three, so it is refused rather than run
+    SATISFIED AJ-09
+      requirement: The scored attempts fit the three-attempt programme budget
+      detail:      attempts=1 numbers=1 budget=3
+    SATISFIED AJ-10
+      requirement: The submitted outcome claim, if any, agrees with the recomputation
+      detail:      no outcome was claimed; the computation stands alone
+
+  VIOLATIONS INDEPENDENTLY DERIVED FROM EVIDENCE
+    none
+
+  RECOMPUTED ATTEMPT ANALYSIS
+
+    A001AnalysisV1 v1  protocol=AlivenessStudyProtocolV1 v1
+    screening: included=240 excluded=0
+    
+    PRIMARY  PairedAlivenessDifference (FULL - ScriptedPetBaselineV1)
+      n=60 mean=16.000 sd=18.000 t=6.885 df=59.000 p=0.000000
+      95% CI [11.350, 20.650]
+      rule: mean >= 10.000 AND ciLow > 0
+      practicalFloorMet=true intervalExcludesZero=true
+      CLASSIFICATION=PASS
+    
+    SECONDARY  forced choice (cannot rescue a failed primary)
+      n=60 preferredFULL=49 proportion=0.817 exactP=0.000001
+    
+    ABLATION FAMILY  Holm-Bonferroni, FWER=0.050, arms=3
+      FULL-curiosity-anticonvergence
+        n=60 mean=12.000 95% CI [7.350, 16.650] rawP=0.000003 holmP=0.000009
+        MECHANISM_CONTRIBUTION_DEMONSTRATED
+      FULL-preference-learning
+        n=60 mean=7.000 95% CI [2.350, 11.650] rawP=0.003814 holmP=0.007629
+        MECHANISM_CONTRIBUTION_DEMONSTRATED
+      FULL-outcome-uncertainty
+        n=60 mean=2.000 95% CI [-2.650, 6.650] rawP=0.392908 holmP=0.392908
+        MECHANISM_CONTRIBUTION_NOT_DEMONSTRATED
+    
+    ATTEMPT_OUTCOME=A001_ATTEMPT_1_PASS
+    
+  AUDITOR FINDINGS
+    NOT_CONFIRMED                     F-01 AlternateAdversarialAlivenessAuditor code=BASELINE_MARGIN_BELOW_FLOOR cites=EV-BASELINE
+      claim:  the baseline margin looks inadequate to me
+      result: checked against the evidence and not present; inert, and preserved only as a record of what the auditor claimed
+    AMBIGUOUS_RETURNED_TO_ARCHITECT   F-02 PrimaryAdversarialAlivenessAuditor code=NONE cites=EV-PRIMARY
+      claim:  the effect is real but I am uneasy about the interaction length
+      result: no machine-checkable violation code; returned to the Architect rather than scored, and suspends a pass rather than creating a failure
+
+  findingsSubmitted=2 upheld=0 notConfirmed=1 returnedToArchitect=1
+  outcomeBeforeFindings=A001_PASS
+  outcomeAfterFindings=A001_PASS_PENDING_ARCHITECT_REVIEW
+  findingsChangedTheOutcome=true — an ambiguous finding suspended a pass for the Architect,
+    which is the only effect an auditor is permitted to have and is
+    available in one direction only
+
+  attemptsConsumed=1 attemptsRemaining=2 budget=3
+  A001_GATE_OUTCOME=A001_PASS_PENDING_ARCHITECT_REVIEW
+

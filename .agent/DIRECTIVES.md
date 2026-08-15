@@ -360,3 +360,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-016-G
 - Status at issuance: ISSUED
+
+
+## D-016-I
+
+- Issued: 2026-08-15T11:20:00-04:00
+- Issuer: User
+- External directive: D016-I
+- Objective: Convert A001 to deterministic gate adjudication with agentic adversarial audit, so that human evidence determines aliveness, frozen math determines PASS and FAIL, and agents audit without adjudicating.
+- Scope: A deterministic A001GateAdjudicatorV1 built from the already-frozen protocol and thresholds; deterministic and replayable baseline qualification, pilot validity, feasibility, exclusions, multiplicity, Attempt 1, mechanism arms, three-attempt accounting and final A001 outcome; reclassification of the Paragon agentic reviewers as adversarial auditors; a closed machine-checkable violation vocabulary with ambiguous findings returned to the Architect; permanent preservation of the D016-H measurement as negative evidence; the A001 governance audit; the A001 gate state; qualification evidence; tests; .agent synchronization; and CI.
+- Exclusions: Changing any existing A001 threshold; permitting an agent to create a PASS, create a FAIL, rescue a result or override the deterministic gate; tuning around the D016-H result or re-running it; reopening the provider, credential, sandbox, routing or provider-diversity work; collecting human data; recruiting participants; baseline human qualification; BlindVariancePilotV1 execution; Attempt 1; human ablations; R003 through R009; modifying A000 FULL; and creating D017.
+- Acceptance: A deterministic adjudicator computing the full A001 outcome from one canonical evidence record with no clock, randomness, network, environment or model in the path; replayability proven over identical and reordered evidence; every existing A001 threshold unchanged and guarded against drift; the reviewers reclassified with gate-adjudicating authority forbidden to every role and refused by the role constructor; agent findings incapable of creating, rescuing or overriding an outcome, with concrete findings re-derived from the evidence and ambiguous ones returned to the Architect; the D016-H failure preserved and never reported as cleared; the A001 state reported with audit totals, outstanding blockers, attempts consumed, programme state, recruitment state, human-data count and ethics state; all relevant validation run; and the result committed and pushed to main with the exact CI head SHA equal to the pushed commit.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-H
+- Status at issuance: ISSUED

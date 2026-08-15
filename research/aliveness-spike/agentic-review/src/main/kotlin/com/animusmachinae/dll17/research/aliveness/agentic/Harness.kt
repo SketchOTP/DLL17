@@ -230,7 +230,22 @@ public object AgenticReviewHarness {
         }
     }
 
-    /** A gate opens only on a concurred pass by two qualified, diverse reviewers. */
-    public fun gateOpens(review: JointReview, diversity: DiversityOutcome): Boolean =
-        diversity.satisfied && review.state == STATE_CONCURRED_PASS
+    /**
+     * Both auditors examined the material and neither objected.
+     *
+     * Renamed from `gateOpens` at D016-I, because it no longer opens anything.
+     * Under D016-C this was the gate: a concurred pass by a diverse qualified pair
+     * was the outcome. `A001GateAdjudicatorV1` now computes the outcome from
+     * preregistered thresholds and human data, and never calls this function.
+     *
+     * What it is still good for is the meta-evaluation, which measures how the
+     * joint mechanism behaves on frozen fixtures. Keeping the mechanics while
+     * removing the authority is the whole shape of D016-I, and keeping the old
+     * name would have left a function that reads like an authority it does not
+     * have.
+     */
+    public fun auditorsConcurredWithoutObjection(
+        review: JointReview,
+        diversity: DiversityOutcome,
+    ): Boolean = diversity.satisfied && review.state == STATE_CONCURRED_PASS
 }

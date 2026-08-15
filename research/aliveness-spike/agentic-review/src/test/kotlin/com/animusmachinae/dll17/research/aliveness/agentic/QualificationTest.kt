@@ -89,7 +89,7 @@ class QualificationTest {
             ),
         )
         val p = outcome.provenance
-        assertEquals("PrimaryAgenticAlivenessGateReviewer", p.roleId)
+        assertEquals("PrimaryAdversarialAlivenessAuditor", p.roleId)
         assertEquals(AgenticRoleContracts.CONTRACT_VERSION, p.roleContractVersion)
         assertEquals(AgenticRoleContracts.PRIMARY.instructionsHash, p.promptHash)
         assertEquals(RulingParser.SCHEMA_ID, p.schemaId)

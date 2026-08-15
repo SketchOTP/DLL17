@@ -1,8 +1,10 @@
 # AgenticReviewHarnessV1
 
-- Status: implemented; **not qualified**
-- State: `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED`
-- Directive: D016, boundary `D016-H`, under the D016-B architect decision
+- Status: implemented; **not qualified**, and **no longer the gate authority**
+- State: `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` — retained as a permanent
+  fact about this harness, and no longer an A001 activation blocker
+- Gate authority: [`A001GateAdjudicatorV1`](A001GateAdjudicatorV1.md) (D016-I)
+- Directive: D016, boundary `D016-I`, under the D016-B architect decision
 - Evidence: `research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt`
   and `research/aliveness-spike/evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`
 
@@ -198,10 +200,40 @@ so a future edit that adds a tool field fails at run time and not only in a test
 superseded: it existed only to cover a gap that assistant-product CLIs created
 and direct API calls do not.
 
+## D016-I — this harness is no longer the gate authority
+
+Read this section before the rest of the document. Everything below it describes
+a harness that was designed to *adjudicate* the A001 gate, and since D016-I it
+does not.
+
+The architect's disposition on the D016-H result was that the measured failure is
+a fact about using a judge at all rather than about which judge, and that
+continuing to shop for a better model would be programme drift. The gate outcome
+is now computed by [`A001GateAdjudicatorV1`](A001GateAdjudicatorV1.md) from
+preregistered thresholds and human data, as a pure function. The two reviewers
+are reclassified as **adversarial auditors**: `ADJUDICATE_GATE` is forbidden to
+every role, an auditor finding carries no verdict, and a finding naming a
+machine-checkable violation is re-derived from the evidence by the adjudicator
+before it counts.
+
+Three consequences for this document:
+
+1. `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` is no longer an A001 activation
+   blocker. It remains true, permanently, about this harness.
+2. The role identifiers changed. `supersededRoleId` keeps the old ones
+   resolvable so pre-D016-I provenance stays readable.
+3. Where this document says a reviewer "rules on" something, read "reports on".
+   The authority is gone; the examination is not.
+
+The rest of the document is preserved rather than rewritten, because the harness
+mechanics — isolation, the fail-closed schema, evidence-as-data, the
+meta-evaluation — are unchanged and still carry the auditors.
+
 ## What is blocking now
 
-`BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` — and for the first time this means
-something measured rather than something pending.
+`BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` — measured rather than pending, and
+since D016-I no longer blocking A001 activation, because nothing in the gate
+depends on it.
 
 D016-H removed the last obstacle to running a formal qualification. Paragon's
 catalog refresh was not carrying the provider's own declared `context_length`, so

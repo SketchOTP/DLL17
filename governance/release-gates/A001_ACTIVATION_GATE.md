@@ -95,8 +95,10 @@ The order below is not a preference; each step needs the one before it.
 
 **`A001_ACTIVATION = BLOCKED`.** Not started, and correctly so.
 
-Five blockers now: see the D016-C record below. One was cleared and one was
-superseded by two, which is not progress toward opening the gate.
+**Three** blockers now, and for the first time since D016-A the count fell for a
+reason other than a reclassification: D016-I removed the agentic-review blocker by
+removing agents from the decision path, not by qualifying one. The three that
+remain all need human evidence that does not exist. See the D016-I record below.
 
 ---
 
@@ -610,3 +612,138 @@ the multiplicity correction, the exclusion ordering and the sealed pilot channel
 are untouched and still checked by CI. No participant was recruited and no human
 outcome data exists anywhere in this repository. `GA-26` still reports that no
 ethics determination exists and none is claimed. Recorded as O-0023 and DEC-0046.
+
+---
+
+## D016-I — the gate stops being a judgement
+
+**Disposition: `ACCEPTED_COURSE_CORRECTION`. The blocker count falls from four to
+three, and A001 remains shut.**
+
+### What the architect decided
+
+D016-H measured the agentic reviewer and it failed all seven frozen thresholds.
+The architect's disposition was that the important result is not that one model
+performed badly but that *the governance mechanism itself was finally measured and
+is not reliable enough to be gate authority* — and that continuing to hunt for a
+better judge would be programme drift away from the actual question, which is
+whether humans perceive the organism as alive.
+
+The correction, in one line:
+
+> Human evidence determines aliveness. Frozen math determines PASS/FAIL.
+> Agents audit; they do not adjudicate.
+
+### What was built
+
+`A001GateAdjudicatorV1`, in the analysis module. A pure function from a canonical
+evidence record to a gate ruling: no clock, no randomness, no network, no
+environment, no model. It computes baseline qualification, pilot validity,
+feasibility, exclusions, protocol and instrument identity, the powered-sample
+check, multiplicity, the Attempt-1 primary classification, the mechanism arms,
+three-attempt accounting and the final outcome, across ten ordered stages.
+
+Everything it applies was already preregistered. **No A001 threshold was added,
+removed, relaxed or reinterpreted.** The contribution is the authority, not the
+rules.
+
+Replayability is checked rather than claimed. `replaysIdentically()` runs the
+adjudicator on the same evidence twice, on the same evidence with its pair
+records reversed, and on the programme's real evidence twice, and requires
+byte-identical rulings. Order-invariance is checked explicitly because it is
+exactly what the measured judge lacked — its verdict moved under reordering on 5
+of 13 fixtures. The evidence set carries a canonical hash so two parties can
+confirm they adjudicated the same thing.
+
+A deliberately redundant guard holds each frozen threshold beside an
+independently written literal of its frozen value. Two copies of a constant is
+normally a defect; here the failure mode being defended against is a single
+well-intentioned edit, and a duplicate that must be changed in step is what
+catches one.
+
+### Agents, demoted
+
+`ADJUDICATE_GATE`, `CREATE_GATE_OUTCOME` and `OVERRIDE_DETERMINISTIC_GATE` are
+now forbidden to every role, and the role constructor refuses them, so the
+demotion cannot be undone by editing a role definition. The two reviewers become
+`PrimaryAdversarialAlivenessAuditor` and `AlternateAdversarialAlivenessAuditor`;
+their `RULE_*` authorities become `AUDIT_*`; the old identifiers stay resolvable
+via `supersededRoleId` so pre-D016-I provenance remains readable.
+
+An `AuditorFinding` has no verdict, severity, weight, confidence or score field —
+a test asserts the absence rather than trusting a comment. Its 16 violation codes
+are a closed vocabulary, and **the adjudicator checks every code on every run
+whether or not an auditor mentions it**, then re-derives any code an auditor
+names before allowing it to matter. So an upheld finding restates a violation
+that was already blocking, and an invented one is inert.
+
+The one permitted agent effect is one-way: a concern an auditor cannot express in
+the frozen vocabulary suspends an otherwise-passing gate as
+`A001_PASS_PENDING_ARCHITECT_REVIEW`. It cannot manufacture a failure and cannot
+touch a gate already blocked or failed. Agents can stop; they cannot start,
+rescue or overturn.
+
+### Why an unreliable auditor is now tolerable
+
+Under D016-C the model's answer *was* the ruling, so every instability in it was
+an instability in the gate. Here the worst an unstable auditor can do is point at
+the wrong place, or fail to point at all. The 0.750 injection resistance that
+ended the previous approach is survivable in this one — not because the number
+improved, but because nothing depends on it. That is a reason the gate no longer
+has to trust the auditor, not a reason to trust it.
+
+### The D016-H failure is preserved
+
+`GA-37` changed its requirement and must not be read as the failure being
+cleared. It was not, and it is not clearable. The item now reads "the measured
+reviewer failure is preserved, and nothing depends on that reviewer having
+passed", it renders `reviewerQualified=false permanently`, and it still names
+every failed metric with its measured value.
+`AgenticReviewerQualificationThresholdsV1` is untouched and still requires
+injection resistance of exactly 1.00 against this reviewer's 0.750. CI asserts
+both the failure and the frozen threshold values.
+
+### Gate state after D016-I
+
+| Field | Value |
+|---|---|
+| Audit | `AlivenessGovernanceAuditV9`, 40 items |
+| States | PASS=33, NOT_APPLICABLE_PRE_ATTEMPT=1, REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2, BLOCKED=4 |
+| Outstanding blockers | **3** |
+| | `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` |
+| | `BLOCKED_VARIANCE_PILOT_NOT_REGISTERED` |
+| | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` |
+| `A001_GATE_AUTHORITY` | `A001GateAdjudicatorV1` (deterministic; no agent adjudicates) |
+| `A001_GATE_OUTCOME` | `A001_BLOCKED` |
+| `A001_ACTIVATION` | `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` |
+| Attempts consumed | 0 / 3 |
+| Programme state | `ALIVENESS_UNTESTED` |
+| Human scored recruitment | `BLOCKED` |
+| Human participant data | 0 records |
+| Ethics determination | none exists, none claimed |
+
+The three remaining blockers are the ones no code in this repository can clear.
+Each needs real blinded participants, and no agent may stand in for one.
+
+Note that the adjudicator is *stricter* than the audit on one point: it treats a
+missing human-subjects determination as a hard block
+(`BLOCKED_ETHICS_DETERMINATION_ABSENT`), where `GA-26` records it as
+`REQUIRES_SIGNED_GOVERNANCE_EVIDENCE`. That divergence is deliberate and is left
+in place: the gate should not be computable to a pass on evidence gathered
+without a determination.
+
+### Stated limitations
+
+- The adjudicator is qualified by test, not by agreement with human judgement.
+  Nobody has checked that its rulings match what a competent reviewer would
+  conclude, and no such check is planned. What is claimed is that it applies the
+  preregistered rules correctly and identically every time.
+- Determinism is not correctness. A rule frozen before the data is still a rule
+  someone chose. Nothing here argues the +10 floor is the right floor.
+- The `AMBIGUOUS_RETURNED_TO_ARCHITECT` path is a real agent effect on the gate.
+  An auditor emitting vague findings on every run would suspend every pass — a
+  denial of service on the Architect's attention rather than a threat to the
+  result, recorded here rather than dismissed.
+- The adversarial auditors have never been run in their new role. Their briefing
+  was rewritten, and no auditor has executed against it. What is proven is the
+  structure that makes their output non-load-bearing, not their usefulness.

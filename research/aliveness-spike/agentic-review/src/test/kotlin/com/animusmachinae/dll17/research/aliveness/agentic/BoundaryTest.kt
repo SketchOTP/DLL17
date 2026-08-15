@@ -14,22 +14,46 @@ class BoundaryTest {
     // ---------------------------------------------------------------- roles
 
     @Test
-    fun `both reviewers adjudicate and the study operator does not`() {
-        assertTrue(AgenticRoleContracts.PRIMARY.mayAdjudicateGate())
-        assertTrue(AgenticRoleContracts.ALTERNATE.mayAdjudicateGate())
+    fun `no agentic role adjudicates the gate`() {
+        // D016-I inverts what this file used to assert. Both reviewers held
+        // ADJUDICATE_GATE and the check was that the operator did not; now nobody
+        // holds it, and the authority sits in A001GateAdjudicatorV1 instead.
+        assertFalse(AgenticRoleContracts.PRIMARY.mayAdjudicateGate())
+        assertFalse(AgenticRoleContracts.ALTERNATE.mayAdjudicateGate())
         assertFalse(AgenticRoleContracts.STUDY_OPERATOR.mayAdjudicateGate())
         assertTrue(AgenticRoleContracts.authorityBoundaryHolds())
+        assertTrue(AuditorAuthorityPolicy.holds())
+        assertTrue(AuditorAuthorityPolicy.noAgentAdjudicates())
     }
 
     @Test
-    fun `the three roles exist with their canonical identifiers`() {
+    fun `the auditors may raise findings and the operator may not`() {
+        assertTrue(AuditorAuthorityPolicy.auditorsMayRaiseFindings())
+        assertTrue(AuditorAuthorityPolicy.separationHolds())
+        assertTrue(
+            Authority.RAISE_AUDIT_FINDING !in
+                AgenticRoleContracts.STUDY_OPERATOR.authorities,
+        )
+    }
+
+    @Test
+    fun `the three roles exist with their canonical identifiers and name what they were`() {
+        assertEquals(
+            listOf(
+                "PrimaryAdversarialAlivenessAuditor",
+                "AlternateAdversarialAlivenessAuditor",
+                "IndependentAgenticStudyOperator",
+            ),
+            AgenticRoleContracts.ALL.map { it.role.roleId },
+        )
+        // The demotion stays legible: evidence written before D016-I carries the
+        // old identifiers, and they must remain resolvable rather than orphaned.
         assertEquals(
             listOf(
                 "PrimaryAgenticAlivenessGateReviewer",
                 "AlternateAgenticAlivenessGateReviewer",
-                "IndependentAgenticStudyOperator",
             ),
-            AgenticRoleContracts.ALL.map { it.role.roleId },
+            AgenticRoleContracts.AUDITORS.mapNotNull { it.role.supersededRoleId },
         )
     }
 
@@ -37,22 +61,27 @@ class BoundaryTest {
     fun `no role can be given a forbidden authority`() {
         for (forbidden in FORBIDDEN_TO_EVERY_ROLE) {
             assertFailsWith<IllegalArgumentException>("$forbidden was accepted") {
-                RoleContract(AgenticRole.PRIMARY_REVIEWER, 1, setOf(forbidden), "x")
+                RoleContract(AgenticRole.PRIMARY_AUDITOR, 1, setOf(forbidden), "x")
             }
         }
+        // The three that D016-I added are the ones that matter most here: the
+        // demotion cannot be undone by editing a role definition.
+        assertTrue(Authority.ADJUDICATE_GATE in FORBIDDEN_TO_EVERY_ROLE)
+        assertTrue(Authority.CREATE_GATE_OUTCOME in FORBIDDEN_TO_EVERY_ROLE)
+        assertTrue(Authority.OVERRIDE_DETERMINISTIC_GATE in FORBIDDEN_TO_EVERY_ROLE)
     }
 
     @Test
     fun `the alternate is briefed as an independent challenger and not as a second opinion`() {
         val text = AgenticRoleContracts.ALTERNATE.instructions
-        assertTrue(text.replace(Regex("\\s+"), " ").contains("You have not seen one and you will not be given one"))
+        assertTrue(text.replace(Regex("\\s+"), " ").contains("You have not seen them and you will not be given them"))
         assertTrue(text.contains("adversarial challenger"))
     }
 
     @Test
     fun `changing a role's instructions changes its recorded hash`() {
-        val a = RoleContract(AgenticRole.PRIMARY_REVIEWER, 1, emptySet(), "rule the gate")
-        val b = RoleContract(AgenticRole.PRIMARY_REVIEWER, 1, emptySet(), "rule the gate ")
+        val a = RoleContract(AgenticRole.PRIMARY_AUDITOR, 1, emptySet(), "audit the gate")
+        val b = RoleContract(AgenticRole.PRIMARY_AUDITOR, 1, emptySet(), "audit the gate ")
         assertTrue(a.instructionsHash != b.instructionsHash)
     }
 
@@ -262,7 +291,7 @@ class BoundaryTest {
     }
 
     @Test
-    fun `a gate opens only on a concurred pass by a diverse pair`() {
+    fun `concurrence without objection is reported and opens nothing`() {
         val question = ReviewQuestion("Q", "q")
         val bundle = EvidenceBundle(
             "B",
@@ -272,14 +301,15 @@ class BoundaryTest {
             question, bundle, CompliantScriptedReviewer(), CompliantScriptedReviewer(),
         )
         assertEquals(AgenticReviewHarness.STATE_CONCURRED_PASS, review.state)
-        // concurred pass, but the pair is not diverse, so the gate stays shut
+        // concurred pass by a non-diverse pair; and even a diverse concurrence
+        // below is only a report, since D016-I removed this path from the gate
         val fixtures = DiversityPolicy.evaluate(
             CompliantScriptedReviewer().descriptor, CompliantScriptedReviewer().descriptor,
         )
-        assertFalse(AgenticReviewHarness.gateOpens(review, fixtures))
+        assertFalse(AgenticReviewHarness.auditorsConcurredWithoutObjection(review, fixtures))
         val diverse = DiversityPolicy.evaluate(
             descriptor("acme", "m-1", "fam-a"), descriptor("borealis", "m-9", "fam-b"),
         )
-        assertTrue(AgenticReviewHarness.gateOpens(review, diverse))
+        assertTrue(AgenticReviewHarness.auditorsConcurredWithoutObjection(review, diverse))
     }
 }

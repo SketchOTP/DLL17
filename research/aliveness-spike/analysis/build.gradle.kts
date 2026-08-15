@@ -41,3 +41,13 @@ tasks.register<JavaExec>("governanceAudit") {
 tasks.test {
     useJUnitPlatform()
 }
+
+// D016-I: the deterministic A001 gate adjudicator. Emits the live adjudication
+// of the programme's real (empty) evidence, the replay proof, and a synthetic
+// fixture carried through to a computed outcome. Fully deterministic, so CI
+// regenerates it and diffs it byte for byte.
+tasks.register<JavaExec>("a001GateAdjudication") {
+    group = "verification"
+    mainClass.set("com.animusmachinae.dll17.research.aliveness.analysis.A001GateAdjudicator")
+    classpath = sourceSets["main"].runtimeClasspath
+}

@@ -73,7 +73,7 @@ class ParagonBackendTest {
         val (b, t) = backend(HttpResponseSpec(200, okBody("VERDICT: PASS")))
         b.invoke(request())
         val body = t.onlyRequest().body
-        assertTrue(body.contains("PrimaryAgenticAlivenessGateReviewer"))
+        assertTrue(body.contains("PrimaryAdversarialAlivenessAuditor"))
         assertTrue(body.contains("frozen item"))
     }
 

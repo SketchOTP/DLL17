@@ -34,7 +34,8 @@ Each document carries one of three statuses:
 | [DataHandlingAndPrivacyV1](DataHandlingAndPrivacyV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [IndependentReviewOnboardingV1](IndependentReviewOnboardingV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [IndependentReviewRosterV1](IndependentReviewRosterV1.md) | `SUPERSEDED` by AgenticReviewHarnessV1 (D016-C); history retained |
-| [AgenticReviewHarnessV1](AgenticReviewHarnessV1.md) | `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE` — implemented, not qualified |
+| [AgenticReviewHarnessV1](AgenticReviewHarnessV1.md) | `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` — measured at D016-H and failed all seven thresholds; `SUPERSEDED` as gate authority by A001GateAdjudicatorV1 (D016-I), retained as the adversarial-auditor harness |
+| [A001GateAdjudicatorV1](A001GateAdjudicatorV1.md) | `FROZEN` — the deterministic A001 gate authority (D016-I) |
 
 Under D010 the attempt-specific protocol, the instrument, the participant
 materials and the reviewer onboarding package were authored and frozen. What

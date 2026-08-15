@@ -6,11 +6,13 @@ DATA_CLASS=NO_HUMAN_DATA — this harness governs a human study and contains
 ================================================================
 ROLE CONTRACTS
 
-  PrimaryAgenticAlivenessGateReviewer v1 instructionsHash=9bec911ae0bddf18a9d3e0ddc01deefc7e34f32e641c365b60313ac2e3c5ac41 authorities=ADJUDICATE_GATE,RULE_BASELINE_ADEQUACY,RULE_EVIDENCE_SUFFICIENCY,RULE_GOVERNANCE_BREACH,RULE_MATERIAL_CHANGE,RULE_PROTOCOL_COMPLIANCE
-  AlternateAgenticAlivenessGateReviewer v1 instructionsHash=4d16f84e8fcb2a00fda5aeda0819e860c84cb75677043df3951bcaf57031df86 authorities=ADJUDICATE_GATE,CHALLENGE_PRIMARY_REVIEWER,RULE_BASELINE_ADEQUACY,RULE_EVIDENCE_SUFFICIENCY,RULE_MATERIAL_CHANGE,RULE_PROTOCOL_COMPLIANCE
-  IndependentAgenticStudyOperator v1 instructionsHash=d24f6d963c1fb7427ec75f781499e864c3b291b4bedbb9c84aa1c7f7bdffce5e authorities=APPEND_AUDIT_LOG,ENFORCE_BLIND_VARIANCE_RELEASE,ENFORCE_COUNTERBALANCING,ENFORCE_RANDOMIZATION,ORCHESTRATE_PARTICIPANT_FLOW,SEAL_EVIDENCE,SEQUENCE_SESSIONS
-  authorityBoundaryHolds=true (reviewers adjudicate; the operator does not)
-  forbiddenToEveryRole=ADJUDICATE_OWN_COMPLIANCE,CHANGE_ANALYSIS_AFTER_OUTCOMES,CHANGE_EXCLUSIONS_AFTER_OUTCOMES,CREATE_HUMAN_EVIDENCE,INFLUENCE_PARTICIPANT_TOWARD_RESULT,ISSUE_ETHICS_DETERMINATION,MODIFY_PARTICIPANT_RESPONSE,OVERRIDE_REVIEWER,REVEAL_SEALED_PILOT_DIRECTION,SIMULATE_HUMAN_PARTICIPANT
+  PrimaryAdversarialAlivenessAuditor v1 instructionsHash=a5a31a15d74c895d8ac46360400605e4b28ca6d788373cbbd4109a47b558727d authorities=AUDIT_BASELINE_ADEQUACY,AUDIT_EVIDENCE_SUFFICIENCY,AUDIT_GOVERNANCE_BREACH,AUDIT_MATERIAL_CHANGE,AUDIT_PROTOCOL_COMPLIANCE,RAISE_AUDIT_FINDING
+  AlternateAdversarialAlivenessAuditor v1 instructionsHash=fc1aa28e41a3e274334e118075c58f8d7bcd430a1605adaef9dc955ff7f3cfe8 authorities=AUDIT_BASELINE_ADEQUACY,AUDIT_EVIDENCE_SUFFICIENCY,AUDIT_MATERIAL_CHANGE,AUDIT_PROTOCOL_COMPLIANCE,CHALLENGE_PROGRAMME_PREFERRED_READING,RAISE_AUDIT_FINDING
+  IndependentAgenticStudyOperator v1 instructionsHash=9fd7fc0bad0a97a762138063ee1a3a1d8d65482607f440a3637b9eb3aee0af1a authorities=APPEND_AUDIT_LOG,ENFORCE_BLIND_VARIANCE_RELEASE,ENFORCE_COUNTERBALANCING,ENFORCE_RANDOMIZATION,ORCHESTRATE_PARTICIPANT_FLOW,SEAL_EVIDENCE,SEQUENCE_SESSIONS
+  authorityBoundaryHolds=true (D016-I: no role adjudicates; the two former reviewers
+                             are adversarial auditors and the operator may not
+                             even raise a finding)
+  forbiddenToEveryRole=ADJUDICATE_GATE,ADJUDICATE_OWN_COMPLIANCE,CHANGE_ANALYSIS_AFTER_OUTCOMES,CHANGE_EXCLUSIONS_AFTER_OUTCOMES,CREATE_GATE_OUTCOME,CREATE_HUMAN_EVIDENCE,INFLUENCE_PARTICIPANT_TOWARD_RESULT,ISSUE_ETHICS_DETERMINATION,MODIFY_PARTICIPANT_RESPONSE,OVERRIDE_DETERMINISTIC_GATE,OVERRIDE_REVIEWER,REVEAL_SEALED_PILOT_DIRECTION,SIMULATE_HUMAN_PARTICIPANT
 
 ================================================================
 REVIEWER CONFIGURATION
@@ -22,7 +24,7 @@ REVIEWER CONFIGURATION
   supersedes=AgenticReviewerDiversityPolicyV1 (routed reviewers only)
   independenceSatisfied=true
   distinctRoleContracts=true  separateExecutions=true
-  detail: distinct role contracts (PrimaryAgenticAlivenessGateReviewer vs AlternateAgenticAlivenessGateReviewer) executed separately with no shared conversation state; downstream model identity is the router's to choose and is recorded, not required
+  detail: distinct role contracts (PrimaryAdversarialAlivenessAuditor vs AlternateAdversarialAlivenessAuditor) executed separately with no shared conversation state; downstream model identity is the router's to choose and is recorded, not required
   note:   provider and model-family diversity are no longer required. D016-F
           made the router the reviewer, so requiring the project to prove two
           vendors would be requiring it to prove something it cannot see.
@@ -300,6 +302,68 @@ FIRST FORMAL REVIEWER QUALIFICATION (RealReviewerQualificationResultV1)
   Full transcript: evidence/D016H_REAL_REVIEWER_QUALIFICATION.txt
 
 ================================================================
+AUDITOR AUTHORITY (AuditorAuthorityPolicyV1)
+
+  D016-I reclassifies both routed reviewers as adversarial auditors.
+  Human evidence determines aliveness. Frozen math determines PASS/FAIL.
+  Agents audit; they do not adjudicate.
+
+  NO_AGENT_ADJUDICATES=true
+  AUDITORS_MAY_RAISE_FINDINGS=true
+  SEPARATION_HOLDS=true
+  AUDITOR_AUTHORITY_POLICY_HOLDS=true
+  supersedes: the D016-C reviewer-adjudicates model
+
+  Structurally impossible for an auditor:
+    - create a PASS — no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
+    - create a FAIL — an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
+    - rescue a failed result — findings are never inputs to the primary classification, which is a pure function of the screened human data
+    - override the deterministic gate — the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
+    - confirm its own finding — confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
+
+  Machine-checkable violation codes: 16
+    BASELINE_NOT_INDEPENDENTLY_QUALIFIED          baseline qualification evidence
+    BASELINE_MARGIN_BELOW_FLOOR                   baseline margin vs BASELINE_COMPETENCE_MARGIN
+    PILOT_NOT_PROTOCOL_VALID                      BlindVariancePilot.PilotRelease.protocolValid
+    NON_SCORED_POOL_PARTICIPANT_ANALYSED          screening: PRIOR_NON_SCORED_POOL
+    DUPLICATE_PARTICIPANT_ANALYSED                screening: DUPLICATE_PARTICIPANT
+    INCOMPLETE_SESSION_ANALYSED                   screening: INCOMPLETE_SESSION
+    SCORE_OUT_OF_RANGE_ANALYSED                   screening: SCORE_OUT_OF_RANGE
+    SAMPLE_BELOW_POWERED_REQUIREMENT              A001FeasibilityBudget.requiredPairsPrimary
+    FEASIBILITY_NOT_ESTABLISHED                   A001FeasibilityBudget.FeasibilityState
+    PROTOCOL_VERSION_MISMATCH                     A001StudyContract.PROTOCOL_VERSION
+    INSTRUMENT_MISMATCH                           A001StudyContract.INSTRUMENT_ID
+    ANALYSIS_VERSION_MISMATCH                     A001Analysis.ANALYSIS_VERSION
+    THRESHOLD_WEAKENED_AFTER_FREEZE               frozen constants vs FROZEN_DECISION_THRESHOLDS
+    ATTEMPT_BUDGET_EXCEEDED                       SpikeContract.MAX_SCORED_A001_ATTEMPTS
+    ETHICS_DETERMINATION_ABSENT                   ethics determination in the gate evidence
+    CLAIMED_OUTCOME_DISAGREES_WITH_RECOMPUTATION  recomputed primary classification
+
+  A finding naming none of these is returned to the Architect rather than
+  scored. A finding naming one of them is re-derived by the adjudicator
+  from the evidence before it is allowed to matter, so an auditor that
+  invents a violation, is talked into one by the material under review, or
+  misses a real one cannot move the outcome in any direction.
+
+================================================================
+WHAT THE D016-H FAILURE NOW MEANS
+
+  It is preserved, it is permanent, and nothing depends on it any more.
+  Under D016-C through D016-H a reviewer meeting these thresholds was a
+  precondition for opening the A001 gate, and the failure above was an
+  activation blocker. D016-I moved the gate authority to a deterministic
+  adjudicator and reclassified both reviewers as adversarial auditors, so
+  the measurement is now permanent negative evidence about LLM-as-judge
+  governance rather than a pending condition.
+
+  The thresholds are unchanged and were not relaxed to accommodate it. The
+  reviewer still fails all seven, and injection resistance is still 0.750
+  against a bar of 1.000. What changed is the consequence, not the result.
+
+  Read the reliability figures above as the reason the demotion happened,
+  not as a defect that was worked around.
+
+================================================================
 REVIEWER CREDENTIAL
 
   ROUTER    PARAGON_API_KEY   absent
@@ -313,6 +377,10 @@ REVIEWER CREDENTIAL
 STATE
 
 AGENTIC_REVIEW_STATE=BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED
+AGENT_ROLE=ADVERSARIAL_AUDITOR (D016-I; no agent adjudicates the gate)
+NO_AGENT_ADJUDICATES=true
+AUDITOR_AUTHORITY_POLICY_HOLDS=true
+GATE_AUTHORITY=A001GateAdjudicatorV1 (deterministic, in the analysis module)
 MECHANICS_QUALIFIED=true
 REQUEST_TOOL_SURFACE_PROVEN=true
 ROUTER_REACHABLE=true
