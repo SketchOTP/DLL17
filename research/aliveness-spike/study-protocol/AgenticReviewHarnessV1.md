@@ -1,8 +1,8 @@
 # AgenticReviewHarnessV1
 
 - Status: implemented; **not qualified**
-- State: `BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE`
-- Directive: D016, boundary `D016-D`, under the D016-B architect decision
+- State: `BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE`
+- Directive: D016, boundary `D016-E`, under the D016-B architect decision
 - Evidence: `research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt`
   and `research/aliveness-spike/evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`
 
@@ -147,34 +147,61 @@ Hence the harness is unqualified. The frozen thresholds therefore have nothing
 yet to be applied to, which is exactly why they can be trusted not to have been
 fitted to a result.
 
-## Isolation is a precondition, not part of diversity
+## Isolation is proven from the request, not attested
 
-D016-D tried to qualify a real pair and found a boundary failure underneath the
-diversity one, so the state is now
-`BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE`.
+The formal reviewers are **direct model-API calls**, not assistant products. That
+is the whole of the D016-E change, and it is what makes the boundary checkable.
 
-A slot counts as isolated only when its environment carries
-`A001_{SLOT}_REVIEWER_TOOL_DENIAL=VERIFIED_NO_REPOSITORY_NO_WEB`. The harness
-accepts that one exact string and nothing else, so setting it is a positive
-claim that both halves were checked rather than an incidental truthy value.
+D016-D tried to isolate two authenticated assistant CLIs and could not. An
+unprivileged jail removing the repository from the filesystem entirely was built
+and verified, and the reviewer still held account-level tools that fetch files
+from GitHub — where this repository is public — along with general web access,
+because those tools are provisioned by the provider account and executed
+server-side. Nothing the caller does is in the path of such a call. That finding
+is preserved in `evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`.
 
-The check is ordered ahead of diversity deliberately. Two heterogeneous models
-that can both read the repository they are adjudicating are not two independent
-reviewers; they are one leak sampled twice, and the weaker finding must not mask
-the stronger one.
+A direct API request has no such surface. What the project serializes *is* the
+entire tool surface, so the property stops being a claim someone has to vouch for
+and becomes a fact this repository checks about itself:
 
-What D016-D established is that a filesystem jail is not where this is decided.
-An unprivileged bubblewrap jail removing the repository from the filesystem
-entirely was built and verified, and the candidate reviewer still held
-account-level tools that fetch files from GitHub — where this repository is
-public — along with general web access, because those tools are provisioned by
-the provider account and executed server-side. No client flag and no local jail
-is in the path of such a call.
+- **Primary — OpenAI Responses.** No `tools` array at any depth, and
+  `tool_choice` explicitly `none`. Both, not either: omitting the array leaves
+  the decision to a provider default, and forcing the choice puts the intent in
+  the request the provider actually receives.
+- **Alternate — Google Gemini `generateContent`.** No `tools`, no `toolConfig`,
+  no Search, URL context, code execution, function declarations or MCP. The
+  Gemini schema makes tools optional, so tool-free is simply the field's absence.
 
-So an acceptable reviewer needs an access path whose tool set the caller
-defines, rather than an assistant product whose account carries connectors. The
-full probe, including what was tried and what the exact failure messages were,
-is in `evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt`.
+`ApiReviewerIsolationSelfCheckV1` builds a real request through each backend via
+a recording transport and inspects the emitted JSON for tool-bearing keys at any
+depth. It needs no credential and contacts no provider, so it runs in CI exactly
+as it runs on a workstation, and CI asserts `toolSurfaceProven=true` and
+`tool_choice=none` on every push. `assertToolFree` also runs inside the builders,
+so a future edit that adds a tool field fails at run time and not only in a test.
+
+`GA-33` therefore now reports `PASS`, and D016-D's environment attestation is
+superseded: it existed only to cover a gap that assistant-product CLIs created
+and direct API calls do not.
+
+## What is blocking now
+
+`BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE`, and nothing broader.
+
+The reviewers are implemented and their transports are fully tested against mock
+transports. What does not exist is a credential for either slot:
+`OPENAI_API_KEY` and `GEMINI_API_KEY` are both absent, from the environment and
+from every shell profile. D016-E forbids creating accounts, keys, billing or paid
+resources, so this is an input the programme owner supplies or does not.
+
+Credential handling is structural rather than procedural. A request's secret
+headers live in a separate field from its ordinary headers, and the recorded form
+— which is what gets hashed into provenance — renders them as `REDACTED`. There
+is no field in the recorded form for a credential to land in, and CI additionally
+scans the reviewer evidence for credential-shaped strings.
+
+No scored meta-evaluation fixture has been shown to any model. The frozen
+thresholds remain unapplied, and therefore still cannot have been fitted to a
+result.
 
 ## Ethics is unchanged
 

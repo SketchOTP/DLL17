@@ -300,3 +300,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-016-C
 - Status at issuance: ISSUED
+
+
+## D-016-E
+
+- Issued: 2026-08-15T05:30:00-04:00
+- Issuer: User
+- External directive: D016-E
+- Objective: Replace assistant-product CLI reviewer access with direct model API calls where the project controls the complete tool surface, using the OpenAI Responses API for the primary slot and the Google Gemini API for the alternate.
+- Scope: OpenAI Responses and Gemini generateContent reviewer backends; a mockable HTTP transport; request construction proven to carry no tools; request provenance covering provider, requested model, API version, tool surface, prompt hash, evidence hash, sanitized request hash, schema and parser versions, exposed parameters, response identifier, raw response hash, retries and final ruling; credential discovery by presence only; the A001 governance audit; the A001 gate state; qualification evidence; tests; .agent synchronization; and CI.
+- Exclusions: Using Codex CLI, Gemini CLI, Antigravity, Claude Code, ChatGPT or any other assistant-product interface for the formal reviewers; creating accounts, API keys, billing, subscriptions or paid resources; printing, copying, committing or otherwise exposing secrets; showing formal scored fixtures to any model without both credentials present; lowering thresholds; tuning prompts; switching models; changing fixtures; rerunning a failed formal qualification until it passes; baseline human qualification; participant recruitment; BlindVariancePilotV1 execution; Attempt 1; human ablations; R003 through R009; and creating D017.
+- Acceptance: Both API transports implemented and fully tested against mock transports; their serialized requests proven to contain no tools, with OpenAI additionally forcing tool_choice=none and Gemini declaring no tool fields at all; the D016-C role contracts, evidence isolation, ruling schema, disagreement behaviour, fixtures and frozen thresholds preserved unchanged; provider-hidden internals recorded as UNOBSERVABLE_PROVIDER_CONTROL_PLANE rather than fabricated; credentials inspected for but never created or exposed; and either the frozen qualification executed once unchanged when both credentials exist, or BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE returned naming exactly which credentials are missing, with no formal scored fixture shown to any model.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-D
+- Status at issuance: ISSUED

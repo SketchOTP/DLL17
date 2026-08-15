@@ -1,6 +1,7 @@
 package com.animusmachinae.dll17.research.aliveness.analysis
 
 import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
+import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
 import com.animusmachinae.dll17.research.aliveness.agentic.FORBIDDEN_TO_EVERY_ROLE
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
 import kotlin.test.Test
@@ -17,7 +18,7 @@ class GovernanceAuditTest {
     @Test
     fun `the audit covers every canonical activation prerequisite`() {
         // 27 through D016-A; five agentic-governance items added by D016-C.
-        assertEquals(33, items.size)
+        assertEquals(34, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
     }
 
@@ -73,7 +74,7 @@ class GovernanceAuditTest {
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
                 "BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED",
                 "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE",
-                "BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE",
+                "BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE",
             ),
             AlivenessGovernanceAudit.blockers(items),
         )
@@ -117,15 +118,25 @@ class GovernanceAuditTest {
     }
 
     @Test
-    fun `reviewer isolation is blocked and names why a local jail is not sufficient`() {
+    fun `reviewer isolation now passes because it is derived from the request bytes`() {
         val isolation = items.single { it.id == "GA-33" }
-        assertEquals(AuditState.BLOCKED, isolation.state)
-        assertEquals("BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE", isolation.blockingState)
-        // The D016-D finding is the load-bearing part: the boundary failed on tools
-        // the client does not control, so a future attempt is not tempted to retry
-        // the same jail and expect a different answer.
-        assertTrue(isolation.detail.contains("provisioned by the provider account"))
+        // D016-E replaced the assistant-product CLIs with direct API calls, so the
+        // tool surface became something this repository can check about itself.
+        assertEquals(AuditState.PASS, isolation.state)
+        assertEquals(null, isolation.blockingState)
+        assertTrue(isolation.detail.contains(ApiReviewerIsolationSelfCheck.CHECK_ID))
+        assertTrue(isolation.detail.contains("tool_choice=none"))
+        // ...and the superseded D016-D finding is still pointed at, not erased.
         assertTrue(isolation.detail.contains("AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt"))
+    }
+
+    @Test
+    fun `the binding constraint is now the missing provider credentials, named exactly`() {
+        val credentials = items.single { it.id == "GA-34" }
+        assertEquals(AuditState.BLOCKED, credentials.state)
+        assertEquals("BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE", credentials.blockingState)
+        assertTrue(credentials.detail.contains("OPENAI_API_KEY"))
+        assertTrue(credentials.detail.contains("GEMINI_API_KEY"))
     }
 
     @Test

@@ -8,8 +8,8 @@ import com.animusmachinae.dll17.research.aliveness.agentic.AgenticReviewQualific
 import com.animusmachinae.dll17.research.aliveness.agentic.AgenticRoleContracts
 import com.animusmachinae.dll17.research.aliveness.agentic.FailureMode
 import com.animusmachinae.dll17.research.aliveness.agentic.MetaEvaluationSuite
+import com.animusmachinae.dll17.research.aliveness.agentic.ApiReviewerIsolationSelfCheck
 import com.animusmachinae.dll17.research.aliveness.agentic.QualificationThresholds
-import com.animusmachinae.dll17.research.aliveness.agentic.ReviewerConfiguration
 import com.animusmachinae.dll17.research.aliveness.agentic.RulingParser
 import com.animusmachinae.dll17.research.aliveness.agentic.RulingVerdict
 
@@ -57,8 +57,8 @@ public class AuditItem(
  */
 public object AlivenessGovernanceAudit {
 
-    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV4"
-    public const val AUDIT_VERSION: Int = 4
+    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV5"
+    public const val AUDIT_VERSION: Int = 5
 
     /**
      * The agentic-governance facts, read from the harness rather than restated.
@@ -76,6 +76,10 @@ public object AlivenessGovernanceAudit {
         AgenticReviewQualification.realReviewersAvailable(System::getenv)
     private val reviewerIsolationAttested =
         AgenticReviewQualification.isolationAvailable(System::getenv)
+    private val providerCredentialsAvailable =
+        AgenticReviewQualification.credentialsAvailable(System::getenv)
+    private val missingCredentials =
+        AgenticReviewQualification.missingCredentials(System::getenv)
 
     @JvmStatic
     public fun main(args: Array<String>) {
@@ -421,19 +425,39 @@ public object AlivenessGovernanceAudit {
             "GA-33",
             "Each reviewer is confined to its frozen bundle, with no repository and no web reach",
             if (reviewerIsolationAttested) AuditState.PASS else AuditState.BLOCKED,
-            "a slot counts as isolated only when its environment carries " +
-                "A001_{SLOT}_REVIEWER_TOOL_DENIAL=" +
-                "${ReviewerConfiguration.REQUIRED_ATTESTATION}; D016-D attempted this against " +
-                "two authenticated assistant CLIs and could not obtain it from either, because " +
-                "the tools that breach the boundary are provisioned by the provider account " +
-                "rather than by the client, and therefore survive every client flag and an " +
-                "operating-system jail that removes the repository from the filesystem " +
-                "entirely; the finding is preserved in " +
-                "evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt",
+            "derived by ${ApiReviewerIsolationSelfCheck.CHECK_ID} rather than attested: each " +
+                "formal reviewer backend serializes a real request through a recording " +
+                "transport and the emitted JSON is inspected for tool-bearing keys at any " +
+                "depth, so the property is checked on a machine with no credential and no " +
+                "provider contact; the OpenAI request additionally forces tool_choice=none " +
+                "and the Gemini request declares no tools at all; D016-D's environment " +
+                "attestation is superseded because it existed only to cover a gap that " +
+                "assistant-product CLIs created and direct API calls do not, and that " +
+                "finding is preserved in evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt",
             blockingState = if (reviewerIsolationAttested) {
                 null
             } else {
                 "BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE"
+            },
+        ),
+        AuditItem(
+            "GA-34",
+            "A credential exists for each formal reviewer slot's provider API",
+            if (providerCredentialsAvailable) AuditState.PASS else AuditState.BLOCKED,
+            "the formal reviewers are direct API calls, so each slot needs its own " +
+                "provider credential: " +
+                AgenticReviewQualification.REQUIRED_CREDENTIALS.joinToString(", ") {
+                    "${it.first}=${it.second}"
+                } +
+                "; missing here: " +
+                missingCredentials.joinToString(",").ifEmpty { "none" } +
+                "; presence is read from the environment and no credential value is ever " +
+                "read into evidence, hashed or rendered, and D016-E forbids creating " +
+                "accounts, keys, billing or paid resources to satisfy this",
+            blockingState = if (providerCredentialsAvailable) {
+                null
+            } else {
+                "BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE"
             },
         ),
     )

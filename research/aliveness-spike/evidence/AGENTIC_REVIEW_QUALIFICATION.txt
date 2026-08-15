@@ -145,23 +145,40 @@ WHAT THIS RUN DID NOT MEASURE
   trusted not to have been fitted to a result.
 
 ================================================================
-ISOLATION PRECONDITION
+REVIEWER TOOL SURFACE (ApiReviewerIsolationSelfCheckV1)
 
-  A reviewer slot counts as isolated only when its environment carries
-  A001_{SLOT}_REVIEWER_TOOL_DENIAL=VERIFIED_NO_REPOSITORY_NO_WEB.
-  D016-D established why this is a separate precondition rather than part
-  of the diversity check: a hosted assistant can carry provider-side tools
-  that no client flag and no operating-system jail can remove, and a
-  repository-reading tool among them defeats an evidence boundary that is
-  enforced only on the local filesystem. See
-  evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt.
+  TOOL_FREE openai-responses
+             endpoint=https://api.openai.com/v1/responses
+             topLevelKeys=model|input|tool_choice|store  toolBearingKeys=tool_choice  tool_choice=none  secretHeaders=Authorization (redacted, never hashed)
+  TOOL_FREE google-gemini
+             endpoint=https://generativelanguage.googleapis.com/v1beta/models/self-check-model:generateContent
+             topLevelKeys=contents  toolBearingKeys=none  secretHeaders=x-goog-api-key (redacted, never hashed)
+
+  toolSurfaceProven=true
+  method: each backend serializes a real request through a recording
+          transport and the emitted JSON is inspected for tool-bearing
+          keys at any depth. No credential and no provider is involved,
+          so this check runs in CI exactly as it runs here.
+
+================================================================
+PROVIDER CREDENTIALS
+
+  PRIMARY   OPENAI_API_KEY    absent
+  ALTERNATE GEMINI_API_KEY    absent
+
+  Presence only. No credential value is read into evidence, hashed, or
+  rendered anywhere in this file, and the request builders keep secret
+  headers in a separate field that the recorded form replaces with
+  REDACTED.
 
 ================================================================
 STATE
 
-AGENTIC_REVIEW_STATE=BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE
+AGENTIC_REVIEW_STATE=BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE
 MECHANICS_QUALIFIED=true
-REVIEWER_ISOLATION_ATTESTED=false
+TOOL_SURFACE_PROVEN=true
+PROVIDER_CREDENTIALS_AVAILABLE=false
+MISSING_CREDENTIALS=OPENAI_API_KEY,GEMINI_API_KEY
 REAL_REVIEWERS_AVAILABLE=false
 HUMAN_PARTICIPANT_DATA=0 records; agents govern the study and never replace
                        the people whose perception A001 measures

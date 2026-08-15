@@ -230,11 +230,22 @@ jobs:
             --no-daemon --quiet > agentic_review.txt
           diff -u research/aliveness-spike/evidence/AGENTIC_REVIEW_QUALIFICATION.txt \
             agentic_review.txt
-          grep -q 'AGENTIC_REVIEW_STATE=BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE' \
+          grep -q 'AGENTIC_REVIEW_STATE=BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE' \
             agentic_review.txt \
             || { echo '::error::the agentic review harness changed its qualification state'; exit 1; }
-          grep -q 'REVIEWER_ISOLATION_ATTESTED=false' agentic_review.txt \
-            || { echo '::error::a reviewer isolation attestation appeared in CI, which has no reviewer'; exit 1; }
+          # The load-bearing D016-E property: the formal reviewer requests carry no
+          # tool surface. It is derived from the serialized request bytes, so CI
+          # verifies it on a runner with no credential and no provider contact.
+          grep -q 'toolSurfaceProven=true' agentic_review.txt \
+            || { echo '::error::a formal reviewer request now serializes a tool surface'; exit 1; }
+          grep -q 'tool_choice=none' agentic_review.txt \
+            || { echo '::error::the OpenAI reviewer no longer forces tool_choice=none'; exit 1; }
+          grep -q 'MISSING_CREDENTIALS=OPENAI_API_KEY,GEMINI_API_KEY' agentic_review.txt \
+            || { echo '::error::CI credential state changed; CI must never hold reviewer credentials'; exit 1; }
+          if grep -qE '(sk-|AIza)[A-Za-z0-9_-]{10}' agentic_review.txt; then
+            echo '::error::a credential-shaped string appeared in reviewer evidence'
+            exit 1
+          fi
           grep -q 'authorityBoundaryHolds=true' agentic_review.txt \
             || { echo '::error::the study operator/reviewer authority boundary broke'; exit 1; }
           grep -q 'notHeld=0' agentic_review.txt \

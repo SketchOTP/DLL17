@@ -347,3 +347,60 @@ correction, the exclusion ordering and the sealed pilot channel are untouched an
 still checked by CI. No participant was recruited and no human outcome data
 exists anywhere in this repository. `GA-26` still reports that no ethics
 determination exists and none is claimed. Recorded as O-0019 and DEC-0042.
+
+## D016-E — direct API reviewers, and the blocker reduced to credentials
+
+`BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE`. Still six outstanding blockers, but
+one of them changed identity and one cleared. The audit is now
+`AlivenessGovernanceAuditV5` with 34 items.
+
+The architect's disposition on D016-D was that assistant-product CLIs are the
+wrong boundary for independent review, because their tool surfaces are not
+caller-controlled. D016-E replaces them with direct model-API calls, where the
+request this repository serializes **is** the entire tool surface.
+
+### `GA-33` now passes, and it is derived rather than attested
+
+`ApiReviewerIsolationSelfCheckV1` builds a real request through each backend via
+a recording transport and inspects the emitted JSON for tool-bearing keys at any
+depth:
+
+| Slot | Endpoint | Result |
+|---|---|---|
+| Primary | `POST /v1/responses` | `topLevelKeys=model\|input\|tool_choice\|store`, `tool_choice=none` |
+| Alternate | `POST /v1beta/models/{model}:generateContent` | `topLevelKeys=contents`, `toolBearingKeys=none` |
+
+No credential and no provider contact is involved, so CI verifies it on every
+push and asserts `toolSurfaceProven=true` and `tool_choice=none`. `assertToolFree`
+also runs inside the builders, so an edit that adds a tool field fails at run time
+and not only in a test.
+
+D016-D's environment attestation
+(`A001_{SLOT}_REVIEWER_TOOL_DENIAL=VERIFIED_NO_REPOSITORY_NO_WEB`) is superseded.
+It existed only to cover a gap that assistant-product CLIs created and direct API
+calls do not. The D016-D record above and its preflight evidence stand unaltered.
+
+### New: `GA-34`, `BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE`
+
+`OPENAI_API_KEY` and `GEMINI_API_KEY` are both absent — from the process
+environment and from every shell profile. D016-E forbids creating accounts, keys,
+billing or paid resources, so this is an owner input, and it is now the *only*
+thing standing between the harness and its first real measurement.
+
+Credential handling is structural: a request's secret headers live in a separate
+field from its ordinary headers, and the recorded form — the form that is hashed
+into provenance — renders them as `REDACTED`. There is no field in the recorded
+form for a credential to land in. CI additionally scans reviewer evidence for
+credential-shaped strings, and asserts that CI itself holds neither key.
+
+### Unchanged
+
+No formal qualification ran and no scored meta-evaluation fixture was shown to any
+model, so `AgenticReviewerQualificationThresholdsV1` remains unapplied and still
+cannot have been fitted to a result. Attempts consumed remains `0 / 3`. Programme
+state remains `ALIVENESS_UNTESTED`. The owner ceiling, the +10 floor, the scripted
+comparator, the frozen instrument, the multiplicity correction, the exclusion
+ordering and the sealed pilot channel are untouched and still checked by CI. No
+participant was recruited and no human outcome data exists anywhere in this
+repository. `GA-26` still reports that no ethics determination exists and none is
+claimed. Recorded as O-0020 and DEC-0043.

@@ -132,57 +132,52 @@ class QualificationTest {
         return { map[it] }
     }
 
-    /**
-     * The attestation both slots need before any reviewer property is measurable.
-     * Kept as a helper so the tests below read as statements about state ordering
-     * rather than about environment plumbing.
-     */
-    private fun attested(): Array<Pair<String, String>> = arrayOf(
-        "A001_PRIMARY_REVIEWER_TOOL_DENIAL" to ReviewerConfiguration.REQUIRED_ATTESTATION,
-        "A001_ALTERNATE_REVIEWER_TOOL_DENIAL" to ReviewerConfiguration.REQUIRED_ATTESTATION,
+    /** Both formal reviewer credentials, per D016-E. */
+    private fun credentialed(): Array<Pair<String, String>> = arrayOf(
+        "OPENAI_API_KEY" to "not-a-real-key",
+        "GEMINI_API_KEY" to "not-a-real-key",
     )
 
     @Test
-    fun `with nothing configured the harness reports isolation unavailable first`() {
-        assertFalse(AgenticReviewQualification.isolationAvailable(env()))
-        assertFalse(AgenticReviewQualification.realReviewersAvailable(env()))
-        // Both are missing; the stronger finding must be the one reported, because a
-        // reviewer that can reach the repository is not made acceptable by adding a
-        // second one of a different family.
+    fun `the tool surface is proven from the request bytes rather than attested`() {
+        // D016-D had to trust an environment attestation because a CLI reviewer's
+        // tools came from a provider account. A direct API request carries only the
+        // tools this repository serializes, so the property is now derived, and it
+        // holds on a machine with no credential at all.
+        assertTrue(AgenticReviewQualification.isolationAvailable(env()))
+        assertTrue(ApiReviewerIsolationSelfCheck.holds())
+    }
+
+    @Test
+    fun `with no credentials the harness reports provider credentials unavailable`() {
+        assertFalse(AgenticReviewQualification.credentialsAvailable(env()))
         assertEquals(
-            AgenticReviewQualification.STATE_ISOLATION_UNAVAILABLE,
+            listOf("OPENAI_API_KEY", "GEMINI_API_KEY"),
+            AgenticReviewQualification.missingCredentials(env()),
+        )
+        // Isolation is no longer the binding constraint, so the state must name the
+        // one that actually is rather than reporting the older, broader blocker.
+        assertEquals(
+            AgenticReviewQualification.STATE_CREDENTIALS_UNAVAILABLE,
             AgenticReviewQualification.state(env(), results),
         )
     }
 
     @Test
-    fun `an attested pair with no credentials reports diversity unavailable`() {
-        val e = env(*attested())
-        assertTrue(AgenticReviewQualification.isolationAvailable(e))
+    fun `one credential is not enough and the missing one is named`() {
+        val e = env("OPENAI_API_KEY" to "not-a-real-key")
+        assertFalse(AgenticReviewQualification.credentialsAvailable(e))
+        assertEquals(listOf("GEMINI_API_KEY"), AgenticReviewQualification.missingCredentials(e))
+    }
+
+    @Test
+    fun `credentials present but reviewers undeclared reports diversity unavailable`() {
+        val e = env(*credentialed())
+        assertTrue(AgenticReviewQualification.credentialsAvailable(e))
         assertEquals(
             AgenticReviewQualification.STATE_DIVERSITY_UNAVAILABLE,
             AgenticReviewQualification.state(e, results),
         )
-    }
-
-    @Test
-    fun `the attestation is one exact string and nothing else counts`() {
-        for (bogus in listOf("true", "yes", "VERIFIED", "verified_no_repository_no_web", "1")) {
-            val e = env(
-                "A001_PRIMARY_REVIEWER_TOOL_DENIAL" to bogus,
-                "A001_ALTERNATE_REVIEWER_TOOL_DENIAL" to bogus,
-            )
-            assertFalse(
-                AgenticReviewQualification.isolationAvailable(e),
-                "'$bogus' must not satisfy the isolation attestation",
-            )
-        }
-    }
-
-    @Test
-    fun `one attested slot is not enough`() {
-        val e = env("A001_PRIMARY_REVIEWER_TOOL_DENIAL" to ReviewerConfiguration.REQUIRED_ATTESTATION)
-        assertFalse(AgenticReviewQualification.isolationAvailable(e))
     }
 
     @Test
@@ -199,7 +194,7 @@ class QualificationTest {
     @Test
     fun `qualification requires the mechanics as well as real reviewers`() {
         val fullyConfigured = env(
-            *attested(),
+            *credentialed(),
             "A001_PRIMARY_REVIEWER_PROVIDER" to "acme",
             "A001_PRIMARY_REVIEWER_MODEL" to "m-1",
             "A001_PRIMARY_REVIEWER_FAMILY" to "fam-a",
@@ -235,9 +230,10 @@ class QualificationTest {
         assertTrue(
             a.contains(
                 "AGENTIC_REVIEW_STATE=" +
-                    AgenticReviewQualification.STATE_ISOLATION_UNAVAILABLE,
+                    AgenticReviewQualification.STATE_CREDENTIALS_UNAVAILABLE,
             ),
         )
-        assertTrue(a.contains("REVIEWER_ISOLATION_ATTESTED=false"))
+        assertTrue(a.contains("TOOL_SURFACE_PROVEN=true"))
+        assertTrue(a.contains("MISSING_CREDENTIALS=OPENAI_API_KEY,GEMINI_API_KEY"))
     }
 }

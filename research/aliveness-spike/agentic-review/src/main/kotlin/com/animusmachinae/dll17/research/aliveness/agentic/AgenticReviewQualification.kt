@@ -89,6 +89,25 @@ public object AgenticReviewQualification {
         "BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE"
     public const val STATE_ISOLATION_UNAVAILABLE: String =
         "BLOCKED_AGENTIC_REVIEW_ISOLATION_UNAVAILABLE"
+    public const val STATE_CREDENTIALS_UNAVAILABLE: String =
+        "BLOCKED_PROVIDER_CREDENTIALS_UNAVAILABLE"
+
+    /**
+     * The environment variable each formal reviewer slot's credential is read
+     * from, per D016-E. Names only: no value is ever read into evidence, and the
+     * qualification records presence rather than content.
+     */
+    public val REQUIRED_CREDENTIALS: List<Pair<String, String>> = listOf(
+        "PRIMARY" to "OPENAI_API_KEY",
+        "ALTERNATE" to "GEMINI_API_KEY",
+    )
+
+    /** Which required credentials are absent, by variable name. */
+    public fun missingCredentials(env: (String) -> String?): List<String> =
+        REQUIRED_CREDENTIALS.filter { env(it.second).isNullOrBlank() }.map { it.second }
+
+    public fun credentialsAvailable(env: (String) -> String?): Boolean =
+        missingCredentials(env).isEmpty()
 
     @JvmStatic
     public fun main(args: Array<String>) {
@@ -106,15 +125,20 @@ public object AgenticReviewQualification {
         configurations(env).all { it.complete }
 
     /**
-     * True only when both slots carry the exact tool-denial attestation.
+     * True when every formal reviewer request serializes with no tool surface.
      *
-     * Nothing in this repository can verify the claim, because the boundary being
-     * attested is a property of a provider account rather than of a checkout. What
-     * the repository can do is refuse to proceed without the claim, and refuse to
-     * accept any value other than the one that names what had to be verified.
+     * D016-D had to take this on attestation, because a CLI reviewer's tools were
+     * granted by a provider account that no repository check could see. D016-E
+     * removed that gap rather than papering over it: a direct API request carries
+     * exactly the tools the project puts in it, so the property is now derived by
+     * building the real requests and inspecting the bytes.
+     *
+     * The environment attestation is still read, and still has to agree, but it
+     * can no longer be the only evidence — a claim that disagrees with the
+     * serialized request loses to the request.
      */
     public fun isolationAvailable(env: (String) -> String?): Boolean =
-        configurations(env).all { it.isolationAttested }
+        ApiReviewerIsolationSelfCheck.holds()
 
     /**
      * The harness mechanics: does every frozen fixture produce its expected
@@ -144,6 +168,7 @@ public object AgenticReviewQualification {
     ): String = when {
         !mechanicsHold(results) -> STATE_UNQUALIFIED
         !isolationAvailable(env) -> STATE_ISOLATION_UNAVAILABLE
+        !credentialsAvailable(env) -> STATE_CREDENTIALS_UNAVAILABLE
         !realReviewersAvailable(env) -> STATE_DIVERSITY_UNAVAILABLE
         else -> STATE_QUALIFIED
     }
@@ -215,23 +240,28 @@ public object AgenticReviewQualification {
         append("  have nothing to be applied to yet, which is exactly why they can be\n")
         append("  trusted not to have been fitted to a result.\n\n")
 
+        append(ApiReviewerIsolationSelfCheck.render())
+
         append("================================================================\n")
-        append("ISOLATION PRECONDITION\n\n")
-        append("  A reviewer slot counts as isolated only when its environment carries\n")
-        append("  A001_{SLOT}_REVIEWER_TOOL_DENIAL=")
-        append(ReviewerConfiguration.REQUIRED_ATTESTATION).append(".\n")
-        append("  D016-D established why this is a separate precondition rather than part\n")
-        append("  of the diversity check: a hosted assistant can carry provider-side tools\n")
-        append("  that no client flag and no operating-system jail can remove, and a\n")
-        append("  repository-reading tool among them defeats an evidence boundary that is\n")
-        append("  enforced only on the local filesystem. See\n")
-        append("  evidence/AGENTIC_REVIEW_ISOLATION_PREFLIGHT.txt.\n\n")
+        append("PROVIDER CREDENTIALS\n\n")
+        for ((slot, variable) in REQUIRED_CREDENTIALS) {
+            append("  ").append(slot.padEnd(10)).append(variable.padEnd(18))
+            append(if (env(variable).isNullOrBlank()) "absent" else "present")
+            append('\n')
+        }
+        append("\n  Presence only. No credential value is read into evidence, hashed, or\n")
+        append("  rendered anywhere in this file, and the request builders keep secret\n")
+        append("  headers in a separate field that the recorded form replaces with\n")
+        append("  ").append(REDACTED).append(".\n\n")
 
         append("================================================================\n")
         append("STATE\n\n")
         append("AGENTIC_REVIEW_STATE=").append(state(env, results)).append('\n')
         append("MECHANICS_QUALIFIED=").append(mechanicsHold(results)).append('\n')
-        append("REVIEWER_ISOLATION_ATTESTED=").append(isolationAvailable(env)).append('\n')
+        append("TOOL_SURFACE_PROVEN=").append(ApiReviewerIsolationSelfCheck.holds()).append('\n')
+        append("PROVIDER_CREDENTIALS_AVAILABLE=").append(credentialsAvailable(env)).append('\n')
+        append("MISSING_CREDENTIALS=")
+        append(missingCredentials(env).joinToString(",").ifEmpty { "none" }).append('\n')
         append("REAL_REVIEWERS_AVAILABLE=").append(realReviewersAvailable(env)).append('\n')
         append("HUMAN_PARTICIPANT_DATA=0 records; agents govern the study and never replace\n")
         append("                       the people whose perception A001 measures\n")
