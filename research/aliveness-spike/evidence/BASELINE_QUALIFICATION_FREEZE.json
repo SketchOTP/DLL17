@@ -6,11 +6,12 @@
   "presentation": "SpikeExpressionContractV1-blinded-counterbalanced",
   "exclusions": "BaselineQualificationExclusionsV1",
   "analysis": "A001AnalysisV1-paired-t-interval",
+  "canonicalByteRule": "UTF-8 text with CRLF and CR normalized to LF",
   "files": [
-    {"role": "comparator", "path": "research/aliveness-spike/study-protocol/ScriptedPetBaselineV1.md", "sha256": "5c4b0a2812c6c724578ceb32915d8dac86a9ecde09d591bacdc9673b43402153"},
-    {"role": "protocol", "path": "research/aliveness-spike/study-protocol/BaselineQualificationProtocolV1.md", "sha256": "4b732795e3dd4c1d1cd9d94ec1fa99ec2d4d6d08a389aae193b2bb1a2ca17601"},
-    {"role": "instrument", "path": "research/aliveness-spike/study-protocol/GradedAlivenessInstrumentV1.md", "sha256": "9d1d7867a0c514e8d5428a6e3ac542549bf88bd6e108b0d6bf3ac73b11a2dd3a"},
-    {"role": "presentation", "path": "research/aliveness-spike/study-protocol/AlivenessStudyProtocolV1.md", "sha256": "41ffe00965836745ab222fd587a7fcd9d2a9393d851627dff8a49fb371303160"},
-    {"role": "exclusions-and-analysis", "path": "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001Analysis.kt", "sha256": "1650d55efe795ec9c10c2b7286257a0034842833337906139204f1adbfa5d369"}
+    {"role": "comparator", "path": "research/aliveness-spike/study-protocol/ScriptedPetBaselineV1.md", "sha256": "0afce48da565163d9e10ece17973c93b14f791291bb96a6b21881afcf1d1c398"},
+    {"role": "protocol", "path": "research/aliveness-spike/study-protocol/BaselineQualificationProtocolV1.md", "sha256": "4f92292c5815c98df8d2c4a11c0ad4946e1bb766acc242ca05ac750a49dddbe7"},
+    {"role": "instrument", "path": "research/aliveness-spike/study-protocol/GradedAlivenessInstrumentV1.md", "sha256": "0912b853342d075a031aea4d43ffae6b570e88a83a5f84935a7854e6209c3ddd"},
+    {"role": "presentation", "path": "research/aliveness-spike/study-protocol/AlivenessStudyProtocolV1.md", "sha256": "d9383daf7facf584e5ae09ee023206c6da2f2d53d04e71b7770586166a9ef80b"},
+    {"role": "exclusions-and-analysis", "path": "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001Analysis.kt", "sha256": "abbbb8cbeccada328ae457c0b0c87f257039f40ef5bca4dfad31c64ec4282e37"}
   ]
 }

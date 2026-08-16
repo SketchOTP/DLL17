@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T10:00:00-04:00`
+- Last updated: `2026-08-16T16:30:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-K-R2
-- External directive ID: D016-K-R2
-- Objective: Make the frozen-baseline verification portable in Linux CI and synchronize the live ethics state.
+- Local directive ID: D-016-K-R3
+- External directive ID: D016-K-R3
+- Objective: Establish cross-platform canonical freeze bytes and remove residual comparator-protocol drift.
 - Current status: `IN_PROGRESS`
 - Acceptance: Green Governance and Build/Test on the exact pushed SHA; freeze manifest and hash enforced; no participants or recruitment; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
-- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; D016-K-R1 failed exact-SHA CI only because the Linux runner invoked the Windows-only py launcher. The baseline remains unqualified until the frozen 40-person blinded human experiment exists.
+- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; D016-K-R1 and R2 failed exact-SHA CI, with R2 exposing a cross-platform freeze digest mismatch after its Python portability fix. The baseline remains unqualified until the frozen 40-person blinded human experiment exists.
 - Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/analysis/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/. No organism source, threshold, sample size, analysis rule, pilot seal, reviewer/model infrastructure, scored study data or participant record was modified.
-- Immediate next action: Use the portable Linux Python 3 invocation, synchronize this live record with the existing D016-J ethics determination, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
+- Immediate next action: Verify canonical UTF-8/LF freeze bytes, regenerate dependent evidence, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
 
 ## Temporary task-relevant facts
 

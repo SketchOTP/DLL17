@@ -67,16 +67,25 @@ and 0.39.
 
 ## Competence qualification status
 
-**Not qualified.** `BaselineQualificationProtocolV1` requires a pilot-only human
-rater pool and an independently owned margin. No human data exists, and
-The baseline is not yet qualified. D016-K explicitly does not claim this
-baseline has passed its competence qualification, and this document does not
-either.
+**`APPROVED_FOR_HUMAN_QUALIFICATION_NOT_YET_QUALIFIED`.** Competence is
+established only by the frozen 40-person blinded paired human qualification of
+this comparator against `DegradedScriptedControlV1`. This is not a pilot-only
+rater pool. No independently owned margin, `BaselineIndependentOwner`,
+reviewer, model, committee or other discretionary qualification authority
+exists; the deterministic result from that human experiment is the sole
+qualification authority.
+
+No human data exists, and this baseline has not passed qualification. If this
+frozen version fails, that failure is preserved. No person, model, reviewer or
+committee may rescue or override it.
 
 ## Freeze and versioning
 
-After competence qualification, the contingency table, script, hold windows,
-thresholds and expression-contract version are hashed and pinned. The same
-qualified version is used across scored attempts unless an interface or parity
-change forces a new one; a new version requires independent review and
-requalification and may not reduce the previously qualified competence floor.
+The comparator, qualification protocol, competence instrument, presentation,
+exclusions and analysis are frozen and hash-pinned before qualification human
+data. The same version is used across scored attempts unless an interface or
+parity change forces a new documented baseline version. Any material
+strengthening requires fresh independent human qualification participants.
+It may not reduce a previously qualified competence floor. The qualification
+rule is mean paired competence difference at least `+15` with a 95% confidence
+interval lower bound above zero.

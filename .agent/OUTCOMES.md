@@ -73,6 +73,24 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Follow-up directive: none
 
 
+## D-016-K-R3 - PARTIAL
+
+- Outcome ID: O-0029
+- Supersedes outcome: none
+- Closed: 2026-08-16T16:30:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-K-R2 is preserved as FAILED_EXACT_SHA_CI. Its Python portability correction worked, but the A001 activation package then exposed a freeze digest mismatch for ScriptedPetBaselineV1. Exact byte inspection proved the local Windows working tree contains CRLF bytes while the committed Git blob and Ubuntu checkout use LF; the R2 manifest had been created from the local CRLF representation. R3 adopts an explicit canonical representation of UTF-8 text with CRLF and CR normalized to LF for every pinned freeze file and for the manifest hash. The residual ScriptedPetBaselineV1 prose is corrected to the frozen 40-person blinded qualification, deterministic sole authority, pre-data hash pinning and preserved failure semantics. No participants, recruitment, human data or A001 attempt was created.
+- Changed areas: tools/verify_baseline_freeze.py, research/aliveness-spike/study-protocol/ScriptedPetBaselineV1.md, research/aliveness-spike/evidence/BASELINE_QUALIFICATION_FREEZE.json, research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/BaselineQualificationFreezeV1.kt, .agent/
+- Validation:
+  - Exact local working-tree versus Git blob byte/hash comparison for ScriptedPetBaselineV1; CRLF local versus LF canonical blob proven - PASSED
+  - Canonical UTF-8/LF hashes recomputed for all five pinned files and the manifest - PASSED
+  - Freeze verifier after canonicalization - PASSED
+  - Generated evidence and full JVM/Android/CI validation - NOT RUN
+- Remaining risks: Exact pushed-SHA Governance and Build/Test are still required. The baseline remains unqualified and A001 remains shut.
+- Blockers: BLOCKED_BASELINE_NOT_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
+- Follow-up directive: none
+
+
 ## D-016-K-R1 - PARTIAL
 
 - Outcome ID: O-0027

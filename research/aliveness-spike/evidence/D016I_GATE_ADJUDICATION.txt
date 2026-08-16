@@ -147,7 +147,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       detail:      all 11 thresholds match the values frozen before any human data existed
     SATISFIED AJ-02
       requirement: The frozen scripted baseline qualification passed its human experiment
-      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=a186b356017d2a0cc6e58cbcd4a6280a98f09b13ac17c0951d62565d58a68ac9 required n>=40 margin>=15.000 ciLow>0
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=0403e06eb5004bf09e8d402abc54a153bec7857c4e4f3d7c6301808cef0ff18d required n>=40 margin>=15.000 ciLow>0
     SATISFIED AJ-03
       requirement: BlindVariancePilotV1 released a protocol-valid result
       detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here
@@ -236,7 +236,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       detail:      all 11 thresholds match the values frozen before any human data existed
     SATISFIED AJ-02
       requirement: The frozen scripted baseline qualification passed its human experiment
-      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=a186b356017d2a0cc6e58cbcd4a6280a98f09b13ac17c0951d62565d58a68ac9 required n>=40 margin>=15.000 ciLow>0
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=0403e06eb5004bf09e8d402abc54a153bec7857c4e4f3d7c6301808cef0ff18d required n>=40 margin>=15.000 ciLow>0
     SATISFIED AJ-03
       requirement: BlindVariancePilotV1 released a protocol-valid result
       detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here

@@ -454,3 +454,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-K-R1
 - Status at issuance: ISSUED
+
+
+## D-016-K-R3
+
+- Issued: 2026-08-16T16:30:00-04:00
+- Issuer: User
+- External directive: D016-K-R3
+- Objective: Canonicalize cross-platform baseline freeze bytes and remove residual comparator-protocol drift without changing A001 science or architecture.
+- Scope: Prove the local-versus-CI byte/EOL mismatch; establish and machine-check a UTF-8/LF canonical representation for every pinned freeze text file and the manifest hash; correct stale ScriptedPetBaselineV1 qualification and freeze prose; recompute affected hashes and dependent evidence; synchronize `.agent/` records; and obtain exact-SHA CI.
+- Exclusions: No comparator behavior, control behavior, 40-person design, blinding, randomization, session duration, instrument, thresholds, exclusions, analysis, participant protections, ethics determination, owner ceilings, A001 thresholds or attempt budget, organism mechanisms, auditor/model architecture, recruitment, participants, human data, scored attempt or D016-L.
+- Acceptance: The byte mismatch cause is proven; canonical freeze bytes verify identically across Windows and Linux; no active pre-D016-K owner/reviewer semantics remain; freeze and manifest-to-gate verification pass; Governance and full Build/Test are green on the exact pushed SHA; A001 remains ALIVENESS_UNTESTED with attempts 0/3, human data 0 and recruitment blocked.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-K-R2
+- Status at issuance: ISSUED
