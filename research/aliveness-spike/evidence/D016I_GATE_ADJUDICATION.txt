@@ -138,7 +138,7 @@ SYNTHETIC REPLAY FIXTURE   [SYNTHETIC — no human has rated anything]
 ================================================================
 A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
 
-  evidenceHash=9371134b2a38548e17dc893e84179933c0df3029ac9ab1e672d3885837c788a8
+  evidenceHash=6de581a198a2d48b6d571fd9f5122ecfb235aeb54c62e8b124fed203bd4b3314
   deterministic: no clock, no randomness, no network, no model
 
   PREREQUISITE STAGES
@@ -227,7 +227,7 @@ AGENT AUTHORITY, DEMONSTRATED   [SYNTHETIC]
 ================================================================
 A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
 
-  evidenceHash=9371134b2a38548e17dc893e84179933c0df3029ac9ab1e672d3885837c788a8
+  evidenceHash=6de581a198a2d48b6d571fd9f5122ecfb235aeb54c62e8b124fed203bd4b3314
   deterministic: no clock, no randomness, no network, no model
 
   PREREQUISITE STAGES
