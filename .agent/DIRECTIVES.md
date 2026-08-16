@@ -469,3 +469,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-K-R2
 - Status at issuance: ISSUED
+
+
+## D-016-K-R4
+
+- Issued: 2026-08-16T18:30:00-04:00
+- Issuer: User
+- External directive: D016-K-R4
+- Objective: Diagnose and stabilize A001 generated-evidence byte identity after the same exact-SHA R3 failure reproduced twice.
+- Scope: Prove the Git-object versus working-tree and encoding transformation for A001_ACTIVATION_DRY_RUN.txt; inspect effective Git attributes, filters and EOL configuration; correct only the proven generated-evidence encoding defect; verify adjacent generated artifacts; preserve the R3 canonical freeze; synchronize `.agent/` records; and obtain exact-SHA CI.
+- Exclusions: No baseline science, comparator or control behavior, study design, thresholds, exclusions, analysis, protections, ethics determination, owner ceilings, attempt accounting, organism, reviewer/model architecture, recruitment, participants, human data, scored attempt, D016-L or unrelated cleanup.
+- Acceptance: The transformation cause is demonstrated; the correction makes A001 generated evidence byte-identical on Linux; baseline coverage and gate evidence regenerate identically; the freeze and manifest binding remain valid; Governance and full Build/Test are green on the exact pushed SHA; and A001 remains ALIVENESS_UNTESTED with attempts 0/3, human data 0 and recruitment blocked.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-K-R3
+- Status at issuance: ISSUED

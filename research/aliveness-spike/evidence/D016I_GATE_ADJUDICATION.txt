@@ -1,5 +1,5 @@
 A001_GATE_ADJUDICATION=A001GateAdjudicatorV1
-DATA_CLASS=NO_HUMAN_DATA — the live adjudication below runs against the
+DATA_CLASS=NO_HUMAN_DATA â€” the live adjudication below runs against the
            programme's actual evidence, which is empty. No participant has
            been recruited or scored.
 
@@ -20,11 +20,11 @@ AUDITOR AUTHORITY (AuditorAuthorityPolicyV1)
   supersedes: the D016-C reviewer-adjudicates model
 
   Structurally impossible for an auditor:
-    - create a PASS — no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
-    - create a FAIL — an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
-    - rescue a failed result — findings are never inputs to the primary classification, which is a pure function of the screened human data
-    - override the deterministic gate — the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
-    - confirm its own finding — confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
+    - create a PASS â€” no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
+    - create a FAIL â€” an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
+    - rescue a failed result â€” findings are never inputs to the primary classification, which is a pure function of the screened human data
+    - override the deterministic gate â€” the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
+    - confirm its own finding â€” confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
 
   Machine-checkable violation codes: 16
     BASELINE_NOT_QUALIFIED                        baseline qualification evidence and freeze hash
@@ -56,10 +56,10 @@ REPLAY
   replaysIdentically=true
   checked three ways: the same evidence twice, the same evidence with its
   pair records reversed, and the programme's real (empty) evidence twice.
-  Order-invariance is the property the D016-H judge did not have — its
+  Order-invariance is the property the D016-H judge did not have â€” its
   verdict moved under reordering on 5 of 13 fixtures.
 
-LIVE ADJUDICATION — the programme's actual evidence
+LIVE ADJUDICATION â€” the programme's actual evidence
 
 ================================================================
 A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
@@ -108,7 +108,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
     PILOT_NOT_PROTOCOL_VALID
     FEASIBILITY_NOT_ESTABLISHED
 
-  RECOMPUTED ATTEMPT ANALYSIS: none — no attempt was adjudicable
+  RECOMPUTED ATTEMPT ANALYSIS: none â€” no attempt was adjudicable
 
   AUDITOR FINDINGS
     none submitted
@@ -116,7 +116,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   findingsSubmitted=0 upheld=0 notConfirmed=0 returnedToArchitect=0
   outcomeBeforeFindings=A001_BLOCKED
   outcomeAfterFindings=A001_BLOCKED
-  findingsChangedTheOutcome=false — an upheld finding restates a violation already
+  findingsChangedTheOutcome=false â€” an upheld finding restates a violation already
     derived above, and an unconfirmed one is inert
 
   attemptsConsumed=0 attemptsRemaining=3 budget=3
@@ -127,7 +127,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   A001_GATE_OUTCOME=A001_BLOCKED
 
 ================================================================
-SYNTHETIC REPLAY FIXTURE   [SYNTHETIC — no human has rated anything]
+SYNTHETIC REPLAY FIXTURE   [SYNTHETIC â€” no human has rated anything]
 
   Shown because the live adjudication above is blocked before it reaches an
   outcome, and a gate that has only ever returned BLOCKED demonstrates
@@ -210,7 +210,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   findingsSubmitted=0 upheld=0 notConfirmed=0 returnedToArchitect=0
   outcomeBeforeFindings=A001_PASS
   outcomeAfterFindings=A001_PASS
-  findingsChangedTheOutcome=false — an upheld finding restates a violation already
+  findingsChangedTheOutcome=false â€” an upheld finding restates a violation already
     derived above, and an unconfirmed one is inert
 
   attemptsConsumed=1 attemptsRemaining=2 budget=3
@@ -304,7 +304,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   findingsSubmitted=2 upheld=0 notConfirmed=1 returnedToArchitect=1
   outcomeBeforeFindings=A001_PASS
   outcomeAfterFindings=A001_PASS_PENDING_ARCHITECT_REVIEW
-  findingsChangedTheOutcome=true — an ambiguous finding suspended a pass for the Architect,
+  findingsChangedTheOutcome=true â€” an ambiguous finding suspended a pass for the Architect,
     which is the only effect an auditor is permitted to have and is
     available in one direction only
 

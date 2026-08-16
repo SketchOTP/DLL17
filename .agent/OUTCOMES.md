@@ -91,6 +91,25 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Follow-up directive: none
 
 
+## D-016-K-R4 - PARTIAL
+
+- Outcome ID: O-0030
+- Supersedes outcome: O-0029
+- Closed: 2026-08-16T18:30:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-K-R3 failed twice on the exact same SHA after its baseline freeze verifier passed on Ubuntu. Byte-level inspection proves the remaining mismatch is generated-evidence encoding, not Git EOL/filter transformation: both the A001 Git blob and Windows working tree contain CP-1252 em-dash bytes `0x97`, while Linux generation emits UTF-8. The A001 artifact and the adjacent D016I gate artifact were both invalid under strict UTF-8; BASELINE_COVERAGE_MANIFEST.txt was already valid and unchanged. Only the two proven-invalid generated evidence files were converted to UTF-8. The R3 canonical freeze and manifest binding remain unchanged. No participants, recruitment, human data or A001 attempt was created.
+- Changed areas: research/aliveness-spike/evidence/A001_ACTIVATION_DRY_RUN.txt, research/aliveness-spike/evidence/D016I_GATE_ADJUDICATION.txt, .agent/
+- Validation:
+  - Git blob versus working-tree byte/hash and attribute/filter/EOL inspection for A001 evidence - PASSED; no repository transformation, CP-1252 bytes proven in both
+  - Adjacent generated-evidence encoding inspection - PASSED; baseline coverage valid UTF-8, D016I invalid CP-1252
+  - CP-1252 to UTF-8 conversion of the two proven-invalid generated artifacts - PASSED
+  - Baseline freeze verifier and canonical generator comparison - NOT RUN
+  - Exact-SHA Governance and full Build/Test - NOT RUN
+- Remaining risks: Canonical Linux regeneration and exact-SHA CI remain required. The baseline remains unqualified and A001 remains shut.
+- Blockers: exact-SHA CI pending, local Java 17 unavailable
+- Follow-up directive: none
+
+
 ## D-016-K-R1 - PARTIAL
 
 - Outcome ID: O-0027

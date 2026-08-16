@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T16:30:00-04:00`
+- Last updated: `2026-08-16T18:30:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-K-R3
-- External directive ID: D016-K-R3
-- Objective: Establish cross-platform canonical freeze bytes and remove residual comparator-protocol drift.
+- Local directive ID: D-016-K-R4
+- External directive ID: D016-K-R4
+- Objective: Diagnose and stabilize A001 generated-evidence byte identity.
 - Current status: `IN_PROGRESS`
 - Acceptance: Green Governance and Build/Test on the exact pushed SHA; freeze manifest and hash enforced; no participants or recruitment; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
-- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; D016-K-R1 and R2 failed exact-SHA CI, with R2 exposing a cross-platform freeze digest mismatch after its Python portability fix. The baseline remains unqualified until the frozen 40-person blinded human experiment exists.
+- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; D016-K-R1, R2 and R3 failed exact-SHA CI. R3's canonical freeze passes on Ubuntu; R4 addresses the independently reproduced generated-evidence encoding mismatch. The baseline remains unqualified until the frozen 40-person blinded human experiment exists.
 - Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/analysis/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/. No organism source, threshold, sample size, analysis rule, pilot seal, reviewer/model infrastructure, scored study data or participant record was modified.
-- Immediate next action: Verify canonical UTF-8/LF freeze bytes, regenerate dependent evidence, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
+- Immediate next action: Verify UTF-8 generated evidence byte identity, regenerate dependent evidence, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
 
 ## Temporary task-relevant facts
 
