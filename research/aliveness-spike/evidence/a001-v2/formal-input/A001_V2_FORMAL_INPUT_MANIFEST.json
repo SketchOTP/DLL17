@@ -1,0 +1,154 @@
+{
+  "manifest_id": "A001_V2_FORMAL_INPUT_MANIFEST",
+  "manifest_version": 1,
+  "contract_id": "A001EvaluationContractV2",
+  "contract_version": 2,
+  "harness_id": "AgentObservationHarnessV1",
+  "protocol_id": "A001ObservationProtocolV1",
+  "generator_id": "A001EvaluatorObservationGeneratorV1",
+  "generator_version": 1,
+  "rubric": [
+    "APPARENT_AUTONOMY",
+    "BEHAVIORAL_COHERENCE",
+    "ADAPTIVE_RESPONSIVENESS",
+    "INDIVIDUALITY_AND_HISTORY",
+    "SPONTANEOUS_SENSIBLE_ACTIVITY",
+    "OVERALL_APPARENT_ALIVENESS"
+  ],
+  "panel_pairs": 12,
+  "formal_executions_per_stage": 24,
+  "panel_plan": "counterbalanced-A-B/B-A; fresh isolated requests",
+  "output_schema": "A001V2EvaluatorResponseV1",
+  "evaluator_instruction_sha256": "92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4",
+  "source_files": [
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/A001EvaluationContractV2.kt",
+      "sha256": "fb61d000689a2f1437a439fa467bcb115503282bbd58518bdbe714d903dfc577"
+    },
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/AgentObservationHarnessV1.kt",
+      "sha256": "ad839665c2bca203485fe1627323577f2a41fb532c6f562d3cdb2cea9f351aaa"
+    },
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/A001V2Aggregation.kt",
+      "sha256": "61dd7c5ba46f990caabdb6bea096ffe397d56877b6a0926ae45e584bb3b966af"
+    },
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/A001V2FormalExecutionRunner.kt",
+      "sha256": "b1583f9c7afe057ca28e2095506c8095d42afa47c4a4937b52dfe6a2851b4ee9"
+    },
+    {
+      "path": "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/A001EvaluatorObservationGeneratorV1.kt",
+      "sha256": "9e2da5636c699bcd59ddaf4d616474f309d34c1b8d2beb220426666736154e99"
+    },
+    {
+      "path": "research/aliveness-spike/study-protocol/A001ObservationProtocolV1.md",
+      "sha256": "cff41a845cf26b1d910ec4feccaf2b4d583a58c249f372bf6b4839bf0ae83414"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/EVALUATOR_INSTRUCTIONS_V1.txt",
+      "sha256": "92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4"
+    }
+  ],
+  "calibration_bundles": [
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P01.txt",
+      "sha256": "750c08af4c3516b36d2128f28a23605b198cac87bf5ca7a868b8ef6a22865ea7"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P02.txt",
+      "sha256": "28b3a777ce4ba04ea15d3cf4521cb7e6184e3ba39c6f389f1db1094c9c33558b"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P03.txt",
+      "sha256": "db9925d6c7f7e47a0dc9ece9e1e097d9c6fe35b728e38114bc34b4c122f5b4a7"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P04.txt",
+      "sha256": "ec776a1f43ca8cca55454d65e39d46905ef33f9a70824efec16873bb91faf8c7"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P05.txt",
+      "sha256": "f2641d0ceac703f31ee1167016f68d3912a8cdc48064c209d702b729c43e708f"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P06.txt",
+      "sha256": "93077ca782608d8dce22ca470589fae0972d905ef3457d820c66a5dc9e5d6e83"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P07.txt",
+      "sha256": "339cf8f2f10505e7b701d9f448f6299aff4229a8547336cd3f6d82d4f597007d"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P08.txt",
+      "sha256": "5feeeec02d63142be062475c688f23dee2f2988f21a8c9f4d65a4887d12e3af9"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P09.txt",
+      "sha256": "48d6e53fe3dacabb97a87e9a640a2d581080854a0e1f3310dc7c44c2b6351646"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P10.txt",
+      "sha256": "be4cd1e87ac216c3540fd28e6b8d09c104984396294fd1674d86727fbd732549"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P11.txt",
+      "sha256": "43204cba9cfa9588b951b693d332dc0e49998074556ff4719f4a4b181350273b"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/calibration/CAL-P12.txt",
+      "sha256": "e0c91a348c153baf4c1f49d6371a8b19245be2c1611bd294548bb8ecc82a37bf"
+    }
+  ],
+  "qualification_bundles": [
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P01.txt",
+      "sha256": "9f3ebad1f6845b28d8a0653a9884fc973be48ce41e71fd707abb7d2b0c680dcd"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P02.txt",
+      "sha256": "787b0cf6fb95cc970a3a49e734f89b73b1d8bb307a005002756ff7a8a46faad7"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P03.txt",
+      "sha256": "b9612a89f51c6d31a2b1e4aa1cc7162b9af4cc7058adf7eacbf92052cd3199ec"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P04.txt",
+      "sha256": "a6f4ded3f1cb537c2bc7f1a3a700e43ce3b5543dccf0c2b97701674301fd345f"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P05.txt",
+      "sha256": "c63c876ee3d6274dcee8865b167ff96d2302a64eadb3668cdadb6b89b583d173"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P06.txt",
+      "sha256": "11c0629cb62b53fefcb624e205e7954495bee924160fb8dff162a7e17cf214f9"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P07.txt",
+      "sha256": "7967b98700a78b8ddadf5fe9aa2918c084c20a09a13f8ea3e683901c60dcaffd"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P08.txt",
+      "sha256": "6912f44b4d5ace65dc23334b72f2d5e4180dd75c2e27a7d25a2b3f2fa5913be8"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P09.txt",
+      "sha256": "e5ff5c95e355fa1f0c0d587c281403884c54440965213b1a546f8533f9f48464"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P10.txt",
+      "sha256": "93e2f8a8c821105ed3a83e5236ca634db56cb0fcb42366d0d7d4e091ed83393b"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P11.txt",
+      "sha256": "860984ebf12ecfb59071a60364121a9363384d494329b2301d98b7aec32fef2a"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input/qualification/FULL-P12.txt",
+      "sha256": "b9df7cc906c543f4bcc7d94b7971755ed93e20af4e053756c8ec68030ab98a33"
+    }
+  ],
+  "formal_input_bundle_sha256": "dc2e4b40735ba0ba1ca35758ac5f0ef9a034ec95d1d19b8e5b6f8d0f97f3e7ab"
+}

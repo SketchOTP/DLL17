@@ -21,3 +21,14 @@ application {
 tasks.test {
     useJUnitPlatform()
 }
+
+// D016-M-R1: materialize only the deterministic, outward-observation bundles.
+// This task never contacts a model or any network endpoint.
+tasks.register<JavaExec>("a001ObservationBundles") {
+    group = "verification"
+    mainClass.set(
+        "com.animusmachinae.dll17.research.aliveness.viewer.A001EvaluatorObservationGeneratorV1",
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+    args("--root=${rootProject.projectDir.absolutePath}")
+}

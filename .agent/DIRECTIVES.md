@@ -499,3 +499,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-K-R4
 - Status at issuance: ISSUED
+
+
+## D-016-M-R1
+
+- Issued: 2026-08-16T21:00:00-04:00
+- Issuer: User
+- External directive: D016-M-R1
+- Objective: Build and freeze the formal A001 V2 observation and execution substrate without making AI model calls.
+- Scope: A faithful outward-observation generator from the existing ViewerSession presentation surface; frozen A001ObservationProtocolV1; 12 calibration and 12 qualification neutral bundles; manifest and evaluator-instruction hashes; strict formal runner, response parser and one-shot slot ledger; offline preflight evidence; tests; governance synchronization and CI.
+- Exclusions: Any AI/network/model call; formal calibration or FULL qualification; Pixel review; human recruitment or data; organism/comparator behavior; V2 thresholds, rubric, validity rules or panel size; D016-H rerun; provider additions; R003-R009; unrelated cleanup; modification of the pre-existing `.gitignore` change.
+- Acceptance: The outward source is documented; exactly 24 matched neutral bundles are reproducible and leakage-tested; A/B reversal is a rendering-only transformation; the formal manifest and instruction hash are reproducible; the runner refuses arbitrary/unhashed data and malformed responses and preserves one-shot slot history; preflight makes zero model calls; D016-M remains blocked pending formal execution; zero AI/Pixel/human activity; exact-SHA Governance and Build/Test green.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-L
+- Status at issuance: ISSUED

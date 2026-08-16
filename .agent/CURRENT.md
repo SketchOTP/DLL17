@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T18:30:00-04:00`
+- Last updated: `2026-08-16T21:00:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-L
-- External directive ID: D016-L
-- Objective: Rebase A001 to AI-agent qualification plus owner-only Pixel acceptance.
+- Local directive ID: D-016-M-R1
+- External directive ID: D016-M-R1
+- Objective: Build and freeze the formal A001 V2 observation and execution substrate without executing models.
 - Current status: `IN_PROGRESS`
-- Acceptance: V2 contract, blinded observation boundary, deterministic panel aggregation, owner acceptance contract, generated zero-execution evidence, and green exact-SHA Governance plus Build/Test; no formal AI panel, Pixel review, recruitment, or human data.
-- Current phase: A001 V2 contract/harness rebase. D016-K is closed at exact SHA af98d7c9222ff03688cf470c9b4ca45e2b51d6b7. V1 human-study material remains historical and superseded for forward execution.
-- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/agentic-review/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/, research/aliveness-spike/README.md. No organism source or comparator behavior is authorized.
-- Immediate next action: Validate D016-L V2 contract and obtain exact-SHA Governance plus Build/Test green. Do not execute the formal AI panel or request the Pixel review.
+- Acceptance: D016-L is accepted at commit 15c8c4ce784a8ceb553aa6870864d3562099e1eb / CI 31971930245; D016-M remains blocked pending formal execution. R1 has generated 24 neutral bundles, a frozen protocol and manifest, a strict runner/preflight, and zero-execution evidence. No model calls, Pixel review, recruitment or human data.
+- Current phase: D016-M-R1 pre-execution substrate. V1 human-study material remains historical and superseded for forward execution.
+- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/realtime-viewer/, research/aliveness-spike/agentic-review/, research/aliveness-spike/evidence/a001-v2/, research/aliveness-spike/study-protocol/, tools/. No organism or comparator behavior changed.
+- Immediate next action: Obtain exact-SHA Governance and Build/Test green for D016-M-R1. Do not execute formal AI calls or request the Pixel review.
 
 ## Temporary task-relevant facts
 
@@ -102,7 +102,7 @@
 
 ## Last validation after adoption
 
-- Command or check: python3 scripts/validate_governance.py --mode ADOPTED covering nineteen required files, python3 scripts/test_validate_governance.py covering twenty-two template and eighty-three adopted rejection cases, python3 tools/verify_project_identity.py, python3 tools/build_qualification_bundle.py --verify covering ten bundles, python3 tools/generate_lookup_tables.py --check, python3 tools/verify_backup_exclusion.py, ./gradlew clean build covering sixteen modules and four hundred and twenty nine JVM tests, ./gradlew :desktop-runner:run, ./gradlew :desktop-runner:r012Qualification, ./gradlew :desktop-runner:r014NetworkQualification against both the in-repository endpoint and MinIO, ./gradlew :research:aliveness-spike:accelerated-sim:run, and ./gradlew :research:aliveness-spike:analysis:a001DryRun
+- Command or check: focused realtime-viewer and agentic-review tests, deterministic observation generation, formal-input manifest check, and a001V2FormalPreflight
 - Result: `PASSED`
 
 ## Risks

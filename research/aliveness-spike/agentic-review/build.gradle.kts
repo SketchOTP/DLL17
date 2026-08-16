@@ -41,6 +41,16 @@ tasks.register<JavaExec>("a001V2DryRun") {
     classpath = sourceSets["main"].runtimeClasspath
 }
 
+// D016-M-R1: offline readiness check. This task must never contact a model.
+tasks.register<JavaExec>("a001V2FormalPreflight") {
+    group = "verification"
+    mainClass.set(
+        "com.animusmachinae.dll17.research.aliveness.agentic.A001V2FormalExecutionRunner",
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+    args("--root=${rootProject.projectDir.absolutePath}", "--preflight")
+}
+
 tasks.test {
     useJUnitPlatform()
 }

@@ -741,3 +741,24 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: Exact-SHA CI remains outstanding; formal AI and owner stages are intentionally unrun.
 - Blockers: exact-SHA Governance and Build/Test
 - Follow-up directive: D-016-L
+
+
+## D-016-M-R1 - PARTIAL
+
+- Outcome ID: O-0032
+- Supersedes outcome: none
+- Closed: 2026-08-16T21:00:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-M remains held before execution and no formal AI execution occurred. R1 added a deterministic generator over the existing user-visible ViewerSession presentation surface, froze A001ObservationProtocolV1, generated exactly 12 calibration and 12 qualification neutral observation cases, added the evaluator instruction and formal-input manifest, and added an offline formal runner substrate with strict schema parsing and one-shot slot persistence. Current state remains A001_V2_STATE not tested; CALIBRATION_FORMAL_EXECUTIONS=0; FULL_FORMAL_EXECUTIONS=0; AI_FORMAL_PANEL_EXECUTIONS=0; OWNER_PIXEL_REVIEWS=0; EXTERNAL_HUMAN_PARTICIPANTS=0; R003_R009 held.
+- Changed areas: `.agent/`, `.github/workflows/ci.yml`, `research/aliveness-spike/realtime-viewer/`, `research/aliveness-spike/agentic-review/`, `research/aliveness-spike/evidence/a001-v2/`, `research/aliveness-spike/study-protocol/`, `tools/`
+- Validation:
+  - deterministic observation generation, 24 cases - PASSED
+  - neutral identity and privileged-information leakage tests - PASSED
+  - repeated generation byte identity - PASSED
+  - agentic-review response parser and one-shot ledger tests - PASSED
+  - offline formal preflight and zero network/model calls - PASSED
+  - formal input manifest regeneration - PASSED
+  - Governance and full Build/Test exact-SHA CI - NOT RUN
+- Remaining risks: Exact-SHA CI remains outstanding; formal AI calibration and FULL qualification are intentionally unrun.
+- Blockers: exact-SHA Governance and Build/Test before R1 acceptance; D016-M formal execution remains blocked until R1 closes.
+- Follow-up directive: D-016-M-R1
