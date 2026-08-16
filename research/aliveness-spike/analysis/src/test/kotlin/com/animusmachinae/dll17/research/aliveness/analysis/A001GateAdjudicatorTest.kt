@@ -163,10 +163,16 @@ class A001GateAdjudicatorTest {
             A001GateAdjudicator.GateOutcome.A001_BLOCKED,
             A001GateAdjudicator.adjudicate(evidence(ceiling = null)).outcome,
         )
-        val withoutEthics = A001GateAdjudicator.adjudicate(evidence(ethics = null))
+        val withoutEthicsEvidence = evidence(ethics = null)
+        val withoutEthics = A001GateAdjudicator.adjudicate(withoutEthicsEvidence)
         assertEquals(A001GateAdjudicator.GateOutcome.A001_BLOCKED, withoutEthics.outcome)
         assertTrue(
-            ViolationCode.ETHICS_DETERMINATION_ABSENT.name in withoutEthics.blockers,
+            ViolationCode.ETHICS_DETERMINATION_ABSENT in
+                A001GateAdjudicator.deriveViolations(withoutEthicsEvidence),
+            "removing the ethics determination must derive its specific violation",
+        )
+        assertTrue(
+            "BLOCKED_ETHICS_DETERMINATION_ABSENT" in withoutEthics.blockers,
             "removing the ethics determination must fail closed with its specific violation",
         )
     }
