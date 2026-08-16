@@ -720,7 +720,7 @@ both the failure and the frozen threshold values.
 | Programme state | `ALIVENESS_UNTESTED` |
 | Human scored recruitment | `BLOCKED` |
 | Human participant data | 0 records |
-| Ethics determination | none exists, none claimed |
+| Ethics determination | `D016-J` owner-delegated approved with pre-recruitment conditions; no IRB approval claimed |
 
 The three remaining blockers are the ones no code in this repository can clear.
 Each needs real blinded participants, and no agent may stand in for one.

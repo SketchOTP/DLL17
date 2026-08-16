@@ -97,27 +97,26 @@ whoever is available. Eligibility conditions 1–4 of
 [IndependentReviewOnboardingV1](IndependentReviewOnboardingV1.md) apply to every
 replacement candidate equally.
 
-## Frozen ethics posture
+## Frozen ethics posture — superseded by D016-J
 
-> **Still in force.** This is the one section below the supersession notice that
-> the agentic architecture does not supersede. D016-C §13 leaves the ethics
-> requirement exactly as it was: the agentic reviewers are not an IRB or HRPP,
-> and `ISSUE_ETHICS_DETERMINATION` is forbidden to every agentic role.
+The 2026-08-14 posture below is retained as historical provenance only. D016-J
+superseded its requirement for an independent IRB, HRPP or equivalent
+determination. The current project record carries the owner-delegated
+`APPROVED_WITH_PRE_RECRUITMENT_CONDITIONS` determination for minimal-risk,
+benign behavioral research with U.S. adults who attest that they are 18+ and
+can provide their own legally effective consent.
 
-Decided by the programme owner on 2026-08-14, recorded as DEC-0039.
+This does **not** claim formal IRB approval, federal exemption or established
+Common Rule coverage. The approved scope excludes prisoners, people lacking
+consent capacity, non-U.S. participants, recording, biometrics, health data,
+sensitive demographics and participant-device collection. A material scope
+change stops recruitment and requires a new review.
 
-Before any participant is recruited, an independent human-subjects or ethics
-determination must be obtained from a qualified IRB, HRPP or equivalent body.
-The determination need not result in full review — but **the programme may not
-determine its own exemption**. OHRP recommends that investigators not make their
-own exemption determinations because of the conflict of interest inherent in
-doing so, and the Common Rule does not automatically cover every privately
-conducted study, so an absence of automatic coverage is not a finding of
-exemption.
+The agentic reviewers remain auditors, not an IRB or HRPP, and
+`ISSUE_ETHICS_DETERMINATION` remains forbidden to every agentic role.
 
-`GA-26` carries this posture and remains
-`REQUIRES_SIGNED_GOVERNANCE_EVIDENCE`: no determination exists yet, and none is
-claimed.
+The historical `GA-26` requirement and “no determination exists” wording below
+describe the pre-D016-J state and are not current activation requirements.
 
 ## Frozen independence requirements
 

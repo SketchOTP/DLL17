@@ -394,3 +394,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-016-I
 - Status at issuance: ISSUED
+
+
+## D-016-J-R1
+
+- Issued: 2026-08-16T03:00:00-04:00
+- Issuer: User
+- External directive: D016-J-R1
+- Objective: Close CI and participant-protection contradictions from D016-J without weakening the no-fabricated-human-evidence invariant.
+- Scope: Remove the StudyOperator public-surface regression; replace exact numeric age and country values with an 18+ U.S.-adult eligibility attestation; synchronize consent, enrollment and study-data treatment across privacy, backup and incident controls; mark the obsolete independent-IRB posture as superseded history without claiming IRB approval; correct the D016-J outcome record; and verify green Governance plus Build/Test on the exact corrective SHA.
+- Exclusions: No participants, models, Paragon, organism work, thresholds, sample sizes, analysis, pilot seal, reviewer adjudication or reviewer/model infrastructure changes; do not resolve BaselineIndependentOwner; do not issue D016-K.
+- Acceptance: The operator boundary test passes without permitting fabricated human evidence; exact age and demographics are not collected; all three record classes remain separately controlled; old IRB language is historical and superseded; 900de18 is recorded as corrective-required rather than accepted; Governance and Build/Test are green on the exact pushed SHA; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-J
+- Status at issuance: ISSUED

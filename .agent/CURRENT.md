@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T02:35:00-04:00`
+- Last updated: `2026-08-16T03:10:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-J
-- External directive ID: D016-J
-- Objective: Encode the owner-delegated ethics determination and clear only the baseline human-evidence recruitment preconditions.
-- Current status: `COMPLETE`
-- Acceptance: MET. The deterministic adjudicator computes the whole A001 outcome from one canonical evidence record, its replayability is proven over identical and reordered evidence, every existing A001 threshold is unchanged and guarded against drift, gate-adjudicating authority is forbidden to every agentic role and refused at construction, agent findings cannot create, rescue or override an outcome, and the D016-H measurement is preserved and reported as permanently unclearable.
-- Current phase: A001.1 readiness. D016-J is complete only after governance and CI verification; the ethics prerequisite is encoded, but scored A001 remains blocked and no participant may be recruited by this coding task.
+- Local directive ID: D-016-J-R1
+- External directive ID: D016-J-R1
+- Objective: Close the D016-J CI regression and participant-protection contradictions without changing scientific scope or reviewer infrastructure.
+- Current status: `IN_PROGRESS`
+- Acceptance: GREEN Governance and Build/Test on the exact corrective SHA; D016-J remains corrective-required until then.
+- Current phase: A001.1 readiness correction. The 900de18 implementation is not an accepted completion because CI failed in BoundaryTest; no participant may be recruited by this coding task.
 - Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md, research/aliveness-spike/analysis/, research/aliveness-spike/agentic-review/, research/aliveness-spike/study-protocol/. No organism source, threshold, analysis rule, pilot seal, reviewer infrastructure, scored study data or participant record was modified.
-- Immediate next action: D016-J is complete and awaiting reset to IDLE on the Architect's disposition. After acceptance, the owner must supply a real study-owner contact and compensation terms, then open the frozen 40-participant scripted-baseline qualification. The variance pilot follows only after independent baseline qualification. Scored A001 recruitment remains blocked.
+- Immediate next action: Complete D016-J-R1, run Governance and Build/Test, and record the exact corrective SHA and CI result. Keep BaselineIndependentOwner unresolved and do not issue D016-K.
 
 ## Temporary task-relevant facts
 

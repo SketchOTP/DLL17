@@ -47,10 +47,12 @@ Three separately controlled records, never joined:
   a conservative project rule, not a claim that 45 CFR 46.115 legally governs
   this currently non-covered internal determination.
 
-The mapping between the two exists only inside the enrolment register and dies
-with it. After that point a study record cannot be traced to a person — which is
-also why a withdrawal request after analysis cannot be honoured, and why the
-information sheet says so plainly rather than promising otherwise.
+The identity-to-participant-number mapping exists only inside the enrolment
+register and dies with it. The signed consent record is separately identifiable
+but never contains or exposes that mapping. After the enrolment register is
+destroyed, a study record cannot be traced to a person — which is also why a
+withdrawal request after analysis cannot be honoured, and why the information
+sheet says so plainly rather than promising otherwise.
 
 ## Retention and destruction
 
@@ -92,10 +94,10 @@ later one.
 
 | Control | Requirement |
 |---|---|
-| Storage | Study data set and enrolment register on separate storage, not in one workbook, not in one directory |
+| Storage | Study data set, enrolment register and signed consent record on separate controlled storage; never in one workbook or one directory |
 | Transfer | No participant data leaves the operator's control except as aggregate results or the sealed pilot release |
-| Backups | Included in the same separation; a backup that merges the two data sets defeats the separation |
-| Incident | Any unauthorized joining of the two data sets, or any comparative pilot disclosure to the FULL team, is `A001_GOVERNANCE_BREACH` and freezes the A-track |
+| Backups | Preserve all three-record boundaries; a backup that merges enrolment, consent and study data defeats the separation |
+| Incident | Any unauthorized joining of any two records, exposure of the consent record, or comparative pilot disclosure to the FULL team is `A001_GOVERNANCE_BREACH` and freezes the A-track |
 
 ## Honest limits
 

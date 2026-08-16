@@ -56,23 +56,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Follow-up directive: none
 
 
-## D-016-J - COMPLETE
+## D-016-J - FAILED
 
 - Outcome ID: O-0025
 - Supersedes outcome: none
-- Closed: 2026-08-16T02:35:00-04:00
-- Acceptance: MET
-- Summary: Encoded the owner-delegated ethics determination `D016-J-OWNER-DELEGATED-APPROVED-WITH-CONDITIONS` without claiming IRB approval or federal exemption. The deterministic adjudicator now carries that determination, and the governance audit records the approved scope as U.S. adults age 18+ with legally effective self-consent in minimal-risk benign behavioral research. The ethics prerequisite is cleared; baseline qualification, variance-pilot registration and paired-difference SD remain blocked. Scored A001 recruitment remains blocked, attempts remain 0/3, programme state remains ALIVENESS_UNTESTED and human participant data remains 0.
+- Closed: 2026-08-16T03:10:00-04:00
+- Acceptance: NOT MET
+- Summary: The implementation encoded the owner-delegated ethics determination without claiming IRB approval, but commit 900de1865b98afe07a362d770152af261bf943cd was not an accepted completion. Exact-commit CI failed in the pure-JVM suite at BoundaryTest because the added public StudyOperator.authorizeSession method violated the frozen operator surface. D016-J-R1 corrects that regression and three related participant/privacy/history contradictions. The three substantive human-evidence blockers remain unchanged.
 - Changed areas: `.agent/`, `governance/release-gates/A001_ACTIVATION_GATE.md`, `research/aliveness-spike/analysis/`, `research/aliveness-spike/agentic-review/`, `research/aliveness-spike/study-protocol/`
 - Validation:
-  - `scripts/validate_governance.py --mode ADOPTED` - FAILED locally because CURRENT.md and this outcome were still being synchronized; rerun required after ledger correction
+  - GitHub CI on 900de1865b98afe07a362d770152af261bf943cd - FAILED: BoundaryTest operator public-surface regression; downstream validation skipped
   - `tools/verify_project_identity.py` - PASSED
   - `tools/generate_lookup_tables.py --check` - PASSED
   - Focused Kotlin tests - NOT RUN locally; no JDK is installed on this Windows workstation
   - GitHub CI - PENDING this exact commit
-- Remaining risks: The determination is owner-delegated and does not claim IRB approval or federal coverage. Recruitment must pause for a new determination if the approved scope changes. A real study-owner contact and compensation terms remain owner-supplied prerequisites; no contact is invented by the repository.
+- Remaining risks: D016-J-R1 is active. The determination is owner-delegated and does not claim IRB approval or federal coverage. Recruitment remains blocked; no contact is invented by the repository.
 - Blockers: BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
-- Follow-up directive: none
+- Follow-up directive: D-016-J-R1
 
 ## D-003 - COMPLETE
 
