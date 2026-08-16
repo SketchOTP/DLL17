@@ -163,9 +163,11 @@ class A001GateAdjudicatorTest {
             A001GateAdjudicator.GateOutcome.A001_BLOCKED,
             A001GateAdjudicator.adjudicate(evidence(ceiling = null)).outcome,
         )
-        assertEquals(
-            A001GateAdjudicator.GateOutcome.A001_BLOCKED,
-            A001GateAdjudicator.adjudicate(evidence(ethics = null)).outcome,
+        val withoutEthics = A001GateAdjudicator.adjudicate(evidence(ethics = null))
+        assertEquals(A001GateAdjudicator.GateOutcome.A001_BLOCKED, withoutEthics.outcome)
+        assertTrue(
+            ViolationCode.ETHICS_DETERMINATION_ABSENT.name in withoutEthics.blockers,
+            "removing the ethics determination must fail closed with its specific violation",
         )
     }
 
@@ -566,10 +568,13 @@ class A001GateAdjudicatorTest {
             "a violation code is neither exercised by a test nor declared a tripwire",
         )
         // The exercised ones must genuinely fire somewhere, not merely be listed.
+        // ETHICS_DETERMINATION_ABSENT is exercised by the explicit missing-ethics
+        // fixture above; the current evidence intentionally contains D016-J's
+        // owner-delegated determination and therefore must not trigger it.
         val live = A001GateAdjudicator.deriveViolations(A001GateAdjudicator.currentEvidence())
         assertTrue(ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED in live)
         assertTrue(ViolationCode.PILOT_NOT_PROTOCOL_VALID in live)
         assertTrue(ViolationCode.FEASIBILITY_NOT_ESTABLISHED in live)
-        assertTrue(ViolationCode.ETHICS_DETERMINATION_ABSENT in live)
+        assertFalse(ViolationCode.ETHICS_DETERMINATION_ABSENT in live)
     }
 }

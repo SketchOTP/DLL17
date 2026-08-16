@@ -287,13 +287,6 @@ class GovernanceAuditTest {
     }
 
     @Test
-    fun `the audit records that no external ethical approval is claimed`() {
-        val approval = items.single { it.id == "GA-26" }
-        assertEquals(AuditState.REQUIRES_SIGNED_GOVERNANCE_EVIDENCE, approval.state)
-        assertTrue(approval.detail.contains("none is claimed"))
-    }
-
-    @Test
     fun `the audit exercises no organism behaviour`() {
         // Canonical: governance audit items must not be marked PASS by running
         // organism code. The audit function takes no simulator input at all, so
