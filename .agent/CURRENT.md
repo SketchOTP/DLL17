@@ -7,14 +7,14 @@
 
 ## Active state after adoption
 
-- Local directive ID: D-016-K-R4
-- External directive ID: D016-K-R4
-- Objective: Diagnose and stabilize A001 generated-evidence byte identity.
+- Local directive ID: D-016-L
+- External directive ID: D016-L
+- Objective: Rebase A001 to AI-agent qualification plus owner-only Pixel acceptance.
 - Current status: `IN_PROGRESS`
-- Acceptance: Green Governance and Build/Test on the exact pushed SHA; freeze manifest and hash enforced; no participants or recruitment; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
-- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; D016-K-R1, R2 and R3 failed exact-SHA CI. R3's canonical freeze passes on Ubuntu; R4 addresses the independently reproduced generated-evidence encoding mismatch. The baseline remains unqualified until the frozen 40-person blinded human experiment exists.
-- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/analysis/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/. No organism source, threshold, sample size, analysis rule, pilot seal, reviewer/model infrastructure, scored study data or participant record was modified.
-- Immediate next action: Verify UTF-8 generated evidence byte identity, regenerate dependent evidence, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
+- Acceptance: V2 contract, blinded observation boundary, deterministic panel aggregation, owner acceptance contract, generated zero-execution evidence, and green exact-SHA Governance plus Build/Test; no formal AI panel, Pixel review, recruitment, or human data.
+- Current phase: A001 V2 contract/harness rebase. D016-K is closed at exact SHA af98d7c9222ff03688cf470c9b4ca45e2b51d6b7. V1 human-study material remains historical and superseded for forward execution.
+- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/agentic-review/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/, research/aliveness-spike/README.md. No organism source or comparator behavior is authorized.
+- Immediate next action: Validate D016-L V2 contract and obtain exact-SHA Governance plus Build/Test green. Do not execute the formal AI panel or request the Pixel review.
 
 ## Temporary task-relevant facts
 

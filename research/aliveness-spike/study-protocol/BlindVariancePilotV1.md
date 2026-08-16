@@ -1,5 +1,8 @@
 # BlindVariancePilotV1
 
+> **HISTORICAL / SUPERSEDED_FOR_FORWARD_EXECUTION (D016-L).** The participant
+> variance pilot is retained as V1 evidence and is not part of active A001 V2.
+
 - Status: `READY_FOR_HUMAN_EVIDENCE`
 
 ## D016-J participant scope

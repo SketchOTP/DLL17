@@ -2,6 +2,14 @@
 
 Disposable research code. Not production.
 
+## Active evaluation contract
+
+Forward A001 execution is governed by `A001EvaluationContractV2`: AI-agent
+qualification followed by one owner-only Pixel acceptance review. External
+human participants and population-level human inference are prohibited. The
+prior V1 human-study documents remain historical and are explicitly superseded
+for forward execution.
+
 This track exists to answer one question: do the proposed internal-state,
 action, learning, memory and individuality mechanisms create an observer-visible
 impression of autonomous life strong enough to justify the downstream production

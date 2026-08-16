@@ -1,5 +1,8 @@
 # AlivenessStudyProtocolV1
 
+> **HISTORICAL / SUPERSEDED_FOR_FORWARD_EXECUTION (D016-L).** Preserved for
+> auditability; its recruited-human execution path is not active.
+
 - Status: `FROZEN`
 - Version: 1
 - Attempt: A001 Attempt 1 of a maximum of 3

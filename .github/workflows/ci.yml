@@ -200,23 +200,15 @@ jobs:
           grep -q 'ENDPOINT_KIND=IN_REPOSITORY_QUALIFICATION_ENDPOINT' r014.txt \
             || { echo '::error::CI must not depend on an external object store'; exit 1; }
 
-      - name: A001 activation package
+      - name: A001 V2 evaluation contract package
         run: |
-          python3 tools/verify_baseline_freeze.py
-          ./gradlew :research:aliveness-spike:analysis:a001DryRun --no-daemon --quiet \
-            > a001_dry_run.txt
-          ./gradlew :research:aliveness-spike:accelerated-sim:baselineManifest \
-            --no-daemon --quiet > baseline_manifest.txt
-          diff -u research/aliveness-spike/evidence/A001_ACTIVATION_DRY_RUN.txt \
-            a001_dry_run.txt
-          diff -u research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt \
-            baseline_manifest.txt
-          grep -q 'HUMAN_SCORED_RECRUITMENT=BLOCKED' a001_dry_run.txt \
-            || { echo '::error::A001 recruitment is no longer reported as blocked'; exit 1; }
-          grep -q 'releasedFields=pairedDifferenceSd,protocolValid' a001_dry_run.txt \
-            || { echo '::error::the variance-pilot release schema changed'; exit 1; }
-          grep -q 'identicalRelease=true' a001_dry_run.txt \
-            || { echo '::error::the variance-pilot channel leaks the direction of the result'; exit 1; }
+          ./gradlew :research:aliveness-spike:agentic-review:a001V2DryRun --no-daemon --quiet > a001_v2_dry_run.txt
+          diff -u research/aliveness-spike/evidence/A001_V2_DRY_RUN.txt a001_v2_dry_run.txt
+          grep -q 'AI_FORMAL_PANEL_EXECUTIONS=0' a001_v2_dry_run.txt
+          grep -q 'OWNER_PIXEL_REVIEWS=0' a001_v2_dry_run.txt
+          grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' a001_v2_dry_run.txt
+          grep -q 'A001_V2_STATE=UNTESTED' a001_v2_dry_run.txt
+          grep -q 'R003_R009=BLOCKED' a001_v2_dry_run.txt
 
       # D016-C agentic governance/review harness. Regenerated and diffed like the
       # A001 package, and checked for the two properties that matter most: that

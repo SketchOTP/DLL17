@@ -484,3 +484,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-K-R3
 - Status at issuance: ISSUED
+
+
+## D-016-L
+
+- Issued: 2026-08-16T20:00:00-04:00
+- Issuer: User
+- External directive: D016-L
+- Objective: Rebase active A001 execution to AI-agent qualification followed by one owner-only real-device Pixel acceptance gate.
+- Scope: A001EvaluationContractV2, AgentObservationHarnessV1, frozen 12-pair/24-execution panel, deterministic aggregation, synthetic adversarial fixtures, OwnerPixelAlivenessAcceptanceV1, active governance reconciliation and generated dry-run evidence.
+- Exclusions: No formal AI evaluation, Pixel review, external human participants, recruitment, consent, compensation, human-population inference, organism behavior, comparator behavior, D016-H rerun, reviewer bureaucracy or R003-R009 implementation.
+- Acceptance: V2 contract and boundary are machine-visible; the panel, rubric, validity and aggregation thresholds are frozen; owner FAIL cannot be overridden; generated state reports zero executions/reviews/participants and R003-R009 blocked; exact-SHA Governance and Build/Test are green.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-K-R4
+- Status at issuance: ISSUED

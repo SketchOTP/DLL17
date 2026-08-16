@@ -33,6 +33,14 @@ tasks.register<JavaExec>("agenticReviewQualification") {
     classpath = sourceSets["main"].runtimeClasspath
 }
 
+// D016-L: contract-only dry run. It emits zero formal AI executions and zero
+// owner reviews; CI compares it byte-for-byte with the committed evidence.
+tasks.register<JavaExec>("a001V2DryRun") {
+    group = "verification"
+    mainClass.set("com.animusmachinae.dll17.research.aliveness.agentic.A001V2DryRun")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
 tasks.test {
     useJUnitPlatform()
 }

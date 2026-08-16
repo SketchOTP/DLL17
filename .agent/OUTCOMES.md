@@ -55,7 +55,6 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: none
 - Follow-up directive: none
 
-
 ## D-016-K - PARTIAL
 
 - Outcome ID: O-0026
@@ -716,3 +715,29 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The adjudicator is qualified by test rather than by agreement with human judgement, and nobody has checked that its rulings match what a competent reviewer would conclude; what is claimed is that it applies the preregistered rules correctly and identically every time, not that the rules are the right ones. Determinism is not correctness, and a rule frozen before the data is still a rule someone chose. The adversarial auditors have never been executed in their new role, so what is proven is the structure that makes their output non-load-bearing rather than their usefulness, and an auditor emitting ambiguous findings on every run would suspend every pass, which is a denial of service on the Architect's attention rather than a threat to a result. The adjudicator is deliberately stricter than the audit on the ethics determination and treats its absence as a hard block, so the two will disagree until a determination exists. A001 still measures human perception, its human arms remain blocked on real participants, and the independent human-subjects determination remains unresolved.
 - Blockers: BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
 - Follow-up directive: none
+
+
+## D-016-L - PARTIAL
+
+- Outcome ID: O-0031
+- Supersedes outcome: none
+- Closed: 2026-08-16T20:00:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-L rebases forward A001 execution to AI-agent qualification
+  followed by one owner-only Pixel acceptance review. The V1 human-study
+  contracts remain preserved but are superseded for forward execution. The
+  V2 contract, observation boundary, deterministic aggregator, synthetic
+  fail-closed fixtures, owner acceptance contract, and zero-execution dry run
+  have been implemented. No formal AI panel, Pixel review, recruitment, or
+  human data occurred. Current state is A001_V2_STATE=UNTESTED;
+  AI_FORMAL_PANEL_EXECUTIONS=0; OWNER_PIXEL_REVIEWS=0;
+  EXTERNAL_HUMAN_PARTICIPANTS=0; R003_R009 remains closed pending both stages.
+- Changed areas: `.agent/`, `.github/workflows/ci.yml`, `research/aliveness-spike/agentic-review/`, `research/aliveness-spike/evidence/`, `research/aliveness-spike/study-protocol/`
+- Validation:
+  - V2 agentic-review tests - PASSED
+  - V2 dry-run byte comparison - PASSED
+  - A001 V2 state UNTESTED and R003-R009 blocked - PASSED
+  - Governance and full Build/Test exact-SHA CI - NOT RUN
+- Remaining risks: Exact-SHA CI remains outstanding; formal AI and owner stages are intentionally unrun.
+- Blockers: exact-SHA Governance and Build/Test
+- Follow-up directive: D-016-L

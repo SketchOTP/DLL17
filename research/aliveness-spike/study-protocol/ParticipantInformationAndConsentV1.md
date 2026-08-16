@@ -1,5 +1,8 @@
 # ParticipantInformationAndConsentV1
 
+> **HISTORICAL / SUPERSEDED_FOR_FORWARD_EXECUTION (D016-L).** No external
+> participants are recruited under A001 V2; this document remains provenance.
+
 - Status: `READY_FOR_HUMAN_EVIDENCE_WITH_D016_J_CONDITIONS`
 - Version: 1
 - Applies to: A001 Attempt 1, `BaselineQualificationProtocolV1`,

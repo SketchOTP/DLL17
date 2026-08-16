@@ -1,5 +1,8 @@
 # BaselineQualificationProtocolV1
 
+> **HISTORICAL / SUPERSEDED_FOR_FORWARD_EXECUTION (D016-L).** The human
+> baseline qualification is retained as V1 evidence and is not a V2 prerequisite.
+
 - Status: `READY_FOR_HUMAN_EVIDENCE`
 - Version: 1
 - Coverage manifest: `research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt`
