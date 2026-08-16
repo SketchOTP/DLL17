@@ -11,13 +11,13 @@ GA-03  PASS
    requirement: Programme success floor is frozen and has not weakened
    detail:      floor=mean 10.000 points AND two-sided 0.950 CI lower bound > 0; frozen before any human data and may only become stricter
 GA-04  BLOCKED
-   requirement: ScriptedPetBaselineV1 hash/version matches independently qualified evidence
-   detail:      the baseline is implemented and frozen in source, and its qualification protocol is complete and powered, but no human qualification has been run
-   blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+   requirement: ScriptedPetBaselineV1 matches the D016-K freeze manifest
+   detail:      the comparator, protocol, instrument, presentation, exclusions and analysis are freeze-pinned; no owner, reviewer or model can override the human result, and no human qualification has been run
+   blocks:      BLOCKED_BASELINE_NOT_QUALIFIED
 GA-05  BLOCKED
    requirement: Baseline competence qualification passed its preregistered margin
    detail:      requires 40 independent participants and a mean margin of at least 15.000 points with a CI lower bound above zero; no human data exists
-   blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+   blocks:      BLOCKED_BASELINE_NOT_QUALIFIED
 GA-06  BLOCKED
    requirement: BlindVariancePilotV1 was prospectively registered variance-only/non-scored
    detail:      the pilot is operationally ready (VARIANCE_ONLY, NON_SCORED, n=36) and its validity is now a deterministic check rather than a reviewer's judgement — AJ-03 in A001GateAdjudicatorV1 reads protocolValid off the sealed release; what is still missing is the run itself, which needs 36 real participants that no agent may stand in for
@@ -131,10 +131,10 @@ A001_PROGRAM_STATE=ALIVENESS_UNTESTED
 AGENTIC_HARNESS_STATE=BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED (reported, not blocking: since D016-I no agent adjudicates)
 A001_GATE_AUTHORITY=A001GateAdjudicatorV1 (deterministic; no agent adjudicates)
 A001_GATE_OUTCOME=A001_BLOCKED
-A001_ACTIVATION=BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+A001_ACTIVATION=BLOCKED_BASELINE_NOT_QUALIFIED
 HUMAN_SCORED_RECRUITMENT=BLOCKED
 OUTSTANDING_BLOCKERS=3
-  BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+  BLOCKED_BASELINE_NOT_QUALIFIED
   BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
 

@@ -37,7 +37,7 @@ whole force of a positive A001 comes from the comparator being hard to beat.
 | Precision | two-sided 95% CI lower bound `> 0` |
 | Direction | The qualification passes only if the strong baseline beats the degraded control. A tie or a reversal fails. |
 | Analysis | The same preregistered pipeline as the primary endpoint: complete-case, fixed screening order, paired t interval |
-| Owner | `BaselineIndependentOwner`, who may reject the baseline or require it to be strengthened |
+| Decision authority | The deterministic `A001GateAdjudicatorV1` reads only the sealed 40-person human result; no owner, reviewer, model or override exists |
 | Ordering | Exclusions, technical-failure rules and analysis frozen before pilot data |
 | Post-qualification | Hash and pin the contingency set, script, hold windows, interaction coverage manifest, parameters and expression-contract version |
 
@@ -96,7 +96,6 @@ apparent aliveness; if it were, A001 would be unnecessary.
 ## Blocked
 
 - **Participants.** None exist.
-- **`BaselineIndependentOwner`.** Unassigned; see `IndependentReviewRosterV1`.
-- **The qualification itself.** `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED`.
+- **The qualification itself.** It is determined only by the frozen 40-person blinded experiment and remains `BLOCKED_BASELINE_NOT_QUALIFIED` until that result exists.
   The baseline is implemented, frozen, fully disclosed and powered — and it is
   not qualified, and nothing in this repository may claim otherwise.

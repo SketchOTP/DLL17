@@ -90,7 +90,6 @@ public object A001StudyContract {
         "maxParticipantHours — an owner scheduling decision",
         "PrimaryIndependentAlivenessGateReviewer — unassigned",
         "AlternateIndependentAlivenessGateReviewer — unassigned",
-        "BaselineIndependentOwner — unassigned",
     )
 }
 

@@ -1,5 +1,7 @@
 # IndependentReviewOnboardingV1
 
+> **D016-K current state:** `BaselineIndependentOwner` is retired. Baseline qualification is determined only by the frozen 40-person blinded experiment and `A001GateAdjudicatorV1`; no person, model or reviewer may replace or override it. Older role text below is superseded planning history.
+
 - Status: `READY_FOR_HUMAN_EVIDENCE`
 - Version: 1
 - Roster: [IndependentReviewRosterV1](IndependentReviewRosterV1.md) —

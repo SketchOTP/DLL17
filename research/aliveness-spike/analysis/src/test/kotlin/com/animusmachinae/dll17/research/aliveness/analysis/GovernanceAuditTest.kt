@@ -71,7 +71,7 @@ class GovernanceAuditTest {
     fun `activation is blocked and recruitment is refused while any prerequisite is missing`() {
         assertFalse(AlivenessGovernanceAudit.recruitmentPermitted(items))
         assertEquals(
-            "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
+            "BLOCKED_BASELINE_NOT_QUALIFIED",
             AlivenessGovernanceAudit.activationState(items),
         )
         val rendered = AlivenessGovernanceAudit.render(items)
@@ -83,7 +83,7 @@ class GovernanceAuditTest {
     fun `the outstanding blockers are exactly the ones with no repository level fix`() {
         assertEquals(
             listOf(
-                "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
+                "BLOCKED_BASELINE_NOT_QUALIFIED",
                 "BLOCKED_VARIANCE_PILOT_NOT_REGISTERED",
                 "BLOCKED_SPEC_PAIRED_DIFFERENCE_SD",
             ),
@@ -100,7 +100,7 @@ class GovernanceAuditTest {
 
         val oneLeft = unblocked + items.first { it.id == "GA-04" }
         assertEquals(
-            "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
+            "BLOCKED_BASELINE_NOT_QUALIFIED",
             AlivenessGovernanceAudit.activationState(oneLeft),
         )
         assertFalse(AlivenessGovernanceAudit.recruitmentPermitted(oneLeft))

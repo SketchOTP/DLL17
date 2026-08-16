@@ -1,5 +1,7 @@
 # IndependentReviewRosterV1
 
+> **D016-K current state:** `BaselineIndependentOwner` is retired and has no active authority. Baseline qualification is a deterministic read of the frozen human result; historical roster and compatibility text below is retained for audit history.
+
 - Status: **SUPERSEDED** by [AgenticReviewHarnessV1](AgenticReviewHarnessV1.md)
 - Superseded: 2026-08-14, by the D016-B architect decision, implemented at D016-C
 - Historical status: `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`

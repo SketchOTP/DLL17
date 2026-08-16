@@ -202,6 +202,7 @@ jobs:
 
       - name: A001 activation package
         run: |
+          py -3 tools/verify_baseline_freeze.py
           ./gradlew :research:aliveness-spike:analysis:a001DryRun --no-daemon --quiet \
             > a001_dry_run.txt
           ./gradlew :research:aliveness-spike:accelerated-sim:baselineManifest \

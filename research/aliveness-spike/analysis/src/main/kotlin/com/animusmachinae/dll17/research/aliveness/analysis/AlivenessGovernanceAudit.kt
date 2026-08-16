@@ -134,11 +134,12 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-04",
-            "ScriptedPetBaselineV1 hash/version matches independently qualified evidence",
+            "ScriptedPetBaselineV1 matches the D016-K freeze manifest",
             AuditState.BLOCKED,
-            "the baseline is implemented and frozen in source, and its qualification " +
-                "protocol is complete and powered, but no human qualification has been run",
-            blockingState = "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
+                "the comparator, protocol, instrument, presentation, exclusions and analysis " +
+                "are freeze-pinned; no owner, reviewer or model can override the human result, " +
+                "and no human qualification has been run",
+            blockingState = "BLOCKED_BASELINE_NOT_QUALIFIED",
         ),
         AuditItem(
             "GA-05",
@@ -148,7 +149,7 @@ public object AlivenessGovernanceAudit {
                 "participants and a mean margin of at least " +
                 "${Statistics.d3(A001StudyContract.BASELINE_COMPETENCE_MARGIN)} points with a " +
                 "CI lower bound above zero; no human data exists",
-            blockingState = "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
+            blockingState = "BLOCKED_BASELINE_NOT_QUALIFIED",
         ),
         AuditItem(
             "GA-06",

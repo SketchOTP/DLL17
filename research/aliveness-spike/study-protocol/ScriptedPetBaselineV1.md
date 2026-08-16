@@ -69,7 +69,7 @@ and 0.39.
 
 **Not qualified.** `BaselineQualificationProtocolV1` requires a pilot-only human
 rater pool and an independently owned margin. No human data exists, and
-`BaselineIndependentOwner` is unassigned. D008 explicitly does not claim this
+The baseline is not yet qualified. D016-K explicitly does not claim this
 baseline has passed its competence qualification, and this document does not
 either.
 

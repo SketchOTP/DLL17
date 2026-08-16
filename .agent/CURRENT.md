@@ -7,14 +7,14 @@
 
 ## Active state after adoption
 
-- Local directive ID: D-016-J-R1
-- External directive ID: D016-J-R1
-- Objective: Close the D016-J CI regression and participant-protection contradictions without changing scientific scope or reviewer infrastructure.
+- Local directive ID: D-016-K
+- External directive ID: D016-K
+- Objective: Retire BaselineIndependentOwner and freeze deterministic baseline qualification before any human data collection.
 - Current status: `IN_PROGRESS`
-- Acceptance: GREEN Governance and Build/Test on the exact corrective SHA; D016-J remains corrective-required until then.
-- Current phase: A001.1 readiness correction. The 900de18 implementation is not an accepted completion because CI failed in BoundaryTest; no participant may be recruited by this coding task.
-- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md, research/aliveness-spike/analysis/, research/aliveness-spike/agentic-review/, research/aliveness-spike/study-protocol/. No organism source, threshold, analysis rule, pilot seal, reviewer infrastructure, scored study data or participant record was modified.
-- Immediate next action: Complete D016-J-R1, run Governance and Build/Test, and record the exact corrective SHA and CI result. Keep BaselineIndependentOwner unresolved and do not issue D016-K.
+- Acceptance: Green Governance and Build/Test on the exact pushed SHA; freeze manifest and hash enforced; no participants or recruitment; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
+- Current phase: A001.1 deterministic baseline readiness. D016-J is closed at R4; the baseline remains unqualified until the frozen 40-person blinded human experiment exists.
+- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/analysis/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/. No organism source, threshold, sample size, analysis rule, pilot seal, reviewer/model infrastructure, scored study data or participant record was modified.
+- Immediate next action: Complete exact-SHA validation and preserve the blocked state; then the next bottleneck is the authorized human baseline study, not reviewer infrastructure.
 
 ## Temporary task-relevant facts
 

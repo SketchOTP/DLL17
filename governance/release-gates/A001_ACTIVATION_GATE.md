@@ -1,9 +1,11 @@
 # A001 activation gate
 
+> **D016-K current state:** `BaselineIndependentOwner` is retired. The only baseline qualification authority is the deterministic `A001GateAdjudicatorV1` applied to the frozen 40-person blinded human experiment. No owner, reviewer, model or override exists.
+
 - Track: A001 — human aliveness comparison, Attempt 1 of a maximum of 3
 - Directive: D010 (activation package prepared without human data)
 - Program state: `ALIVENESS_UNTESTED`, attempts consumed 0
-- Activation state: `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED`
+- Activation state: `BLOCKED_BASELINE_NOT_QUALIFIED`
 - Human scored recruitment: **BLOCKED**
 - Evaluated: 2026-08-13
 
@@ -53,7 +55,7 @@ None of these can be cleared by writing code.
 
 | # | Blocker | What it needs |
 |---|---|---|
-| 1 | `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` | 40 participants and an assigned `BaselineIndependentOwner` |
+| 1 | `BLOCKED_BASELINE_NOT_QUALIFIED` | The frozen 40-person human qualification result is absent or fails its deterministic rule |
 | 2 | `BLOCKED_VARIANCE_PILOT_NOT_REGISTERED` | An independent operator and a reviewer to register the pilot |
 | 3 | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` | The pilot to have run and released its one number |
 | 6 | `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` | The agentic reviewers to be meta-evaluated against real models at the frozen thresholds |
@@ -117,7 +119,6 @@ changed, because nothing that could change it can be produced by writing code.
 |---|---|
 | `PrimaryIndependentAlivenessGateReviewer` | unassigned |
 | `AlternateIndependentAlivenessGateReviewer` | unassigned |
-| `BaselineIndependentOwner` | unassigned |
 | Independent human-study operator (`BlindVariancePilotV1`) | unnamed |
 
 No conflict-of-interest declaration, independence declaration, authority
@@ -715,7 +716,7 @@ both the failure and the frozen threshold values.
 | | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` |
 | `A001_GATE_AUTHORITY` | `A001GateAdjudicatorV1` (deterministic; no agent adjudicates) |
 | `A001_GATE_OUTCOME` | `A001_BLOCKED` |
-| `A001_ACTIVATION` | `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` |
+| `A001_ACTIVATION` | `BLOCKED_BASELINE_NOT_QUALIFIED` |
 | Attempts consumed | 0 / 3 |
 | Programme state | `ALIVENESS_UNTESTED` |
 | Human scored recruitment | `BLOCKED` |

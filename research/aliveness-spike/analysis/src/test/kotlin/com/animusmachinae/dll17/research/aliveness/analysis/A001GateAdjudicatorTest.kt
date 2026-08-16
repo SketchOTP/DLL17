@@ -123,7 +123,7 @@ class A001GateAdjudicatorTest {
         val ruling = A001GateAdjudicator.adjudicate(A001GateAdjudicator.currentEvidence())
         assertEquals(A001GateAdjudicator.GateOutcome.A001_BLOCKED, ruling.outcome)
         assertFalse(ruling.passed)
-        assertTrue("BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED" in ruling.blockers)
+        assertTrue("BLOCKED_BASELINE_NOT_QUALIFIED" in ruling.blockers)
         assertTrue("BLOCKED_VARIANCE_PILOT_NOT_REGISTERED" in ruling.blockers)
         assertTrue("BLOCKED_SPEC_PAIRED_DIFFERENCE_SD" in ruling.blockers)
         assertFalse("BLOCKED_ETHICS_DETERMINATION_ABSENT" in ruling.blockers)
@@ -438,7 +438,7 @@ class A001GateAdjudicatorTest {
             listOf(
                 AuditorFinding(
                     "F-REAL", AgenticRole.ALTERNATE_AUDITOR,
-                    ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED,
+                    ViolationCode.BASELINE_NOT_QUALIFIED,
                     listOf("EV"), "there is no qualified baseline",
                 ),
             ),
@@ -553,7 +553,7 @@ class A001GateAdjudicatorTest {
             ViolationCode.NON_SCORED_POOL_PARTICIPANT_ANALYSED,
         )
         val exercised = setOf(
-            ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED,
+            ViolationCode.BASELINE_NOT_QUALIFIED,
             ViolationCode.BASELINE_MARGIN_BELOW_FLOOR,
             ViolationCode.PILOT_NOT_PROTOCOL_VALID,
             ViolationCode.FEASIBILITY_NOT_ESTABLISHED,
@@ -578,7 +578,7 @@ class A001GateAdjudicatorTest {
         // fixture above; the current evidence intentionally contains D016-J's
         // owner-delegated determination and therefore must not trigger it.
         val live = A001GateAdjudicator.deriveViolations(A001GateAdjudicator.currentEvidence())
-        assertTrue(ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED in live)
+        assertTrue(ViolationCode.BASELINE_NOT_QUALIFIED in live)
         assertTrue(ViolationCode.PILOT_NOT_PROTOCOL_VALID in live)
         assertTrue(ViolationCode.FEASIBILITY_NOT_ESTABLISHED in live)
         assertFalse(ViolationCode.ETHICS_DETERMINATION_ABSENT in live)

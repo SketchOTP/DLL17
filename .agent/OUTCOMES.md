@@ -56,6 +56,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Follow-up directive: none
 
 
+## D-016-K - PARTIAL
+
+- Outcome ID: O-0026
+- Supersedes outcome: none
+- Closed: 2026-08-16T05:45:00-04:00
+- Acceptance: PARTIAL
+- Summary: `BaselineIndependentOwner` is retired as an active authority. The deterministic gate now requires the D016-K freeze-manifest hash alongside the 40-person baseline result; no person, model, reviewer or override can qualify or rescue the baseline. No participants were recruited, no human data exists, and A001 remains `ALIVENESS_UNTESTED` with attempts `0/3`.
+- Changed areas: `.agent/`, `.github/workflows/ci.yml`, `governance/release-gates/A001_ACTIVATION_GATE.md`, `research/aliveness-spike/analysis/`, `research/aliveness-spike/evidence/`, `research/aliveness-spike/study-protocol/`, `tools/verify_baseline_freeze.py`
+- Validation:
+  - `py -3 tools/verify_baseline_freeze.py` - PASSED
+  - `py -3 scripts/validate_governance.py --mode ADOPTED` - PASSED
+  - Gradle analysis tests - BLOCKED: workstation has Java 21 only and the build requires Java 17; exact CI validation remains required
+- Remaining risks: Exact generated A001 evidence and exact Governance plus Build/Test success on the pushed SHA are not yet established. Recruitment remains blocked.
+- Blockers: exact-SHA CI pending; local Java 17 unavailable
+- Follow-up directive: none
+
+
 ## D-016-J - FAILED
 
 - Outcome ID: O-0025

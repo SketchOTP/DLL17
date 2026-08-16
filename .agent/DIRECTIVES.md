@@ -409,3 +409,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-J
 - Status at issuance: ISSUED
+
+
+## D-016-K
+
+- Issued: 2026-08-16T05:20:00-04:00
+- Issuer: User
+- External directive: D016-K
+- Objective: Retire `BaselineIndependentOwner` entirely and freeze deterministic baseline qualification before any human data collection.
+- Scope: A machine-checked freeze manifest covering the comparator, protocol, instrument, presentation, exclusions and analysis; deterministic adjudicator enforcement of its hash; current governance and study-protocol language; generated evidence; tests; `.agent/` synchronization and CI.
+- Exclusions: No participants, recruitment, scored A001 sessions, human data, model or reviewer adjudication, Paragon, organism behavior, thresholds, sample sizes, statistical analysis changes, participant protections or D016-L.
+- Acceptance: The frozen 40-person blinded `ScriptedPetBaselineV1` versus `DegradedScriptedControlV1` experiment is the sole qualification authority; PASS requires mean paired competence difference >= +15 and 95% CI lower bound > 0; no person, model, reviewer or override can replace it; Governance and Build/Test are green on the exact pushed SHA; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-J
+- Status at issuance: ISSUED

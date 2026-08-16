@@ -72,6 +72,7 @@ public object A001GateAdjudicator {
         public val participants: Int,
         public val meanMargin: Double,
         public val marginCiLow: Double,
+        public val freezeManifestHash: String = BaselineQualificationFreezeV1.MANIFEST_SHA256,
     )
 
     /** One scored attempt's declared identity and its human data. */
@@ -128,6 +129,7 @@ public object A001GateAdjudicator {
             append("baseline=")
             if (baseline == null) append("ABSENT\n") else {
                 append(baseline.instrumentId)
+                append(" freeze=").append(baseline.freezeManifestHash)
                 append(" n=").append(baseline.participants)
                 append(" margin=").append(Statistics.d6(baseline.meanMargin))
                 append(" ciLow=").append(Statistics.d6(baseline.marginCiLow)).append('\n')
@@ -370,13 +372,14 @@ public object A001GateAdjudicator {
         val attempt = evidence.attempts.maxByOrNull { it.attemptNumber }
 
         if (evidence.baseline == null) {
-            found += ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+            found += ViolationCode.BASELINE_NOT_QUALIFIED
         } else {
             if (evidence.baseline.participants <
                 A001StudyContract.BASELINE_QUALIFICATION_PARTICIPANTS ||
-                evidence.baseline.instrumentId != A001StudyContract.BASELINE_INSTRUMENT_ID
+                evidence.baseline.instrumentId != A001StudyContract.BASELINE_INSTRUMENT_ID ||
+                evidence.baseline.freezeManifestHash != BaselineQualificationFreezeV1.MANIFEST_SHA256
             ) {
-                found += ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+                found += ViolationCode.BASELINE_NOT_QUALIFIED
             }
             if (evidence.baseline.meanMargin < A001StudyContract.BASELINE_COMPETENCE_MARGIN ||
                 evidence.baseline.marginCiLow <= 0.0
@@ -501,16 +504,17 @@ public object A001GateAdjudicator {
 
         stages += StageResult(
             "AJ-02",
-            "A strong scripted baseline is independently qualified",
-            ViolationCode.BASELINE_NOT_INDEPENDENTLY_QUALIFIED !in violations &&
+            "The frozen scripted baseline qualification passed its human experiment",
+            ViolationCode.BASELINE_NOT_QUALIFIED !in violations &&
                 ViolationCode.BASELINE_MARGIN_BELOW_FLOOR !in violations,
             evidence.baseline?.let {
                 "instrument=${it.instrumentId} n=${it.participants} " +
                     "margin=${Statistics.d3(it.meanMargin)} ciLow=${Statistics.d3(it.marginCiLow)} " +
+                    "freeze=${it.freezeManifestHash} " +
                     "required n>=${A001StudyContract.BASELINE_QUALIFICATION_PARTICIPANTS} " +
                     "margin>=${Statistics.d3(A001StudyContract.BASELINE_COMPETENCE_MARGIN)} ciLow>0"
             } ?: "no baseline qualification evidence exists",
-            blockingState = "BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED",
+            blockingState = "BLOCKED_BASELINE_NOT_QUALIFIED",
         )
 
         stages += StageResult(

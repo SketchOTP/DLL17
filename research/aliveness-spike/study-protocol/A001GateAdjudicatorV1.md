@@ -187,7 +187,7 @@ to.
   human ablations still require real blinded participants, and no agent may
   stand in for one.
 - The gate state. A001 remains blocked on
-  `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED`,
+  `BLOCKED_BASELINE_NOT_QUALIFIED`,
   `BLOCKED_VARIANCE_PILOT_NOT_REGISTERED` and `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD`,
   with attempts consumed at 0 of 3 and no human data anywhere in the repository.
 

@@ -33,7 +33,7 @@ and a missing one names its own blocking state rather than defaulting to ready.
 
 ```
 A001_PROGRAM_STATE       = ALIVENESS_UNTESTED
-A001_ACTIVATION          = BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+A001_ACTIVATION          = BLOCKED_BASELINE_NOT_QUALIFIED
 HUMAN_SCORED_RECRUITMENT = BLOCKED
 OUTSTANDING_BLOCKERS     = 5
 ```
@@ -42,7 +42,7 @@ The five distinct blocking states, in resolution order:
 
 | Blocker | Needs |
 |---|---|
-| `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` | 40 participants and an assigned owner |
+| `BLOCKED_BASELINE_NOT_QUALIFIED` | The frozen 40-person human qualification result is absent or fails its deterministic rule |
 | `BLOCKED_VARIANCE_PILOT_NOT_REGISTERED` | An independent operator and a reviewer |
 | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` | The pilot to have run |
 | `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED` | Three real, eligible people |

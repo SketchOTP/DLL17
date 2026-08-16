@@ -76,8 +76,8 @@ public object AdversarialAuditContract {
  */
 public enum class ViolationCode(public val detectable: String) {
 
-    /** No independently qualified baseline exists, or its evidence is absent. */
-    BASELINE_NOT_INDEPENDENTLY_QUALIFIED("baseline qualification evidence"),
+    /** The frozen human baseline qualification evidence is absent or invalid. */
+    BASELINE_NOT_QUALIFIED("baseline qualification evidence and freeze hash"),
 
     /** The baseline exists but did not clear its frozen competence margin. */
     BASELINE_MARGIN_BELOW_FLOOR("baseline margin vs BASELINE_COMPETENCE_MARGIN"),

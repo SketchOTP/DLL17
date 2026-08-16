@@ -27,7 +27,7 @@ AUDITOR AUTHORITY (AuditorAuthorityPolicyV1)
     - confirm its own finding — confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
 
   Machine-checkable violation codes: 16
-    BASELINE_NOT_INDEPENDENTLY_QUALIFIED          baseline qualification evidence
+    BASELINE_NOT_QUALIFIED                         baseline qualification evidence and freeze hash
     BASELINE_MARGIN_BELOW_FLOOR                   baseline margin vs BASELINE_COMPETENCE_MARGIN
     PILOT_NOT_PROTOCOL_VALID                      BlindVariancePilot.PilotRelease.protocolValid
     NON_SCORED_POOL_PARTICIPANT_ANALYSED          screening: PRIOR_NON_SCORED_POOL
@@ -72,9 +72,9 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       requirement: Every frozen A001 decision threshold still holds its frozen value
       detail:      all 11 thresholds match the values frozen before any human data existed
     BLOCKED   AJ-02
-      requirement: A strong scripted baseline is independently qualified
+      requirement: The frozen scripted baseline qualification passed its human experiment
       detail:      no baseline qualification evidence exists
-      blocks:      BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+      blocks:      BLOCKED_BASELINE_NOT_QUALIFIED
     BLOCKED   AJ-03
       requirement: BlindVariancePilotV1 released a protocol-valid result
       detail:      no pilot release exists
@@ -104,7 +104,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       detail:      no outcome was claimed; the computation stands alone
 
   VIOLATIONS INDEPENDENTLY DERIVED FROM EVIDENCE
-    BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+    BASELINE_NOT_QUALIFIED
     PILOT_NOT_PROTOCOL_VALID
     FEASIBILITY_NOT_ESTABLISHED
 
@@ -120,7 +120,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
     derived above, and an unconfirmed one is inert
 
   attemptsConsumed=0 attemptsRemaining=3 budget=3
-  blocker: BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
+  blocker: BLOCKED_BASELINE_NOT_QUALIFIED
   blocker: BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   blocker: BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
   blocker: BLOCKED_NO_SCORED_ATTEMPT
@@ -146,8 +146,8 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       requirement: Every frozen A001 decision threshold still holds its frozen value
       detail:      all 11 thresholds match the values frozen before any human data existed
     SATISFIED AJ-02
-      requirement: A strong scripted baseline is independently qualified
-      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 required n>=40 margin>=15.000 ciLow>0
+      requirement: The frozen scripted baseline qualification passed its human experiment
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=c443dd4108e753820865d091f4579ba3ec25871874e164374189b746f27cea95 required n>=40 margin>=15.000 ciLow>0
     SATISFIED AJ-03
       requirement: BlindVariancePilotV1 released a protocol-valid result
       detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here
@@ -235,8 +235,8 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       requirement: Every frozen A001 decision threshold still holds its frozen value
       detail:      all 11 thresholds match the values frozen before any human data existed
     SATISFIED AJ-02
-      requirement: A strong scripted baseline is independently qualified
-      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 required n>=40 margin>=15.000 ciLow>0
+      requirement: The frozen scripted baseline qualification passed its human experiment
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=c443dd4108e753820865d091f4579ba3ec25871874e164374189b746f27cea95 required n>=40 margin>=15.000 ciLow>0
     SATISFIED AJ-03
       requirement: BlindVariancePilotV1 released a protocol-valid result
       detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here

@@ -322,7 +322,7 @@ AUDITOR AUTHORITY (AuditorAuthorityPolicyV1)
     - confirm its own finding — confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
 
   Machine-checkable violation codes: 16
-    BASELINE_NOT_INDEPENDENTLY_QUALIFIED          baseline qualification evidence
+    BASELINE_NOT_QUALIFIED                         baseline qualification evidence and freeze hash
     BASELINE_MARGIN_BELOW_FLOOR                   baseline margin vs BASELINE_COMPETENCE_MARGIN
     PILOT_NOT_PROTOCOL_VALID                      BlindVariancePilot.PilotRelease.protocolValid
     NON_SCORED_POOL_PARTICIPANT_ANALYSED          screening: PRIOR_NON_SCORED_POOL
