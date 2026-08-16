@@ -1,6 +1,6 @@
 # ParticipantInformationAndConsentV1
 
-- Status: `READY_FOR_HUMAN_EVIDENCE`
+- Status: `READY_FOR_HUMAN_EVIDENCE_WITH_D016_J_CONDITIONS`
 - Version: 1
 - Applies to: A001 Attempt 1, `BaselineQualificationProtocolV1`,
   `BlindVariancePilotV1`
@@ -10,11 +10,17 @@ that is actually specified in `AlivenessStudyProtocolV1` — the actual duration
 the actual procedure, the actual identifiers, the actual retention. Nothing
 here promises anything the protocol does not deliver.
 
-> **No external approval exists.** No institutional review board, ethics
-> committee or equivalent body has reviewed this study, and none is claimed.
-> Whether one is required is a decision for the owner and the independent
-> reviewer. This package is written so that decision can be made on the real
-> text.
+> **D016-J ethics determination.** This is owner-delegated, minimal-risk,
+> benign behavioral human-subjects research for U.S. adults age 18+ who can
+> provide their own informed consent. Formal IRB approval is not claimed, and
+> Common Rule coverage is not established on the current project record. If
+> federal, institutional/FWA, FDA or other applicable coverage attaches, or the
+> protocol leaves this approved scope, recruitment stops pending a new/formal
+> determination as applicable.
+
+Prisoners and people unable to provide legally effective consent are excluded
+from this protocol version. A real study-owner contact supplied through the
+booking/consent channel is required before a session begins.
 
 ---
 
@@ -89,9 +95,15 @@ is kept indefinitely as part of the research record, because a negative result
 must remain checkable and cannot be quietly deleted. It contains no information
 that identifies you.
 
-Any contact detail used to arrange or pay for your session is kept separately
-from the study data, is never joined to it, and is destroyed once payment is
-complete.
+Your signed consent form contains your name and signature. It is an identifiable
+record stored separately from both the enrolment register and study data; it
+never contains or exposes the participant-number mapping. Signed consent is
+retained for three years after completion of the A001 human-study programme and
+then securely destroyed. This is a conservative project rule, not a claim that
+45 CFR 46.115 legally governs this currently non-covered internal determination.
+
+Any scheduling or payment identifier is kept separately from the study data and
+destroyed after payment and eligibility checks are complete.
 
 ### Withdrawing
 
@@ -119,9 +131,10 @@ that uncomfortable. You do not have to do it. You can stop at any time.
 
 ### Questions
 
-The study operator can answer questions before, during or after the session. If
-you would prefer to raise something with someone not running the study, ask for
-the independent reviewer's contact details, which the operator will provide.
+The study operator can answer questions before, during or after the session.
+Study or ethics questions and complaints may also be raised through the real
+study-owner contact supplied in the booking/consent channel. A session cannot
+begin unless that contact has been supplied.
 
 ---
 
@@ -141,7 +154,11 @@ single blanket signature is not accepted.
 6. I understand that my ratings and session events are kept indefinitely without
    my name attached, and that once the analysis has been run my record can no
    longer be identified in order to be removed.
-7. I agree to take part.
+7. I confirm that I am at least 18 years old, located in the United States,
+   able to provide my own legally effective consent, and not a prisoner.
+8. I confirm that the study-owner contact and any compensation terms were
+   supplied to me before consent.
+9. I agree to take part.
 
 Name (block capitals) · Signature · Date
 Study operator name · Signature · Date
@@ -177,6 +194,6 @@ Read to every participant, including those who withdraw.
 ## Blocked
 
 - **Compensation amount.** An owner decision. Not invented here.
-- **Operator and reviewer contact details.** No person is named; see
-  `IndependentReviewRosterV1`.
+- **Study-owner contact details.** Supplied through the booking/consent channel;
+  no name, address or credential is invented in this repository.
 - **Any statement of external ethical approval.** None exists.

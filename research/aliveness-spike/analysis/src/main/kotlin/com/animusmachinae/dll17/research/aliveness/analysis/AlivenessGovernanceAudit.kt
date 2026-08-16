@@ -64,8 +64,8 @@ public class AuditItem(
  */
 public object AlivenessGovernanceAudit {
 
-    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV9"
-    public const val AUDIT_VERSION: Int = 9
+    public const val AUDIT_ID: String = "AlivenessGovernanceAuditV10"
+    public const val AUDIT_VERSION: Int = 10
 
     /**
      * The agentic-governance facts, read from the harness rather than restated.
@@ -373,14 +373,15 @@ public object AlivenessGovernanceAudit {
         ),
         AuditItem(
             "GA-26",
-            "Any required external ethical or institutional approval is in place",
-            AuditState.REQUIRES_SIGNED_GOVERNANCE_EVIDENCE,
-            "no IRB, institutional or ethics-board approval exists and none is claimed; " +
-                "the owner has frozen the posture that an independent human-subjects " +
-                "determination must be obtained from a qualified IRB, HRPP or equivalent " +
-                "body before any participant is recruited, and that the programme may not " +
-                "self-determine exemption; obtaining that determination is a human act and " +
-                "remains signed governance evidence",
+            "The D016-J owner-delegated ethics determination is encoded without claiming IRB approval",
+            AuditState.PASS,
+            "D016-J records HUMAN_SUBJECTS_RESEARCH=true, RISK_CLASS=MINIMAL_RISK, " +
+                "BEHAVIORAL_CLASS=BENIGN_BEHAVIORAL_INTERVENTION, " +
+                "ETHICS_DETERMINATION=OWNER_DELEGATED_APPROVED_WITH_CONDITIONS, " +
+                "FORMAL_IRB_APPROVAL=NOT_CLAIMED and " +
+                "COMMON_RULE_COVERAGE=NOT_ESTABLISHED_ON_CURRENT_PROJECT_RECORD. " +
+                "The approved scope is US adults age 18+ with legally effective self-consent; " +
+                "material scope changes still require re-review.",
         ),
         AuditItem(
             "GA-27",

@@ -1,6 +1,6 @@
 # DataHandlingAndPrivacyV1
 
-- Status: `READY_FOR_HUMAN_EVIDENCE`
+- Status: `READY_FOR_HUMAN_EVIDENCE_WITH_D016_J_CONDITIONS`
 - Version: 1
 - Applies to: A001 Attempt 1, `BaselineQualificationProtocolV1`,
   `BlindVariancePilotV1`
@@ -25,6 +25,7 @@ retrofitted once a spreadsheet has both halves in it.
 | Completed-session fraction, technical-failure flag | Study data | Study data set |
 | Prior-pool flag (pilot or baseline participant) | Eligibility | Enrolment register |
 | Name and contact detail, only if needed to schedule or pay | Identifying | Enrolment register |
+| Signed consent form, including name and signature | Identifiable consent record | Separate consent-record storage |
 
 **Not collected at any point:** audio, video or images of the participant;
 demographics; free-text about the participant; anything from the participant's
@@ -32,13 +33,19 @@ own device; any identifier beyond what scheduling and payment require.
 
 ## The separation that matters
 
-Two data sets, never joined:
+Three separately controlled records, never joined:
 
 - **Enrolment register.** Names, contact details, appointment times, payment
   status, prior-pool flags. Held by the study operator. Destroyed for each
   participant once payment is complete and eligibility checks are finished.
 - **Study data set.** Participant number, ratings, session events. Contains no
   identifying information. Retained indefinitely.
+- **Signed consent record.** Name, signature, consent initials and date. Stored
+  separately from both the enrolment register and study data; it never contains
+  or exposes the participant-number mapping. Retained for three years after
+  completion of the A001 human-study programme, then securely destroyed. This is
+  a conservative project rule, not a claim that 45 CFR 46.115 legally governs
+  this currently non-covered internal determination.
 
 The mapping between the two exists only inside the enrolment register and dies
 with it. After that point a study record cannot be traced to a person — which is
@@ -50,6 +57,7 @@ information sheet says so plainly rather than promising otherwise.
 | Data | Retention |
 |---|---|
 | Enrolment register entry | Until payment and eligibility checks are complete, then destroyed |
+| Signed consent record | Three years after completion of the A001 human-study programme, then securely destroyed |
 | Study data set | Indefinite. A negative result must stay checkable and may not be quietly deleted. |
 | Withdrawn participant's data, withdrawn before analysis | Destroyed, and the destruction recorded as an exclusion count |
 | Variance-pilot outcome data | Sealed through all scored attempts, then retained sealed |
@@ -59,7 +67,7 @@ information sheet says so plainly rather than promising otherwise.
 | Party | Sees |
 |---|---|
 | Study operator | Enrolment register and full study data set |
-| Independent reviewer | Everything, on request, without the FULL team's consent |
+| Study owner / ethics contact | Consent records and study records only as needed for the approved protocol and complaint handling |
 | Baseline independent owner | The baseline qualification data set |
 | **FULL team** | Scored-attempt study data after the attempt closes; from the variance pilot, only `pairedDifferenceSd` and a validity flag |
 
@@ -94,7 +102,7 @@ later one.
 1. These are written controls. This repository enforces exactly one of them in
    code — the pilot information barrier. The rest depend on the operator doing
    what the document says, and no prose prevents an action.
-2. There is no named data controller, because no person is assigned to any role.
+2. There is no named data controller in this repository; the real study-owner contact is supplied through booking/consent before any session.
 3. No jurisdiction-specific legal analysis has been done. Whether this study
    needs a lawful basis, a privacy notice in a particular form, or a data
    protection impact assessment depends on where it runs, and that is not

@@ -52,6 +52,9 @@ public object A001GateAdjudicator {
 
     public const val ADJUDICATOR_ID: String = "A001GateAdjudicatorV1"
     public const val ADJUDICATOR_VERSION: Int = 1
+    /** D016-J owner-delegated determination; this is not an IRB approval. */
+    public const val ETHICS_DETERMINATION_ID: String =
+        "D016-J-OWNER-DELEGATED-APPROVED-WITH-CONDITIONS"
 
     // ------------------------------------------------------------------ inputs
 
@@ -702,7 +705,7 @@ public object A001GateAdjudicator {
         baseline = null,
         pilot = null,
         ceiling = A001FeasibilityBudget.FROZEN_OWNER_CEILING,
-        ethicsDeterminationId = null,
+        ethicsDeterminationId = ETHICS_DETERMINATION_ID,
         attempts = emptyList(),
         auditorFindings = emptyList(),
     )

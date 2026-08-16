@@ -126,7 +126,11 @@ class A001GateAdjudicatorTest {
         assertTrue("BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED" in ruling.blockers)
         assertTrue("BLOCKED_VARIANCE_PILOT_NOT_REGISTERED" in ruling.blockers)
         assertTrue("BLOCKED_SPEC_PAIRED_DIFFERENCE_SD" in ruling.blockers)
-        assertTrue("BLOCKED_ETHICS_DETERMINATION_ABSENT" in ruling.blockers)
+        assertFalse("BLOCKED_ETHICS_DETERMINATION_ABSENT" in ruling.blockers)
+        assertEquals(
+            A001GateAdjudicator.ETHICS_DETERMINATION_ID,
+            A001GateAdjudicator.currentEvidence().ethicsDeterminationId,
+        )
         assertEquals(0, ruling.attemptsConsumed)
         assertEquals(SpikeContract.MAX_SCORED_A001_ATTEMPTS, ruling.attemptsRemaining)
         // No attempt was analysed, so no statistic about the organism exists.

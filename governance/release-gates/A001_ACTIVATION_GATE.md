@@ -725,12 +725,11 @@ both the failure and the frozen threshold values.
 The three remaining blockers are the ones no code in this repository can clear.
 Each needs real blinded participants, and no agent may stand in for one.
 
-Note that the adjudicator is *stricter* than the audit on one point: it treats a
-missing human-subjects determination as a hard block
-(`BLOCKED_ETHICS_DETERMINATION_ABSENT`), where `GA-26` records it as
-`REQUIRES_SIGNED_GOVERNANCE_EVIDENCE`. That divergence is deliberate and is left
-in place: the gate should not be computable to a pass on evidence gathered
-without a determination.
+Before D016-J, the adjudicator treated a missing human-subjects determination as
+a hard block (`BLOCKED_ETHICS_DETERMINATION_ABSENT`). D016-J now supplies the
+owner-delegated determination without claiming IRB approval, so this blocker is
+cleared for the approved U.S.-adult benign-behavioral scope. Any material scope
+change still pauses recruitment and requires re-review.
 
 ### Stated limitations
 
@@ -747,3 +746,23 @@ without a determination.
 - The adversarial auditors have never been run in their new role. Their briefing
   was rewritten, and no auditor has executed against it. What is proven is the
   structure that makes their output non-load-bearing, not their usefulness.
+
+---
+
+## D016-J — ethics determination and baseline-readiness correction
+
+`D016-J` is encoded as `OWNER_DELEGATED_APPROVED_WITH_CONDITIONS`. It is an
+owner-delegated project ethics determination, not an IRB approval or federal
+exemption certificate. The approved scope is minimal-risk benign behavioral
+human-subjects research with U.S. adults age 18+ who can provide their own
+legally effective consent. Prisoners, people without consent capacity, minors,
+non-U.S. participants, recording, biometrics, health data, participant-device
+collection, physical intervention, increased risk, and material scope changes
+remain excluded and trigger re-review.
+
+The ethics prerequisite is cleared in the deterministic adjudicator, but the
+three substantive human-evidence blockers are unchanged. Baseline qualification
+is eligible to open only after the owner supplies a real study-owner contact and
+compensation terms to participants. Scored A001 recruitment remains blocked;
+attempts remain `0 / 3`, programme state remains `ALIVENESS_UNTESTED`, and human
+participant data remains `0`.

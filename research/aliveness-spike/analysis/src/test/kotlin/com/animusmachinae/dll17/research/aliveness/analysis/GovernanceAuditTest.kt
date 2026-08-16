@@ -125,6 +125,15 @@ class GovernanceAuditTest {
     }
 
     @Test
+    fun `D016-J ethics determination is recorded without an IRB claim`() {
+        val ethics = items.single { it.id == "GA-26" }
+        assertEquals(AuditState.PASS, ethics.state)
+        assertTrue(ethics.detail.contains("OWNER_DELEGATED_APPROVED_WITH_CONDITIONS"))
+        assertTrue(ethics.detail.contains("NOT_CLAIMED"))
+        assertTrue(ethics.detail.contains("age 18+"))
+    }
+
+    @Test
     fun `reviewer independence rests on role contracts rather than vendor names`() {
         // D016-F retired the provider and model-family diversity requirement,
         // because the router owns model selection and the project was directed not

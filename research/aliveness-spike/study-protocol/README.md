@@ -30,20 +30,19 @@ Each document carries one of three statuses:
 | [BaselineQualificationProtocolV1](BaselineQualificationProtocolV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [BlindVariancePilotV1](BlindVariancePilotV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [A001FeasibilityBudgetV1](A001FeasibilityBudgetV1.md) | `READY_FOR_HUMAN_EVIDENCE` — was `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` |
-| [ParticipantInformationAndConsentV1](ParticipantInformationAndConsentV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
-| [DataHandlingAndPrivacyV1](DataHandlingAndPrivacyV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
+| [ParticipantInformationAndConsentV1](ParticipantInformationAndConsentV1.md) | `READY_FOR_HUMAN_EVIDENCE_WITH_D016_J_CONDITIONS` |
+| [DataHandlingAndPrivacyV1](DataHandlingAndPrivacyV1.md) | `READY_FOR_HUMAN_EVIDENCE_WITH_D016_J_CONDITIONS` |
 | [IndependentReviewOnboardingV1](IndependentReviewOnboardingV1.md) | `READY_FOR_HUMAN_EVIDENCE` |
 | [IndependentReviewRosterV1](IndependentReviewRosterV1.md) | `SUPERSEDED` by AgenticReviewHarnessV1 (D016-C); history retained |
 | [AgenticReviewHarnessV1](AgenticReviewHarnessV1.md) | `BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED` — measured at D016-H and failed all seven thresholds; `SUPERSEDED` as gate authority by A001GateAdjudicatorV1 (D016-I), retained as the adversarial-auditor harness |
 | [A001GateAdjudicatorV1](A001GateAdjudicatorV1.md) | `FROZEN` — the deterministic A001 gate authority (D016-I) |
 
-Under D010 the attempt-specific protocol, the instrument, the participant
-materials and the reviewer onboarding package were authored and frozen. What
-remains blocked still needs something other than code: a registered variance
-pilot, the SD it releases, an independent baseline qualification, and — since
-D016-B replaced the human reviewer roles with agentic ones — two credentialed
-heterogeneous reviewer models against which the frozen qualification thresholds
-can actually be measured. The owner resource ceiling was frozen at D016-A.
+Under D010 the attempt-specific protocol, the instrument and participant
+materials were authored and frozen. D016-J now encodes the owner-delegated
+ethics determination and minimum participant protections. What remains blocked
+still needs real human evidence: a registered variance pilot, the SD it releases,
+and an independent baseline qualification. Scored A001 recruitment remains
+blocked.
 
 The agentic roles govern and operate the study. They do not replace the people
 whose perception A001 measures, and every human arm is still blocked on real

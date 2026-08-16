@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-15T12:05:00-04:00`
+- Last updated: `2026-08-16T02:35:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-I
-- External directive ID: D016-I
-- Objective: Convert A001 to deterministic gate adjudication with agentic adversarial audit, so human evidence determines aliveness, frozen math determines PASS and FAIL, and agents audit without adjudicating.
+- Local directive ID: D-016-J
+- External directive ID: D016-J
+- Objective: Encode the owner-delegated ethics determination and clear only the baseline human-evidence recruitment preconditions.
 - Current status: `COMPLETE`
 - Acceptance: MET. The deterministic adjudicator computes the whole A001 outcome from one canonical evidence record, its replayability is proven over identical and reordered evidence, every existing A001 threshold is unchanged and guarded against drift, gate-adjudicating authority is forbidden to every agentic role and refused at construction, agent findings cannot create, rescue or override an outcome, and the D016-H measurement is preserved and reported as permanently unclearable.
-- Current phase: A001.0 — governance activation, boundary report D016-I. Still not entered. The gate authority is now a deterministic computation rather than a judge, and the three remaining blockers all need human evidence that no code in this repository can supply.
-- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md, research/aliveness-spike/agentic-review/, research/aliveness-spike/analysis/, research/aliveness-spike/study-protocol/, research/aliveness-spike/evidence/, .github/workflows/ci.yml. No organism source, production contract, participant material or scored study data was modified under D-016 or any of its lettered boundaries.
-- Immediate next action: Hold at D016-I, awaiting reset to IDLE on the Architect's disposition. The blocking question is no longer which judge to use and is now organisational — an independently qualified scripted baseline, a registered variance pilot and the paired-difference standard deviation it releases, each of which needs real blinded participants that no agent may stand in for. An independent human-subjects determination is still required before anyone is recruited, and the adjudicator treats its absence as a hard block. No credential, reviewer execution, ruling, determination or gate outcome may be fabricated.
+- Current phase: A001.1 readiness. D016-J is complete only after governance and CI verification; the ethics prerequisite is encoded, but scored A001 remains blocked and no participant may be recruited by this coding task.
+- Expected or actual touched areas: .agent/, governance/release-gates/A001_ACTIVATION_GATE.md, research/aliveness-spike/analysis/, research/aliveness-spike/agentic-review/, research/aliveness-spike/study-protocol/. No organism source, threshold, analysis rule, pilot seal, reviewer infrastructure, scored study data or participant record was modified.
+- Immediate next action: D016-J is complete and awaiting reset to IDLE on the Architect's disposition. After acceptance, the owner must supply a real study-owner contact and compensation terms, then open the frozen 40-participant scripted-baseline qualification. The variance pilot follows only after independent baseline qualification. Scored A001 recruitment remains blocked.
 
 ## Temporary task-relevant facts
 
@@ -27,8 +27,8 @@
 - An unreliable auditor is now tolerable for a structural reason rather than an optimistic one. Under D016-C the model's answer was the ruling, so every instability in it was an instability in the gate; the worst an unstable auditor can now do is point at the wrong place or fail to point at all. The measured injection resistance of 0.750 did not improve, and nothing depends on it any more.
 - The D016-H failure is preserved and is not clearable. GA-37 changed its requirement rather than its facts, renders reviewerQualified=false permanently, and still names every failed metric with its measured value. AgenticReviewerQualificationThresholdsV1 is untouched and still requires injection resistance of exactly 1.00, and CI asserts both the failure and the frozen threshold values.
 - BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED is retired as an A001 activation blocker while remaining permanently true of the harness. The blocker count fell from four to three for the first time since D016-A for a reason other than a reclassification, because agents were removed from the decision path rather than because one was qualified.
-- The adjudicator is deliberately stricter than the audit on ethics. It treats a missing independent human-subjects determination as a hard block, where GA-26 records it as signed governance evidence, so the two disagree until a determination exists. That divergence is intentional, because a gate that could compute to a pass on data gathered without a determination would be the wrong shape whatever the audit says.
-- The audit is now AlivenessGovernanceAuditV9 with forty items. GA-38 derives the adjudicator's replayability, GA-39 derives the removal of agent authority, GA-40 derives the frozen-threshold guard, and GA-15 now passes because the gate authority is qualified by test rather than by measurement of a judge.
+- D016-J supersedes the pre-determination ethics gap. The current evidence carries `D016-J-OWNER-DELEGATED-APPROVED-WITH-CONDITIONS`; this is not an IRB approval or federal exemption certificate. The approved scope is U.S. adults age 18+ with legally effective self-consent in minimal-risk benign behavioral research. Material scope changes still pause recruitment for re-review.
+- The audit is now AlivenessGovernanceAuditV10 with forty items. D016-J records GA-26 as PASS for the owner-delegated determination without claiming IRB approval. GA-38 derives the adjudicator's replayability, GA-39 derives the removal of agent authority, GA-40 derives the frozen-threshold guard, and GA-15 passes because the gate authority is qualified by test rather than by measurement of a judge.
 - D-016-C is blocked at Phase A001.0 with BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE, recorded as O-0018 and in the A001 activation gate record. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists. Five blockers remain: one was cleared at D016-A and one was superseded by two at D016-C, which is not progress toward opening the gate.
 - The three A001 governance roles are now agentic, per the architect's D016-B decision, implemented at D016-C as AgenticReviewHarnessV1 in research/aliveness-spike/agentic-review. That module depends on nothing at all, so a reviewer cannot import the organism it adjudicates. Recorded as DEC-0040.
 - Reviewer isolation is structural before it is behavioural. A review session is a function of a role contract, a backend, a question and an evidence bundle, and has no parameter through which another reviewer's ruling could arrive. Running the alternate with no primary at all yields byte-identical input, which could not hold if anything leaked. Any verdict difference produces BLOCKED_AGENTIC_REVIEW_DISAGREEMENT and is returned to the architect: there is no debate loop, no vote and no tie-breaking meta-judge.

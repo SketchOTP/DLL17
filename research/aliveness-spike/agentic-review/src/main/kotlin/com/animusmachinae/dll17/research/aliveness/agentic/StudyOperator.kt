@@ -14,6 +14,16 @@ public class ParticipantResponse(
     public val sourceAttestation: String,
 )
 
+/** D016-J eligibility and pre-session protections. */
+public data class ParticipantEligibility(
+    public val age: Int,
+    public val countryCode: String,
+    public val canProvideOwnConsent: Boolean,
+    public val isPrisoner: Boolean,
+    public val ownerContactSupplied: Boolean,
+    public val compensationTermsDisclosed: Boolean,
+)
+
 /** One line of the operator's append-only audit log. */
 public class AuditEntry(public val sequence: Int, public val action: String, public val detail: String)
 
@@ -33,6 +43,26 @@ public class StudyOperator(
     private val log = mutableListOf<AuditEntry>()
     private val recorded = mutableListOf<ParticipantResponse>()
     private var sealed = false
+
+    /**
+     * Opens a session only after D016-J's non-scored participant protections
+     * are present. The contact value itself is supplied outside this package;
+     * this gate refuses an absent contact rather than inventing one.
+     */
+    public fun authorizeSession(eligibility: ParticipantEligibility) {
+        require(!sealed) { "the operator cannot authorize a sealed study" }
+        require(eligibility.age >= 18) { "A001 participants must be adults" }
+        require(eligibility.countryCode == "US") { "this protocol is limited to US participants" }
+        require(eligibility.canProvideOwnConsent) { "legally effective self-consent is required" }
+        require(!eligibility.isPrisoner) { "prisoners are excluded from this protocol version" }
+        require(eligibility.ownerContactSupplied) {
+            "a real study-owner contact must be supplied before the session begins"
+        }
+        require(eligibility.compensationTermsDisclosed) {
+            "compensation terms must be disclosed before consent"
+        }
+        append("AUTHORIZE_SESSION", "adult_us_self_consent_owner_contacted")
+    }
 
     /** Deterministic counterbalancing: odd participants see FULL first, even see the comparator. */
     public fun assignOrder(participantIndex: Int, full: String, comparator: String): List<String> {

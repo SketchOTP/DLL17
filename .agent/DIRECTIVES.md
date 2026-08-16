@@ -22,6 +22,8 @@ Use one live entry for each accepted project task. Keep examples outside this fi
 - Relationship: <new | resumes | amends | supersedes>
 - Related directive: <local directive ID or none>
 - Status at issuance: ISSUED
+
+
 ```
 
 Do not record execution results here. Do not rewrite historical entries after adoption. Append corrections, amendments, and supersessions referencing the original entry.
@@ -39,6 +41,8 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: new
 - Related directive: none
 - Status at issuance: ISSUED
+
+
 
 ## D-002
 
@@ -374,4 +378,19 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Risk class: HIGH
 - Relationship: resumes
 - Related directive: D-016-H
+- Status at issuance: ISSUED
+
+
+## D-016-J
+
+- Issued: 2026-08-16T02:25:00-04:00
+- Issuer: User
+- External directive: D016-J
+- Objective: Encode the owner-delegated A001 ethics determination and correct the minimum participant protections required before baseline human-evidence recruitment.
+- Scope: Ethics determination, U.S. adult eligibility, consent/privacy separation and retention, owner-contact enforcement, participant materials, A001 governance state, focused tests/evidence, `.agent/` synchronization and CI.
+- Exclusions: IRB or exemption claims; changing thresholds, sample sizes, analysis, pilot seal, adjudicator rules, organism behavior, Paragon/model infrastructure, scored A001 recruitment, participant recruitment inside the coding task, or creating D017.
+- Acceptance: Determination encoded without formal-approval claim; 18+ U.S.-adult self-consent eligibility enforced; prisoners and people lacking legally effective consent excluded; signed consent separated and retained three years after the A001 programme; obsolete independent-reviewer contact removed; real owner contact required before session; incomplete-disclosure authorization, debrief, payment/withdrawal and privacy protections preserved; scope-change triggers explicit; ethics stage accepted by `A001GateAdjudicatorV1`; the three substantive human-evidence blockers unchanged; scored recruitment blocked; attempts `0/3`; human data `0`; validation green; exact pushed SHA and CI recorded.
+- Risk class: HIGH
+- Relationship: resumes
+- Related directive: D-016-I
 - Status at issuance: ISSUED

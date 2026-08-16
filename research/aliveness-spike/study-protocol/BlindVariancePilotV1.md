@@ -1,6 +1,14 @@
 # BlindVariancePilotV1
 
 - Status: `READY_FOR_HUMAN_EVIDENCE`
+
+## D016-J participant scope
+
+Pilot recruitment remains blocked until the pilot is registered. When opened,
+participants must be U.S. adults age 18+ capable of providing their own informed
+consent; prisoners and people unable to provide legally effective consent are
+excluded. A real study-owner contact and compensation terms must be supplied
+before consent. Pilot participants remain permanently excluded from scored A001.
 - Version: 1
 - Executable portion: `research/aliveness-spike/analysis/.../BlindVariancePilot.kt`
 - Seal evidence: `BlindVariancePilotSealTest`,

@@ -3,6 +3,17 @@
 - Status: `FROZEN`
 - Version: 1
 
+## D016-J participant-scope triggers
+
+Before use, stop recruitment and return to the Architect for a new ethics
+determination if the study adds minors, prisoners, people lacking legally
+effective consent, non-U.S. participants, audio/video/image recording,
+biometrics, health information, identifiable sensitive information,
+participant-device collection, physical intervention, increased psychological
+risk, materially broader deception, federal funding/support, institutional
+sponsorship/FWA, FDA-regulated activity, or another material departure from the
+approved minimal-risk benign-behavioral scope.
+
 Whether a revision after a failed attempt constitutes a materially new attempt.
 Adjudication is a human judgement by the independent gate reviewer; the classes
 below are frozen so the judgement is against a fixed rule rather than a fresh

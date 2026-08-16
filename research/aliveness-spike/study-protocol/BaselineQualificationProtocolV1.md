@@ -4,6 +4,16 @@
 - Version: 1
 - Coverage manifest: `research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt`
 
+## D016-J participant scope
+
+Recruitment under this protocol is limited to U.S. adults age 18+ who can
+provide their own informed consent. Prisoners and people unable to provide
+legally effective consent are excluded. A real study-owner contact and the
+compensation terms must be supplied through the booking/consent channel before
+any session begins. Signed consent is stored separately as an identifiable
+record and retained for three years after completion of the A001 human-study
+programme before secure destruction.
+
 Establishes that `ScriptedPetBaselineV1` is a genuinely competent comparator
 before it is used to judge FULL. The FULL team may not self-certify it.
 

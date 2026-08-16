@@ -13,6 +13,13 @@ person rated anything, which is the only condition under which a decision rule
 means what it says. After the first scored participant, every value here is
 subject to `MaterialChangeEligibilityV1`.
 
+## D016-J participant scope
+
+Scored recruitment remains blocked. If later authorized, this protocol is
+limited to U.S. adults age 18+ who can provide their own informed consent;
+prisoners and people unable to provide legally effective consent are excluded.
+The study-owner contact and compensation terms must be supplied before consent.
+
 ---
 
 ## The question
