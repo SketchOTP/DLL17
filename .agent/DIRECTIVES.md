@@ -439,3 +439,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-K
 - Status at issuance: ISSUED
+
+
+## D-016-K-R2
+
+- Issued: 2026-08-16T12:00:00-04:00
+- Issuer: User
+- External directive: D016-K-R2
+- Objective: Make the frozen-baseline verifier portable in Linux CI and synchronize the live ethics state with D016-J.
+- Scope: Replace the Windows-only Python launcher in the A001 activation workflow; correct `.agent/CURRENT.md`; append the truthful R1 CI failure and R2 state; and obtain exact-SHA CI.
+- Exclusions: No baseline freeze manifest or hash changes; no threshold, sample-size, power, statistical-analysis, participant-protection, organism, reviewer/model, recruitment, human-data, A001-attempt or D016-L changes.
+- Acceptance: The Linux workflow invokes an available Python 3 command; current records state that the D016-J owner-delegated determination exists and AJ-05 is satisfied while formal IRB approval, federal exemption and Common Rule/institutional coverage remain unclaimed or unestablished; the R1 failure remains preserved; Governance and Build/Test are green on the exact pushed SHA; and A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-K-R1
+- Status at issuance: ISSUED

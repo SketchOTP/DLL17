@@ -110,6 +110,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED, BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
 - Follow-up directive: D-016-J-R1
 
+
+## D-016-K-R2 - PARTIAL
+
+- Outcome ID: O-0028
+- Supersedes outcome: O-0027
+- Closed: 2026-08-16T12:20:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-K-R1's substantive corrections held locally and in Governance, but exact-SHA CI run `31956545607` did not pass in the A001 activation package because Ubuntu does not provide the Windows-only `py -3` launcher. The current gate logic was not implicated. R2 changes only that workflow invocation to `python3` and synchronizes the live current-state record with the existing D016-J owner-delegated determination: AJ-05 is satisfied; formal IRB approval, federal exemption and Common Rule/institutional coverage are not claimed or established. Historical pre-D016-J uncertainty remains preserved as history. No participants, recruitment, scored attempt or human data exist.
+- Changed areas: `.github/workflows/ci.yml`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, `.agent/OUTCOMES.md`
+- Validation:
+  - Exact-SHA CI `31956545607` on `ad9d66cf3caf708a89081b93f370386860776ac2` - FAILED in A001 activation package at the Windows-only `py` launcher; Governance, Pure JVM, headless/phase, A000, R012 and R014 passed
+  - Freeze manifest/hash, Kotlin analysis and agentic-review validation from R1 - PASSED and unchanged
+  - Exact-SHA Governance and Build/Test after R2 - NOT RUN
+- Remaining risks: The portable invocation and current-state record still require exact-SHA CI confirmation. Recruitment remains blocked.
+- Blockers: exact-SHA CI pending
+- Follow-up directive: none
+
 ## D-003 - COMPLETE
 
 - Outcome ID: O-0003

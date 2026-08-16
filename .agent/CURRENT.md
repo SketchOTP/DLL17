@@ -7,14 +7,14 @@
 
 ## Active state after adoption
 
-- Local directive ID: D-016-K-R1
-- External directive ID: D016-K-R1
-- Objective: Synchronize retired baseline-owner semantics and verify the frozen evidence chain.
+- Local directive ID: D-016-K-R2
+- External directive ID: D016-K-R2
+- Objective: Make the frozen-baseline verification portable in Linux CI and synchronize the live ethics state.
 - Current status: `IN_PROGRESS`
 - Acceptance: Green Governance and Build/Test on the exact pushed SHA; freeze manifest and hash enforced; no participants or recruitment; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
-- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; the baseline remains unqualified until the frozen 40-person blinded human experiment exists.
+- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; D016-K-R1 failed exact-SHA CI only because the Linux runner invoked the Windows-only py launcher. The baseline remains unqualified until the frozen 40-person blinded human experiment exists.
 - Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/analysis/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/. No organism source, threshold, sample size, analysis rule, pilot seal, reviewer/model infrastructure, scored study data or participant record was modified.
-- Immediate next action: Correct the stale test and superseded prose, verify the manifest-file hash binding, regenerate dependent evidence, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
+- Immediate next action: Use the portable Linux Python 3 invocation, synchronize this live record with the existing D016-J ethics determination, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
 
 ## Temporary task-relevant facts
 
@@ -29,7 +29,7 @@
 - BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED is retired as an A001 activation blocker while remaining permanently true of the harness. The blocker count fell from four to three for the first time since D016-A for a reason other than a reclassification, because agents were removed from the decision path rather than because one was qualified.
 - D016-J supersedes the pre-determination ethics gap. The current evidence carries `D016-J-OWNER-DELEGATED-APPROVED-WITH-CONDITIONS`; this is not an IRB approval or federal exemption certificate. The approved scope is U.S. adults age 18+ with legally effective self-consent in minimal-risk benign behavioral research. Material scope changes still pause recruitment for re-review.
 - The audit is now AlivenessGovernanceAuditV10 with forty items. D016-J records GA-26 as PASS for the owner-delegated determination without claiming IRB approval. GA-38 derives the adjudicator's replayability, GA-39 derives the removal of agent authority, GA-40 derives the frozen-threshold guard, and GA-15 passes because the gate authority is qualified by test rather than by measurement of a judge.
-- D-016-C is blocked at Phase A001.0 with BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE, recorded as O-0018 and in the A001 activation gate record. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists. Five blockers remain: one was cleared at D016-A and one was superseded by two at D016-C, which is not progress toward opening the gate.
+- D-016-C's old `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE` state is historical and superseded by D016-I's deterministic gate authority. The current D016-J owner-delegated determination is `D016-J-OWNER-DELEGATED-APPROVED-WITH-CONDITIONS`: AJ-05 is satisfied, formal IRB approval and federal exemption are not claimed, and Common Rule or institutional coverage remains not established. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists.
 - The three A001 governance roles are now agentic, per the architect's D016-B decision, implemented at D016-C as AgenticReviewHarnessV1 in research/aliveness-spike/agentic-review. That module depends on nothing at all, so a reviewer cannot import the organism it adjudicates. Recorded as DEC-0040.
 - Reviewer isolation is structural before it is behavioural. A review session is a function of a role contract, a backend, a question and an evidence bundle, and has no parameter through which another reviewer's ruling could arrive. Running the alternate with no primary at all yields byte-identical input, which could not hold if anything leaked. Any verdict difference produces BLOCKED_AGENTIC_REVIEW_DISAGREEMENT and is returned to the architect: there is no debate loop, no vote and no tie-breaking meta-judge.
 - No language model has ever been executed by the harness. No provider credential is configured in this environment, every reviewer fixture is marked as not a real model, and AgenticReviewerDiversityPolicyV1 refuses any pair containing one, so the harness cannot be qualified against its own doubles. The twenty-three frozen fixtures qualify the mechanics only.
@@ -118,7 +118,7 @@
 - The deterministic adjudicator is qualified by test rather than by agreement with human judgement. Nobody has checked that its rulings match what a competent reviewer would conclude, and no such check is planned; what is claimed is that it applies the preregistered rules correctly and identically every time, not that the rules are the right ones. Determinism is not correctness, and a rule frozen before the data is still a rule someone chose.
 - The adversarial auditors have never been executed in their new role, so the structure that makes their output non-load-bearing is proven while their usefulness is not. An auditor emitting ambiguous findings on every run would suspend every otherwise-passing gate, which is a denial of service on the Architect's attention rather than a threat to a result.
 - The graded instrument is frozen but not cognitively pretested, and was written by a party with an interest in the outcome.
-- No institutional review board, ethics committee or data-protection review has seen the A001 study, none is claimed, and whether one is required is undetermined.
+- No institutional review board, ethics committee or data-protection review has seen the A001 study, none is claimed, and whether additional jurisdiction-specific review is required remains undetermined. This does not negate the existing owner-delegated determination or AJ-05 satisfaction.
 - The habitat remains abstract, and carries circadian structure added specifically to make a mechanism testable.
 - The A000 envelope search still runs outside CI and its result is committed evidence rather than a reproduced check.
 - The repository is public while carrying a proprietary licence, and an MIT grant was published for the revisions between the initial commit and the D-005 commit.
@@ -126,8 +126,8 @@
 
 ## Blockers
 
-- D-016 is open and blocked at Phase A001.0 on human evidence and on an independent human-subjects determination. It is no longer blocked on a reviewer configuration, because D016-I removed reviewers from the decision path.
-- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED and BLOCKED_SPEC_PAIRED_DIFFERENCE_SD. The adjudicator additionally refuses on BLOCKED_ETHICS_DETERMINATION_ABSENT and BLOCKED_NO_SCORED_ATTEMPT.
+- D-016 is open and blocked at Phase A001.0 on human evidence and baseline qualification inputs. The D016-J owner-delegated ethics determination exists and AJ-05 is satisfied; formal IRB approval, federal exemption and Common Rule/institutional coverage are not claimed or established. It is no longer blocked on a reviewer configuration, because D016-I removed reviewers from the decision path.
+- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED and BLOCKED_SPEC_PAIRED_DIFFERENCE_SD. The adjudicator also refuses on BLOCKED_NO_SCORED_ATTEMPT; `BLOCKED_ETHICS_DETERMINATION_ABSENT` is historical and is not current because the D016-J determination satisfies AJ-05.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
 ## Pending decisions
