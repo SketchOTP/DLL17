@@ -64,7 +64,7 @@ LIVE ADJUDICATION — the programme's actual evidence
 ================================================================
 A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
 
-  evidenceHash=c9600cf09e41fc65b69a488710e540288a72734b2a7b889abe3d4c92bcc97e28
+  evidenceHash=9e378753373440a169590889dbdf3e31a78b53613a1fa50476574512afd40d8f
   deterministic: no clock, no randomness, no network, no model
 
   PREREQUISITE STAGES
@@ -83,10 +83,9 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       requirement: The powered requirement is computable and fits the frozen owner ceiling
       detail:      state=BLOCKED_SPEC_PAIRED_DIFFERENCE_SD requiredPairsPrimary=UNAVAILABLE totalParticipants=UNAVAILABLE
       blocks:      BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
-    BLOCKED   AJ-05
+    SATISFIED AJ-05
       requirement: An independent human-subjects determination exists
-      detail:      no independent determination exists; the programme may not self-determine exemption and no agent may issue one
-      blocks:      BLOCKED_ETHICS_DETERMINATION_ABSENT
+      detail:      determination=D016-J-OWNER-DELEGATED-APPROVED-WITH-CONDITIONS
     BLOCKED   AJ-06
       requirement: The scored attempt declares the frozen protocol, instrument and analysis
       detail:      no scored attempt exists
@@ -108,7 +107,6 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
     BASELINE_NOT_INDEPENDENTLY_QUALIFIED
     PILOT_NOT_PROTOCOL_VALID
     FEASIBILITY_NOT_ESTABLISHED
-    ETHICS_DETERMINATION_ABSENT
 
   RECOMPUTED ATTEMPT ANALYSIS: none — no attempt was adjudicable
 
@@ -125,7 +123,6 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   blocker: BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED
   blocker: BLOCKED_VARIANCE_PILOT_NOT_REGISTERED
   blocker: BLOCKED_SPEC_PAIRED_DIFFERENCE_SD
-  blocker: BLOCKED_ETHICS_DETERMINATION_ABSENT
   blocker: BLOCKED_NO_SCORED_ATTEMPT
   A001_GATE_OUTCOME=A001_BLOCKED
 
