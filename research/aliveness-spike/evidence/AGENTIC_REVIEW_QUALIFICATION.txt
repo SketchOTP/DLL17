@@ -1,6 +1,6 @@
 AGENTIC_REVIEW_QUALIFICATION=AgenticReviewQualificationV1
 harness=AgenticReviewHarnessV1 v1  suite=AgenticReviewMetaEvaluationV1 v1  schema=AgenticRulingSchemaV1 parserVersion=1
-DATA_CLASS=NO_HUMAN_DATA � this harness governs a human study and contains
+DATA_CLASS=NO_HUMAN_DATA — this harness governs a human study and contains
            none of its data. No participant has been recruited or scored.
 
 ================================================================
@@ -168,7 +168,7 @@ REVIEWER TOOL SURFACE (ApiReviewerIsolationSelfCheckV1)
           so this check runs in CI exactly as it runs here.
   scope:  this proves what the project SENDS. For a direct provider API
           that is the whole tool surface. For a router that re-issues the
-          prompt into an assistant, it is not � see the routed reviewer
+          prompt into an assistant, it is not — see the routed reviewer
           boundary below, which is where D016-F actually blocks.
 
 ================================================================
@@ -237,13 +237,13 @@ PLAIN-INFERENCE REVIEWER BOUNDARY (ParagonPlainInferenceBoundaryV1)
   ROUTE ELIGIBILITY FOR A REVIEWER-SIZED REQUEST
     REFUSED    RE-1
       attempted=force the plain-inference provider, reviewer-sized request
-      observed=HTTP 400 routing.unknownContextForLargeRequest � context capacity unknown and required context 100000 >= threshold 50000
+      observed=HTTP 400 routing.unknownContextForLargeRequest — context capacity unknown and required context 100000 >= threshold 50000
     REFUSED    RE-2
       attempted=additionally pin a specific large-context model on that route
       observed=HTTP 400 routing.forcedModelNotEligible, same underlying gate; pinning a model does not supply the context metadata the gate wants
     REFUSED    RE-3
       attempted=let the router choose, reviewer-sized request
-      observed=HTTP 200 routed to the tool-enabled assistant CLI � the exact route D016-F disqualified, so an available answer here is not a usable one
+      observed=HTTP 200 routed to the tool-enabled assistant CLI — the exact route D016-F disqualified, so an available answer here is not a usable one
     REFUSED    RE-4
       attempted=the second configured plain-inference provider
       observed=HTTP 400 eligibility.unhealthyProvider; the local model server is not running
@@ -315,11 +315,11 @@ AUDITOR AUTHORITY (AuditorAuthorityPolicyV1)
   supersedes: the D016-C reviewer-adjudicates model
 
   Structurally impossible for an auditor:
-    - create a PASS � no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
-    - create a FAIL � an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
-    - rescue a failed result � findings are never inputs to the primary classification, which is a pure function of the screened human data
-    - override the deterministic gate � the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
-    - confirm its own finding � confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
+    - create a PASS — no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
+    - create a FAIL — an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
+    - rescue a failed result — findings are never inputs to the primary classification, which is a pure function of the screened human data
+    - override the deterministic gate — the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
+    - confirm its own finding — confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
 
   Machine-checkable violation codes: 16
     BASELINE_NOT_QUALIFIED                        baseline qualification evidence and freeze hash
