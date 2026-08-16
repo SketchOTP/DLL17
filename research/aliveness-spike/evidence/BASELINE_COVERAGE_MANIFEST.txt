@@ -61,6 +61,6 @@ qualificationStatus=NOT_INDEPENDENTLY_QUALIFIED
   FULL                          2.762618  10.150000  0.340833  0.242778  0.357995  137.825000
 
 NOTE: objective breadth is not apparent aliveness. This manifest exists so
-      the independent owner can see exactly what the comparator is, and
-      reject or strengthen it, before any person rates anything.
+      the Architect can see exactly what the comparator is before it is
+      exposed to human qualification; it is not a qualification result.
 

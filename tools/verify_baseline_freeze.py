@@ -3,11 +3,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "research/aliveness-spike/evidence/BASELINE_QUALIFICATION_FREEZE.json"
+FREEZE_SOURCE = ROOT / "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/BaselineQualificationFreezeV1.kt"
 
 
 def main() -> int:
@@ -29,6 +31,14 @@ def main() -> int:
         actual = hashlib.sha256(path.read_bytes()).hexdigest()
         if actual != item["sha256"]:
             raise SystemExit(f"freeze digest mismatch: {item['path']}")
+    manifest_hash = hashlib.sha256(MANIFEST.read_bytes()).hexdigest()
+    source = FREEZE_SOURCE.read_text(encoding="utf-8")
+    match = re.search(r'MANIFEST_SHA256:\s*String\s*=\s*"([0-9a-f]{64})"', source)
+    if not match:
+        raise SystemExit("gate manifest hash constant missing")
+    if match.group(1) != manifest_hash:
+        raise SystemExit("gate manifest hash does not match canonical manifest bytes")
+    print(f"MANIFEST_SHA256={manifest_hash}")
     print(f"BASELINE_FREEZE=PASS files={len(data['files'])}")
     return 0
 

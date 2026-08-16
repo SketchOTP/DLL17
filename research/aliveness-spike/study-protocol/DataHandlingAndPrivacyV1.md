@@ -70,7 +70,7 @@ sheet says so plainly rather than promising otherwise.
 |---|---|
 | Study operator | Enrolment register and full study data set |
 | Study owner / ethics contact | Consent records and study records only as needed for the approved protocol and complaint handling |
-| Baseline independent owner | The baseline qualification data set |
+| Deterministic A001 gate | The sealed baseline qualification result and freeze hash |
 | **FULL team** | Scored-attempt study data after the attempt closes; from the variance pilot, only `pairedDifferenceSd` and a validity flag |
 
 The last row is the load-bearing one and it is enforced structurally rather than

@@ -1,13 +1,17 @@
 # IndependentReviewOnboardingV1
 
-> **D016-K current state:** `BaselineIndependentOwner` is retired. Baseline qualification is determined only by the frozen 40-person blinded experiment and `A001GateAdjudicatorV1`; no person, model or reviewer may replace or override it. Older role text below is superseded planning history.
+> **D016-K current state: SUPERSEDED.** This onboarding package is not a current prerequisite for A001. The two reviewer roles are non-adjudicating auditors, and `BaselineIndependentOwner` is retired. Baseline qualification is determined only by the frozen 40-person blinded experiment and `A001GateAdjudicatorV1`; no person, model or reviewer may replace or override it. The material below is historical planning text retained for provenance.
 
-- Status: `READY_FOR_HUMAN_EVIDENCE`
+- Status: `SUPERSEDED`
 - Version: 1
 - Roster: [IndependentReviewRosterV1](IndependentReviewRosterV1.md) —
   `BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED`
 
-The complete onboarding package for the three roles A001 cannot start without.
+## Historical superseded planning package
+
+The former onboarding package for three roles A001 could not start without is
+preserved below only as historical provenance. It does not describe current
+requirements and must not be used to recruit or assign roles.
 Everything a candidate needs in order to accept, decline, or decline on grounds
 of conflict, is here. **No name appears anywhere in this package and no
 placeholder person has been invented.**

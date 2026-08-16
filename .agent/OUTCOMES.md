@@ -73,6 +73,25 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Follow-up directive: none
 
 
+## D-016-K-R1 - PARTIAL
+
+- Outcome ID: O-0027
+- Supersedes outcome: O-0026
+- Closed: 2026-08-16T10:00:00-04:00
+- Acceptance: PARTIAL
+- Summary: The stale contract test, retired-owner semantics and freeze-chain integrity gap are being corrected without changing A001 science. No participants, recruitment, scored attempt or human data exist.
+- Changed areas: `.agent/`, `research/aliveness-spike/analysis/`, `research/aliveness-spike/study-protocol/`, `research/aliveness-spike/evidence/`, `tools/verify_baseline_freeze.py`
+- Validation:
+  - `py -3 tools/verify_baseline_freeze.py` - PASSED; manifest hash binding verified
+  - `py -3 scripts/validate_governance.py --mode ADOPTED` - PASSED
+  - Gradle analysis and agentic-review tests on Java 17 - PASSED
+  - Canonical A001, agentic, gate and baseline evidence regeneration - PASSED locally
+  - Exact-SHA Governance and Build/Test - NOT RUN
+- Remaining risks: Canonical generated evidence and exact-SHA CI remain outstanding.
+- Blockers: Java 17 unavailable locally; exact CI pending
+- Follow-up directive: none
+
+
 ## D-016-J - FAILED
 
 - Outcome ID: O-0025

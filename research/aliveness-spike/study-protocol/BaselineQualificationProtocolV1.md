@@ -3,6 +3,7 @@
 - Status: `READY_FOR_HUMAN_EVIDENCE`
 - Version: 1
 - Coverage manifest: `research/aliveness-spike/evidence/BASELINE_COVERAGE_MANIFEST.txt`
+- Architect pre-data disposition: `APPROVED_FOR_HUMAN_QUALIFICATION_NOT_YET_QUALIFIED`
 
 ## D016-J participant scope
 
@@ -71,8 +72,13 @@ cannot drift away from the thing it describes. It discloses, in full:
   baseline, against 8 and 5 for the degraded control;
 - the expression contract version.
 
-The independent owner reads this to decide whether the comparator is fair
-*before* any person rates it.
+The coverage manifest is the evidence basis for exposing the comparator to the
+frozen human qualification. The Architect's pre-data disposition is
+`APPROVED_FOR_HUMAN_QUALIFICATION_NOT_YET_QUALIFIED`; it is not a qualification
+result. It creates no owner, reviewer, model or discretionary override.
+
+Qualification remains determined solely from the sealed 40-person result by
+`A001GateAdjudicatorV1`.
 
 ## Objective pre-evidence
 

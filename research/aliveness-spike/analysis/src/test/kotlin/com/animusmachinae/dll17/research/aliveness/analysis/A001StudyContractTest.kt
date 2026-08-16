@@ -98,9 +98,10 @@ class A001StudyContractTest {
     @Test
     fun `the unresolved inputs are named rather than left to inference`() {
         val unresolved = A001StudyContract.UNRESOLVED_REAL_WORLD_INPUTS
-        assertEquals(6, unresolved.size)
+        assertEquals(5, unresolved.size)
         assertTrue(unresolved.any { it.startsWith("pairedDifferenceSD") })
         assertTrue(unresolved.any { it.startsWith("maxFundableParticipants") })
-        assertTrue(unresolved.count { it.contains("unassigned") } == 3)
+        assertTrue(unresolved.count { it.contains("unassigned") } == 2)
+        assertTrue(unresolved.none { it.contains("BaselineIndependentOwner") })
     }
 }

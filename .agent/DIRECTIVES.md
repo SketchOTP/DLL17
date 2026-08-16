@@ -424,3 +424,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: resumes
 - Related directive: D-016-J
 - Status at issuance: ISSUED
+
+
+## D-016-K-R1
+
+- Issued: 2026-08-16T09:50:00-04:00
+- Issuer: User
+- External directive: D016-K-R1
+- Objective: Synchronize retired baseline-owner semantics and frozen evidence, and bind the canonical manifest bytes to the gate hash.
+- Scope: The stale A001StudyContractTest assertions; active versus historical protocol and onboarding prose; repository-wide semantic classification; the manifest SHA binding verifier; dependent generated evidence; `.agent/` synchronization and exact-SHA CI.
+- Exclusions: No participants, recruitment, human data, scored A001 attempt, threshold/sample/power/statistics changes, organism/mechanism work, Paragon/model/reviewer architecture work, participant-protection changes, replacement authority or D016-L.
+- Acceptance: Five unresolved real-world inputs and two unassigned reviewer roles are tested; BaselineIndependentOwner has no active authority; the manifest bytes hash exactly to the value consumed by A001GateAdjudicatorV1; generated evidence is produced by canonical generators; Governance and full Build/Test are green on the exact pushed SHA; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-K
+- Status at issuance: ISSUED

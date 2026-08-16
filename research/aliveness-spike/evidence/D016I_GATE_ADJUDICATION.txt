@@ -1,5 +1,5 @@
 A001_GATE_ADJUDICATION=A001GateAdjudicatorV1
-DATA_CLASS=NO_HUMAN_DATA â€” the live adjudication below runs against the
+DATA_CLASS=NO_HUMAN_DATA — the live adjudication below runs against the
            programme's actual evidence, which is empty. No participant has
            been recruited or scored.
 
@@ -20,14 +20,14 @@ AUDITOR AUTHORITY (AuditorAuthorityPolicyV1)
   supersedes: the D016-C reviewer-adjudicates model
 
   Structurally impossible for an auditor:
-    - create a PASS â€” no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
-    - create a FAIL â€” an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
-    - rescue a failed result â€” findings are never inputs to the primary classification, which is a pure function of the screened human data
-    - override the deterministic gate â€” the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
-    - confirm its own finding â€” confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
+    - create a PASS — no finding type carries a verdict, and the adjudicator's pass conditions read recomputed statistics only
+    - create a FAIL — an unconfirmed finding is inert, and an ambiguous one suspends for the Architect rather than deciding
+    - rescue a failed result — findings are never inputs to the primary classification, which is a pure function of the screened human data
+    - override the deterministic gate — the gate outcome is computed before dispositions are assigned, and no disposition can reopen it
+    - confirm its own finding — confirmation is the adjudicator re-deriving the violation from evidence, never the auditor asserting it
 
   Machine-checkable violation codes: 16
-    BASELINE_NOT_QUALIFIED                         baseline qualification evidence and freeze hash
+    BASELINE_NOT_QUALIFIED                        baseline qualification evidence and freeze hash
     BASELINE_MARGIN_BELOW_FLOOR                   baseline margin vs BASELINE_COMPETENCE_MARGIN
     PILOT_NOT_PROTOCOL_VALID                      BlindVariancePilot.PilotRelease.protocolValid
     NON_SCORED_POOL_PARTICIPANT_ANALYSED          screening: PRIOR_NON_SCORED_POOL
@@ -56,10 +56,10 @@ REPLAY
   replaysIdentically=true
   checked three ways: the same evidence twice, the same evidence with its
   pair records reversed, and the programme's real (empty) evidence twice.
-  Order-invariance is the property the D016-H judge did not have â€” its
+  Order-invariance is the property the D016-H judge did not have — its
   verdict moved under reordering on 5 of 13 fixtures.
 
-LIVE ADJUDICATION â€” the programme's actual evidence
+LIVE ADJUDICATION — the programme's actual evidence
 
 ================================================================
 A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
@@ -108,7 +108,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
     PILOT_NOT_PROTOCOL_VALID
     FEASIBILITY_NOT_ESTABLISHED
 
-  RECOMPUTED ATTEMPT ANALYSIS: none â€” no attempt was adjudicable
+  RECOMPUTED ATTEMPT ANALYSIS: none — no attempt was adjudicable
 
   AUDITOR FINDINGS
     none submitted
@@ -116,7 +116,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   findingsSubmitted=0 upheld=0 notConfirmed=0 returnedToArchitect=0
   outcomeBeforeFindings=A001_BLOCKED
   outcomeAfterFindings=A001_BLOCKED
-  findingsChangedTheOutcome=false â€” an upheld finding restates a violation already
+  findingsChangedTheOutcome=false — an upheld finding restates a violation already
     derived above, and an unconfirmed one is inert
 
   attemptsConsumed=0 attemptsRemaining=3 budget=3
@@ -127,7 +127,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   A001_GATE_OUTCOME=A001_BLOCKED
 
 ================================================================
-SYNTHETIC REPLAY FIXTURE   [SYNTHETIC â€” no human has rated anything]
+SYNTHETIC REPLAY FIXTURE   [SYNTHETIC — no human has rated anything]
 
   Shown because the live adjudication above is blocked before it reaches an
   outcome, and a gate that has only ever returned BLOCKED demonstrates
@@ -138,7 +138,7 @@ SYNTHETIC REPLAY FIXTURE   [SYNTHETIC â€” no human has rated anything]
 ================================================================
 A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
 
-  evidenceHash=a463a12fb7dfbf1e0079c2ccc4d086de61724f60d0670bff49f9c47236587ed7
+  evidenceHash=9371134b2a38548e17dc893e84179933c0df3029ac9ab1e672d3885837c788a8
   deterministic: no clock, no randomness, no network, no model
 
   PREREQUISITE STAGES
@@ -147,7 +147,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       detail:      all 11 thresholds match the values frozen before any human data existed
     SATISFIED AJ-02
       requirement: The frozen scripted baseline qualification passed its human experiment
-      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=c443dd4108e753820865d091f4579ba3ec25871874e164374189b746f27cea95 required n>=40 margin>=15.000 ciLow>0
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=a186b356017d2a0cc6e58cbcd4a6280a98f09b13ac17c0951d62565d58a68ac9 required n>=40 margin>=15.000 ciLow>0
     SATISFIED AJ-03
       requirement: BlindVariancePilotV1 released a protocol-valid result
       detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here
@@ -210,7 +210,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   findingsSubmitted=0 upheld=0 notConfirmed=0 returnedToArchitect=0
   outcomeBeforeFindings=A001_PASS
   outcomeAfterFindings=A001_PASS
-  findingsChangedTheOutcome=false â€” an upheld finding restates a violation already
+  findingsChangedTheOutcome=false — an upheld finding restates a violation already
     derived above, and an unconfirmed one is inert
 
   attemptsConsumed=1 attemptsRemaining=2 budget=3
@@ -227,7 +227,7 @@ AGENT AUTHORITY, DEMONSTRATED   [SYNTHETIC]
 ================================================================
 A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
 
-  evidenceHash=a463a12fb7dfbf1e0079c2ccc4d086de61724f60d0670bff49f9c47236587ed7
+  evidenceHash=9371134b2a38548e17dc893e84179933c0df3029ac9ab1e672d3885837c788a8
   deterministic: no clock, no randomness, no network, no model
 
   PREREQUISITE STAGES
@@ -236,7 +236,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
       detail:      all 11 thresholds match the values frozen before any human data existed
     SATISFIED AJ-02
       requirement: The frozen scripted baseline qualification passed its human experiment
-      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=c443dd4108e753820865d091f4579ba3ec25871874e164374189b746f27cea95 required n>=40 margin>=15.000 ciLow>0
+      detail:      instrument=BaselineCompetenceInstrumentV1 n=40 margin=18.000 ciLow=6.000 freeze=a186b356017d2a0cc6e58cbcd4a6280a98f09b13ac17c0951d62565d58a68ac9 required n>=40 margin>=15.000 ciLow>0
     SATISFIED AJ-03
       requirement: BlindVariancePilotV1 released a protocol-valid result
       detail:      protocolValid=true sd=9.964755; direction, means and per-participant differences are sealed and are not inputs here
@@ -304,7 +304,7 @@ A001 GATE ADJUDICATION (A001GateAdjudicatorV1 v1)
   findingsSubmitted=2 upheld=0 notConfirmed=1 returnedToArchitect=1
   outcomeBeforeFindings=A001_PASS
   outcomeAfterFindings=A001_PASS_PENDING_ARCHITECT_REVIEW
-  findingsChangedTheOutcome=true â€” an ambiguous finding suspended a pass for the Architect,
+  findingsChangedTheOutcome=true — an ambiguous finding suspended a pass for the Architect,
     which is the only effect an auditor is permitted to have and is
     available in one direction only
 

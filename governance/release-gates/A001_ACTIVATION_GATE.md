@@ -127,7 +127,12 @@ so none was produced. None of the six reviewer rulings was taken. **No
 placeholder name, signature, ruling or approval was created**, and no IRB,
 ethics-board or institutional approval is claimed.
 
-Two eligibility facts the roster owner needs before naming anyone:
+### Historical superseded D016-A role-planning text
+
+The following role-planning text is retained for provenance only. It is not a
+current requirement and cannot assign authority.
+
+Two eligibility facts the historical roster owner needed before naming anyone:
 
 1. `IndependentReviewOnboardingV1` requires that the primary and alternate have
    no incentive contingent on A001 passing or on the product shipping, and sit
@@ -175,7 +180,7 @@ and a test asserts that stays true.
 If the powered requirement later exceeds either half, the result is
 `A001_NOT_FEASIBLE` and a redesign. The ceiling is not a target to be raised.
 
-### Frozen: role compatibility
+### Historical superseded frozen role compatibility
 
 Primary reviewer unique; alternate reviewer may also be `BaselineIndependentOwner`;
 study operator a third unique person who may not be a gate reviewer. Minimum
@@ -711,7 +716,7 @@ both the failure and the frozen threshold values.
 | Audit | `AlivenessGovernanceAuditV9`, 40 items |
 | States | PASS=33, NOT_APPLICABLE_PRE_ATTEMPT=1, REQUIRES_SIGNED_GOVERNANCE_EVIDENCE=2, BLOCKED=4 |
 | Outstanding blockers | **3** |
-| | `BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED` |
+| | `BLOCKED_BASELINE_NOT_QUALIFIED` |
 | | `BLOCKED_VARIANCE_PILOT_NOT_REGISTERED` |
 | | `BLOCKED_SPEC_PAIRED_DIFFERENCE_SD` |
 | `A001_GATE_AUTHORITY` | `A001GateAdjudicatorV1` (deterministic; no agent adjudicates) |

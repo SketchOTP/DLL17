@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T03:10:00-04:00`
+- Last updated: `2026-08-16T10:00:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-K
-- External directive ID: D016-K
-- Objective: Retire BaselineIndependentOwner and freeze deterministic baseline qualification before any human data collection.
+- Local directive ID: D-016-K-R1
+- External directive ID: D016-K-R1
+- Objective: Synchronize retired baseline-owner semantics and verify the frozen evidence chain.
 - Current status: `IN_PROGRESS`
 - Acceptance: Green Governance and Build/Test on the exact pushed SHA; freeze manifest and hash enforced; no participants or recruitment; A001 remains ALIVENESS_UNTESTED with attempts 0/3 and human data 0.
-- Current phase: A001.1 deterministic baseline readiness. D016-J is closed at R4; the baseline remains unqualified until the frozen 40-person blinded human experiment exists.
+- Current phase: A001.1 deterministic baseline readiness correction. D016-J is closed at R4; the baseline remains unqualified until the frozen 40-person blinded human experiment exists.
 - Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/analysis/, research/aliveness-spike/evidence/, research/aliveness-spike/study-protocol/. No organism source, threshold, sample size, analysis rule, pilot seal, reviewer/model infrastructure, scored study data or participant record was modified.
-- Immediate next action: Complete exact-SHA validation and preserve the blocked state; then the next bottleneck is the authorized human baseline study, not reviewer infrastructure.
+- Immediate next action: Correct the stale test and superseded prose, verify the manifest-file hash binding, regenerate dependent evidence, and obtain exact-SHA Governance plus Build/Test green. Do not recruit.
 
 ## Temporary task-relevant facts
 
@@ -59,7 +59,7 @@
 - The audit is now AlivenessGovernanceAuditV8 with thirty-seven items and four outstanding blockers. GA-15 and GA-37 derive the two remaining agentic blockers from the harness, GA-16, GA-33, GA-34, GA-35 and GA-36 pass on derived independence, request tool-surface, routed tool-surface, reachability and route-acceptance facts, and GA-28 through GA-32 cover isolation, the fail-closed schema, the meta-evaluation, the operator boundary and the rule that no agent may stand in for a participant.
 - IndependentReviewRosterV1 is SUPERSEDED, not deleted. Its history, its three preferred candidates and the earlier BLOCKED_GOVERNANCE_REVIEWER_UNASSIGNED disposition are retained, GA-15 names the supersession in its own detail text, and its frozen ethics posture is explicitly marked as still in force. Its heading Candidates approached is corrected to Preferred candidates, because the paragraph beneath it always said none had been approached.
 - The owner froze the A001 resource ceiling at four hundred participants and two hundred and fifty participant-hours, recorded as DEC-0039. It lives in A001FeasibilityBudget.FROZEN_OWNER_CEILING and GA-24 reads it rather than restating it, so BLOCKED_SPEC_STUDY_BUDGET is cleared. Four hundred participants is 246.667 participant-hours at the frozen schedule, so the participant count binds first and a test keeps that true.
-- Role compatibility is frozen as a unique primary reviewer, an alternate who may also be the BaselineIndependentOwner, and a study operator who is a third unique person and not a gate reviewer. The ethics posture is that an independent human-subjects determination must be obtained before recruiting anyone and that the programme may not self-determine exemption. Three candidates are recorded in IndependentReviewRosterV1 as candidates only; none has been approached, accepted, conflict-reviewed or signed anything, and the roster is still blank.
+- Historical D016-A role compatibility permitted an alternate reviewer overlap with the now-retired `BaselineIndependentOwner`; that planning rule is superseded. Current baseline authority is deterministic and no owner role exists. The ethics posture is that an independent human-subjects determination is required before recruiting anyone. No candidate has been approached, accepted, conflict-reviewed or signed anything.
 - The frozen independence requirements in IndependentReviewOnboardingV1 exclude anyone with an incentive contingent on A001 passing from the primary and alternate reviewer roles, and state that the role must be filled externally when no internal person qualifies. The owner's role ruling resolves the previously undefined study-operator overlap, so BLOCKED_GOVERNANCE_ROLE_COMPATIBILITY no longer applies to the intended structure.
 - D-GOV-001 adopted the current canonical Authority Codex governance standard, recorded as DEC-0038 and closed as O-GOV-001. Codex is primary, AGENTS.md is a short always-on router, the canonical Codex skills live under .agents/skills/, and the sections the canonical package no longer carries are preserved in governance/PROJECT_GOVERNANCE_SUPPLEMENT.md rather than deleted. The canonical Authority checkout at /home/sketch/Projects/authority was read only and was not modified. Local directive IDs use the D-GOV- prefix for repository governance work so that numeric local IDs stay aligned with the architect's external D0NN numbering.
 - The workstation has no system JDK. A Temurin 17.0.20+8 JDK is fetched into a session scratchpad when Kotlin work is needed, and it reproduced the committed A001 dry run byte for byte before any regeneration, which is how regenerated evidence is known to match what CI will produce.
@@ -127,7 +127,7 @@
 ## Blockers
 
 - D-016 is open and blocked at Phase A001.0 on human evidence and on an independent human-subjects determination. It is no longer blocked on a reviewer configuration, because D016-I removed reviewers from the decision path.
-- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_INDEPENDENTLY_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED and BLOCKED_SPEC_PAIRED_DIFFERENCE_SD. The adjudicator additionally refuses on BLOCKED_ETHICS_DETERMINATION_ABSENT and BLOCKED_NO_SCORED_ATTEMPT.
+- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED and BLOCKED_SPEC_PAIRED_DIFFERENCE_SD. The adjudicator additionally refuses on BLOCKED_ETHICS_DETERMINATION_ABSENT and BLOCKED_NO_SCORED_ATTEMPT.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
 ## Pending decisions

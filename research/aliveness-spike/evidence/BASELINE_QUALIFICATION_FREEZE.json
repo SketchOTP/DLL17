@@ -8,7 +8,7 @@
   "analysis": "A001AnalysisV1-paired-t-interval",
   "files": [
     {"role": "comparator", "path": "research/aliveness-spike/study-protocol/ScriptedPetBaselineV1.md", "sha256": "5c4b0a2812c6c724578ceb32915d8dac86a9ecde09d591bacdc9673b43402153"},
-    {"role": "protocol", "path": "research/aliveness-spike/study-protocol/BaselineQualificationProtocolV1.md", "sha256": "c66350945003bf6f8cbfaa443f09e94bfede6f1569190c94d9f305cd685fa5ef"},
+    {"role": "protocol", "path": "research/aliveness-spike/study-protocol/BaselineQualificationProtocolV1.md", "sha256": "4b732795e3dd4c1d1cd9d94ec1fa99ec2d4d6d08a389aae193b2bb1a2ca17601"},
     {"role": "instrument", "path": "research/aliveness-spike/study-protocol/GradedAlivenessInstrumentV1.md", "sha256": "9d1d7867a0c514e8d5428a6e3ac542549bf88bd6e108b0d6bf3ac73b11a2dd3a"},
     {"role": "presentation", "path": "research/aliveness-spike/study-protocol/AlivenessStudyProtocolV1.md", "sha256": "41ffe00965836745ab222fd587a7fcd9d2a9393d851627dff8a49fb371303160"},
     {"role": "exclusions-and-analysis", "path": "research/aliveness-spike/analysis/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/analysis/A001Analysis.kt", "sha256": "1650d55efe795ec9c10c2b7286257a0034842833337906139204f1adbfa5d369"}

@@ -10,8 +10,9 @@ import com.animusmachinae.dll17.research.aliveness.SpikeContract
 import com.animusmachinae.dll17.research.aliveness.SpikeExpressionContract
 
 /**
- * The complete disclosure of `ScriptedPetBaselineV1`, for the independent owner
- * who has to decide whether it is a fair comparator.
+ * The complete disclosure of `ScriptedPetBaselineV1`, so the Architect can
+ * approve exposure to the frozen human qualification without creating a
+ * discretionary qualification authority.
  *
  * `BaselineQualificationProtocolV1` requires the contingency set, script, hold
  * windows, interaction coverage, parameters and expression-contract version to
@@ -131,8 +132,8 @@ public object BaselineCoverageManifest {
         }
         append('\n')
         append("NOTE: objective breadth is not apparent aliveness. This manifest exists so\n")
-        append("      the independent owner can see exactly what the comparator is, and\n")
-        append("      reject or strengthen it, before any person rates anything.\n")
+        append("      the Architect can see exactly what the comparator is before it is\n")
+        append("      exposed to human qualification; it is not a qualification result.\n")
     }
 
     private fun coverage(

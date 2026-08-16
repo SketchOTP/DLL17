@@ -343,7 +343,8 @@ public open class ScriptedPetAgent(
     /**
      * Public under D010 so `BaselineCoverageManifest` can disclose the entire
      * authored baseline — every threshold, every script entry, every reaction —
-     * to the independent owner who has to judge whether it is a fair comparator.
+     * to the Architect before human qualification, without creating a
+     * discretionary comparator-qualification authority.
      * A baseline whose contents are only described in prose cannot be audited.
      */
     public companion object {
