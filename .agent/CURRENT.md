@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T03:00:00-04:00`
+- Last updated: `2026-08-17T04:51:12-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-O
-- External directive ID: D016-O
-- Objective: Freeze the materially changed D016-N candidate as A001_FULL_D016N_V1 under the unchanged A001 V2 evaluation inputs, without executing any formal scoring.
-- Current status: `VALIDATING`
-- Acceptance: D016-N is accepted at 684579130bef5c820f3db9534ffb744654ebf3b4 with exact-SHA CI 31988489760; D016-M evidence remains permanent; D016-O run 32009935151 exposed Windows working-tree hashing and run 32010737345 exposed the Build/Test shallow checkout; the verifier is corrected to use Git blobs and Build/Test is being changed to full history for the next exact-SHA run.
-- Current phase: D016-O freeze/preflight only. Calibration and FULL AI scoring, Pixel review, human recruitment, and R003-R009 remain blocked.
-- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/, and tools/generate_a001_d016o_formal_manifest.py. The pre-existing .gitignore modification remains outside the candidate.
-- Immediate next action: Obtain exact-SHA Governance and Build/Test for D016-O, then stop. D016-P requires a separate authorization.
+- Local directive ID: NONE
+- External directive ID: NONE
+- Objective: NONE
+- Current status: `IDLE`
+- Acceptance: NONE
+- Current phase: NONE
+- Expected or actual touched areas: NONE
+- Immediate next action: NONE
 
 ## Temporary task-relevant facts
 
@@ -102,7 +102,7 @@
 
 ## Last validation after adoption
 
-- Command or check: focused realtime-viewer and agentic-review tests, deterministic observation generation, formal-input manifest check, a001V2FormalPreflight, and exact-SHA CI run 31980598716 on commit 10e1d028dacb2b767a0fb3219cd724879b76ca85
+- Command or check: exact-SHA Governance and Build/Test run 32011475040 on commit 1c3fdd7985973dc1567ef6020af336edeac81764, including D016-O formal-input freeze preflight
 - Result: `PASSED`
 
 ## Risks

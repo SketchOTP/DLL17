@@ -887,3 +887,25 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: D016-O is not accepted until a full-history exact-SHA run passes; no formal AI scoring, Pixel review, human recruitment or R003-R009 work is authorized.
 - Blockers: corrected exact-SHA Governance and Build/Test.
 - Follow-up directive: D-016-O
+
+
+## D-016-O - COMPLETE
+
+- Outcome ID: O-0039
+- Supersedes outcome: O-0038
+- Closed: 2026-08-17T04:51:12-04:00
+- Acceptance: MET
+- Summary: Exact-SHA CI run 32011475040 on commit 1c3fdd7985973dc1567ef6020af336edeac81764 passed Governance and Build/Test. The D016-O formal-input preflight passed with candidate A001_FULL_D016N_V1 bound to D016-N SHA 684579130bef5c820f3db9534ffb744654ebf3b4; calibration matched D016-M byte-for-byte, the revised FULL cases differed, and the formal bundle SHA is f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69. No AI formal executions, network model calls, owner Pixel reviews or external human participants occurred.
+- Changed areas: .agent/CURRENT.md, .agent/OUTCOMES.md, .github/workflows/ci.yml, research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/, and tools/generate_a001_d016o_formal_manifest.py.
+- Validation:
+  - exact-SHA Governance run 32011475040 - PASSED
+  - exact-SHA Build/Test run 32011475040 - PASSED
+  - D016-O formal-input freeze preflight - PASSED
+  - D016-N offline cold encounter diagnostic - PASSED
+  - AI formal executions - 0
+  - network model calls - 0
+  - owner Pixel reviews - 0
+  - external human participants - 0
+- Remaining risks: D016-M remains a valid AI qualification failure; no human aliveness evidence exists; baseline and A001 human-study prerequisites remain blocked.
+- Blockers: D016-P and formal scoring remain unauthorized; R003-R009 remain blocked.
+- Follow-up directive: none
