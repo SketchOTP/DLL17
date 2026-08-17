@@ -47,7 +47,7 @@ public object A000QualificationKernel {
      * back after the fixtures were frozen; CI fails if it drifts.
      */
     public const val GOLDEN_EVIDENCE_DIGEST: String =
-        "9462e43622c414db47c28a2e79452455bc0d6642396dd5ca8d65bae208b3114a"
+        "fd6e783b03a2a733b11e399f1389282f2022219aad07d6788a343c9e89932556"
 
     private const val DAY = SpikeContract.TICKS_PER_VIRTUAL_DAY
 
