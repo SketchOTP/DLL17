@@ -935,3 +935,28 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: D016-M remains a valid permanent AI qualification failure; D016-P is an invalid calibration branch rather than an A001 qualification result; no human aliveness evidence exists.
 - Blockers: existing OpenAI credit exhaustion prevents a valid calibration under this authorization; no further D016-P execution or follow-up directive is authorized here.
 - Follow-up directive: none
+
+
+## D-016-Q - BLOCKED
+
+- Outcome ID: O-0041
+- Supersedes outcome: none
+- Closed: 2026-08-17T09:44:00-04:00
+- Acceptance: MET
+- Summary: D016-Q reached the explicitly authorized pre-formal capacity branch. Exact-SHA CI run 32035770835 on plumbing commit db61575b509a010e0b5b36a4078629f9ebaabb0a passed Governance and the complete Build/Test chain, including the fresh D016-Q input and runner preflight. The single non-formal OpenAI Responses API `gpt-5` capacity sentinel then returned HTTP 429 `insufficient_quota`; zero formal calibration slots and zero FULL slots were attempted. This is an execution-capacity block, not an A001 result.
+- Changed areas: D016-Q capacity-sentinel and preexecution-block evidence, .agent/CURRENT.md, and .agent/OUTCOMES.md. The frozen candidate, formal inputs, D016-M/D016-P/D016-O history, evaluator, organism, Pixel host, and pre-existing `.gitignore` were not changed.
+- Validation:
+  - exact-SHA Governance run 32035770835 - PASSED
+  - exact-SHA Build/Test run 32035770835 - PASSED
+  - D016-Q fresh execution plumbing preflight - PASSED
+  - capacity sentinel calls - 1
+  - capacity sentinel result - UNAVAILABLE / insufficient_quota
+  - formal calibration executions - 0
+  - formal FULL executions - 0
+  - total D016-Q model calls - 1
+  - Pixel host build - NOT_PERFORMED
+  - external human participants - 0
+  - R003-R009 - BLOCKED
+- Remaining risks: A001_FULL_D016N_V1 remains untested by a valid Q panel. D016-P remains permanent invalid-run evidence; no organism conclusion is supported.
+- Blockers: existing OpenAI execution capacity is unavailable. The same D016-Q remains authorized after the owner restores capacity and rechecks the unchanged freeze.
+- Follow-up directive: none

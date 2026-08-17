@@ -293,6 +293,29 @@ jobs:
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-q/calibration
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-q/full
 
+      - name: D016-Q preexecution capacity block closure
+        run: |
+          q_root=research/aliveness-spike/evidence/a001-v2/d016-q
+          test -f "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          test -f "$q_root/D016_Q_FORMAL_EXECUTION.txt"
+          test -f "$q_root/capacity-sentinel/CAPACITY_SENTINEL.txt"
+          grep -q 'D016_Q_STATE=BLOCKED_PREEXECUTION' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'BLOCKER=EXECUTION_CAPACITY_NOT_RESTORED' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'CAPACITY_SENTINEL_CALLS=1' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'CAPACITY_SENTINEL_RESULT=UNAVAILABLE' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'CALIBRATION_FORMAL_EXECUTIONS=0' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'FULL_FORMAL_EXECUTIONS=0' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'TOTAL_D016Q_MODEL_CALLS=1' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'PIXEL_HOST_BUILD=NOT_PERFORMED' "$q_root/D016_Q_PREEXECUTION_BLOCK.txt"
+          grep -q 'D016_Q_STATE=BLOCKED_PREEXECUTION' "$q_root/D016_Q_FORMAL_EXECUTION.txt"
+          grep -q 'TOTAL_FORMAL_MODEL_EXECUTIONS=0' "$q_root/D016_Q_FORMAL_EXECUTION.txt"
+          grep -q 'D016_Q_REMAINS_AUTHORIZED=true' "$q_root/D016_Q_FORMAL_EXECUTION.txt"
+          grep -q 'CAPACITY_SENTINEL_CALLS=1' "$q_root/capacity-sentinel/CAPACITY_SENTINEL.txt"
+          grep -q 'CAPACITY_SENTINEL_RESULT=UNAVAILABLE' "$q_root/capacity-sentinel/CAPACITY_SENTINEL.txt"
+          test ! -d "$q_root/calibration"
+          test ! -d "$q_root/full"
+          test -z "$(find "$q_root" -type f -name 'D016Q-*')"
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

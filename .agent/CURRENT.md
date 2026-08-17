@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T09:15:00-04:00`
+- Last updated: `2026-08-17T09:44:00-04:00`
 
 ## Active state after adoption
 
 - Local directive ID: D-016-Q
 - External directive ID: D016-Q
 - Objective: Execute one fresh A001 V2 requalification of A001_FULL_D016N_V1, then follow only the authorized terminal branch.
-- Current status: `VALIDATING`
-- Acceptance: D016-Q is active at the unchanged D016-O candidate and formal inputs. A fresh namespace and fresh slot identities are required; D016-P outputs are historical-only.
-- Current phase: Q0 repository/freeze precheck and additive execution plumbing. No model call, Pixel work, human participant, or organism/evaluator change has occurred in D016-Q.
+- Current status: `BLOCKED`
+- Acceptance: D016-Q reached its authorized pre-formal capacity block after one non-formal sentinel returned HTTP 429 insufficient_quota. Zero formal calibration or FULL slots were attempted; no scientific result exists.
+- Current phase: Q0 capacity sentinel terminal pause. The same D016-Q remains authorized for a future invocation after the owner restores existing OpenAI execution capacity.
 - Expected or actual touched areas: D016-Q formal-input copy/provenance, additive agentic-review execution tasks, offline evidence finalization, CI validation, and governance records. D016-O inputs and the pre-existing .gitignore remain outside scope.
-- Immediate next action: Obtain exact-SHA green CI for the offline Q plumbing, then perform exactly one capacity sentinel before any formal slot.
+- Immediate next action: Owner restores existing OpenAI execution capacity; then invoke the same D016-Q only after rechecking the unchanged freeze. No purchase, top-up, alternate provider, rerun, Pixel work, or organism/evaluator change is authorized.
 
 ## Temporary task-relevant facts
 
@@ -127,7 +127,7 @@
 ## Blockers
 
 - D-016 is open and blocked at Phase A001.0 on human evidence and baseline qualification inputs. The D016-J owner-delegated ethics determination exists and AJ-05 is satisfied; formal IRB approval, federal exemption and Common Rule/institutional coverage are not claimed or established. It is no longer blocked on a reviewer configuration, because D016-I removed reviewers from the decision path.
-- D016-M remains permanent `A001_AI_QUALIFICATION_FAIL` evidence. D016-P stopped at `A001_AI_PANEL_INVALID` during calibration after 20 attempts because `D016P-CAL-P10-B` preserved an OpenAI insufficient-quota response that failed the frozen response schema; 19 responses were schema-valid, FULL was not executed, Pixel was not built or reviewed, and R003-R009 remain BLOCKED.
+- D016-M remains permanent `A001_AI_QUALIFICATION_FAIL` evidence. D016-P stopped at `A001_AI_PANEL_INVALID` during calibration after 20 attempts because `D016P-CAL-P10-B` preserved an OpenAI insufficient-quota response that failed the frozen response schema; 19 responses were schema-valid, FULL was not executed, Pixel was not built or reviewed, and R003-R009 remain BLOCKED. D016-Q then consumed one non-formal sentinel, received HTTP 429 `insufficient_quota`, attempted zero formal slots, and has no scientific result.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
 ## Pending decisions
