@@ -512,3 +512,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The result is evidence from the frozen AI qualification route, not a human-population claim and not `A001_V2_PASS`. A valid failure is load-bearing evidence about the organism under the adopted evaluation, so the next decision concerns organism behavior rather than evaluator expansion.
 - Affected areas: research/aliveness-spike/evidence/a001-v2/, .agent/CURRENT.md, .agent/OUTCOMES.md
 - Supersedes record: none
+
+
+## DEC-0049
+
+- Date: 2026-08-17
+- Record or decision ID: DEC-0049
+- Status: ACTIVE
+- Decision or event: The owner selected OpenAI gpt-5-nano as the default intended cloud model for the future optional verbalizer. This is an architectural presentation-layer choice, not canonical organism authority: the verbalizer is read-only, optional, offline-fallback backed, and cannot create or mutate memory, emotion, need, relationship facts, actions, development, physiology or identity. D016-U separately authorized the same model through a direct, stateless, tool-free Responses API evaluator route for the frozen A001 V2 research contract. The route preserved the D016-O candidate and observation hashes, required Structured Outputs and repository-side schema validation, and created no production verbalizer implementation or Android credential path. The single authorized preflight was attempted but stopped with BLOCKED_OPENAI_AUTHENTICATION because the owner-managed restricted key lacked api.responses.write; formal calibration and FULL execution remain at zero.
+- Rationale: Production wording and research evaluation have different authorities and are kept separate even when they use the same model name. The model choice is durable architecture intent, while published price and live availability remain external changeable facts. Stopping on the missing Responses permission preserves the one-shot and no-fallback boundary and provides no organism conclusion from an invalid or unexecuted evaluation.
+- Affected areas: tools/run_d016u.py, research/aliveness-spike/evidence/a001-v2/d016-u/, .github/workflows/ci.yml, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
+- Supersedes record: none

@@ -376,6 +376,39 @@ jobs:
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-t/calibration
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-t/full
 
+      - name: D016-U direct GPT-5 Nano preflight block closure
+        run: |
+          evidence=research/aliveness-spike/evidence/a001-v2/d016-u/D016_U_FORMAL_EXECUTION.txt
+          test -f "$evidence"
+          grep -q 'D016U_RESULT=BLOCKED_OPENAI_AUTHENTICATION' "$evidence"
+          grep -q 'NONFORMAL_MODEL_CALLS=1' "$evidence"
+          grep -q 'CALIBRATION_MODEL_EXECUTIONS=0' "$evidence"
+          grep -q 'FULL_MODEL_EXECUTIONS=0' "$evidence"
+          grep -q 'TOTAL_FORMAL_MODEL_EXECUTIONS=0' "$evidence"
+          grep -q 'HISTORICAL_ANSWER_REUSE=0' "$evidence"
+          grep -q 'SELECTIVE_RERUNS=0' "$evidence"
+          grep -q 'REPLACEMENT_ANSWERS=0' "$evidence"
+          grep -q 'ORGANISM_CHANGED_DURING_SCORING=false' "$evidence"
+          grep -q 'OBSERVATIONS_CHANGED=false' "$evidence"
+          grep -q 'RUBRIC_CHANGED=false' "$evidence"
+          grep -q 'THRESHOLDS_CHANGED=false' "$evidence"
+          grep -q 'AGGREGATOR_CHANGED=false' "$evidence"
+          grep -q 'PARAGON_USED_FOR_D016U=false' "$evidence"
+          grep -q 'CLAUDE_USED_FOR_D016U=false' "$evidence"
+          grep -q 'GEMINI_USED_FOR_D016U=false' "$evidence"
+          grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' "$evidence"
+          grep -q 'API_KEY_EXPOSED=false' "$evidence"
+          grep -q 'API_KEY_COMMITTED=false' "$evidence"
+          grep -q 'API_KEY_PACKAGED_IN_ANDROID=false' "$evidence"
+          grep -q 'OWNER_PIXEL_REVIEWS=0' "$evidence"
+          grep -q 'R003_R009=BLOCKED' "$evidence"
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-u/calibration
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-u/full
+          if grep -RIlE '(sk-|OPENAI_API_KEY=.+|Bearer [A-Za-z0-9_-]{20,})' research/aliveness-spike/evidence/a001-v2/d016-u; then
+            echo '::error::a credential-shaped value appeared in D016-U evidence'
+            exit 1
+          fi
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

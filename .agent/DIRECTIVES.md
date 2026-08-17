@@ -634,3 +634,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-S
 - Status at issuance: ISSUED
+
+
+## D-016-U
+
+- Issued: 2026-08-17T18:25:00-04:00
+- Issuer: User
+- External directive: D016-U
+- Objective: Adopt GPT-5 Nano as the default optional cloud verbalizer and use a separate direct OpenAI Responses API route for one fresh A001 V2 calibration-gated qualification, followed only by the explicitly conditional research Pixel branch.
+- Scope: Preserve the D016-O frozen candidate and observation bytes; use a fresh `d016-u` evidence namespace and D016U slot identities; parse only the local `.env` key; send stateless tool-free Responses requests with required Structured Outputs; preserve raw provider responses before validation; use the existing deterministic schema and aggregation; record the production verbalizer role separately from the research evaluator role; update architecture and governance records.
+- Exclusions: No organism, candidate, observation, evaluator instruction semantics, rubric, thresholds, panel size, aggregator, prior answer reuse, selective reruns, replacement answers, Paragon, Claude, Gemini, human recruitment, R003-R009 implementation, API-key exposure/commitment/APK packaging, or modification of the pre-existing `.gitignore`.
+- Acceptance: One non-generating model visibility check and at most one generating GPT-5 Nano preflight precede formal scoring. If preflight cannot execute, stop with the exact blocker and zero formal calls. If calibration is valid and passes, continue to FULL and then only the authorized Pixel branch; otherwise preserve the reached terminal state.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-T
+- Status at issuance: ISSUED

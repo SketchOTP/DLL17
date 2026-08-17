@@ -1048,3 +1048,30 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The installed direct Claude CLI does not expose the required combination of an available tool, effective denial and native denial telemetry under the tested supported controls. This is an evaluator-transport limitation, not evidence about organism aliveness.
 - Blockers: `BLOCKED_DIRECT_CLAUDE_EVALUATOR_UNQUALIFIED`; D016-T is the final authorized evaluator-transport correction in this chain.
 - Follow-up directive: none
+
+
+## D-016-U - BLOCKED
+
+- Outcome ID: O-0045
+- Supersedes outcome: O-0044
+- Closed: 2026-08-17T18:25:00-04:00
+- Acceptance: MET
+- Summary: D016-U adopted the owner-authorized GPT-5 Nano decision as the intended default optional cloud verbalizer while keeping production verbalization separate from A001 research evaluation. The fresh D016-U route rehashed the unchanged D016-O inputs, passed every integrity predicate, verified that the local `.env` was present, untracked and ignored, and sent exactly one non-formal Structured Outputs preflight through the direct OpenAI Responses API. The preflight stopped with `BLOCKED_OPENAI_AUTHENTICATION`: the restricted key is recognized but lacks `api.responses.write`. No formal calibration or FULL call was attempted, so D016-U is a capacity/permission block, not an A001 result and not organism evidence.
+- Changed areas: `tools/run_d016u.py`, `research/aliveness-spike/evidence/a001-v2/d016-u/`, `.github/workflows/ci.yml`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, and `.agent/OUTCOMES.md`. D016-M through D016-T, the frozen candidate/observations/rubric/thresholds/aggregator, organism, Android production host, Paragon and the pre-existing `.gitignore` were not changed.
+- Validation:
+  - D016-O integrity predicates - PASSED
+  - D016-U formal-input bundle SHA - `a2fe47832179774031eb37da84ee399448c524d64710b02940b5f593438d7ed3`
+  - model-list check - authenticated but missing `api.model.read`; visibility not claimed
+  - GPT-5 Nano generating preflight - attempted once; HTTP 401; missing `api.responses.write`
+  - formal calibration executions - `0`
+  - formal FULL executions - `0`
+  - historical answer reuse - `0`
+  - selective reruns - `0`
+  - replacement answers - `0`
+  - Pixel reviews - `0`
+  - external human participants - `0`
+  - API key exposed/committed/packaged - `false/false/false`
+  - R003-R009 - `BLOCKED`
+- Remaining risks: The owner-managed restricted key cannot make Responses API calls. No model availability or organism conclusion can be inferred until a permitted key is supplied and a new explicit authorization is recorded.
+- Blockers: `BLOCKED_OPENAI_AUTHENTICATION` with safe detail `missing_scope_api.responses.write`.
+- Follow-up directive: none

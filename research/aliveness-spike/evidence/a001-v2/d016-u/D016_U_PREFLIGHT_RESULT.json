@@ -1,0 +1,15 @@
+{
+  "httpStatus": 401,
+  "authenticated": false,
+  "modelListScopeLimited": true,
+  "modelAvailable": false,
+  "structuredOutputValid": false,
+  "blocker": "BLOCKED_OPENAI_AUTHENTICATION",
+  "blockerDetail": "missing_scope_api.responses.write",
+  "response": {
+    "responseId": "UNKNOWN",
+    "returnedModel": "UNKNOWN",
+    "usage": null,
+    "status": null
+  }
+}

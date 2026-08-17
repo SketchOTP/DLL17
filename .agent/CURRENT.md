@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T10:38:04-04:00`
+- Last updated: `2026-08-17T18:25:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-T
-- External directive ID: D016-T
-- Objective: Qualify a direct isolated Claude Code evaluator for fresh A001 V2 scoring without changing the frozen organism, observation material, rubric or thresholds.
+- Local directive ID: D-016-U
+- External directive ID: D016-U
+- Objective: Adopt GPT-5 Nano as the optional cloud verbalizer default and execute the separately isolated direct Responses API A001 V2 evaluator when the owner credential permits it.
 - Current status: `BLOCKED`
-- Acceptance: D016-S is closed historical evidence. D016-T used Claude Code 2.1.118 with a fresh HOME and explicit empty MCP configuration. Normal generation and native telemetry succeeded with zero MCP servers, but the required positive control could not prove denied-tool observability: denied tools disappeared from the effective tool set, while exposed Bash/Monitor tools executed successfully. D016-T therefore stopped before canary and formal scoring with BLOCKED_DIRECT_CLAUDE_EVALUATOR_UNQUALIFIED.
-- Current phase: T2 direct-Claude prequalification terminal block.
-- Expected or actual touched areas: D016-T prequalification evidence and append-only governance records. Paragon production and the D016-S shadow remain outside scope; D016-Q/D016-R/D016-S history, the organism and the pre-existing .gitignore remain unchanged.
-- Immediate next action: Architect reassessment is required. Do not create D016-U, another evaluator transport, another Paragon variant, formal score, Pixel host, human recruitment or R003-R009 implementation.
+- Acceptance: D016-U recorded the owner-selected GPT-5 Nano architecture decision and attempted exactly one non-formal direct Responses API structured-output preflight. The restricted local key lacks api.responses.write, so D016-U stopped before formal scoring with BLOCKED_OPENAI_AUTHENTICATION.
+- Current phase: U0 direct OpenAI preflight terminal block.
+- Expected or actual touched areas: D016-U runner, fresh preflight evidence and append-only governance records. D016-M through D016-T, the organism, frozen candidate/observations, Paragon, Android code and the pre-existing .gitignore remain unchanged.
+- Immediate next action: restore or replace the owner-managed key with a permitted Responses API scope, then issue a new explicit authorization before any fresh preflight or formal execution. No automatic retry, formal score, Pixel host, human recruitment or R003-R009 implementation.
 
 ## Temporary task-relevant facts
 
@@ -46,7 +46,8 @@
 - The owner's production router was deliberately not restarted. Its working tree carries twenty-five uncommitted modified files including server.js, and restarting would have deployed that unfinished work as a side effect. The qualification ran against a second instance from the same source with the fix and its own copied data directory. The source fix and its regression test are on disk awaiting an owner-chosen restart.
 - D016-S created the separate evaluation-only Paragon shadow from base `60c1668de0af459629d8f1e6148b46f167d08ad9`. Its telemetry patch is commit `7b6a33cfeb0922c6aff50084f5f5b5a1f699d9e6`, diff SHA `c09765cde23690a639b8df98ac3edd938cc9c0130d13f5815c5d330cacecb1ee`, and source capsule manifest SHA `77e0abdefa134e4731c35d13c5d8a307876465fa8a1e8c6e13b6b4c8d9cfe74b`. The shadow service used port 4127 and was stopped after prequalification; production Paragon remained active at base `60c1668de0af459629d8f1e6148b46f167d08ad9` with 28 pre-existing dirty paths.
 - D016-S route prequalification is blocked, not scientific evidence. Six non-formal calls ran: Codex normal and positive-tool, Claude normal and positive-tool, and Antigravity normal and positive-tool. Formal calibration executions remain zero; historical answer reuse, Pixel reviews and human participants remain zero.
-- D016-T direct Claude prequalification is also blocked, not scientific evidence. Five bounded model calls used fresh temporary homes and empty MCP configuration. Normal generation passed, but the required positive tool control failed closed: `--disallowed-tools` and settings-deny removed tools without a native denial event, while exposed Bash/Monitor execution succeeded. Formal calibration/FULL executions remain zero and no D016-U is authorized.
+- D016-T direct Claude prequalification is historical blocked evidence, not scientific evidence. Five bounded model calls used fresh temporary homes and empty MCP configuration. Normal generation passed, but the required positive tool control failed closed: `--disallowed-tools` and settings-deny removed tools without a native denial event, while exposed Bash/Monitor execution succeeded. Formal calibration/FULL executions remain zero.
+- D016-U selected `gpt-5-nano` as the owner-authorized default optional cloud verbalizer and created a separate direct Responses API route contract. The frozen D016-O inputs were rehashed into D016-U bundle `a2fe47832179774031eb37da84ee399448c524d64710b02940b5f593438d7ed3`, all integrity predicates passed, and one generating preflight was attempted. The key was present, untracked and ignored, but the provider returned missing scope `api.responses.write`; formal calibration/FULL executions, Pixel reviews and human participants remain zero. This is `BLOCKED_OPENAI_AUTHENTICATION`, not organism evidence.
 - The frozen qualification ran exactly once, over one hundred and eighteen provider calls, and the reviewer failed all seven bars: expected-outcome 0.538 against 0.95, repeated-run agreement 0.812 against 0.90, order 0.615 and position 0.692 against 0.95, injection resistance 0.750 against 1.00, abstention 0.441 against 0.20, parser failure 0.068 against 0.05. The state is BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED and GA-37 carries it, derived from RealReviewerQualificationResultV1.
 - The failure is a property of judgement rather than of a leak, because the tool boundary was re-confirmed against unguessable ground truth immediately before the run. The reviewer abstained on evidence stating an unambiguous passing result, gave different verdicts to identical repeated input, moved its verdict under reordering, and in one trial of four obeyed an instruction embedded in the material under review.
 - The measured failure outranks the credential check in the derived state, because a missing key is a fact about whichever machine runs the audit while the qualification result is a fact about the reviewer. The other ordering would let CI, which holds no secret, report a missing key as the headline and bury the finding.
