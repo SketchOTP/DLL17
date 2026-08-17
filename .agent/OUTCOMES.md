@@ -909,3 +909,29 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: D016-M remains a valid AI qualification failure; no human aliveness evidence exists; baseline and A001 human-study prerequisites remain blocked.
 - Blockers: D016-P and formal scoring remain unauthorized; R003-R009 remain blocked.
 - Follow-up directive: none
+
+
+## D-016-P - COMPLETE
+
+- Outcome ID: O-0040
+- Supersedes outcome: none
+- Closed: 2026-08-17T08:50:07-04:00
+- Acceptance: MET
+- Summary: D016-P reached the authorized invalid terminal branch during calibration. The one-shot run attempted 20 OpenAI Responses API `gpt-5` calls, preserving 19 schema-valid responses and the provider's insufficient-quota response for immutable slot `D016P-CAL-P10-B`; no rerun or replacement answer occurred. FULL was not executed because calibration was invalid, and no Pixel host, owner review, organism/evaluator change, human participant or R003-R009 activity occurred. Exact-SHA CI run 32031156108 on commit 0e70f942ebcaac3c94ee2d2ed75374108e7d863f passed Governance and the complete Build/Test chain, including the D016-P invalid-branch evidence closure.
+- Changed areas: .agent/CURRENT.md, .github/workflows/ci.yml, tools/finalize_d016p_invalid.py, and the versioned research/aliveness-spike/evidence/a001-v2/d016-p/ raw, normalized, aggregate and postmortem evidence namespace. D016-O-bound inputs, candidate source, evaluator, protocol, thresholds, organism behavior and the pre-existing .gitignore were not changed.
+- Validation:
+  - exact-SHA Governance run 32031156108 - PASSED
+  - exact-SHA Build/Test run 32031156108 - PASSED
+  - D016-P invalid branch evidence closure - PASSED
+  - calibration attempts - 20
+  - schema-valid responses - 19
+  - schema-invalid responses - 1
+  - FULL model executions - 0
+  - selective reruns - 0
+  - replacement answers - 0
+  - owner Pixel reviews - 0
+  - external human participants - 0
+  - R003-R009 - BLOCKED
+- Remaining risks: D016-M remains a valid permanent AI qualification failure; D016-P is an invalid calibration branch rather than an A001 qualification result; no human aliveness evidence exists.
+- Blockers: existing OpenAI credit exhaustion prevents a valid calibration under this authorization; no further D016-P execution or follow-up directive is authorized here.
+- Follow-up directive: none
