@@ -649,3 +649,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-T
 - Status at issuance: ISSUED
+
+
+## D-016-U-R1
+
+- Issued: 2026-08-17T19:27:56-04:00
+- Issuer: User
+- External directive: D016-U-R1
+- Objective: Reattempt one fresh direct OpenAI GPT-5 Nano A001 V2 calibration-gated qualification after the owner supplied a permitted local key, preserving D016-U's blocked preflight as immutable history.
+- Scope: Use a new `d016-u-r1` evidence namespace and fresh D016U slot identities; reverify the unchanged D016-O candidate, observations, evaluator instructions, rubric, thresholds and aggregator; perform one Structured Outputs preflight, exactly 24 fresh calibration calls, and FULL only if the frozen calibration rule passes; preserve raw responses and deterministic aggregates.
+- Exclusions: No D016-U evidence reuse, evaluator/provider/model/prompt/observation/rubric/threshold/aggregator/panel change, selective reruns, replacement answers, organism modification, Paragon, Claude, Gemini, Pixel work, human recruitment, R003-R009 implementation, API-key exposure/commitment/APK packaging, or modification of the pre-existing `.gitignore`.
+- Acceptance: The fresh run must reach a truthful calibration-gated terminal state. If calibration is invalid or fails, stop before FULL; preserve all evidence and record no organism conclusion.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-U
+- Status at issuance: ISSUED

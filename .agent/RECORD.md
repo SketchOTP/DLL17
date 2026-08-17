@@ -523,3 +523,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: Production wording and research evaluation have different authorities and are kept separate even when they use the same model name. The model choice is durable architecture intent, while published price and live availability remain external changeable facts. Stopping on the missing Responses permission preserves the one-shot and no-fallback boundary and provides no organism conclusion from an invalid or unexecuted evaluation.
 - Affected areas: tools/run_d016u.py, research/aliveness-spike/evidence/a001-v2/d016-u/, .github/workflows/ci.yml, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
 - Supersedes record: none
+
+
+## DEC-0050
+
+- Date: 2026-08-17
+- Record or decision ID: DEC-0050
+- Status: ACTIVE
+- Decision or event: The owner explicitly authorized a fresh D016-U retry after correcting the local OpenAI key. D016-U-R1 used the unchanged D016-O formal-input bundle (`a2fe47832179774031eb37da84ee399448c524d64710b02940b5f593438d7ed3`) and a new evidence namespace. One GPT-5 Nano Structured Outputs preflight passed, followed by 24 fresh calibration calls. All 24 were schema-valid, but only 1 of 12 pairs was position-consistent and the frozen calibration minimum is 10, so the deterministic terminal result is `A001_AI_PANEL_INVALID`; FULL calls were correctly not attempted.
+- Rationale: The retry tested the corrected credential path without reopening the historical blocked namespace or reusing any prior answer. The calibration contract is a validity gate, not a tunable score: a schema-valid but position-inconsistent panel cannot support an A001 qualification claim. The result therefore blocks this run and says nothing about organism aliveness.
+- Affected areas: research/aliveness-spike/evidence/a001-v2/d016-u-r1/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
+- Supersedes record: DEC-0049

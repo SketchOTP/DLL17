@@ -1,0 +1,51 @@
+{
+  "manifest_id": "D016_U_FORMAL_INPUT_MANIFEST",
+  "manifest_version": 1,
+  "candidate_identity": "A001_FULL_D016N_V1",
+  "candidate_source_sha": "684579130bef5c820f3db9534ffb744654ebf3b4",
+  "frozen_d016_o_manifest_sha256": "dbadb82ef2be8f19b764afa8e3a8c620917c084096cfa21fcc2e56aaf47630d0",
+  "frozen_d016_o_formal_input_bundle_sha256": "f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69",
+  "frozen_input_root": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1",
+  "protocol_id": "A001ObservationProtocolV1",
+  "evaluator_instruction_sha256": "92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4",
+  "rubric": [
+    "APPARENT_AUTONOMY",
+    "BEHAVIORAL_COHERENCE",
+    "ADAPTIVE_RESPONSIVENESS",
+    "INDIVIDUALITY_AND_HISTORY",
+    "SPONTANEOUS_SENSIBLE_ACTIVITY",
+    "OVERALL_APPARENT_ALIVENESS"
+  ],
+  "panel_pairs": 12,
+  "formal_executions_per_stage": 24,
+  "min_schema_valid_pairs": 11,
+  "min_position_consistent_pairs": 10,
+  "min_preference_pairs": 9,
+  "min_median_overall_aliveness_delta": 10.0,
+  "provider": "OpenAI",
+  "transport": "DIRECT_RESPONSES_API",
+  "model_requested": "gpt-5-nano",
+  "tools_allowed": false,
+  "web_allowed": false,
+  "file_search_allowed": false,
+  "mcp_allowed": false,
+  "connectors_allowed": false,
+  "conversation_reuse": false,
+  "previous_response_reuse": false,
+  "fresh_request_per_slot": true,
+  "structured_output_required": true,
+  "input_integrity": {
+    "CANDIDATE_SOURCE_MATCHES_D016_O": true,
+    "CALIBRATION_OBSERVATIONS_MATCH_D016_O": true,
+    "FULL_OBSERVATIONS_MATCH_D016_O": true,
+    "EVALUATOR_INSTRUCTION_SEMANTICS_MATCH_D016_O": true,
+    "RUBRIC_MATCHES_D016_O": true,
+    "THRESHOLDS_MATCH_D016_O": true,
+    "AGGREGATOR_MATCHES_D016_O": true
+  },
+  "slot_prefixes": {
+    "calibration": "D016U-CAL-P##-[AB]",
+    "full": "D016U-FULL-P##-[AB]"
+  },
+  "formal_input_bundle_sha256": "a2fe47832179774031eb37da84ee399448c524d64710b02940b5f593438d7ed3"
+}

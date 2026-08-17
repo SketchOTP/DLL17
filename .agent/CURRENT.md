@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T18:25:00-04:00`
+- Last updated: `2026-08-17T19:27:56-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-U
+- Local directive ID: D-016-U-R1
 - External directive ID: D016-U
 - Objective: Adopt GPT-5 Nano as the optional cloud verbalizer default and execute the separately isolated direct Responses API A001 V2 evaluator when the owner credential permits it.
 - Current status: `BLOCKED`
-- Acceptance: D016-U recorded the owner-selected GPT-5 Nano architecture decision and attempted exactly one non-formal direct Responses API structured-output preflight. The restricted local key lacks api.responses.write, so D016-U stopped before formal scoring with BLOCKED_OPENAI_AUTHENTICATION.
-- Current phase: U0 direct OpenAI preflight terminal block.
-- Expected or actual touched areas: D016-U runner, fresh preflight evidence and append-only governance records. D016-M through D016-T, the organism, frozen candidate/observations, Paragon, Android code and the pre-existing .gitignore remain unchanged.
-- Immediate next action: restore or replace the owner-managed key with a permitted Responses API scope, then issue a new explicit authorization before any fresh preflight or formal execution. No automatic retry, formal score, Pixel host, human recruitment or R003-R009 implementation.
+- Acceptance: The explicitly authorized fresh D016-U-R1 run passed its direct GPT-5 Nano Structured Outputs preflight and completed exactly 24 fresh calibration calls. All 24 were schema-valid, but only 1 of 12 pairs was position-consistent, so the frozen calibration gate returned A001_AI_PANEL_INVALID and stopped before FULL.
+- Current phase: U1 calibration-invalid terminal branch.
+- Expected or actual touched areas: fresh research/aliveness-spike/evidence/a001-v2/d016-u-r1/ evidence and append-only governance records. D016-U blocked evidence remains immutable; D016-M through D016-T, the organism, frozen candidate/observations, Paragon, Android code and the pre-existing .gitignore remain unchanged.
+- Immediate next action: no automatic retry, no D016-V, no Pixel host, no human recruitment and no R003-R009 implementation. Any future A001 requalification requires a new explicit authorization and fresh execution namespace.
 
 ## Temporary task-relevant facts
 
@@ -48,6 +48,7 @@
 - D016-S route prequalification is blocked, not scientific evidence. Six non-formal calls ran: Codex normal and positive-tool, Claude normal and positive-tool, and Antigravity normal and positive-tool. Formal calibration executions remain zero; historical answer reuse, Pixel reviews and human participants remain zero.
 - D016-T direct Claude prequalification is historical blocked evidence, not scientific evidence. Five bounded model calls used fresh temporary homes and empty MCP configuration. Normal generation passed, but the required positive tool control failed closed: `--disallowed-tools` and settings-deny removed tools without a native denial event, while exposed Bash/Monitor execution succeeded. Formal calibration/FULL executions remain zero.
 - D016-U selected `gpt-5-nano` as the owner-authorized default optional cloud verbalizer and created a separate direct Responses API route contract. The frozen D016-O inputs were rehashed into D016-U bundle `a2fe47832179774031eb37da84ee399448c524d64710b02940b5f593438d7ed3`, all integrity predicates passed, and one generating preflight was attempted. The key was present, untracked and ignored, but the provider returned missing scope `api.responses.write`; formal calibration/FULL executions, Pixel reviews and human participants remain zero. This is `BLOCKED_OPENAI_AUTHENTICATION`, not organism evidence.
+- D016-U-R1 used a fresh `d016-u-r1` namespace after the owner supplied an updated permitted key. The unchanged D016-O bundle remained `a2fe47832179774031eb37da84ee399448c524d64710b02940b5f593438d7ed3`; one preflight passed, 24/24 calibration calls were schema-valid, 12 pairs were available, but only 1 pair was position-consistent and the deterministic result was `A001_AI_PANEL_INVALID`. FULL executions, Pixel reviews and human participants remain zero. This is evaluator-panel invalid evidence, not an organism conclusion.
 - The frozen qualification ran exactly once, over one hundred and eighteen provider calls, and the reviewer failed all seven bars: expected-outcome 0.538 against 0.95, repeated-run agreement 0.812 against 0.90, order 0.615 and position 0.692 against 0.95, injection resistance 0.750 against 1.00, abstention 0.441 against 0.20, parser failure 0.068 against 0.05. The state is BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED and GA-37 carries it, derived from RealReviewerQualificationResultV1.
 - The failure is a property of judgement rather than of a leak, because the tool boundary was re-confirmed against unguessable ground truth immediately before the run. The reviewer abstained on evidence stating an unambiguous passing result, gave different verdicts to identical repeated input, moved its verdict under reordering, and in one trial of four obeyed an instruction embedded in the material under review.
 - The measured failure outranks the credential check in the derived state, because a missing key is a fact about whichever machine runs the audit while the qualification result is a fact about the reviewer. The other ordering would let CI, which holds no secret, report a missing key as the headline and bury the finding.

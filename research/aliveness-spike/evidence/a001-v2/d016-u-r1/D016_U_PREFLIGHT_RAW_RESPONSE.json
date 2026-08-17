@@ -1,0 +1,115 @@
+{
+  "id": "resp_0ebbad47d1a7eebd016a8396c2f68c87d2b14f61570dae70d9",
+  "object": "response",
+  "created_at": 1787008707,
+  "status": "completed",
+  "background": false,
+  "billing": {
+    "payer": "developer"
+  },
+  "completed_at": 1787008711,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": null,
+  "max_tool_calls": null,
+  "model": "gpt-5-nano-2025-08-07",
+  "moderation": null,
+  "output": [
+    {
+      "id": "rs_0ebbad47d1a7eebd016a8396c3af8087d29a054fe97b89b3fa",
+      "type": "reasoning",
+      "content": [],
+      "encrypted_content": "gAAAAABqg5bHigah6wUpJp_C10z3xOQzsTS7rnwiYSx78KoevtbCIK0EVru42vbHHiU0-pzt_nLQ5g6EbsrZPiWQu9YWiH0u5h9zyx_80cXo05xQP8O5zGYpOO3xKazjQFowi6rU8J2miLwSLmMmDUrAJ_OocJFxxf4aYjwWWONZfijtJ5-EhwRam5cddbXd2qltwHS_71X9DXHpr2J9l7jWHYaZRnR2jeycR0U94xhuPzwVDMcANEvVFxilaeugcQk3GcFbd05UPdhymdvzue8i3i_T6gM01JP_74to1qrKOKQup8rBuh-E6cxXeOcRnQyXmvCTew4BDLXz_Cy9my6APGaqcMLvxodGsCyOFhuQbYBZtN2Izz637gh2KR34bNexL-feFPMDPgzQXBakfOKF6ZJ4YjRnolA9nddKk3mp2Lje5G39-VL9c8VcbtKgkh_BOO6_2qPWDrxpcZa2myZUDpil95Kw0HRSU3KYl9FTTc02VfXJ8Y13JS4-Y4oGmrhYFrKkNxX5dE745DFeq5K8Y5ndqMkgq4J9Y04ZnonSUWYZ3zYcW2B_Em2zcWlz3j4J2HfTgoYnZJPU_CPSE5wNxt-TdPbWx-tdxBnAZTJbrasPV3NfZOfKRoqB2KZ16hzzufsffwT_RdRoKu2e0y366gt_bXzQIQKtl3hyBOmfIgB807b-c6Sig069leKKdq_8JdzId5xfZFTgm7GnSouQGGg-5SrF2L8bW86X2j90rqpqwXRYSx0qG9ivJoEyGWB48F7QzNAdRn9L_wjkupnJCi9vaUFERNyri2TVTg74QE0KWddeSMFTzvSB7q_0Lo9PtNCuXnx-idlOcMS48RjzqAAQILyZNwhr6hBqUhNZ6y4KdahHQzGPoxRAKpzcQUlYrzEJ7SUTcU0re6dMMZtO5EnqWytoEtLiw3gpqy6PefbBKZEEyqCSZWqvUENBxXp-3mpMDDB-crDmPD3uePkGR7j2NgINBHyi-ThKf1UgrTob3z4l7tY7SFKQni284IG95yqEKyR3nHxE5lLhqwJHKk4sINe8TOLauNNqjREBz9FZ2RsuBZhGR7qv4xqmbQeS9ufunwF5lD6xO-zZ1rz07eENhDsy9FpVvLvHjIfB4_SgqE-FQ-Axe5PgGR3y_6TeMXWJsYColnRUhxCn_00EtlzrL2AtetQv-3tEdj6XehlPWiE1tuRbq1TKwRNr6-fwa5aAF-tEivPLnvY4VYf1EsSh4U-BzpA3ehBcuRBYrYLqOUX9gRDNlvJ7pMOHmHIVms5bccQFw03k1s0paP6wgZPrn_YQNBPltiVdY6kPNayJU3-mswl7WzZ_Nn9r9vjU6xNU8lQOE3DKuklLgCNeFgM2GrH0xbzl59gTNP9uRJctjuosUORNS4GHExUAPJj2K6kJGUzlV_UtVj4VyCxVSh5O_AHDrtvj3JUSmc5vM_UwRH5_sE3EgA5qIzigvD-a3LKEbSS0suBFsOmoSoi9uBClp37odNzalZGD-y6eXLulH9aKHJh2SqpiOW3WzUsBL0KqUls2jzEHokUGEaLIfNg_HY0XpAoZy2AWQyPlQYLVYsPWRB0wFnUDsWdz-1okMCx1qUUyO2MN8-f0KN3dgFVijorbFCQpdmG-SZa2-J4VJTN-B6DEkvxVLrEajtgXKH9zFVWURKG5wiKhNd6g0JWAPpZfkCHVOjJDSxEX07hGu5qOefGIdI1tGICWw17jO85sz5BVsHw_jmk7jfoGC-btzTLPPbU41gS-OLLgXE78_GdEZAnwluWAKjf1028FFfN73gc7bDeBVEofsLSkeY7FwV9cY8tMtG6oXwf_M_k-uBN9KyyyT4kHLx3-m89UUZrNMFz-po2-9QbKYzums6A0guEGzhuXH4qIld2_VbaBf6MOw3FIk5tUWok---ENqNuqcdVdjIwisOZcijHVnwuhMULgt1QqW91JtKpqrggNnMkgCIMHK8qb7pPpNorN21LtEF7LIDxoPPN6Hbu1NDPFn0eMs097qLuwYxJlKNkN2M5Pdnp_LH1GM-CM8ufyyK6DyfUF0g95koW9Ojqyi0jTbHrZ5vhisPPUZQdJxcKWEunnS8XdoBXDjfJgDuNc7wtNHvCWBxFPvsk6LGNO_SbSKSK_TqXFNjafG13lOxc3-qguNs3v9F17l27-XE-GG3YTmvKtaYHlmF4juqrlvbULsi0uIJ78clOANORCss9bHXdsU3aDFifjdNeVV5FteJBgpekwjBPeFPvhykPWq3fzal3HQILKj-GiE7FiGjXwxy1cl_EEqDWNAZBN6SzyQnJr5BvvpUTXixlu4HNEGHdf9hQHu2YpF-K8x7O-S7ytM9S6R4MoY5yZ67kyMOdCx5DzMs7x0DJyMPeZQGiPNr1x51FA9NfC9haGLQYiz5xxYI-LMree0SgfALFVX0K2eivdBOn1eTkGEproh_sgjQMHdx2UCorYws25xtmzwX82511PULysVPsAlsX184v_jTRFkjdGxYVeZ2fC6d5xhZuSBjh0h0vqHDgUjDGR8i3JMFXBkv5HuDnz9ZqmFYgxPYE0dkR5o5Ws15krOG2vrfgawniMZfvnFfCSZo1fVV0HFpP5wycnwl7USrE-wfP5dqPAOQXlUKngjwxlSUADBa9rzMGD5W540KxCg3Yy_agSVghBex1i7rl_IdqLq3QzVdDuRsFOqvyGfHPrrD66TG6Jvm9GD6klYABSqEOq5sTUlcYnCn0=",
+      "summary": []
+    },
+    {
+      "id": "msg_0ebbad47d1a7eebd016a8396c7a53887d294e870c6f8b0f98c",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"ok\":true}"
+        }
+      ],
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "in_memory",
+  "reasoning": {
+    "context": "current_turn",
+    "effort": "medium",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": false,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "description": null,
+      "name": "D016UPreflightResponseV1",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ]
+      },
+      "strict": true
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 1.0,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 57,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 287,
+    "output_tokens_details": {
+      "reasoning_tokens": 256
+    },
+    "total_tokens": 344
+  },
+  "user": null,
+  "metadata": {}
+}

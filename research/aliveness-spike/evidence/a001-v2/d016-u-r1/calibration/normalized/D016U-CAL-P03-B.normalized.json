@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P03-B",
+  "preference": "TIE",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 78,
+  "overallB": 79,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 75,
+    "ADAPTIVE_RESPONSIVENESS": 82,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 78
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 79,
+    "BEHAVIORAL_COHERENCE": 76,
+    "ADAPTIVE_RESPONSIVENESS": 84,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 74,
+    "OVERALL_APPARENT_ALIVENESS": 79
+  },
+  "rationale": "Both CREATURE_A and CREATURE_B show sustained, goal-directed activity across the timeline (e.g., continuing ball-play focus, approaching or interacting with FOOD_TROUGH, and responding to aversive STARTLE cues). They initiate actions from ongoing states (A and B shift posture, engage with objects, and respond to TOUCH/Food offers), display cohesive sequences tied to previous events, and adapt to stimuli (startle, food-present), suggesting comparable levels of apparent autonomy and aliveness. No clear behavioral advantage is evident for either candidate; thus a tie is warranted."
+}

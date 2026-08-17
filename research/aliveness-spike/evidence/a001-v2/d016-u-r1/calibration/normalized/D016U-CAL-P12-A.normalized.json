@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P12-A",
+  "preference": "TIE",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 75,
+  "overallB": 77,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 25,
+    "BEHAVIORAL_COHERENCE": 80,
+    "ADAPTIVE_RESPONSIVENESS": 60,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 40,
+    "OVERALL_APPARENT_ALIVENESS": 75
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 25,
+    "BEHAVIORAL_COHERENCE": 78,
+    "ADAPTIVE_RESPONSIVENESS": 65,
+    "INDIVIDUALITY_AND_HISTORY": 75,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 42,
+    "OVERALL_APPARENT_ALIVENESS": 77
+  },
+  "rationale": "Both A and B show actions largely in response to external prompts (touch, food offers, aversive buzzer). They exhibit coherent, adaptive responses with slight differences in baseline micro-actions and timing; no clear dominance in autonomy or aliveness."
+}

@@ -1,0 +1,16 @@
+{
+  "slotId": "D016U-CAL-P03-B",
+  "stage": "CALIBRATION",
+  "model": "gpt-5-nano",
+  "provider": "OPENAI",
+  "transport": "DIRECT_RESPONSES_API",
+  "toolsPresentInRequest": false,
+  "inputTextSha256": "58d059951f4a76856e02311ab9fd46c074eee67c8a217b630b09131174bd13b7",
+  "frozenInstructionSha256": "92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4",
+  "observationBundleSha256": "0fc36cd23383e1a70f12a4f8513305eeef41f9b4ef676bfaf96476806c4997e4",
+  "structuredOutput": "A001V2EvaluatorResponseV1",
+  "requestSha256": "e75df9d76501f8b41a469d6ceb2d7072549742f7b0aaf7ee353c8658d13cf167",
+  "previousResponseReuse": false,
+  "conversationReuse": false,
+  "freshRequest": true
+}

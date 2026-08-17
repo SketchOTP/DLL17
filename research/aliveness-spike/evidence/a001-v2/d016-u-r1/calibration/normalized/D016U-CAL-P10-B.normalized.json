@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P10-B",
+  "preference": "TIE",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 78,
+  "overallB": 74,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 65,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 78,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 78
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 60,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 75,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 68,
+    "OVERALL_APPARENT_ALIVENESS": 74
+  },
+  "rationale": "Both CREATURE_A and CREATURE_B demonstrate initiation-like actions (e.g., LEAN_IN after touch, gaze shifts toward interactors, responsiveness to OFFER_FOOD) and defense/withdrawal after STARTLE, with coherent sequences linking cues to subsequent behavior. The timelines for A and B are parallel in structure and magnitude, with no clear advantage for either in autonomous initiation, adaptation from experience, or unique historical pattern, justifying a TIE."
+}

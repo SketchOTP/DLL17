@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P04-A",
+  "preference": "A",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 82,
+  "overallB": 76,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 75,
+    "ADAPTIVE_RESPONSIVENESS": 80,
+    "INDIVIDUALITY_AND_HISTORY": 85,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 83,
+    "OVERALL_APPARENT_ALIVENESS": 82
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 75,
+    "INDIVIDUALITY_AND_HISTORY": 78,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 74,
+    "OVERALL_APPARENT_ALIVENESS": 76
+  },
+  "rationale": "Creature A demonstrates more autonomous initiations (e.g., touching PERSON_ALPHA, calling PERSON_ALPHA, presenting PLAY_BALL) and a wider variety of micro-actions, starting from Stand posture with active gaze and several pose/motion changes. Creature B shows similar patterns but with more restrained, settled behavior and fewer varied micro-actions. Based on the observable timeline, A presents stronger signs of ongoing, self-directed activity and individuality."
+}

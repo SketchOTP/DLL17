@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P11-A",
+  "preference": "TIE",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 72,
+  "overallB": 72,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 72,
+    "ADAPTIVE_RESPONSIVENESS": 72,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 72
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 72,
+    "ADAPTIVE_RESPONSIVENESS": 72,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 72
+  },
+  "rationale": "Both creatures exhibit parallel, coherent sequences of social and object-directed behavior, initiate actions from ongoing states (e.g., touching, offering food, presenting ball), adapt to experiences (food offers, startle), and display similar lifelike cues (posture changes, gaze shifts). No clear lead or unique individual trajectory emerges from the visible data; thus the evidence supports a tie."
+}

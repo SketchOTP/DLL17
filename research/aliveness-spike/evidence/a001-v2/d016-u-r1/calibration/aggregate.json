@@ -1,0 +1,23 @@
+{
+  "stage": "CALIBRATION",
+  "executionsAttempted": 24,
+  "schemaValidExecutions": 24,
+  "schemaInvalidExecutions": 0,
+  "validPairs": 12,
+  "positionConsistentPairs": 1,
+  "preferenceCount": 1,
+  "medianOverallAlivenessDelta": 16.0,
+  "verdict": "A001_AI_PANEL_INVALID",
+  "invalidSlots": {},
+  "selectiveReruns": false,
+  "replacementAnswers": false,
+  "pairDetails": [
+    {
+      "pair": 7,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "deltaAverage": 16.0
+    }
+  ]
+}

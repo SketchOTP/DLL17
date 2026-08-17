@@ -1,0 +1,26 @@
+{
+  "responseId": "resp_028d5a7a7aa90e4c016a83982e442887d2b16f6467055f41ad",
+  "returnedModel": "gpt-5-nano-2025-08-07",
+  "usage": {
+    "input_tokens": 19178,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 2676,
+    "output_tokens_details": {
+      "reasoning_tokens": 2432
+    },
+    "total_tokens": 21854
+  },
+  "status": "completed",
+  "slotId": "D016U-CAL-P09-B",
+  "stage": "CALIBRATION",
+  "provider": "OpenAI Responses API",
+  "endpoint": "https://api.openai.com/v1/responses",
+  "requestedModel": "gpt-5-nano",
+  "httpStatus": 200,
+  "promptSha256": "65cf464a1307fe5ff169011ea152b8680cdc5b79c3b565da47c941adf578f21c",
+  "rawResponseSha256": "25af6b8e893f4a8ff451d8467e218ae624a5f795e74f096d4696593caa1b53db",
+  "completedUtc": "2026-08-17T23:24:48.402112Z"
+}

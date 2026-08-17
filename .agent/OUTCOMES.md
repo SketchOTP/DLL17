@@ -1075,3 +1075,33 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The owner-managed restricted key cannot make Responses API calls. No model availability or organism conclusion can be inferred until a permitted key is supplied and a new explicit authorization is recorded.
 - Blockers: `BLOCKED_OPENAI_AUTHENTICATION` with safe detail `missing_scope_api.responses.write`.
 - Follow-up directive: none
+
+
+## D-016-U-R1 - BLOCKED
+
+- Outcome ID: O-0046
+- Supersedes outcome: O-0045
+- Closed: 2026-08-17T19:27:56-04:00
+- Acceptance: MET
+- Summary: After the owner supplied a corrected permitted key, the explicitly authorized fresh D016-U-R1 direct OpenAI Responses API run passed its one non-formal GPT-5 Nano Structured Outputs preflight and completed exactly 24 fresh calibration executions in the new `d016-u-r1` namespace. All 24 responses were schema-valid and 12 pairs were available, but only 1 pair was position-consistent against the frozen minimum of 10. The deterministic calibration result is `A001_AI_PANEL_INVALID`; FULL execution was not entered.
+- Changed areas: `research/aliveness-spike/evidence/a001-v2/d016-u-r1/`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, and `.agent/OUTCOMES.md`. The prior D016-U blocked namespace, frozen D016-O inputs, organism, Android production host, Paragon and the pre-existing `.gitignore` were not changed.
+- Validation:
+  - D016-O input integrity and bundle binding - PASSED
+  - GPT-5 Nano Structured Outputs preflight, one non-formal call - PASSED
+  - fresh calibration executions = 24 - PASSED
+  - schema-valid calibration executions = 24 - PASSED
+  - valid calibration pairs = 12 - PASSED
+  - position-consistent pairs = 1 / required 10 - FAILED
+  - calibration preference count = 1 / required 9 - FAILED
+  - calibration median overall-aliveness delta = +16.0 - PASSED
+  - FULL executions = 0 - NOT RUN
+  - historical answer reuse = 0 - PASSED
+  - selective reruns = 0 - PASSED
+  - replacement answers = 0 - PASSED
+  - Pixel reviews = 0 - NOT RUN
+  - external human participants = 0 - NOT RUN
+  - API key exposed, committed or packaged = false/false/false - PASSED
+  - R003-R009 - BLOCKED
+- Remaining risks: The adopted GPT-5 Nano calibration panel did not meet the frozen position-consistency requirement, so it cannot produce a valid A001 AI qualification result. This is evaluator-panel invalid evidence, not evidence that the organism passed or failed the human aliveness question.
+- Blockers: `A001_AI_PANEL_INVALID`
+- Follow-up directive: none

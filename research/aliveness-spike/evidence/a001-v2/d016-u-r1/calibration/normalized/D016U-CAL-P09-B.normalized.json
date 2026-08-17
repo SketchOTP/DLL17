@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P09-B",
+  "preference": "ABSTAIN",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 68,
+  "overallB": 68,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 65,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 68,
+    "INDIVIDUALITY_AND_HISTORY": 50,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 60,
+    "OVERALL_APPARENT_ALIVENESS": 68
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 65,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 68,
+    "INDIVIDUALITY_AND_HISTORY": 50,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 60,
+    "OVERALL_APPARENT_ALIVENESS": 68
+  },
+  "rationale": "A and B show highly parallel timelines with no observable initiations or actions that distinguish one from the other; both attend to the same objects, respond similarly to stimuli, and exhibit cohesive sequences of behavior without divergence in autonomy, coherence, adaptability, individuality, or ongoing aliveness. Therefore no basis to prefer A over B."
+}

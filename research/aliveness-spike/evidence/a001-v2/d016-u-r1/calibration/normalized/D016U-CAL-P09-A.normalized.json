@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P09-A",
+  "preference": "TIE",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 75,
+  "overallB": 75,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 70,
+    "INDIVIDUALITY_AND_HISTORY": 50,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 65,
+    "OVERALL_APPARENT_ALIVENESS": 75
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 70,
+    "INDIVIDUALITY_AND_HISTORY": 50,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 65,
+    "OVERALL_APPARENT_ALIVENESS": 75
+  },
+  "rationale": "Observations show both CREATURE_A and CREATURE_B initiating autonomous micro-movements with input.NONE (e.g., weight-shift, small-step, lean-in) and later responding coherently to external events (OFFER_FOOD, STARTLE) with posture, gaze, and attention changes. The action sequences are parallel and coherent, with adaptive responses to stimuli, and there is no observable divergence between the two, supporting a TIE."
+}

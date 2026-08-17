@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P12-B",
+  "preference": "TIE",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 72,
+  "overallB": 72,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 60,
+    "BEHAVIORAL_COHERENCE": 75,
+    "ADAPTIVE_RESPONSIVENESS": 65,
+    "INDIVIDUALITY_AND_HISTORY": 62,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 70,
+    "OVERALL_APPARENT_ALIVENESS": 72
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 60,
+    "BEHAVIORAL_COHERENCE": 75,
+    "ADAPTIVE_RESPONSIVENESS": 65,
+    "INDIVIDUALITY_AND_HISTORY": 62,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 70,
+    "OVERALL_APPARENT_ALIVENESS": 72
+  },
+  "rationale": "The timeline shows largely symmetric sequences for A and B: both start with similar postures and expressions, share similar movement rhythms and micro-actions, and respond to identical inputs (TOUCH, OFFER_FOOD, CALL). There is no clear evidence that one initiates behavior more autonomously, maintains greater coherence, or adapts more than the other; thus a tie is warranted."
+}

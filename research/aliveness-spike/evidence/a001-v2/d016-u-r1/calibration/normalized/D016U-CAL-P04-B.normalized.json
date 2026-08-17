@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P04-B",
+  "preference": "TIE",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 79,
+  "overallB": 78,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 78,
+    "ADAPTIVE_RESPONSIVENESS": 74,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 76,
+    "OVERALL_APPARENT_ALIVENESS": 79
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 77,
+    "ADAPTIVE_RESPONSIVENESS": 73,
+    "INDIVIDUALITY_AND_HISTORY": 69,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 78
+  },
+  "rationale": "Both CREATURE_A and CREATURE_B demonstrate ongoing, coherent activity with context-sensitive responses (e.g., TOUCH, CALL, OFFER_FOOD, STARTLE) and spontaneous yet plausible micro-actions. The observable timelines for both show similar initiation patterns, coherence across events, and adaptive responses, with no clear lead or stronger lifetime-history signal for one over the other. Therefore, a tie is warranted."
+}

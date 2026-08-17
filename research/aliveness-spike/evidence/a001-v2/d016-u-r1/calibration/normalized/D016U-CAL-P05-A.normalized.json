@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P05-A",
+  "preference": "B",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 82,
+  "overallB": 85,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 85,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 75,
+    "INDIVIDUALITY_AND_HISTORY": 60,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 65,
+    "OVERALL_APPARENT_ALIVENESS": 82
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 88,
+    "BEHAVIORAL_COHERENCE": 90,
+    "ADAPTIVE_RESPONSIVENESS": 78,
+    "INDIVIDUALITY_AND_HISTORY": 63,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 68,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "rationale": "Across ticks, both A and B initiate and adjust behaviors in response to touches, food offers, and aversive buzzer; B shows more consistent goal-directed engagement with PLAY_BALL and FOOD_TROUGH, and maintains attention on social partner (PERSON_ALPHA) with sustained vocalization, indicating higher apparent autonomy and aliveness."
+}

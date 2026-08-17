@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P02-B",
+  "preference": "B",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 85,
+  "overallB": 92,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 86,
+    "INDIVIDUALITY_AND_HISTORY": 80,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 82,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 90,
+    "ADAPTIVE_RESPONSIVENESS": 87,
+    "INDIVIDUALITY_AND_HISTORY": 86,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 90,
+    "OVERALL_APPARENT_ALIVENESS": 92
+  },
+  "rationale": "B engages in more diverse autonomous actions (e.g., t=42 PLAY_BOW with PLAY_CUBE, t=44 PRESENT_OBJECT:PLAY_BALL) and adapts to multiple cues (CALL, OFFER_FOOD) across the timeline, while A is more ball/food-focused; both are coherent and responsive, but B shows higher autonomy and aliveness."
+}

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P01-A",
+  "preference": "A",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 78,
+  "overallB": 72,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 78,
+    "ADAPTIVE_RESPONSIVENESS": 74,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 78
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 68,
+    "BEHAVIORAL_COHERENCE": 72,
+    "ADAPTIVE_RESPONSIVENESS": 70,
+    "INDIVIDUALITY_AND_HISTORY": 66,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 68,
+    "OVERALL_APPARENT_ALIVENESS": 72
+  },
+  "rationale": "Creature A engages in more targeted, ongoing actions (touching PERSON_ALPHA, calling, offering food, presenting a PLAY_BALL) that follow from prior states and goals, showing coherent, adaptive interaction. Creature B performs many similar actions but with less consistent direct engagement (e.g., ball presentation without sustained gaze or clear follow-through) and similar startle responses; overall, A exhibits greater apparent autonomy and aliveness."
+}

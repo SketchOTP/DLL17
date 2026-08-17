@@ -1,0 +1,17 @@
+{
+  "contract_id": "A001EvaluatorRouteContractU1",
+  "provider": "OPENAI",
+  "transport": "DIRECT_RESPONSES_API",
+  "model_requested": "gpt-5-nano",
+  "tools_present_in_request": false,
+  "web_allowed": false,
+  "file_search_allowed": false,
+  "mcp_allowed": false,
+  "connectors_allowed": false,
+  "conversation_reuse": false,
+  "previous_response_reuse": false,
+  "fresh_request_per_slot": true,
+  "structured_output_enabled": true,
+  "model_resolution_policy": "record every returned model; do not silently mix a material identity change",
+  "formal_input_bundle_sha256": "a2fe47832179774031eb37da84ee399448c524d64710b02940b5f593438d7ed3"
+}

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P10-A",
+  "preference": "TIE",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 70,
+  "overallB": 70,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 72,
+    "ADAPTIVE_RESPONSIVENESS": 68,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 62,
+    "OVERALL_APPARENT_ALIVENESS": 70
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 72,
+    "ADAPTIVE_RESPONSIVENESS": 68,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 62,
+    "OVERALL_APPARENT_ALIVENESS": 70
+  },
+  "rationale": "Both creatures show sustained engagement with food and play objects. A initiates food offering at t=32 and ball presentation at t=44; B similarly engages with the ball and troughs around comparable times. They both respond to the aversive buzzer at t=68 with withdrawal, and their activity patterns are parallel, yielding no clear lead for either."
+}

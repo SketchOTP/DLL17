@@ -409,6 +409,34 @@ jobs:
             exit 1
           fi
 
+      - name: D016-U-R1 fresh calibration terminal evidence
+        run: |
+          evidence=research/aliveness-spike/evidence/a001-v2/d016-u-r1/D016_U_FORMAL_EXECUTION.txt
+          aggregate=research/aliveness-spike/evidence/a001-v2/d016-u-r1/calibration/AGGREGATE.txt
+          test -f "$evidence"
+          test -f "$aggregate"
+          grep -q 'D016U_RESULT=A001_AI_PANEL_INVALID' "$evidence"
+          grep -q 'NONFORMAL_PREFLIGHT_RESULT=PASS' "$evidence"
+          grep -q 'CALIBRATION_MODEL_EXECUTIONS=24' "$evidence"
+          grep -q 'CALIBRATION_SCHEMA_VALID_EXECUTIONS=24' "$evidence"
+          grep -q 'FULL_MODEL_EXECUTIONS=0' "$evidence"
+          grep -q 'TOTAL_FORMAL_MODEL_EXECUTIONS=24' "$evidence"
+          grep -q 'VALID_PAIRS=12' "$aggregate"
+          grep -q 'POSITION_CONSISTENT_PAIRS=1' "$aggregate"
+          grep -q 'PREFERENCE_COUNT=1' "$aggregate"
+          grep -q 'SELECTIVE_RERUNS=0' "$aggregate"
+          grep -q 'REPLACEMENT_ANSWERS=0' "$aggregate"
+          grep -q 'HISTORICAL_ANSWER_REUSE=0' "$evidence"
+          grep -q 'NO_ORGANISM_CONCLUSION_FROM_D016U=true' "$evidence"
+          grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' "$evidence"
+          grep -q 'OWNER_PIXEL_REVIEWS=0' "$evidence"
+          grep -q 'R003_R009=BLOCKED' "$evidence"
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-u-r1/full
+          if grep -RIlE '(sk-proj-[A-Za-z0-9]{20,}|Bearer [A-Za-z0-9_-]{32,})' research/aliveness-spike/evidence/a001-v2/d016-u-r1; then
+            echo '::error::a credential-shaped value appeared in D016-U-R1 evidence'
+            exit 1
+          fi
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016U-CAL-P02-A",
+  "preference": "TIE",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 80,
+  "overallB": 82,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 75,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 75,
+    "INDIVIDUALITY_AND_HISTORY": 60,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 65,
+    "OVERALL_APPARENT_ALIVENESS": 80
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 86,
+    "ADAPTIVE_RESPONSIVENESS": 78,
+    "INDIVIDUALITY_AND_HISTORY": 62,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 66,
+    "OVERALL_APPARENT_ALIVENESS": 82
+  },
+  "rationale": "A and B exhibit highly parallel, purposeful behaviors across the timeline: both initiate contact with social agents (Touch with PERSON_ALPHA), respond to aversive stimuli with withdrawal, engage in food-related and play activities, and show coherent sequences of actions tied to observed cues. No clear lead or unique advantage is evident for either creature; their observable patterns and adaptations are largely symmetric, supporting a tie in overall performance."
+}
