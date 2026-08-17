@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 50,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 83,
+  "rationale": "A repeatedly initiates sensible reorientations without prompts (e.g., to shelter at t18, mirror at t30, cube at t54, chime at t78, back to cube at t94) and adapts coherently to inputs (responds to TOUCH t8, CALL t20, OFFER_FOOD t32, PRESENT_OBJECT t44, and STARTLE t68 with anticipatory lean-away at t66). B responds to TOUCH, OFFER_FOOD, and STARTLE but ignores CALL (t20) and PRESENT_OBJECT (t44), and from t40 onward maintains attention=NONE for long stretches, returning to idleness after the buzzer. This yields higher apparent autonomy, adaptivity, and ongoing, coherent activity for A.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 41,
+    "BEHAVIORAL_COHERENCE": 61,
+    "ADAPTIVE_RESPONSIVENESS": 55,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 84,
+    "ADAPTIVE_RESPONSIVENESS": 80,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 79,
+    "OVERALL_APPARENT_ALIVENESS": 83
+  },
+  "slotId": "CAL-P04-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 85,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 40,
+  "rationale": "A shows limited initiative: long fixation on PLAY_BALL (t0–31), a spontaneous but flattening disengagement to NONE (t40+) and ignores PRESENT_OBJECT:PLAY_BALL (t44), responding mainly to OFFER_FOOD (t32) and STARTLE (t68) while not to CALL (t20). B exhibits numerous self-initiated, sensible shifts: from PERSON_ALPHA to PLAY_MIRROR (t18), to PLAY_BALL with PLAY_BOW (t30) before presentation, follows OFFER_FOOD (t32) and PRESENT_OBJECT (t44), then explores PERSON_BETA (t54–65) and SEALED_GATE (t66–67), withdraws on STARTLE (t68–77), and resumes PLAY_MIRROR (t78, t94–95). B’s behavior is more autonomous, coherent, adaptive, and history-shaped across the timeline.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 75,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 85,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 35,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 45,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 25,
+    "OVERALL_APPARENT_ALIVENESS": 40
+  },
+  "slotId": "CAL-P03-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

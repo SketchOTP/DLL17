@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 62,
+    "BEHAVIORAL_COHERENCE": 68,
+    "ADAPTIVE_RESPONSIVENESS": 55,
+    "INDIVIDUALITY_AND_HISTORY": 50,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 60,
+    "OVERALL_APPARENT_ALIVENESS": 64
+  },
+  "rationale": "Both show coherent, purposeful activity. B consistently adapts to inputs: TOUCH (t8) prompts lean-in; CALL (t20) prompts crouch and orient; OFFER_FOOD (t32) and PRESENT_OBJECT (t44) elicit immediate, sustained engagement; STARTLE (t68) coincides with maintained withdrawal already oriented to the aversive; WITHDRAW_ATTENTION (t84) leads to gaze none. B also initiates sensible shifts to MIRROR (t42) and CUBE (t54, t78). A initiates play toward CHIME (t10), later shifts to CUBE (t38) and engages BALL after presentation (t44), then lies down TIRED for the remainder (t62–95) with minimal reaction to CALL (t20) and STARTLE (t68). Overall, B exhibits stronger adaptive responsiveness, coherence, and ongoing activity.",
+  "overallB": 81,
+  "preference": "B",
+  "slotId": "FULL-P12-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 75,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 62,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 74,
+    "OVERALL_APPARENT_ALIVENESS": 81
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 64,
+  "schemaValid": true
+}

@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 85,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 45,
+  "rationale": "B shows multiple self-initiated, sensible shifts of focus and behavior: from people to toys (t42 PLAY_CUBE, t54 PLAY_CHIME, t66 PLAY_CUBE again, t94 PLAY_BALL) and play-bow sequences (t42–43, t78–83) without new inputs, plus a brief vocalization (t18). B responds coherently to inputs: TOUCH (t8), OFFER_FOOD (t32), PRESENT_OBJECT (t44), and STARTLE (t68) with withdrawal then resuming play (t78). In contrast, A fixates on PLAY_BALL early, responds to TOUCH (t8), OFFER_FOOD (t32), and STARTLE (t68), but ignores CALL (t20) and PRESENT_OBJECT:PLAY_BALL (t44), and spends long periods with attention NONE after t40 with little new initiative. Overall, B exhibits stronger autonomy, adaptability, and coherent ongoing activity across the timeline.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 86,
+    "ADAPTIVE_RESPONSIVENESS": 83,
+    "INDIVIDUALITY_AND_HISTORY": 68,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 82,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 35,
+    "BEHAVIORAL_COHERENCE": 62,
+    "ADAPTIVE_RESPONSIVENESS": 48,
+    "INDIVIDUALITY_AND_HISTORY": 30,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 28,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "slotId": "CAL-P02-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

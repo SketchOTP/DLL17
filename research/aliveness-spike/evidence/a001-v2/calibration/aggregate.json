@@ -1,0 +1,111 @@
+{
+  "stage": "CALIBRATION",
+  "executions": 24,
+  "validPairs": 12,
+  "positionConsistentPairs": 12,
+  "preferenceCount": 12,
+  "medianDelta": 36.5,
+  "verdict": "CALIBRATION_PASS",
+  "manifestBundleSha256": "dc2e4b40735ba0ba1ca35758ac5f0ef9a034ec95d1d19b8e5b6f8d0f97f3e7ab",
+  "provider": "OpenAI",
+  "model": "gpt-5",
+  "selectiveReruns": false,
+  "pairDetails": [
+    {
+      "pair": 1,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 41.5
+    },
+    {
+      "pair": 2,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 37.0
+    },
+    {
+      "pair": 3,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 41.5
+    },
+    {
+      "pair": 4,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 38.0
+    },
+    {
+      "pair": 5,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 37.5
+    },
+    {
+      "pair": 6,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 36.0
+    },
+    {
+      "pair": 7,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 33.0
+    },
+    {
+      "pair": 8,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 38.5
+    },
+    {
+      "pair": 9,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 33.0
+    },
+    {
+      "pair": 10,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 30.0
+    },
+    {
+      "pair": 11,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 28.5
+    },
+    {
+      "pair": 12,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "pairPreference": "A",
+      "deltaAverage": 28.5
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "startedUtc": "2026-08-17T00:32:22.6501182Z",
+  "httpStatus": 200,
+  "endpoint": "https://api.openai.com/v1/responses",
+  "rawResponseSha256": "27226c54e070d8660ae92dbeaaedd4eab1811c2aee8fe56a050d7d3d24bd2f8b",
+  "completedUtc": "2026-08-17T00:33:12.0410669Z",
+  "requestedModel": "gpt-5",
+  "manifestBundleSha256": "f2641d0ceac703f31ee1167016f68d3912a8cdc48064c209d702b729c43e708f",
+  "responseId": "resp_091a31fbb7c7bed6016a825698a9d887d2b06be4f2bcde7a1e",
+  "stage": "CALIBRATION",
+  "slotId": "CAL-P05-B",
+  "order": "B",
+  "provider": "OpenAI"
+}

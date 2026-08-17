@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 87,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 58,
+  "rationale": "Both show object-focused activity without prompts at the start (A on PLAY_BALL, B on PLAY_CUBE). After TOUCH at t=8 both engage PERSON_ALPHA. A often returns to prior focus or idles: it ignores CALL at t=20 and PRESENT_OBJECT:PLAY_BALL at t=44, though it does shift to FOOD_TROUGH on OFFER_FOOD at t=32 and briefly withdraws after the buzzer at t=68 before resuming idle. B exhibits richer, context-linked shifts: anticipates/attends FOOD_TROUGH at t=18–19, re-orients to CALL at t=20, explores PLAY_CHIME at t=30–31, sustains attention to offered food at t=32–41, spontaneously vocalizes to PERSON_ALPHA at t=42–43, promptly engages PRESENT_OBJECT:PLAY_BALL at t=44–63, shows prolonged startle/processing at t=68–77, and re-engages socially at t=78–83 and again at t=94–95. These patterns indicate higher autonomy, coherence, adaptive responsiveness, a distinct evolving profile, and more spontaneous yet sensible activity for B.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 86,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 74,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 82,
+    "OVERALL_APPARENT_ALIVENESS": 87
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 57,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 54,
+    "INDIVIDUALITY_AND_HISTORY": 52,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 46,
+    "OVERALL_APPARENT_ALIVENESS": 58
+  },
+  "slotId": "CAL-P06-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

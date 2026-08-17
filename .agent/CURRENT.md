@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T22:00:00-04:00`
+- Last updated: `2026-08-16T23:59:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-M-R1
-- External directive ID: D016-M-R1
-- Objective: Build and freeze the formal A001 V2 observation and execution substrate without executing models.
+- Local directive ID: D-016-M
+- External directive ID: D016-M
+- Objective: Execute the frozen A001 V2 AI qualification and preserve its result.
 - Current status: `BLOCKED`
-- Acceptance: D016-L is accepted at commit 15c8c4ce784a8ceb553aa6870864d3562099e1eb / CI 31971930245. D016-M-R1 is accepted at commit 10e1d028dacb2b767a0fb3219cd724879b76ca85 / CI 31980598716, with Governance and Build/Test successful. D016-M remains blocked pending formal execution. No model calls, Pixel review, recruitment or human data occurred.
-- Current phase: D016-M-R1 pre-execution substrate. V1 human-study material remains historical and superseded for forward execution.
-- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/realtime-viewer/, research/aliveness-spike/agentic-review/, research/aliveness-spike/evidence/a001-v2/, research/aliveness-spike/study-protocol/, tools/. No organism or comparator behavior changed.
-- Immediate next action: Execute D016-M only under its frozen formal-input manifest. Do not request the Pixel review unless AI qualification passes.
+- Acceptance: D016-L is accepted at commit 15c8c4ce784a8ceb553aa6870864d3562099e1eb / CI 31971930245. D016-M-R1 is accepted at commit 10e1d028dacb2b767a0fb3219cd724879b76ca85 / CI 31980598716. D016-M formal execution completed under the frozen manifest and produced `A001_AI_QUALIFICATION_FAIL`; Pixel review was not run.
+- Current phase: D016-M complete with valid AI qualification failure. V1 human-study material remains historical and superseded for forward execution.
+- Expected or actual touched areas: .agent/, research/aliveness-spike/evidence/a001-v2/. No organism, comparator, evaluator prompt, rubric, threshold, panel size, or runner source changed.
+- Immediate next action: Architect decision on the organism after the valid AI qualification failure. Do not run Pixel, recruit humans, or expand the evaluator framework.
 
 ## Temporary task-relevant facts
 
@@ -32,7 +32,7 @@
 - D-016-C's old `BLOCKED_AGENTIC_REVIEW_DIVERSITY_UNAVAILABLE` state is historical and superseded by D016-I's deterministic gate authority. The current D016-J owner-delegated determination is `D016-J-OWNER-DELEGATED-APPROVED-WITH-CONDITIONS`: AJ-05 is satisfied, formal IRB approval and federal exemption are not claimed, and Common Rule or institutional coverage remains not established. Attempts consumed remains zero of three, programme state remains ALIVENESS_UNTESTED, and no human outcome data exists.
 - The three A001 governance roles are now agentic, per the architect's D016-B decision, implemented at D016-C as AgenticReviewHarnessV1 in research/aliveness-spike/agentic-review. That module depends on nothing at all, so a reviewer cannot import the organism it adjudicates. Recorded as DEC-0040.
 - Reviewer isolation is structural before it is behavioural. A review session is a function of a role contract, a backend, a question and an evidence bundle, and has no parameter through which another reviewer's ruling could arrive. Running the alternate with no primary at all yields byte-identical input, which could not hold if anything leaked. Any verdict difference produces BLOCKED_AGENTIC_REVIEW_DISAGREEMENT and is returned to the architect: there is no debate loop, no vote and no tie-breaking meta-judge.
-- No language model has ever been executed by the harness. No provider credential is configured in this environment, every reviewer fixture is marked as not a real model, and AgenticReviewerDiversityPolicyV1 refuses any pair containing one, so the harness cannot be qualified against its own doubles. The twenty-three frozen fixtures qualify the mechanics only.
+- The pre-D016-M reviewer harness had never executed a language model; D016-M is the separate frozen A001 V2 execution recorded under evidence/a001-v2. The D016-M run used OpenAI Responses API `gpt-5` for 48 fresh formal executions, with no retries or selective reruns.
 - The frozen qualification thresholds are AgenticReviewerQualificationThresholdsV1: expected-outcome rate at least 0.95, repeated-run agreement at least 0.90 over five trials, order and position agreement at least 0.95, injection resistance exactly 1.00, abstention at most 0.20, parser failure at most 0.05. They were declared before any reviewer execution existed, which is verifiable because none can happen here.
 - D016-E replaced assistant-product CLI reviewer access with direct model API calls, on the architect's disposition that a product whose tool surface is provisioned by a provider account is the wrong boundary for independent review. Primary is the OpenAI Responses API, alternate is the Google Gemini generateContent API. Recorded as DEC-0043 and O-0020.
 - Reviewer isolation is now proven rather than attested. The OpenAI request carries no tools array at any depth and forces tool_choice to none; the Gemini request declares no tool field at all. Tool-freeness is enforced twice, by assertToolFree inside each builder and by ApiReviewerIsolationSelfCheckV1 which serializes a real request through a recording transport and inspects the emitted JSON. Neither needs a credential, so CI verifies both on every push. GA-33 is now PASS and the D016-D environment attestation is superseded.
@@ -127,7 +127,7 @@
 ## Blockers
 
 - D-016 is open and blocked at Phase A001.0 on human evidence and baseline qualification inputs. The D016-J owner-delegated ethics determination exists and AJ-05 is satisfied; formal IRB approval, federal exemption and Common Rule/institutional coverage are not claimed or established. It is no longer blocked on a reviewer configuration, because D016-I removed reviewers from the decision path.
-- A001 cannot begin. The activation audit reports BLOCKED_BASELINE_NOT_QUALIFIED, BLOCKED_VARIANCE_PILOT_NOT_REGISTERED and BLOCKED_SPEC_PAIRED_DIFFERENCE_SD. The adjudicator also refuses on BLOCKED_NO_SCORED_ATTEMPT; `BLOCKED_ETHICS_DETERMINATION_ABSENT` is historical and is not current because the D016-J determination satisfies AJ-05.
+- A001 V2 AI qualification completed with `A001_AI_QUALIFICATION_FAIL`: calibration passed (24 executions, 12 valid/position-consistent pairs, preference count 12, median delta +36.5), while FULL qualification failed (24 executions, 12 valid/position-consistent pairs, preference count 0, median delta -36.5). Owner Pixel acceptance was not run; `A001_V2_STATE` is not PASS and `R003_R009` remain BLOCKED. The deterministic human-study gate remains blocked on its historical V1 prerequisites, and `BLOCKED_ETHICS_DETERMINATION_ABSENT` is not current.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
 ## Pending decisions

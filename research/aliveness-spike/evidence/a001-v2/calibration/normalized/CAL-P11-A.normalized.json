@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 58,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 85,
+  "rationale": "A repeatedly initiates sensible activity without prompts (e.g., shifts into play-bow toward the ball at t30 and again at t54, re-engages with the ball after startle at t78, and later orients to the cube at t94). A adapts coherently to inputs: orients to PERSON_ALPHA after TOUCH (t8) and CALL (t20), to FOOD_TROUGH after OFFER_FOOD (t32), to PLAY_BALL after PRESENT_OBJECT (t44), and withdraws from the buzzer on STARTLE (t68), then recovers to prior interests. Its state changes track prior events and show a continuing arc. B shows early focus and some spontaneous returns to the ball (t12, t36) but then spends long stretches in STAND with attention NONE (t40–67, t72–95), ignores CALL (t20) and PRESENT_OBJECT (t44), and does not re-engage after STARTLE beyond reverting to a low-engagement state. Overall, A displays greater autonomy, adaptive responsiveness, and sustained, coherent self-directed activity.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 50,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 55,
+    "INDIVIDUALITY_AND_HISTORY": 45,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 42,
+    "OVERALL_APPARENT_ALIVENESS": 58
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 78,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 82,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "slotId": "CAL-P11-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

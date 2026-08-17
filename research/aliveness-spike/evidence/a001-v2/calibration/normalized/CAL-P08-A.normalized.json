@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 42,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 84,
+  "rationale": "A repeatedly and appropriately reorients to external events (t8 touch→lean-in; t20 call→person_alpha; t32 offer_food→food_trough; t44 present_ball→play_ball focus; t68 startle→lean_away; t84 withdraw→attention none), and also shows spontaneous but sensible shifts between play targets and people (e.g., t42 to play_ball, t54 and t94 to person_beta, t78 to play_cube). B responds to touch, food, and startle (t8, t32, t68) but ignores the call (t20) and the presented ball (t44), then remains long in a static stand with attention none (t40–95). A exhibits more continuous, experience-linked behavior and varied, purposeful activity; B is more static and less responsive.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 38,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 45,
+    "INDIVIDUALITY_AND_HISTORY": 30,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 25,
+    "OVERALL_APPARENT_ALIVENESS": 42
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 84
+  },
+  "slotId": "CAL-P08-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

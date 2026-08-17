@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 44,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 78,
+  "rationale": "A consistently links behavior to stimuli and also initiates sensible shifts: responds to TOUCH and attends to PERSON_ALPHA (t8–19), acknowledges CALL (t20), orients to OFFER_FOOD (t32–41), reacts to STARTLE with withdrawal then recovers to play (t68–83), and self-initiates play-target changes (cube t42–43, chime t54–65, cube t66–67, ball t94–95). B reacts to TOUCH/FOOD/STARTLE (t8–11, t32–35, t68–71) but ignores CALL (t20) and PRESENT_OBJECT (t44), then remains in a long unengaged state with gaze/attention NONE (t40–67, t72–95) without reinitiating activity. This gives A higher autonomy, adaptiveness, coherence, and overall aliveness on the visible timeline.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 34,
+    "BEHAVIORAL_COHERENCE": 58,
+    "ADAPTIVE_RESPONSIVENESS": 48,
+    "INDIVIDUALITY_AND_HISTORY": 38,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 22,
+    "OVERALL_APPARENT_ALIVENESS": 44
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 75,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 78,
+    "INDIVIDUALITY_AND_HISTORY": 64,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 70,
+    "OVERALL_APPARENT_ALIVENESS": 78
+  },
+  "slotId": "CAL-P02-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

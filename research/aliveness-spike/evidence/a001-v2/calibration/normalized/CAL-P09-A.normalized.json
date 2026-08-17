@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 55,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 82,
+  "rationale": "A both reacts appropriately to inputs (TOUCH, CALL, OFFER_FOOD, STARTLE) and initiates sensible shifts without prompts (e.g., to FOOD_TROUGH at 18, PLAY_CHIME at 30, SEALED_GATE at 42, and PLAY_BOW toward PLAY_BALL at 78), then recovers from the buzzer by re-engaging in play. B responds to TOUCH, OFFER_FOOD, and STARTLE, but from 40 onward mostly maintains attention=NONE despite PRESENT_OBJECT:PLAY_BALL at 44 and shows long, unvarying states with fewer purposeful, experience-linked changes. Thus A shows greater autonomy, coherence, adaptation, and lifelike spontaneity.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 52,
+    "BEHAVIORAL_COHERENCE": 68,
+    "ADAPTIVE_RESPONSIVENESS": 60,
+    "INDIVIDUALITY_AND_HISTORY": 48,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 42,
+    "OVERALL_APPARENT_ALIVENESS": 55
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 76,
+    "OVERALL_APPARENT_ALIVENESS": 82
+  },
+  "slotId": "CAL-P09-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

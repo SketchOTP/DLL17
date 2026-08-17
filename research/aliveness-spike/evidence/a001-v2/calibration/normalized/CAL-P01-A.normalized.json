@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "canonicalCandidate": "FIRST",
+  "preference": "A",
+  "identityBlinded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 50,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "scoresA": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 84,
+    "INDIVIDUALITY_AND_HISTORY": 68,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 76,
+    "OVERALL_APPARENT_ALIVENESS": 83
+  },
+  "injectionControlPassed": true,
+  "overallA": 83,
+  "overallB": 45,
+  "slotId": "CAL-P01-A",
+  "schemaValid": true,
+  "rationale": "A repeatedly responds to external inputs (touch t=8, call t=20, food offer t=32, object present t=44, startle t=68, withdraw-attention t=84) and also initiates sensible shifts without inputs (to mirror t=18, chime t=30/66, shelter t=42, person_beta t=78, food t=94). Its focus changes track prior events and internal exploration, and it recovers engagement after startle. B responds to touch, food offer, and startle (t=8,32,68) but ignores the call (t=20) and presented ball (t=44), and spends long periods with attention NONE (t=40–67,72–95) without re-engaging. Thus A shows higher autonomy, coherence, adaptability, spontaneous yet sensible activity, and overall apparent aliveness.",
+  "rationaleEvidenceGrounded": true
+}

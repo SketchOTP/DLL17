@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 58,
+    "BEHAVIORAL_COHERENCE": 66,
+    "ADAPTIVE_RESPONSIVENESS": 42,
+    "INDIVIDUALITY_AND_HISTORY": 60,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 55,
+    "OVERALL_APPARENT_ALIVENESS": 57
+  },
+  "rationale": "A shows some self-initiated reorientation (to PERSON_BETA) and coherent social/play bids toward PERSON_ALPHA, but then lies down TIRED for a prolonged period (t43–95) with minimal change and no observable reaction to PRESENT_OBJECT:PLAY_BALL (t44) or STARTLE:AVERSIVE_BUZZER (t68). B maintains active engagement, initiates shifts among toys and people, and responds clearly and appropriately to multiple inputs: TOUCH (t8) prompts approach to PERSON_ALPHA, CALL (t20) reorients, OFFER_FOOD (t32) triggers focused approach to the trough, PRESENT_OBJECT:PLAY_BALL (t44) captures attention, and STARTLE (t68) elicits lean-away/withdrawal followed by recovery (t78+). B’s timeline is more continuously coherent, adaptive, and self-propelled.",
+  "overallB": 90,
+  "preference": "B",
+  "slotId": "FULL-P10-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 88,
+    "BEHAVIORAL_COHERENCE": 90,
+    "ADAPTIVE_RESPONSIVENESS": 93,
+    "INDIVIDUALITY_AND_HISTORY": 82,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 86,
+    "OVERALL_APPARENT_ALIVENESS": 90
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 57,
+  "schemaValid": true
+}

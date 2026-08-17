@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 42,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 74,
+  "rationale": "A repeatedly reorients to salient events and objects: responds to TOUCH by leaning to PERSON_ALPHA (t=8–17), orients to CALL (t=20–24), shifts to OFFER_FOOD (t=32–41), attends PRESENT_OBJECT:PLAY_BALL (t=44–53), and shows a sustained STARTLE response (t=68–77). A also makes sensible spontaneous shifts (e.g., to PLAY_MIRROR t=18–19, PLAY_CHIME t=30–31, PLAY_CUBE t=54–65, PERSON_ALPHA t=94–95). B responds to TOUCH, OFFER_FOOD, and STARTLE (t=8–11, 32–35, 68–71) but ignores CALL (remains on PLAY_BALL at t=20–31) and ignores PRESENT_OBJECT:PLAY_BALL (stays gaze NONE at t=44–47), then remains largely gaze NONE for long spans (t=40–67, 72–95). Overall, A shows greater connectedness to inputs, richer spontaneous-yet-sensible activity, and more continuous, adaptive engagement.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 50,
+    "ADAPTIVE_RESPONSIVENESS": 40,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 42
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 75,
+    "ADAPTIVE_RESPONSIVENESS": 78,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 70,
+    "OVERALL_APPARENT_ALIVENESS": 74
+  },
+  "slotId": "CAL-P10-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 84,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 45,
+  "rationale": "A shows brief, stimulus-linked shifts (touch→lean-in t8–11, food offer→food trough t32–35, startle→withdraw t68–71) but otherwise fixates on the ball then spends long periods standing with attention NONE, even ignoring PRESENT_OBJECT:PLAY_BALL at t44. B exhibits multiple self-initiated, sensible reorientations tied to context: touch→person (t8–11), spontaneous shifts to food trough (t18), back to person on call (t20), explores chime (t30), responds to food offer (t32–41), attends sealed gate (t42–43), orients to presented ball (t44–53), later returns to chime (t54–67), startle→withdraw (t68–77), then re-engages with ball in a play-bow (t78–83). This pattern indicates higher autonomy, coherent sequencing, stronger adaptivity, a more distinct evolving engagement history, and richer spontaneous but sensible activity.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 86,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 84
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 38,
+    "BEHAVIORAL_COHERENCE": 58,
+    "ADAPTIVE_RESPONSIVENESS": 52,
+    "INDIVIDUALITY_AND_HISTORY": 33,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "slotId": "CAL-P09-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

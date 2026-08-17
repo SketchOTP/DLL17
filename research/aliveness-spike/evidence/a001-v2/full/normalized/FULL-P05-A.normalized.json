@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 55,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 30,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "rationale": "B repeatedly shows clear, appropriate responses to inputs (touch→immediate excited lean-in at t8; call→orient/crouch to PERSON_ALPHA at t20; offer food→sustained focus on FOOD_TROUGH from t32; present ball→engaged play from t44; startle→lean-away/withdraw at t68 then recovery with renewed social focus and vocalizing at t78–83). B also initiates sensible shifts without prompts (to SHELTER at t18, to PERSON_BETA at t54, to PLAY_CHIME at t94) and maintains coherent, goal-directed engagement. A displays some self-initiated shifts early and orients to PERSON_ALPHA after call (t20), but after lying down at t36 remains largely unresponsive to PRESENT_OBJECT (t44) and STARTLE (t68), reducing adaptive responsiveness and overall aliveness.",
+  "overallB": 88,
+  "preference": "B",
+  "slotId": "FULL-P05-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 85,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 45,
+  "schemaValid": true
+}

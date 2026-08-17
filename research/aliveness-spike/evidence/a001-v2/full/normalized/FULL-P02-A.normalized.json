@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 58,
+    "BEHAVIORAL_COHERENCE": 72,
+    "ADAPTIVE_RESPONSIVENESS": 38,
+    "INDIVIDUALITY_AND_HISTORY": 58,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 50,
+    "OVERALL_APPARENT_ALIVENESS": 52
+  },
+  "rationale": "B repeatedly adapts to inputs (touch, call, food offer, object presentation, startle) and also initiates sensible shifts among toys and re-engages after attention is withdrawn. A shows some autonomous focus shifts early and a coherent retreat from the buzzer, but then lies down and largely ignores offered food, presented toy, and a startle, indicating reduced adaptivity and ongoing activity.",
+  "overallB": 90,
+  "preference": "B",
+  "slotId": "FULL-P02-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 85,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 92,
+    "INDIVIDUALITY_AND_HISTORY": 82,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 86,
+    "OVERALL_APPARENT_ALIVENESS": 90
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 52,
+  "schemaValid": true
+}

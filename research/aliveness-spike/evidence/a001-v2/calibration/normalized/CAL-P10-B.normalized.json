@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 78,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 50,
+  "rationale": "B responds coherently to all salient inputs (touch, call, food offer, present-ball, startle) and also initiates sensible shifts among play objects and people (mirror→person on call, person→chime, chime→food, later back to cube and person). Its attention patterns persist and evolve, including a prolonged, graded response to the aversive buzzer. A shows narrower focus (mainly the ball, later 'none'), fails to adjust to the call and presented ball, and quickly reverts after startle. Overall, B exhibits richer, more autonomous and adaptive behavior over time.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 80,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 78
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 55,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "slotId": "CAL-P10-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

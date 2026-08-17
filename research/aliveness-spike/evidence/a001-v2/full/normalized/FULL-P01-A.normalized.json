@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 40,
+    "INDIVIDUALITY_AND_HISTORY": 45,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "rationale": "B shows consistent, context-appropriate reactions to inputs (leans in to TOUCH and CALL, approaches OFFER_FOOD, orients to PRESENT_OBJECT, withdraws on STARTLE) and initiates multiple coherent shifts without prompts (explores MIRROR, CHIME, SHELTER, reorients between people and objects). Its attention and posture evolve smoothly over time and it resumes varied activity after startle. A is socially focused early and coherently avoids the AVERSIVE_BUZZER, but then enters a prolonged LIE_DOWN state from mid-trial, showing minimal change even when the BALL is presented and during STARTLE. Overall, B exhibits greater autonomy, adaptive responsiveness, sustained coherence, and lifelike ongoing activity.",
+  "overallB": 90,
+  "preference": "B",
+  "slotId": "FULL-P01-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 90,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 75,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 85,
+    "OVERALL_APPARENT_ALIVENESS": 90
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 50,
+  "schemaValid": true
+}

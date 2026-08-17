@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 78,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "rationale": "A repeatedly links behavior to inputs and shows sensible self-initiated shifts: orients and stays engaged after TOUCH and CALL, moves attention to FOOD_TROUGH before OFFER_FOOD and remains focused, engages with PLAY_BALL around PRESENT_OBJECT, reacts to STARTLE by leaning away and later directing attention and vocalizing toward PERSON_ALPHA, and later initiates attention to PLAY_CHIME. B explores early but then lies down from t36 onward with minimal changes, showing weak responses to PRESENT_OBJECT:PLAY_BALL, OFFER_FOOD, and STARTLE. A exhibits stronger autonomy, coherence, and adaptive responsiveness over the timeline.",
+  "overallB": 55,
+  "preference": "A",
+  "slotId": "FULL-P05-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 60,
+    "BEHAVIORAL_COHERENCE": 65,
+    "ADAPTIVE_RESPONSIVENESS": 40,
+    "INDIVIDUALITY_AND_HISTORY": 55,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 50,
+    "OVERALL_APPARENT_ALIVENESS": 55
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 85,
+  "schemaValid": true
+}

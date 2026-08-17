@@ -784,3 +784,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: Formal AI calibration and FULL qualification have not run and no formal result exists.
 - Blockers: D016-M formal execution is the next authorized action; Pixel acceptance and R003-R009 remain held.
 - Follow-up directive: D-016-M-R1
+
+
+## D-016-M - COMPLETE_WITH_AI_QUALIFICATION_FAIL
+
+- Outcome ID: O-0034
+- Supersedes outcome: O-0033
+- Closed: 2026-08-16T23:59:00-04:00
+- Acceptance: MET
+- Summary: D016-M formal execution completed under the accepted frozen formal-input manifest `dc2e4b40735ba0ba1ca35758ac5f0ef9a034ec95d1d19b8e5b6f8d0f97f3e7ab`. Calibration ran as 24 fresh OpenAI Responses API executions using `gpt-5`, with 12 valid pairs, 12 position-consistent pairs, preference count 12 and median overall-aliveness delta +36.5, yielding `CALIBRATION_PASS`. FULL qualification then ran as a new 24-execution panel with 12 valid pairs, 12 position-consistent pairs, preference count 0 for the canonical FULL candidate and median overall-aliveness delta -36.5, yielding `A001_AI_QUALIFICATION_FAIL`. Every raw response and normalized result was preserved; no selective reruns, replacement answers or manual repairs occurred. Execution stopped as directed: no Pixel review, no human participants, no organism/comparator/evaluator changes, and R003-R009 remain blocked.
+- Changed areas: `.agent/CURRENT.md`, `.agent/OUTCOMES.md`, `research/aliveness-spike/evidence/a001-v2/calibration/`, `research/aliveness-spike/evidence/a001-v2/full/`
+- Validation:
+  - accepted frozen manifest and bundle hashes rechecked before execution - PASSED
+  - calibration 24-slot execution and deterministic aggregation - PASSED (`CALIBRATION_PASS`)
+  - FULL 24-slot execution and deterministic aggregation - PASSED (`A001_AI_QUALIFICATION_FAIL`)
+  - raw-slot preservation and no-selective-rerun audit - PASSED
+  - owner Pixel review - NOT RUN by directive
+  - external human participants - 0
+- Remaining risks: This is a valid AI qualification result about the frozen evaluator/model route and observation substrate; it is not a human-population claim and does not establish `A001_V2_PASS`. The next decision concerns organism behavior, not evaluator expansion.
+- Blockers: `A001_AI_QUALIFICATION_FAIL`, owner Pixel acceptance not applicable after failed AI stage, `R003_R009=BLOCKED`
+- Follow-up directive: none

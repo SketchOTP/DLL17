@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 42,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 80,
+  "rationale": "A repeatedly initiates new, sensible activities (shifts to mirror, ball, people, and gate) and robustly responds to inputs (touch, call, food offer, startle, object presentation) with sustained, context-appropriate states. B responds to touch/food/startle but ignores the call and presented ball and spends long periods standing with attention to none, showing less adaptive change and exploration.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 48,
+    "INDIVIDUALITY_AND_HISTORY": 38,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 42
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 62,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 74,
+    "OVERALL_APPARENT_ALIVENESS": 80
+  },
+  "slotId": "CAL-P03-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

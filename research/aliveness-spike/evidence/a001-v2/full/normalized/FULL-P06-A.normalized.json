@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 58,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 22,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 42,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "rationale": "A briefly reacts to touch (t8) and then self-initiates a sustained play-bow toward Person Beta (t10–24), but thereafter lies down (t25–95) and shows almost no change despite food offered (t32), a ball presented (t44), or an aversive buzzer (t68). B shows continuous, sensible state changes tied to both inputs and its own shifts: orients to touch (t8), anticipates food (t18), follows a call (t20), engages with offered food (t32) and presented ball (t44), appropriately withdraws to the aversive buzzer (t68–77), re-engages with people (t78+), adjusts when attention is withdrawn (t84), and later re-initiates engagement (t94–95). This yields higher autonomy, coherence, adaptability, and overall apparent aliveness for B.",
+  "overallB": 90,
+  "preference": "B",
+  "slotId": "FULL-P06-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 85,
+    "BEHAVIORAL_COHERENCE": 90,
+    "ADAPTIVE_RESPONSIVENESS": 95,
+    "INDIVIDUALITY_AND_HISTORY": 82,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 87,
+    "OVERALL_APPARENT_ALIVENESS": 90
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 45,
+  "schemaValid": true
+}

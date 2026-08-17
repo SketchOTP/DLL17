@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 55,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 55,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 58,
+    "OVERALL_APPARENT_ALIVENESS": 58
+  },
+  "rationale": "B shows sustained, coherent responsiveness and self-directed shifts: reacts to TOUCH at t8 by leaning to PERSON_ALPHA (t8–17), reorients to CALL at t20, focuses on OFFER_FOOD at t32 (t32–41), engages when PLAY_BALL is presented at t44 with extended play-bow/crouch sequences (t44–63), withdraws appropriately to STARTLE at t68 (t68–77) and then spontaneously resumes play (t78–83), remains organized during attention withdrawal (t84–91), and explores PLAY_CUBE late (t94–95). A exhibits some autonomy and coherence early (shift to PLAY_CHIME at t6, PLAY_CUBE at t14, attends CALL at t20, withdraws toward AVERSIVE_BUZZER t27–38) but then lies down from t39–95 with minimal response to PRESENT_OBJECT at t44 or STARTLE at t68, indicating reduced adaptiveness and ongoing activity compared to B.",
+  "overallB": 89,
+  "preference": "B",
+  "slotId": "FULL-P11-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 84,
+    "BEHAVIORAL_COHERENCE": 90,
+    "ADAPTIVE_RESPONSIVENESS": 92,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 85,
+    "OVERALL_APPARENT_ALIVENESS": 89
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 58,
+  "schemaValid": true
+}

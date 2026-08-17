@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 86
+  },
+  "rationale": "A repeatedly reorients to stimuli and shifts activities in a connected way: engages with PERSON_ALPHA after TOUCH and CALL, with FOOD_TROUGH after OFFER_FOOD, with PLAY_BALL after PRESENT_OBJECT, and leans away during STARTLE, later resuming play and even reengaging after attention is withdrawn. B shows brief early initiative (switching to PLAY_BALL, reacting to AVERSIVE_BUZZER) but then lies down from t=35–95 and largely ignores OFFER_FOOD, PRESENT_OBJECT, STARTLE, and attention withdrawal. A’s timeline shows sustained, adaptive, and coherent activity; B’s does not.",
+  "overallB": 40,
+  "preference": "A",
+  "slotId": "FULL-P02-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 42,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 30,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 40
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 86,
+  "schemaValid": true
+}

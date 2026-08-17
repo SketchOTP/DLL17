@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 75,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 45,
+  "rationale": "B exhibits more self-initiated, coherent, and adaptive behavior: redirects to PERSON_ALPHA on touch (t=8–17), to FOOD_TROUGH when food is offered (t=32–41), engages and sustains interaction with the presented PLAY_BALL (t=44–63), startles then recovers to resume play (t=68–83), and initiates new focuses (PLAY_BOW at t=30, SHELTER at t=42–43, PLAY_CUBE at t=94–95). A responds to touch, food, and startle but mostly fixates on PLAY_BALL early, then remains disengaged with attention=NONE for long spans (t=40–95) and does not react when PLAY_BALL is presented (t=44), indicating lower adaptivity and autonomy.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 78,
+    "ADAPTIVE_RESPONSIVENESS": 80,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 75
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "slotId": "CAL-P11-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

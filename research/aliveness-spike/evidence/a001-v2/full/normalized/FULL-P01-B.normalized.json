@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 84,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 76,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 79,
+    "OVERALL_APPARENT_ALIVENESS": 86
+  },
+  "rationale": "A repeatedly links actions to inputs and also initiates sensible shifts: responds to TOUCH (t=8), CALL (t=20), OFFER_FOOD (t=32), PRESENT_OBJECT (t=44), and STARTLE (t=68), then recovers to re-engage others (t=78) and later reorients to food (t=94). It also self-redirects attention multiple times without prompts (e.g., to PLAY_MIRROR t=18, PLAY_CHIME t=30, SHELTER t=42), showing ongoing internal state and coherent exploration. B starts engaged (play-bow at PERSON_BETA t=3–17), briefly acknowledges TOUCH (t=9), then fixates on AVERSIVE_BUZZER (t=31–41) and shifts into prolonged LIE_DOWN with minimal responsiveness (t=43–95), ignoring PRESENT_OBJECT (t=44) and showing little change after STARTLE (t=68). This indicates lower adaptiveness and reduced ongoing activity compared to A.",
+  "overallB": 57,
+  "preference": "A",
+  "slotId": "FULL-P01-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 61,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 51,
+    "INDIVIDUALITY_AND_HISTORY": 62,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 52,
+    "OVERALL_APPARENT_ALIVENESS": 57
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 86,
+  "schemaValid": true
+}

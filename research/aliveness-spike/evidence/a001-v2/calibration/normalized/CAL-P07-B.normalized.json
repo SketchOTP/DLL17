@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 76,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 50,
+  "rationale": "B shows timely, varied reactions to inputs and sustained, self-initiated shifts. It approaches on TOUCH (t=8–11), follows CALL (t=20–23), orients to OFFER_FOOD (t=32–43), responds to PRESENT_OBJECT (t=44–53), startles and withdraws (t=68–71), then develops new foci without prompts (SEALED_GATE t=54–63; SHELTER t=66–67) and later initiates play (PLAY_BOW t=94–95), with renewed vocal engagement to PERSON_ALPHA (t=78–83). A reacts to TOUCH (t=8–11), OFFER_FOOD (t=32–35), and STARTLE (t=68–71) but ignores CALL (t=20) and PRESENT_OBJECT (t=44), and spends long spans with attention NONE (t=40–67, 72–95). This pattern gives B higher apparent autonomy, coherence, adaptability, and overall aliveness.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 74,
+    "ADAPTIVE_RESPONSIVENESS": 78,
+    "INDIVIDUALITY_AND_HISTORY": 66,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 76
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 42,
+    "BEHAVIORAL_COHERENCE": 56,
+    "ADAPTIVE_RESPONSIVENESS": 55,
+    "INDIVIDUALITY_AND_HISTORY": 38,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 34,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "slotId": "CAL-P07-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 83,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 78,
+    "OVERALL_APPARENT_ALIVENESS": 86
+  },
+  "rationale": "A repeatedly links actions to inputs (responds to TOUCH t8, CALL t20, OFFER_FOOD t32, PRESENT_OBJECT t44, STARTLE t68, WITHDRAW_ATTENTION t84) and also initiates sensible, unsignaled shifts (play bow to ball t30, return to play t78, interest in cube t94). Its state evolves coherently (excitement, withdrawal after buzzer, recovery to play). B shows early coherent engagement and some spontaneous shifts (to chime t6, cube t14, shelter t21) and responds to CALL t20, but then fixates on the buzzer (t27–38), and from t39 onward lies down and largely ignores salient inputs (OFFER_FOOD t32 minimal effect; PRESENT_OBJECT t44 and STARTLE t68 no observable change), indicating reduced adaptive responsiveness and lower ongoing apparent aliveness compared to A.",
+  "overallB": 48,
+  "preference": "A",
+  "slotId": "FULL-P11-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 55,
+    "BEHAVIORAL_COHERENCE": 62,
+    "ADAPTIVE_RESPONSIVENESS": 33,
+    "INDIVIDUALITY_AND_HISTORY": 58,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 52,
+    "OVERALL_APPARENT_ALIVENESS": 48
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 86,
+  "schemaValid": true
+}

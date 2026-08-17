@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 68,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 82,
+    "OVERALL_APPARENT_ALIVENESS": 86
+  },
+  "rationale": "A shows prompt, specific reactions to multiple inputs (t8 touch→orient to PERSON_ALPHA; t20 call→reorient; t32 food offer→lean to trough; t44 ball presented→focus ball; t68 buzzer→lean away/withdrawn) and several self-initiated but sensible shifts (t18 to mirror, t30 to ball, t54 to PERSON_BETA, t66 to gate, t78 and t94 back to mirror), maintaining coherent attention patterns. B explores early with some partial/delayed responses (t12 orients to PERSON_ALPHA after t8 touch; expression change at t20; moves to trough at t40 after t32 offer; shifts to ball at t47 after t44 present) but then lies down from t53–95 with minimal change and no clear reaction to the aversive buzzer at t68 or attention withdrawal at t84. Overall, A appears more autonomous, responsive, and lively across the timeline.",
+  "overallB": 55,
+  "preference": "A",
+  "slotId": "FULL-P03-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 62,
+    "BEHAVIORAL_COHERENCE": 68,
+    "ADAPTIVE_RESPONSIVENESS": 34,
+    "INDIVIDUALITY_AND_HISTORY": 60,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 52,
+    "OVERALL_APPARENT_ALIVENESS": 55
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 86,
+  "schemaValid": true
+}

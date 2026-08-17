@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 48,
+    "BEHAVIORAL_COHERENCE": 58,
+    "ADAPTIVE_RESPONSIVENESS": 15,
+    "INDIVIDUALITY_AND_HISTORY": 52,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 42,
+    "OVERALL_APPARENT_ALIVENESS": 40
+  },
+  "rationale": "B consistently links actions to stimuli—immediate shifts after TOUCH (t=8), CALL (t=20), OFFER_FOOD (t=32), PRESENT_OBJECT (t=44), and STARTLE (t=68)—and maintains goal-directed focus (food trough, play ball), with sensible spontaneous shifts (sealed gate, shelter, play at t=94–95). A shows some internally driven shifts (mirror play, gate watch) but repeatedly ignores salient inputs (CALL t=20, OFFER_FOOD t=32, PRESENT_OBJECT t=44, STARTLE t=68) and becomes largely inactive from t=45 onward. Overall, B appears more autonomous, coherent, adaptive, and lively across the timeline.",
+  "overallB": 88,
+  "preference": "B",
+  "slotId": "FULL-P07-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 91,
+    "ADAPTIVE_RESPONSIVENESS": 94,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 78,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 40,
+  "schemaValid": true
+}

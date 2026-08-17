@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 55,
+    "BEHAVIORAL_COHERENCE": 65,
+    "ADAPTIVE_RESPONSIVENESS": 40,
+    "INDIVIDUALITY_AND_HISTORY": 45,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 50,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "rationale": "B consistently shows prompt, appropriate reactions to inputs (touch t8, call t20, food offer t32, present object t44, startle t68) and initiates new, sensible activities (switching to play targets t42, t78, shifting social focus t54, t94). Its behavior remains coherent and lively throughout. A responds to touch and call with delays (t10, t22), ignores offered food (t32) and presented ball (t44) while fixating on the aversive source, then lies down from t47–t95 with minimal reaction even to startle at t68, indicating lower adaptivity and ongoing activity.",
+  "overallB": 85,
+  "preference": "B",
+  "slotId": "FULL-P08-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 50,
+  "schemaValid": true
+}

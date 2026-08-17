@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 62,
+    "BEHAVIORAL_COHERENCE": 68,
+    "ADAPTIVE_RESPONSIVENESS": 56,
+    "INDIVIDUALITY_AND_HISTORY": 45,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 58,
+    "OVERALL_APPARENT_ALIVENESS": 60
+  },
+  "rationale": "A initiates some shifts (chime→mirror at t6) and eventually responds to touch/call/food/ball but with notable delays (t12–13, t23, t40, t47) and then lies down and largely ignores the startle (t68–95). B shows rapid, specific reactions to inputs (t8 touch→LEAN_IN to PERSON_ALPHA; t20 call→gaze PERSON_ALPHA; t32 food offer→LEAN_IN to FOOD_TROUGH; t44 present ball→sustained attention), sensible spontaneous shifts (to mirror t18, to gate t66), and appropriate startle/withdraw with recovery (t68–78). This yields higher coherence, adaptivity, and overall aliveness in B.",
+  "overallB": 86,
+  "preference": "B",
+  "slotId": "FULL-P03-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 60,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 76,
+    "OVERALL_APPARENT_ALIVENESS": 86
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 60,
+  "schemaValid": true
+}

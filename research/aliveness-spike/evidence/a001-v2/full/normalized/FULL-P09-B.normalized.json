@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 65,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 80
+  },
+  "rationale": "A repeatedly initiates sensible shifts of focus (people → food trough → toys → gate) without prompts and responds appropriately to TOUCH, CALL, OFFER_FOOD, PRESENT_OBJECT, and STARTLE (lean-away/withdrawn), later recovering on its own into a play-bow toward the ball. B shows early exploratory shifts and a clear self-initiated transition to TIRED at t=37, but then remains largely unresponsive to PRESENT_OBJECT and STARTLE and ignores a CALL, exhibiting limited adaptation thereafter. Overall, A shows stronger ongoing, coherent, and adaptive engagement across the timeline.",
+  "overallB": 55,
+  "preference": "A",
+  "slotId": "FULL-P09-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 60,
+    "BEHAVIORAL_COHERENCE": 70,
+    "ADAPTIVE_RESPONSIVENESS": 30,
+    "INDIVIDUALITY_AND_HISTORY": 55,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 50,
+    "OVERALL_APPARENT_ALIVENESS": 55
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 80,
+  "schemaValid": true
+}

@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 85,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 82,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "rationale": "A shows sustained, self-initiated engagement (mirror at t=0–7), promptly shifts with inputs (touch at t=8, call at t=20, food at t=32, startle at t=68), and also initiates sensible new activities without prompts (play-bow to ball at t=42 before it’s presented at t=44; switches to cube at t=78; re-engages Person_Beta at t=94). Its reactions are coherent with events and it recovers from aversive focus to resume play. B changes focus early but often decouples from inputs (e.g., food offered at t=32 while fixated on Person_Beta; play ball presented at t=44 while fixated on buzzer) and then lies down from t=47–95 with minimal response, including to startle at t=68. Overall, A exhibits higher autonomy, adaptability, and ongoing activity.",
+  "overallB": 40,
+  "preference": "A",
+  "slotId": "FULL-P08-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 50,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 37,
+    "INDIVIDUALITY_AND_HISTORY": 54,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 45,
+    "OVERALL_APPARENT_ALIVENESS": 40
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 88,
+  "schemaValid": true
+}

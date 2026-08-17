@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 86,
+    "INDIVIDUALITY_AND_HISTORY": 66,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 87
+  },
+  "rationale": "A repeatedly reorients sensibly on its own and responds to inputs: TOUCH and CALL shift attention to PERSON_ALPHA (t=8–17, t=20–27), OFFER_FOOD drives sustained focus on FOOD_TROUGH (t=32–41), PRESENT_OBJECT triggers play with PLAY_BALL (t=44–53), and STARTLE from the AVERSIVE_BUZZER evokes withdrawal with heightened motion (t=68–77) before resuming play (t=78–83). It also makes plausible spontaneous shifts (e.g., to PLAY_MIRROR t=42–43, to PLAY_CUBE t=54–65, and back to FOOD_TROUGH t=94–95). B is interactive early (responds to TOUCH, OFFER_FOOD, PRESENT_OBJECT; t=8–55) and shows reasonable play/exploration, but from t=62 onward it lies down TIRED with minimal motion and little change, showing scant reaction even to STARTLE (t=68), leading to lower apparent autonomy, responsiveness, and ongoing activity over the full timeline.",
+  "overallB": 66,
+  "preference": "A",
+  "slotId": "FULL-P12-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 62,
+    "BEHAVIORAL_COHERENCE": 76,
+    "ADAPTIVE_RESPONSIVENESS": 58,
+    "INDIVIDUALITY_AND_HISTORY": 68,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 56,
+    "OVERALL_APPARENT_ALIVENESS": 66
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 87,
+  "schemaValid": true
+}

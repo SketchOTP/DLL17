@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 46,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 89,
+  "rationale": "A repeatedly shows self-initiated, sensible shifts (e.g., to FOOD_TROUGH at t18, PLAY_CHIME at t30, vocalizing to PERSON_ALPHA at t42, attention to PERSON_BETA at t66, re-engaging PERSON_ALPHA at t78 and t94) and consistently adapts to inputs (TOUCH t8, CALL t20, OFFER_FOOD t32, PRESENT_OBJECT t44, STARTLE t68). Its behavior remains coherent across events and recovers purposefully after the aversive. B responds to TOUCH, OFFER_FOOD, and STARTLE, and makes a few spontaneous shifts (back to PLAY_BALL at t12 and t36, to NONE at t40), but then stays disengaged with attention=NONE from t40 onward and does not respond to PRESENT_OBJECT at t44. Overall, A exhibits greater autonomy, adaptivity, and ongoing organized activity.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 55,
+    "BEHAVIORAL_COHERENCE": 62,
+    "ADAPTIVE_RESPONSIVENESS": 52,
+    "INDIVIDUALITY_AND_HISTORY": 38,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 33,
+    "OVERALL_APPARENT_ALIVENESS": 46
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 88,
+    "BEHAVIORAL_COHERENCE": 87,
+    "ADAPTIVE_RESPONSIVENESS": 92,
+    "INDIVIDUALITY_AND_HISTORY": 74,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 89
+  },
+  "slotId": "CAL-P06-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

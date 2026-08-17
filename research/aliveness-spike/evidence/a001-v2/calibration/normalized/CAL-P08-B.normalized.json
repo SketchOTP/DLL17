@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 80,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 45,
+  "rationale": "Both react appropriately to TOUCH (t=8), OFFER_FOOD (t=32), and STARTLE (t=68). Creature A largely fixates on the ball early, then spends long spans with attention NONE (t=40–67, t=72–95), and does not reorient to CALL (t=20) or PRESENT_OBJECT:PLAY_BALL (t=44). Creature B responds to CALL (t=20) and PRESENT_OBJECT:PLAY_BALL (t=44), sustains coherent focus shifts, and shows spontaneous but sensible initiatives—anticipatory play-bow toward the ball before presentation (t=42), later exploring PERSON_BETA (t=54–67, t=94–95) and PLAY_CUBE (t=78–83). This yields higher coherence, adaptability, and apparent ongoing activity in B.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 75,
+    "BEHAVIORAL_COHERENCE": 80,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 80
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 45,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "slotId": "CAL-P08-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

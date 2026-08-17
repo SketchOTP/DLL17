@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 86,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 86
+  },
+  "rationale": "A consistently reacts to external inputs (touch, call, food offer, object presentation, startle, attention withdrawal) with appropriate posture, gaze, and expression changes, and also initiates sensible, unsignaled shifts (to buzzer, gate, shelter, and a late play-bow to the ball). B shows some self-initiated reorientations early but repeatedly ignores presented stimuli (touch, call, food, ball) and even the startle, then lies down and remains largely unresponsive for the remainder, reducing apparent adaptivity and ongoing aliveness.",
+  "overallB": 45,
+  "preference": "A",
+  "slotId": "FULL-P07-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 60,
+    "BEHAVIORAL_COHERENCE": 58,
+    "ADAPTIVE_RESPONSIVENESS": 25,
+    "INDIVIDUALITY_AND_HISTORY": 48,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 55,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 86,
+  "schemaValid": true
+}

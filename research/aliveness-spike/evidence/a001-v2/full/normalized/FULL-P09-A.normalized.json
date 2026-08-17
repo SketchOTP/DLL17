@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 12,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 40
+  },
+  "rationale": "B consistently reacts to external events and shifts focus sensibly: leans in after TOUCH (t=8), returns gaze on CALL (t=20), orients to OFFER_FOOD (t=32), attends PRESENT_OBJECT:PLAY_BALL (t=44), and withdraws on STARTLE (t=68), later resuming play (t=78). It also initiates plausible reorientations without prompts (e.g., to FOOD_TROUGH at t=18, PLAY_CHIME at t=30, SEALED_GATE at t=42). A shows some autonomous shifts early and then a long unresponsive rest, largely ignoring CALL (t=20), OFFER_FOOD (t=32), PRESENT_OBJECT (t=44), and STARTLE (t=68), indicating low adaptive responsiveness and reduced apparent aliveness over most of the timeline.",
+  "overallB": 88,
+  "preference": "B",
+  "slotId": "FULL-P09-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 93,
+    "INDIVIDUALITY_AND_HISTORY": 78,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 83,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 40,
+  "schemaValid": true
+}

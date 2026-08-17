@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 45,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 85,
+  "rationale": "A repeatedly aligns behavior to inputs and context: shifts with TOUCH (t=8), CALL (t=20), OFFER_FOOD (t=32), PRESENT_OBJECT (t=44), STARTLE (t=68), and WITHDRAW_ATTENTION (t=84). It also initiates sensible, unprompted shifts (to AVERSIVE_BUZZER at t=18, to SHELTER at t=66, vocalizing toward PERSON_ALPHA at t=78, and a late PLAY_BOW toward PLAY_BALL at t=94), maintaining coherent chains of attention. B reacts to TOUCH (t=8), OFFER_FOOD (t=32), and STARTLE (t=68) but ignores CALL (t=20) and PRESENT_OBJECT (t=44), then spends long spans (t=40–67, 72–95) standing with attention NONE despite stimuli. This shows less adaptation, initiative, and sustained coherent engagement compared to A.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 45,
+    "INDIVIDUALITY_AND_HISTORY": 28,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 70,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "slotId": "CAL-P07-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

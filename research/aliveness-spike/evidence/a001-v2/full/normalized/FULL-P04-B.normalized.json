@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 86,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 87
+  },
+  "rationale": "A shows many self-initiated yet sensible shifts (e.g., to PLAY_MIRROR at t=30, PLAY_CUBE at t=54, PLAY_CHIME at t=78, back to PLAY_CUBE at t=94) and adapts coherently to inputs: TOUCH/CALL by PERSON_ALPHA (t=8–21), OFFER_FOOD (t=32–41), PRESENT_OBJECT:PLAY_BALL (t=44), and STARTLE with prior orientation to AVERSIVE_BUZZER (t=66–71, t=68). It recovers from aversive focus to new play (t=78), maintaining ongoing state changes. B engages early with PERSON_BETA (t=3–19) but after CALL at t=20 lies down and remains largely unchanged despite OFFER_FOOD (t=32), PRESENT_OBJECT (t=44), STARTLE (t=68), and WITHDRAW_ATTENTION (t=84), showing low adaptiveness and spontaneity though its behavior is internally consistent.",
+  "overallB": 30,
+  "preference": "A",
+  "slotId": "FULL-P04-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 34,
+    "BEHAVIORAL_COHERENCE": 62,
+    "ADAPTIVE_RESPONSIVENESS": 22,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 18,
+    "OVERALL_APPARENT_ALIVENESS": 30
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 87,
+  "schemaValid": true
+}

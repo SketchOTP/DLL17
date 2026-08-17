@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 86,
+    "INDIVIDUALITY_AND_HISTORY": 66,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 87
+  },
+  "rationale": "A shows sustained, coherent engagement and adaptations to multiple inputs: touch at t=8 (leans in), call at t=20 (reorients to PERSON_ALPHA), food offer at t=32 (leans to FOOD_TROUGH), object presentation at t=44 (attends PLAY_BALL), and startle at t=68 (withdraws, then recovers by t=78). It also initiates sensible shifts without prompts (e.g., to FOOD_TROUGH at t=18, PLAY_CHIME at t=30, vocalizing to PERSON_ALPHA at t=42, shifting to PERSON_BETA at t=66, idle after attention withdrawal at t=84, and re-engaging at t=94). B initiates some early shifts (to PERSON_BETA at t=7; PLAY_BOW t=10–24) and then lies down at t=25, remaining largely unresponsive to food offer (t=32), object presentation (t=44), and startle (t=68), showing only minor micro-movements. Thus A exhibits higher autonomy, coherence, adaptiveness, and overall aliveness.",
+  "overallB": 34,
+  "preference": "A",
+  "slotId": "FULL-P06-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 20,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 25,
+    "OVERALL_APPARENT_ALIVENESS": 34
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 87,
+  "schemaValid": true
+}

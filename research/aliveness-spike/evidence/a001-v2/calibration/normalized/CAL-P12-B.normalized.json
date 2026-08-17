@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 85,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 50,
+  "rationale": "A shows sustained interest in the ball, responds to touch, food offer, and startle, but ignores the call at t=20 and the presented ball at t=44, then spends a long period with attention=NONE. B responds robustly to touch, the call at t=20 (shifts focus to PERSON_ALPHA), food offer at t=32, presented ball at t=44, and startle at t=68. B also makes several stimulus-independent but sensible shifts (e.g., to PLAY_MIRROR at t=42, PLAY_CUBE at t=54, FOOD_TROUGH at t=94) and briefly attends to AVERSIVE_BUZZER before and during the startle. This yields greater apparent autonomy, coherence, adaptiveness, and a richer, history-dependent pattern of activity.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 74,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 78,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 55,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "slotId": "CAL-P12-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

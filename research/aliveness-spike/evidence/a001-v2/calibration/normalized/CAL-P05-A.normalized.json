@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 50,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 85,
+  "rationale": "A repeatedly initiates sensible shifts without prompts (t18 to Shelter; t30 to Food Trough before OFFER_FOOD t32; t42 to Play Ball before PRESENT_OBJECT t44; sustained Person_Beta focus t54–67; vocalizes to Person_Alpha t78–83 after STARTLE; attends Play_Chime t94–95) and adapts promptly to inputs (TOUCH t8, CALL t20, OFFER_FOOD t32, STARTLE t68). B engages early with Play_Ball and responds to TOUCH t8, OFFER_FOOD t32, STARTLE t68, but ignores CALL t20 and shows prolonged undirected standing with attention/gaze NONE from t40–95, including no change at PRESENT_OBJECT t44. This yields lower autonomy, coherence, and ongoing self-driven activity than A.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 60,
+    "INDIVIDUALITY_AND_HISTORY": 45,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 85,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 75,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "slotId": "CAL-P05-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

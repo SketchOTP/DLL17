@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 35,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 18,
+    "INDIVIDUALITY_AND_HISTORY": 28,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 12,
+    "OVERALL_APPARENT_ALIVENESS": 32
+  },
+  "rationale": "B repeatedly reorients posture, gaze, and attention in ways tightly linked to events and context and also shows self-initiated shifts: responds to TOUCH at t=8, CALL at t=20, OFFER_FOOD at t=32, PRESENT_OBJECT at t=44, and STARTLE at t=68, and explores/redirects to SHELTER (t=18), PLAY_MIRROR (t=30), PLAY_CUBE (t=54), and PLAY_CHIME (t=78), then idles (t=84–93) before resuming play (t=94–95). A shows early engagement (t=3–19) and a change at CALL (t=20) to LIE_DOWN but then remains TIRED with minimal variation and no apparent response to OFFER_FOOD (t=32), PRESENT_OBJECT (t=44), or STARTLE (t=68). This yields much higher apparent autonomy, coherence, and adaptivity for B.",
+  "overallB": 90,
+  "preference": "B",
+  "slotId": "FULL-P04-A",
+  "canonicalCandidate": "FIRST",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 85,
+    "BEHAVIORAL_COHERENCE": 90,
+    "ADAPTIVE_RESPONSIVENESS": 92,
+    "INDIVIDUALITY_AND_HISTORY": 80,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 85,
+    "OVERALL_APPARENT_ALIVENESS": 90
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 32,
+  "schemaValid": true
+}

@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 83,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 40,
+  "rationale": "A shows brief, direct reactions to TOUCH (t=8), OFFER_FOOD (t=32), and STARTLE (t=68) but ignores CALL (t=20) and PRESENT_OBJECT:PLAY_BALL (t=44), then spends long periods with attention=NONE (t=40–67, 72–95) and little spontaneous exploration. B consistently responds to TOUCH (t=8–11), CALL (t=20), OFFER_FOOD (t=32–35), PRESENT_OBJECT (t=44–53), and STARTLE/aversive focus (t=66–77), and also initiates multiple sensible, self-directed shifts (to SHELTER t=18–19, PLAY_MIRROR t=30–31, PLAY_CUBE t=54–65 and t=94–95, PLAY_CHIME t=78–83). B’s behavior forms coherent sequences and demonstrates recovery and renewed engagement after aversive events, indicating higher autonomy, adaptability, and overall apparent aliveness than A.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 83
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 35,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 48,
+    "INDIVIDUALITY_AND_HISTORY": 30,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 25,
+    "OVERALL_APPARENT_ALIVENESS": 40
+  },
+  "slotId": "CAL-P04-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

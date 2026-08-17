@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 85,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 45,
+  "rationale": "A shows clear reactions to touch, food offer, and startle, but ignores a call and a presented ball, and spends long stretches with attention to none, with few self-initiated goal-directed shifts. B not only responds appropriately to touch, call, food offer, ball presentation, and startle, but also initiates several coherent shifts without external prompts (to shelter, to food trough before the offer, to play bow/ball, to Person_Beta, then after startle to Person_Alpha with vocalization, and finally to the play chime). B’s timeline is more varied, connected to prior events and changing conditions, and displays sustained, sensible spontaneous activity, yielding higher apparent aliveness.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 85,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 45,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "slotId": "CAL-P05-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

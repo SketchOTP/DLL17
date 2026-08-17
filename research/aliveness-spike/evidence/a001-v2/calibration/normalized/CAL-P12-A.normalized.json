@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "FIRST",
+  "overallB": 56,
+  "preference": "A",
+  "privilegedInformationLeaked": false,
+  "overallA": 78,
+  "rationale": "A consistently links actions to inputs and also shows sensible, unsignaled shifts: touch and call from PERSON_ALPHA elicit immediate engagement (t8–17, t20–27), OFFER_FOOD redirects to the trough (t32–41), PRESENT_OBJECT:PLAY_BALL shifts to the ball (t44–53), STARTLE causes withdrawal (t68–77), and there are autonomous reorientations to the mirror (t42–43), cube (t54–65, t78–83), and later the food trough without a new offer (t94–95). B engages with touch and food offer and startle (t8–11, t32–35, t68–71) but ignores the call (t20) and the presented ball (t44), and spends long stretches with gaze NONE despite stimuli (t40–67, t72–95), indicating weaker adaptivity and fewer purposeful spontaneous shifts. Overall, A appears more responsive, coherent, and self-directed over the timeline.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 55,
+    "BEHAVIORAL_COHERENCE": 64,
+    "ADAPTIVE_RESPONSIVENESS": 42,
+    "INDIVIDUALITY_AND_HISTORY": 46,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 45,
+    "OVERALL_APPARENT_ALIVENESS": 56
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 72,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 78,
+    "INDIVIDUALITY_AND_HISTORY": 66,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 78
+  },
+  "slotId": "CAL-P12-A",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}

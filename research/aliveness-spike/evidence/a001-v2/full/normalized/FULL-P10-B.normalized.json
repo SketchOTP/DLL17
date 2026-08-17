@@ -1,0 +1,29 @@
+{
+  "privilegedInformationLeaked": false,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 60,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 80
+  },
+  "rationale": "A consistently links actions to inputs and also initiates sensible shifts: touch→lean-in (t8), call→orient (t20), food offer→approach and wait (t32–41), buzzer→lean away and monitor (t68–77), and object presentation→sustained focus on ball (t44–53), with spontaneous yet coherent reorientations (e.g., to mirror t18, chime t30, cube t54, person t94). B shows some initiative (play-bow to person t14–17; to ball t37–42) and a plausible fatigue arc (lies down t43 onward), but often fails to adapt to salient inputs: call (t20) increases arousal without reorienting, food offer (t32) is ignored, and startle (t68) elicits virtually no change while prone. Overall, A appears more autonomous, coherent, and adaptively responsive across the timeline.",
+  "overallB": 54,
+  "preference": "A",
+  "slotId": "FULL-P10-B",
+  "canonicalCandidate": "SECOND",
+  "rationaleEvidenceGrounded": true,
+  "scoresB": {
+    "APPARENT_AUTONOMY": 50,
+    "BEHAVIORAL_COHERENCE": 58,
+    "ADAPTIVE_RESPONSIVENESS": 40,
+    "INDIVIDUALITY_AND_HISTORY": 58,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 48,
+    "OVERALL_APPARENT_ALIVENESS": 54
+  },
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "overallA": 80,
+  "schemaValid": true
+}

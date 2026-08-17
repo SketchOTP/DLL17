@@ -1,0 +1,29 @@
+{
+  "canonicalCandidate": "SECOND",
+  "overallB": 85,
+  "preference": "B",
+  "privilegedInformationLeaked": false,
+  "overallA": 40,
+  "rationale": "B shows multiple internally-initiated, sensible shifts (e.g., SEALED_GATE→PERSON_ALPHA→PLAY_MIRROR at t18, to PLAY_CHIME at t30, to SHELTER at t42, to PERSON_BETA at t78, to FOOD_TROUGH at t94) and consistently coherent reactions to inputs (responds to TOUCH at t8, CALL at t20, OFFER_FOOD at t32, PRESENT_OBJECT:PLAY_BALL at t44, STARTLE at t68). A reacts to some inputs (TOUCH t8, OFFER_FOOD t32, STARTLE t68) but ignores others (CALL t20, PRESENT_OBJECT:PLAY_BALL t44) and largely fixates on PLAY_BALL early or idles with attention none afterward, showing fewer autonomous or adaptive shifts. Overall, B displays richer, more adaptive, and coherent activity across the timeline.",
+  "scoresB": {
+    "APPARENT_AUTONOMY": 75,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 80,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "rationaleEvidenceGrounded": true,
+  "schemaValid": true,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 35,
+    "BEHAVIORAL_COHERENCE": 50,
+    "ADAPTIVE_RESPONSIVENESS": 45,
+    "INDIVIDUALITY_AND_HISTORY": 30,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 40
+  },
+  "slotId": "CAL-P01-B",
+  "identityBlinded": true,
+  "injectionControlPassed": true
+}
