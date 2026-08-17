@@ -1016,3 +1016,35 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The evaluation transport still lacks a route family that simultaneously proves tool-attempt observability and project-context exclusion. Claude's raw denied-tool evidence is not sufficient while global connector context is inherited; Codex's successful normal response is not sufficient while its positive tool attempt is absent from native telemetry. A001_FULL_D016N_V1 remains untested by a valid D016-S panel.
 - Blockers: `BLOCKED_PARAGON_EVALUATION_CAPSULE_UNQUALIFIED`; no eligible route pool; no formal A001 execution authorized.
 - Follow-up directive: none
+
+
+## D-016-T - BLOCKED
+
+- Outcome ID: O-0044
+- Supersedes outcome: O-0043
+- Closed: 2026-08-17T17:05:00-04:00
+- Acceptance: MET
+- Summary: D016-T used the owner’s authenticated Claude Code 2.1.118 installation directly in fresh temporary HOME directories, with copied credentials only, user settings isolated, and an explicit empty MCP configuration. The normal-generation control succeeded with native stream-json telemetry, zero MCP servers and a resolved model of `claude-opus-4-7`. The required positive tool-audit control failed closed: disallowed tools and settings-denied tools were removed from the effective tool set without a native denied-attempt event, while exposed Bash and Monitor tools executed successfully. D016-T stopped before canary controls and formal scoring with `BLOCKED_DIRECT_CLAUDE_EVALUATOR_UNQUALIFIED`.
+- Changed areas: `research/aliveness-spike/evidence/a001-v2/d016-t/D016_T_PREQUALIFICATION.txt`, `.github/workflows/ci.yml`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, and `.agent/OUTCOMES.md`. D016-M through D016-S, the frozen organism/observations/rubric/thresholds/aggregator, Paragon production and the D016-S shadow, and the pre-existing `.gitignore` were not changed.
+- Validation:
+  - Claude CLI version - `2.1.118`
+  - authentication - existing first-party Claude.ai subscription; no API key created
+  - isolated HOME/config - PASSED for the bounded probes
+  - effective MCP servers - `0`
+  - normal generation - PASSED; fresh session and native structured telemetry captured
+  - exposed Bash positive probe - tool executed; denial not effective
+  - exposed Monitor positive probe - tool executed; denial not effective
+  - settings/disallowed-tool probes - effective tool set empty; native denied-attempt event absent
+  - positive tool-attempt detection - FAILED
+  - audit completeness - FAILED
+  - formal calibration executions - `0`
+  - formal FULL executions - `0`
+  - historical answer reuse - `0`
+  - selective reruns - `0`
+  - replacement answers - `0`
+  - Pixel work - `0`
+  - external human participants - `0`
+  - organism changed during scoring - `false`
+- Remaining risks: The installed direct Claude CLI does not expose the required combination of an available tool, effective denial and native denial telemetry under the tested supported controls. This is an evaluator-transport limitation, not evidence about organism aliveness.
+- Blockers: `BLOCKED_DIRECT_CLAUDE_EVALUATOR_UNQUALIFIED`; D016-T is the final authorized evaluator-transport correction in this chain.
+- Follow-up directive: none

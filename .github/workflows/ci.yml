@@ -352,6 +352,30 @@ jobs:
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-s/calibration
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-s/full
 
+      - name: D016-T direct Claude evaluator block closure
+        run: |
+          evidence=research/aliveness-spike/evidence/a001-v2/d016-t/D016_T_PREQUALIFICATION.txt
+          test -f "$evidence"
+          grep -q 'RESULT=BLOCKED_DIRECT_CLAUDE_EVALUATOR_UNQUALIFIED' "$evidence"
+          grep -q 'FORMAL_EXECUTIONS=0' "$evidence"
+          grep -q 'MCP_SERVERS_AVAILABLE=0' "$evidence"
+          grep -q 'POSITIVE_TOOL_ATTEMPT_DETECTED=false' "$evidence"
+          grep -q 'TOOL_DENIAL_EFFECTIVE=false' "$evidence"
+          grep -q 'AUDIT_COMPLETE=false' "$evidence"
+          grep -q 'PARAGON_USED_FOR_D016T=false' "$evidence"
+          grep -q 'HISTORICAL_ANSWER_REUSE=0' "$evidence"
+          grep -q 'SELECTIVE_RERUNS=0' "$evidence"
+          grep -q 'REPLACEMENT_ANSWERS=0' "$evidence"
+          grep -q 'ORGANISM_CHANGED_DURING_SCORING=false' "$evidence"
+          grep -q 'OBSERVATIONS_CHANGED=false' "$evidence"
+          grep -q 'RUBRIC_CHANGED=false' "$evidence"
+          grep -q 'THRESHOLDS_CHANGED=false' "$evidence"
+          grep -q 'AGGREGATOR_CHANGED=false' "$evidence"
+          grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' "$evidence"
+          grep -q 'PREEXISTING_GITIGNORE_PRESERVED=true' "$evidence"
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-t/calibration
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-t/full
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

@@ -619,3 +619,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-R
 - Status at issuance: ISSUED
+
+
+## D-016-T
+
+- Issued: 2026-08-17T16:45:00-04:00
+- Issuer: User
+- External directive: D016-T
+- Objective: Qualify a direct isolated Claude Code evaluator, then execute only the authorized fresh A001 V2 calibration/FULL and conditional research-only Pixel branch if all evaluator controls pass.
+- Scope: Use the owner’s existing authenticated Claude Code installation directly; inspect the installed CLI; isolate HOME/config/MCP/project and memory context; capture native structured telemetry; prequalify within six non-formal model calls; freeze the route only after every control passes; preserve all D016-M through D016-S evidence.
+- Exclusions: No Paragon routing or modification, no production Paragon restart, no new evaluator transport after a direct-Claude failure, no organism/candidate/observation/rubric/threshold/aggregator/panel change, no historical answer reuse, no selective reruns or replacements, no human recruitment, no Pixel work before AI PASS, no R003-R009 implementation, and no modification of the pre-existing `.gitignore`.
+- Acceptance: If direct Claude cannot prove the required isolated denied-tool audit, stop with `BLOCKED_DIRECT_CLAUDE_EVALUATOR_UNQUALIFIED`, zero formal executions and no D016-U. If it passes, continue through fresh calibration, FULL only after valid calibration PASS, and the conditional owner Pixel branch.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-S
+- Status at issuance: ISSUED
