@@ -76,6 +76,16 @@ public data class InteractionEvent(
     public val personId: HabitatObject?,
 )
 
+/** One bounded salient event awaiting a visible response. */
+public data class PendingStimulus(
+    public val kind: InteractionKind,
+    public val target: HabitatObject?,
+    public val arrivalTick: Long,
+) {
+    public fun activeAt(tick: Long): Boolean =
+        tick - arrivalTick in 0L..SpikeContract.PENDING_STIMULUS_LIFETIME_TICKS
+}
+
 public enum class InteractionKind {
     TOUCH,
     CALL,

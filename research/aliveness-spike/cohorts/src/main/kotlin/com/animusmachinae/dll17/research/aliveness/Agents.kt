@@ -69,8 +69,9 @@ public class OrganismAgent(
             state.committedAction = winner.action
             state.committedTarget = winner.target
             state.committedTier = decision.winningTier
-            state.commitmentRemaining = when (winner.action) {
-                SpikeAction.SLEEP -> SpikeContract.COMMITMENT_TICKS_SLEEP
+            state.commitmentRemaining = when {
+                state.pendingStimulus?.activeAt(tick) == true -> 1
+                winner.action == SpikeAction.SLEEP -> SpikeContract.COMMITMENT_TICKS_SLEEP
                 else -> SpikeContract.COMMITMENT_TICKS_DEFAULT
             }
         }
@@ -87,7 +88,12 @@ public class OrganismAgent(
                     tick + SpikeContract.REFRACTORY_TICKS_SEEK_INTERACTION
             else -> Unit
         }
-        if (winner.action == SpikeAction.RESPOND_TO_TOUCH) state.pendingTouchFrom = null
+        if (state.pendingStimulus?.activeAt(tick) == true &&
+            winner.action != SpikeAction.RESUME_INTERRUPTED
+        ) {
+            state.pendingStimulus = null
+            state.pendingTouchFrom = null
+        }
         return AgentChoice(winner.action, winner.target, decision.winningTier, decision)
     }
 
@@ -102,6 +108,8 @@ public class OrganismAgent(
 
     override fun receive(event: InteractionEvent, tick: Long) {
         state.lastInteractionTick = tick
+        val target = event.personId ?: event.target
+        state.pendingStimulus = PendingStimulus(event.kind, target, tick)
         when (event.kind) {
             InteractionKind.TOUCH -> {
                 state.pendingTouchFrom = event.personId ?: HabitatObject.PERSON_ALPHA
@@ -123,11 +131,22 @@ public class OrganismAgent(
                     )
                 }
             }
-            InteractionKind.WITHDRAW_ATTENTION ->
+            InteractionKind.WITHDRAW_ATTENTION -> {
                 state.social = fx.unit(fx.sub(state.social, FixedPoint.of(0L, 60_000L)))
+                if (state.committedTarget?.kind == ObjectKind.SOCIAL ||
+                    state.committedAction in setOf(SpikeAction.SEEK_INTERACTION, SpikeAction.APPROACH, SpikeAction.ORIENT)
+                ) {
+                    state.committedAction = null
+                    state.committedTarget = null
+                    state.commitmentRemaining = 0
+                }
+                state.pendingStimulus = null
+            }
             InteractionKind.STARTLE -> {
                 state.arousal = fx.unit(fx.add(state.arousal, FixedPoint.of(0L, 450_000L)))
                 state.safety = fx.unit(fx.sub(state.safety, FixedPoint.of(0L, 300_000L)))
+                state.lastThreatTick = tick
+                state.lastThreatTarget = event.target ?: HabitatObject.AVERSIVE_BUZZER
             }
         }
     }

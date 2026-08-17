@@ -210,13 +210,11 @@ jobs:
           grep -q 'A001_V2_STATE=UNTESTED' a001_v2_dry_run.txt
           grep -q 'R003_R009=BLOCKED' a001_v2_dry_run.txt
 
-      # D016-M-R1 formal substrate. This regenerates only evaluator-visible
-      # observations from the existing ViewerSession presentation surface, then
-      # verifies the frozen manifest and the strictly offline runner preflight.
+      # D016-M-R1 formal substrate remains immutable while D016-N changes the
+      # organism candidate. Verify its committed manifest and runner preflight;
+      # the new candidate is covered by the separate D016-N diagnostic below.
       - name: A001 V2 formal observation substrate preflight
         run: |
-          ./gradlew :research:aliveness-spike:realtime-viewer:a001ObservationBundles --no-daemon --quiet
-          git diff --exit-code -- research/aliveness-spike/evidence/a001-v2/formal-input/
           python3 tools/generate_a001_v2_formal_manifest.py --check
           ./gradlew :research:aliveness-spike:agentic-review:a001V2FormalPreflight --no-daemon --quiet \
             | tee a001_v2_formal_preflight.txt
@@ -230,6 +228,16 @@ jobs:
           grep -q 'OWNER_PIXEL_REVIEWS=0' research/aliveness-spike/evidence/A001_V2_DRY_RUN.txt
           grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' research/aliveness-spike/evidence/A001_V2_DRY_RUN.txt
           grep -q 'R003_R009=BLOCKED' research/aliveness-spike/evidence/A001_V2_DRY_RUN.txt
+
+      - name: D016-N offline cold encounter diagnostic
+        run: |
+          ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \
+            > d016_n_cold_encounter.txt
+          diff -u research/aliveness-spike/evidence/D016_N_COLD_ENCOUNTER_DIAGNOSTIC.txt d016_n_cold_encounter.txt
+          grep -q 'D016_N_COLD_ENCOUNTER_DIAGNOSTIC=PASS' d016_n_cold_encounter.txt
+          grep -q 'NETWORK_MODEL_CALLS=0' d016_n_cold_encounter.txt
+          grep -q 'PIXEL_REVIEWS=0' d016_n_cold_encounter.txt
+          grep -q 'HUMAN_PARTICIPANTS=0' d016_n_cold_encounter.txt
 
       # D016-C agentic governance/review harness. Regenerated and diffed like the
       # A001 package, and checked for the two properties that matter most: that

@@ -224,6 +224,8 @@ public class OrganismState(
 
     /** Set by the runtime when a normalized user input arrives. */
     public var pendingTouchFrom: HabitatObject? = null
+    /** Fixed-size salience buffer: the newest event replaces the old one. */
+    public var pendingStimulus: PendingStimulus? = null
     public var lastInteractionTick: Long = Long.MIN_VALUE / 4
 
     public fun has(m: Mechanism): Boolean = m in mechanisms

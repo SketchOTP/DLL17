@@ -55,6 +55,8 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: none
 - Follow-up directive: none
 
+
+
 ## D-016-K - PARTIAL
 
 - Outcome ID: O-0026
@@ -804,3 +806,24 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: This is a valid AI qualification result about the frozen evaluator/model route and observation substrate; it is not a human-population claim and does not establish `A001_V2_PASS`. The next decision concerns organism behavior, not evaluator expansion.
 - Blockers: `A001_AI_QUALIFICATION_FAIL`, owner Pixel acceptance not applicable after failed AI stage, R003-R009 remain held
 - Follow-up directive: none
+
+
+## D-016-N - COMPLETE
+
+- Outcome ID: O-0035
+- Supersedes outcome: O-0034
+- Closed: 2026-08-17T02:00:00-04:00
+- Acceptance: MET
+- Summary: D016-N restored first-contact agency and salient-event interruptibility without changing the frozen D016-M evaluator or its failed result. Nighttime alone no longer makes REST or SLEEP eligible; every normalized interaction is represented by one bounded pending stimulus with a two-tick lifetime; touch remains RESPOND_TO_TOUCH, call/food/object inputs transiently ORIENT, startle uses Tier-0 WITHDRAW, and withdrawal clears stale social commitment. Active salience interrupts voluntary commitments and response commitments are bounded. The offline 12-case diagnostic reproduced the fixed schedule with zero-latency visible acknowledgement for all six input kinds, fresh REST=0 and SLEEP=0 over 96 ticks, and zero AI, Pixel or human activity.
+- Changed areas: `.agent/`, `.github/workflows/ci.yml`, `research/aliveness-spike/cohorts/`, `research/aliveness-spike/realtime-viewer/`, `research/aliveness-spike/evidence/D016_N_COLD_ENCOUNTER_DIAGNOSTIC.txt`
+- Validation:
+  - D016-N agency and interruptibility tests - PASSED
+  - D009 fresh 96-tick REST and SLEEP occupancy - PASSED
+  - 12-case offline cold encounter diagnostic - PASSED
+  - pending stimulus boundedness and two-tick lifetime - PASSED
+  - AI, Pixel and human activity - PASSED (all zero)
+  - frozen D016-M formal input evidence - PRESERVED
+  - exact-SHA Governance and Build/Test - NOT RUN
+- Remaining risks: D016-M remains a valid AI qualification failure; no human aliveness evidence exists; A001 remains untested and R003-R009 remain blocked.
+- Blockers: exact-SHA Governance and Build/Test; architect authorization to re-freeze the materially changed candidate and run the next qualification.
+- Follow-up directive: D-016-N

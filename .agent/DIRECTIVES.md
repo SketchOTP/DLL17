@@ -529,3 +529,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-M-R1
 - Status at issuance: ISSUED
+
+
+## D-016-N
+
+- Issued: 2026-08-17T01:30:00-04:00
+- Issuer: User
+- External directive: D016-N
+- Objective: Restore salient-event interruptibility and first-contact agency after the valid D016-M AI qualification failure.
+- Scope: Correct D009 sleep semantics; add bounded pending stimuli; route normalized interaction kinds to awareness responses; interrupt voluntary commitments lawfully; add state-dependent agency fixtures; preserve the D016-M failure and produce an offline 12-case cold-encounter diagnostic.
+- Exclusions: No evaluator, rubric, prompt, threshold, panel, baseline, D016-M evidence, AI call, Pixel review, human participant, recruitment, R003-R009, or unrelated architecture change.
+- Acceptance: All D016-N organism and regression fixtures pass; the diagnostic reports next-tick visible acknowledgement for salient inputs, bounded stimulus storage and lifetime, fresh rest and sleep occupancy of zero across 96 ticks, zero AI/Pixel/human activity, and exact-SHA Governance and Build/Test are green.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-M
+- Status at issuance: ISSUED

@@ -79,7 +79,7 @@ public class Controller(private val fx: Fx) {
         // Tier 5 always has a candidate so the organism is never proposal-starved.
         out += build(SpikeAction.IDLE_VARIATION, null, 5, state, habitat, tick, IDLE_BASE)
 
-        if (state.rest < SpikeContract.LOW_REST || habitat.isNight(tick)) {
+        if (state.rest < SpikeContract.LOW_REST) {
             out += build(SpikeAction.REST, null, tierForRest(state), state, habitat, tick)
             out += build(SpikeAction.SLEEP, null, tierForSleep(state), state, habitat, tick)
         }
@@ -101,8 +101,28 @@ public class Controller(private val fx: Fx) {
             }
         }
 
-        state.pendingTouchFrom?.let { person ->
-            out += build(SpikeAction.RESPOND_TO_TOUCH, person, 2, state, habitat, tick)
+        state.pendingStimulus?.takeIf { it.activeAt(tick) }?.let { stimulus ->
+            when (stimulus.kind) {
+                InteractionKind.TOUCH -> out += build(
+                    SpikeAction.RESPOND_TO_TOUCH,
+                    stimulus.target ?: HabitatObject.PERSON_ALPHA,
+                    2, state, habitat, tick,
+                )
+                InteractionKind.STARTLE -> out += build(
+                    SpikeAction.WITHDRAW,
+                    stimulus.target ?: HabitatObject.AVERSIVE_BUZZER,
+                    0, state, habitat, tick,
+                )
+                InteractionKind.CALL,
+                InteractionKind.OFFER_FOOD,
+                InteractionKind.PRESENT_OBJECT,
+                -> out += build(
+                    SpikeAction.ORIENT,
+                    stimulus.target,
+                    2, state, habitat, tick,
+                )
+                InteractionKind.WITHDRAW_ATTENTION -> Unit
+            }
         }
 
         return out
@@ -126,7 +146,8 @@ public class Controller(private val fx: Fx) {
         if (state.has(Mechanism.TIERED_COMMITMENT) &&
             committed != null &&
             state.commitmentRemaining > 0 &&
-            proposals.none { it.tier <= 1 }
+            proposals.none { it.tier <= 1 } &&
+            state.pendingStimulus?.activeAt(tick) != true
         ) {
             val continuation = proposals.firstOrNull {
                 it.action == committed && it.target == state.committedTarget

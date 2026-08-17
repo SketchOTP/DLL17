@@ -235,6 +235,7 @@ public object SpikeContract {
 
     public const val COMMITMENT_TICKS_DEFAULT: Int = 6
     public const val COMMITMENT_TICKS_SLEEP: Int = 240
+    public const val PENDING_STIMULUS_LIFETIME_TICKS: Long = 2L
     public const val REFRACTORY_TICKS_VOCALIZE: Int = 45
     public const val REFRACTORY_TICKS_SEEK_INTERACTION: Int = 90
     public const val OPPORTUNITY_WINDOW_TICKS: Int = 20
