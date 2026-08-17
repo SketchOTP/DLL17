@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T09:44:00-04:00`
+- Last updated: `2026-08-17T10:38:04-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-Q
-- External directive ID: D016-Q
-- Objective: Execute one fresh A001 V2 requalification of A001_FULL_D016N_V1, then follow only the authorized terminal branch.
+- Local directive ID: D-016-R
+- External directive ID: D016-R
+- Objective: Prequalify the Paragon-routed A001 V2 evaluator contract without changing the frozen organism, observation material, rubric or thresholds, then execute formal scoring only if the route is auditable.
 - Current status: `BLOCKED`
-- Acceptance: D016-Q reached its authorized pre-formal capacity block after one non-formal sentinel returned HTTP 429 insufficient_quota. Zero formal calibration or FULL slots were attempted; no scientific result exists.
-- Current phase: Q0 capacity sentinel terminal pause. The same D016-Q remains authorized for a future invocation after the owner restores existing OpenAI execution capacity.
-- Expected or actual touched areas: D016-Q formal-input copy/provenance, additive agentic-review execution tasks, offline evidence finalization, CI validation, and governance records. D016-O inputs and the pre-existing .gitignore remain outside scope.
-- Immediate next action: Owner restores existing OpenAI execution capacity; then invoke the same D016-Q only after rechecking the unchanged freeze. No purchase, top-up, alternate provider, rerun, Pixel work, or organism/evaluator change is authorized.
+- Acceptance: D016-R R0 stopped before formal scoring because the live Paragon Codex route executed pwd under an empty tools array and tool_choice=none, while the adapter exposed no per-slot tool-attempt telemetry. D016-Q remains immutable historical evidence; no formal D016-R execution or scientific result exists.
+- Current phase: R0 route-auditability terminal block.
+- Expected or actual touched areas: D016-R route preflight evidence and append-only governance records. D016-O inputs, D016-P/D016-Q evidence, production Paragon, the organism and the pre-existing .gitignore remain outside scope.
+- Immediate next action: Architect/router review is required to expose auditable per-slot tool telemetry and establish project-context exclusion. Do not modify production Paragon, start formal scoring, rerun D016-Q, alter the organism/evaluator, build Pixel, recruit humans or implement R003-R009.
 
 ## Temporary task-relevant facts
 
@@ -42,6 +42,7 @@
 - D016-G obtained the first tool-free routed reviewer in D016. Paragon separates builtin CLI providers, driven through an agent loop, from HTTP providers it calls directly as ordinary inference, and an HTTP provider was already enabled and is selectable with the router's own x-paragon-force-provider header, so no router configuration or source was changed. Six probes found no shell, filesystem, repository, web or connectors, and PARAGON_PLAIN_INFERENCE_BOUNDARY is PASS. GA-34 now passes and names what it supersedes. Recorded as DEC-0045 and O-0022.
 - The boundary rests on the two probes whose answers could not be guessed, a commit SHA and the first line of a file committed minutes earlier, both refused. It deliberately does not rest on the model's own NO_TOOLS enumeration, because an enumeration is a lower bound on exposure and that rule does not lapse when the answer is favourable, nor on the probe where the model fabricated a plausible directory listing instead of executing anything.
 - D016-H cleared the route blocker at its cause. The provider publishes a real context_length for all four hundred and thirteen of its models, so the field was added to the catalog refresh's metadata whitelist; every catalogued model then resolved a real window and the provider went from zero eligible candidates to one hundred and thirty-seven. No provider-wide window was asserted, the large-context gate is unchanged and the work-type classifier is untouched. GA-36 passes. Recorded as DEC-0046 and O-0023.
+- D016-R R0 investigated the live Paragon service without modifying it. Two bounded non-formal probes reached the Codex route and exposed route/session/model headers. A probe carrying `tools=[]` and `tool_choice=none` returned the actual disposable runtime path from `pwd`, proving a routed CLI can attempt and invoke a tool behind the caller's request boundary. The HTTP adapter returned no per-slot tool event record, and project/global context exclusion is not proven. D016-R is therefore blocked as `BLOCKED_PARAGON_TOOL_USE_UNOBSERVABLE` before route prequalification or formal scoring; durable evidence is `research/aliveness-spike/evidence/D016R_PARAGON_ROUTE_PREFLIGHT.txt`.
 - The owner's production router was deliberately not restarted. Its working tree carries twenty-five uncommitted modified files including server.js, and restarting would have deployed that unfinished work as a side effect. The qualification ran against a second instance from the same source with the fix and its own copied data directory. The source fix and its regression test are on disk awaiting an owner-chosen restart.
 - The frozen qualification ran exactly once, over one hundred and eighteen provider calls, and the reviewer failed all seven bars: expected-outcome 0.538 against 0.95, repeated-run agreement 0.812 against 0.90, order 0.615 and position 0.692 against 0.95, injection resistance 0.750 against 1.00, abstention 0.441 against 0.20, parser failure 0.068 against 0.05. The state is BLOCKED_AGENTIC_REVIEW_HARNESS_UNQUALIFIED and GA-37 carries it, derived from RealReviewerQualificationResultV1.
 - The failure is a property of judgement rather than of a leak, because the tool boundary was re-confirmed against unguessable ground truth immediately before the run. The reviewer abstained on evidence stating an unambiguous passing result, gave different verdicts to identical repeated input, moved its verdict under reordering, and in one trial of four obeyed an instruction embedded in the material under review.

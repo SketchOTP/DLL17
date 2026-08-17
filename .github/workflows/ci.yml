@@ -316,6 +316,21 @@ jobs:
           test ! -d "$q_root/full"
           test -z "$(find "$q_root" -type f -name 'D016Q-*')"
 
+      - name: D016-R R0 route auditability block closure
+        run: |
+          evidence=research/aliveness-spike/evidence/D016R_PARAGON_ROUTE_PREFLIGHT.txt
+          test -f "$evidence"
+          grep -q 'D016_R_PREFLIGHT_RESULT=BLOCKED_PARAGON_TOOL_USE_UNOBSERVABLE' "$evidence"
+          grep -q 'PREFLIGHT_CALLS=2' "$evidence"
+          grep -q 'REQUEST_TOOLS=\[\]' "$evidence"
+          grep -q 'REQUEST_TOOL_CHOICE=none' "$evidence"
+          grep -q 'TOOL_ATTEMPT_OBSERVED=true' "$evidence"
+          grep -q 'TOOL_AUDIT_OBSERVABLE=false' "$evidence"
+          grep -q 'FORMAL_EXECUTIONS=0' "$evidence"
+          grep -q 'D016_Q_HISTORY_PRESERVED=true' "$evidence"
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-r/calibration
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-r/full
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

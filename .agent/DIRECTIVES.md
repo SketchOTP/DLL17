@@ -589,3 +589,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-P
 - Status at issuance: ISSUED
+
+
+## D-016-R
+
+- Issued: 2026-08-17T10:38:04-04:00
+- Issuer: User
+- External directive: D016-R
+- Objective: Version the A001 V2 evaluator route from direct OpenAI to the owner's Paragon automatic CLI router, and allow formal scoring only when every routed slot proves fresh-session isolation, neutral workspace, no privileged project context and zero tool attempts.
+- Scope: Preserve D016-Q and all prior evidence; investigate the live Paragon route; freeze non-secret routing provenance; prequalify route/session/workspace/tool telemetry; create a fresh D016-R formal-input namespace only after prequalification passes; preserve the unchanged D016-O organism observations, candidate, evaluator semantics, rubric, panel size, thresholds and aggregation.
+- Exclusions: No Paragon production-router modification without separate Architect review; no formal scoring while tool telemetry or project-context exclusion is unobservable; no D016-Q rewrite or rerun, historical answer reuse, organism/evaluator/rubric/threshold/panel/observation change, Pixel work, human recruitment, R003-R009 implementation, or modification of the pre-existing `.gitignore`.
+- Acceptance: R0 route investigation is durably recorded; if telemetry, fresh sessions, neutral workspace or project-context exclusion cannot be proven, stop with `BLOCKED_PARAGON_TOOL_USE_UNOBSERVABLE` or the applicable fail-closed blocker and perform zero formal executions. If prequalification passes, freeze the new route manifest and continue only through the authorized calibration-gated branches.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-Q
+- Status at issuance: ISSUED

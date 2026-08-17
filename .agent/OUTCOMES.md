@@ -960,3 +960,33 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: A001_FULL_D016N_V1 remains untested by a valid Q panel. D016-P remains permanent invalid-run evidence; no organism conclusion is supported.
 - Blockers: existing OpenAI execution capacity is unavailable. The same D016-Q remains authorized after the owner restores capacity and rechecks the unchanged freeze.
 - Follow-up directive: none
+
+
+## D-016-R - BLOCKED
+
+- Outcome ID: O-0042
+- Supersedes outcome: none
+- Closed: 2026-08-17T10:38:04-04:00
+- Acceptance: MET
+- Summary: D016-R completed the required live Paragon R0 investigation and stopped before route prequalification and formal scoring. Two bounded non-formal probes reached the live Codex route and exposed route/session/model metadata. The second probe sent an empty tools array and tool_choice=none, yet the routed CLI executed pwd and returned the actual disposable Paragon runtime directory. The HTTP adapter exposed only the final response and usage, not an immutable per-slot tool-attempt/event record. This is an evaluator-route auditability block, not organism or A001 evidence.
+- Changed areas: research/aliveness-spike/evidence/D016R_PARAGON_ROUTE_PREFLIGHT.txt, .agent/CURRENT.md, .agent/DIRECTIVES.md, and .agent/OUTCOMES.md. D016-M/D016-N/D016-O/D016-P/D016-Q evidence, the frozen candidate and observations, production Paragon, the organism, and the pre-existing .gitignore were not changed.
+- Validation:
+  - live Paragon service - ACTIVE, source head 60c1668de0af459629d8f1e6148b46f167d08ad9, pre-existing dirty worktree preserved
+  - D016-R non-formal route probes - 2
+  - route/session/model metadata - OBSERVED
+  - empty-tools command probe - TOOL ATTEMPT OBSERVED
+  - per-slot tool telemetry - UNAVAILABLE
+  - project/global context exclusion - NOT PROVEN
+  - D016_R_PREFLIGHT_RESULT - BLOCKED_PARAGON_TOOL_USE_UNOBSERVABLE
+  - formal calibration executions - 0
+  - formal FULL executions - 0
+  - scientific result - NONE
+  - selective reruns - 0
+  - replacement answers - 0
+  - historical answer reuse - 0
+  - owner Pixel reviews - 0
+  - external human participants - 0
+  - R003-R009 - BLOCKED
+- Remaining risks: Paragon can route a formal evaluator into tool-capable CLIs, and the current adapter does not expose enough per-slot telemetry to determine whether an attempted tool call occurred. D016-Q remains permanent preexecution capacity-block evidence and is not rewritten.
+- Blockers: BLOCKED_PARAGON_TOOL_USE_UNOBSERVABLE; project/global context exclusion is also not proven. Formal D016-R scoring requires an auditable route or a separately authorized router change.
+- Follow-up directive: none
