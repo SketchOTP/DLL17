@@ -250,6 +250,17 @@ jobs:
           grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' d016_o_formal_preflight.txt
           grep -q 'R003_R009=BLOCKED' d016_o_formal_preflight.txt
 
+      - name: D016-P execution plumbing preflight
+        run: |
+          ./gradlew :research:aliveness-spike:agentic-review:d016PFormalPreflight --no-daemon --quiet \
+            -Pd016PInputRoot="$GITHUB_WORKSPACE/research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1" \
+            | tee d016_p_runner_preflight.txt
+          grep -q 'FORMAL_RUNNER_READY=true' d016_p_runner_preflight.txt
+          grep -q 'EVALUATOR_INSTRUCTION_SHA256=92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4' d016_p_runner_preflight.txt
+          grep -q 'CALIBRATION_OBSERVATION_CASES=12' d016_p_runner_preflight.txt
+          grep -q 'QUALIFICATION_OBSERVATION_CASES=12' d016_p_runner_preflight.txt
+          grep -q 'NETWORK_MODEL_CALLS=0' d016_p_runner_preflight.txt
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

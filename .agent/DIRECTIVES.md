@@ -559,3 +559,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-N
 - Status at issuance: ISSUED
+
+
+## D-016-P
+
+- Issued: 2026-08-17T07:55:00-04:00
+- Issuer: User
+- External directive: D016-P
+- Objective: Perform one frozen A001 V2 requalification for A001_FULL_D016N_V1 and follow the deterministic calibration-gated FAIL or PASS branch through its authorized terminal state.
+- Scope: Verify D016-O readiness; execute exactly 24 OpenAI gpt-5 calibration calls; execute exactly 24 additional FULL calls only after calibration PASS; preserve raw and normalized evidence, immutable slot provenance and deterministic aggregates; on AI FAIL or INVALID produce the bounded postmortem and stop; on AI PASS preserve a formal checkpoint, build the separate research-only Pixel host, validate and optionally stage only the exact CI APK, and stop at the owner verdict boundary.
+- Exclusions: No evaluator, provider, model, prompt, observation bundle, rubric, threshold, aggregator, candidate-source or production android-host change; no selective reruns, replacement answers, human recruitment, participant study, automated owner interaction or verdict, Gemini, Paragon, paid service, or R003-R009 implementation. The pre-existing `.gitignore` modification remains untouched and uncommitted.
+- Acceptance: D016-O bundle and candidate hashes remain bound; calibration is valid and meets its frozen rule before FULL; total formal calls are at most 48; every raw response is preserved before normalization; exact-SHA Governance and Build/Test are green; and the reached branch's terminal state is truthfully recorded.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-O
+- Status at issuance: ISSUED

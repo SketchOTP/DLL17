@@ -51,6 +51,47 @@ tasks.register<JavaExec>("a001V2FormalPreflight") {
     args("--root=${rootProject.projectDir.absolutePath}", "--preflight")
 }
 
+// D016-P P0: verify the versioned D016-O input namespace without contacting a
+// provider or creating execution evidence.
+tasks.register<JavaExec>("d016PFormalPreflight") {
+    group = "verification"
+    mainClass.set(
+        "com.animusmachinae.dll17.research.aliveness.agentic.D016PFormalPreflight",
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+    val inputRoot = project.findProperty("d016PInputRoot")?.toString()
+        ?: error("-Pd016PInputRoot is required")
+    args(
+        "--root=${rootProject.projectDir.absolutePath}",
+        "--input-root=$inputRoot",
+        "--preflight",
+    )
+}
+
+// D016-P: one-shot frozen OpenAI execution. The input namespace and output
+// namespace are explicit so D016-M evidence remains immutable and the model
+// call cannot silently fall back to the old manifest.
+tasks.register<JavaExec>("d016PFormalExecution") {
+    group = "verification"
+    mainClass.set(
+        "com.animusmachinae.dll17.research.aliveness.agentic.D016PFormalExecution",
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+    val inputRoot = project.findProperty("d016PInputRoot")?.toString()
+        ?: error("-Pd016PInputRoot is required")
+    val outputRoot = project.findProperty("d016POutputRoot")?.toString()
+        ?: error("-Pd016POutputRoot is required")
+    val stage = project.findProperty("d016PStage")?.toString()
+        ?: error("-Pd016PStage is required")
+    args(
+        "--root=${rootProject.projectDir.absolutePath}",
+        "--input-root=$inputRoot",
+        "--output-root=$outputRoot",
+        "--stage=$stage",
+        "--run",
+    )
+}
+
 tasks.test {
     useJUnitPlatform()
 }

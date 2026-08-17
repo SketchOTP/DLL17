@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T04:51:12-04:00`
+- Last updated: `2026-08-17T08:04:31-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: NONE
-- External directive ID: NONE
-- Objective: NONE
-- Current status: `IDLE`
-- Acceptance: NONE
-- Current phase: NONE
-- Expected or actual touched areas: NONE
-- Immediate next action: NONE
+- Local directive ID: D-016-P
+- External directive ID: D016-P
+- Objective: Execute one frozen A001 V2 AI requalification of A001_FULL_D016N_V1, then follow only the authorized result branch.
+- Current status: `VALIDATING`
+- Acceptance: D016-P is owner-authorized; P0 is ready and the only remaining pre-call work is the bounded manifest-selector and execution-namespace plumbing correction.
+- Current phase: P0 execution readiness and plumbing validation. No model execution has occurred.
+- Expected or actual touched areas: agentic-review execution plumbing, D016-P versioned evidence namespace, CI validation, and governance records. Frozen candidate/evaluator inputs and the pre-existing .gitignore remain outside the change.
+- Immediate next action: Validate the plumbing on the exact frozen D016-O input, then execute calibration once. FULL is permitted only after calibration validity and PASS.
 
 ## Temporary task-relevant facts
 
