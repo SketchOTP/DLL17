@@ -514,3 +514,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-L
 - Status at issuance: ISSUED
+
+
+## D-016-M
+
+- Issued: 2026-08-17T00:50:00-04:00
+- Issuer: User
+- External directive: D016-M
+- Objective: Execute the frozen A001 V2 AI qualification and stop at the resulting deterministic decision.
+- Scope: Run the accepted calibration panel, apply its frozen validity and aggregation rules, run the isolated FULL qualification panel only if calibration passes, preserve every raw and normalized slot result, and record the formal outcome and provenance.
+- Exclusions: No evaluator, rubric, bundle, threshold, panel-size, aggregator, organism, comparator, provider or runner changes; no selective reruns, replacement answers or manual repair; no Pixel review, deployment, human recruitment, human participants, R003-R009 or modification of the pre-existing `.gitignore` change.
+- Acceptance: The frozen manifest is reverified; calibration and conditional FULL execution follow the 24-slot counterbalanced plan; every slot is preserved; the deterministic result is one of the frozen D016-M end states; exact-SHA Governance and Build/Test are green; and Pixel reviews and external human participants remain zero.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-M-R1
+- Status at issuance: ISSUED

@@ -11,7 +11,7 @@
 - External directive ID: D016-M
 - Objective: Execute the frozen A001 V2 AI qualification and preserve its result.
 - Current status: `BLOCKED`
-- Acceptance: D016-L is accepted at commit 15c8c4ce784a8ceb553aa6870864d3562099e1eb / CI 31971930245. D016-M-R1 is accepted at commit 10e1d028dacb2b767a0fb3219cd724879b76ca85 / CI 31980598716. D016-M formal execution completed under the frozen manifest and produced `A001_AI_QUALIFICATION_FAIL`; Pixel review was not run.
+- Acceptance: D016-L is accepted at commit 15c8c4ce784a8ceb553aa6870864d3562099e1eb / CI 31971930245. D016-M-R1 is accepted at commit 10e1d028dacb2b767a0fb3219cd724879b76ca85 / CI 31980598716. D016-M formal execution completed under the frozen manifest and produced A001_AI_QUALIFICATION_FAIL; Pixel review was not run.
 - Current phase: D016-M complete with valid AI qualification failure. V1 human-study material remains historical and superseded for forward execution.
 - Expected or actual touched areas: .agent/, research/aliveness-spike/evidence/a001-v2/. No organism, comparator, evaluator prompt, rubric, threshold, panel size, or runner source changed.
 - Immediate next action: Architect decision on the organism after the valid AI qualification failure. Do not run Pixel, recruit humans, or expand the evaluator framework.

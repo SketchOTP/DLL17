@@ -786,7 +786,7 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Follow-up directive: D-016-M-R1
 
 
-## D-016-M - COMPLETE_WITH_AI_QUALIFICATION_FAIL
+## D-016-M - COMPLETE
 
 - Outcome ID: O-0034
 - Supersedes outcome: O-0033
@@ -802,5 +802,5 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
   - owner Pixel review - NOT RUN by directive
   - external human participants - 0
 - Remaining risks: This is a valid AI qualification result about the frozen evaluator/model route and observation substrate; it is not a human-population claim and does not establish `A001_V2_PASS`. The next decision concerns organism behavior, not evaluator expansion.
-- Blockers: `A001_AI_QUALIFICATION_FAIL`, owner Pixel acceptance not applicable after failed AI stage, `R003_R009=BLOCKED`
+- Blockers: `A001_AI_QUALIFICATION_FAIL`, owner Pixel acceptance not applicable after failed AI stage, R003-R009 remain held
 - Follow-up directive: none
