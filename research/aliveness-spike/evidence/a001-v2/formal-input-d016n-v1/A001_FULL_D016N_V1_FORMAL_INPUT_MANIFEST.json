@@ -71,59 +71,59 @@
   "candidate_source_files": [
     {
       "path": "research/aliveness-spike/cohorts/build.gradle.kts",
-      "sha256": "9914b49e75c58317f435f0ec227a633397911912f08c134c141dc59a1f126f4e"
+      "sha256": "8e36d6971f202f2bc6ff3b02c5187e2afba34dba64a266ccadcc4e2fedf9adb7"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Agents.kt",
-      "sha256": "a2047393af282accf9cbe831ca816676578ef271e318934506000fcb2a9227ac"
+      "sha256": "3a36873abf4cdc3af9e58080d7585bfa98f9c36816578d08ce78d396844d7d39"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Attribution.kt",
-      "sha256": "89f7eecbf85ee38fb696066a4882d1693b86c4666fa43033396a9851415affd4"
+      "sha256": "9aee380ac520d525bfd1782bd30b11f93f5dd2276f8df74ee734ce0146af0e2a"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Controller.kt",
-      "sha256": "673e0a6784bd3e7989cb922823603ff704193a48541ff26ee3df93628fa0cc80"
+      "sha256": "845416ed9d61ffdf80a4dc6dcdb90e8f2e078d3f1b844444b876047764f67e52"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/DecisionTrace.kt",
-      "sha256": "1f064c849c7241bdfa202c1b409e11dc6dd41c7552d66c8521417271740ff660"
+      "sha256": "bdcede3677b12985b450c61dea50aed9654c20337998414691bd5539edcd0a65"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Expression.kt",
-      "sha256": "cd7da30e3947591292b1fc7553cb674c2c207bb19e3984b496569ef709df34a4"
+      "sha256": "15859af942c636ed191f3f1ff6373bd0c6692d0302f37c84b206181c3472ebfb"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Habitat.kt",
-      "sha256": "875e2910fbc2104965e587585d20b2a003fe00c6963e3528462efa8faaf3092e"
+      "sha256": "0a2aaa7bf20bc4aedb208b5c124d66ac0605a79e1143d0f3152108401c5bdd6c"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Mechanisms.kt",
-      "sha256": "651e11e01999a5edee08aaa7a16fb6423545c04ad5e812768c189d12b9ebca4a"
+      "sha256": "2fbeeb3133ebc5eebbc4d7741b0b4b91fd28ad866f58430cc5c624697f2184b9"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Organism.kt",
-      "sha256": "fa45babdd8af83755b384636f050a5f8abe43ea2f6ed4a7f14a12094b3a62053"
+      "sha256": "7195dfee56933094d7a29f84d577573885b5bbae3a3684db1d5b2215cb113768"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Outcomes.kt",
-      "sha256": "fbc5aa4be0d7911a9327eb0e46c6c7705767c4c4274a1e5d978076b103b02772"
+      "sha256": "41f4688efbcc3d15f1115c08129bc93a74da730f43bb819e333f21339a0babbf"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Runtime.kt",
-      "sha256": "7b1dfcda4dfc3bd633ad538004a8915a1ee24e51d006cc61dc6a58c44eab4552"
+      "sha256": "24d8c08deeeae4b965f16b61279b32a23934fbdd3c72b9adaeb6242672095cc5"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeContract.kt",
-      "sha256": "07666d29e058ef2568c5763ab75db1146c68b1f83701933fe7bda312fe0fb726"
+      "sha256": "0705dc013b595261662b9a1d92dfd6282a23cc54f6aa613b0335bbd09927bef7"
     },
     {
       "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeNumerics.kt",
-      "sha256": "15da2d0d48da26b6acd38332c234f277c0529009dcc917c8455cb486cae41388"
+      "sha256": "d693f1914afbe46636b74907f3beecba5f3f17ab5dcd08dd5ff5c03e4bff3a5d"
     },
     {
       "path": "research/aliveness-spike/realtime-viewer/build.gradle.kts",
-      "sha256": "9316b72405c7816e80ed1e97e9db09f6940d04f369630424a004bc7d6d6aa729"
+      "sha256": "09610ed4f19ea278b9efe8272b11169c875a7d9d712f89537a0cd59d2a71c5eb"
     },
     {
       "path": "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/A001EvaluatorObservationGeneratorV1.kt",
@@ -131,7 +131,7 @@
     },
     {
       "path": "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/ViewerSession.kt",
-      "sha256": "62ba5a3b16053b2047c60da787fc1608bfdf933a17819a3861556f9ccc4f3ee7"
+      "sha256": "0f1108dc96d8496567d86cdf08640eec2acd525643e51a6c16be2a94aca562d9"
     }
   ],
   "calibration_bundles": [
@@ -234,5 +234,5 @@
       "sha256": "3e914111a35fdc91a17680b95ebf03795179d8cb31ab59ae24765ca43b7ee798"
     }
   ],
-  "formal_input_bundle_sha256": "66667c60844a5d4dd13c7fe2ce3b7e2cc400356d48310061cffca107439ccad5"
+  "formal_input_bundle_sha256": "f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69"
 }

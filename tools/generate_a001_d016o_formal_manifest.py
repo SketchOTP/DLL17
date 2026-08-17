@@ -59,12 +59,29 @@ def sha256_file(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
 
 
+def sha256_git_file(path: Path) -> str:
+    """Hash the bound commit's blob, independent of working-tree EOL rules."""
+    result = subprocess.run(
+        ["git", "cat-file", "-p", f"{CANDIDATE_SHA}:{rel(path)}"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise SystemExit(f"candidate source is not present in {CANDIDATE_SHA}: {rel(path)}")
+    return sha256_bytes(result.stdout)
+
+
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
 
 def file_records(paths: list[Path]) -> list[dict[str, str]]:
     return [{"path": rel(path), "sha256": sha256_file(path)} for path in sorted(paths)]
+
+
+def git_file_records(paths: list[Path]) -> list[dict[str, str]]:
+    return [{"path": rel(path), "sha256": sha256_git_file(path)} for path in sorted(paths)]
 
 
 def bundle_records(directory: Path, prefix: str) -> list[dict[str, str]]:
@@ -187,7 +204,7 @@ def make_manifest() -> dict:
         "calibration_matches_d016_m": calibration_same,
         "revised_full_differs_from_d016_m": qualification_differs,
         "evaluation_source_files": file_records([ROOT / path for path in EVALUATION_SOURCE_FILES]),
-        "candidate_source_files": file_records(candidate_source_paths()),
+        "candidate_source_files": git_file_records(candidate_source_paths()),
         "calibration_bundles": calibration,
         "qualification_bundles": qualification,
     }

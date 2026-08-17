@@ -847,3 +847,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: D016-M remains a valid AI qualification failure; the D016-N candidate has not yet been requalified; no human aliveness evidence exists.
 - Blockers: D016-O freeze/preflight is the next authorized action; D016-P and Pixel review remain unauthorized.
 - Follow-up directive: D-016-O
+
+
+## D-016-O - FAILED
+
+- Outcome ID: O-0037
+- Supersedes outcome: O-0036
+- Closed: 2026-08-17T03:30:00-04:00
+- Acceptance: NOT MET
+- Summary: Exact-SHA CI run 32009935151 on commit cc5b48644408c6877fdb9ba9f7534e7a008af9f6 passed Governance and all Build/Test stages through the unchanged A001 preflights, but failed at the new D016-O preflight. The versioned manifest had hashed Windows working-tree line endings for candidate source files, while Ubuntu hashes the canonical Git blobs. D016-M evidence and the generated D016-N bundles were not scientifically changed or overwritten.
+- Changed areas: none beyond the D016-O implementation recorded in the subsequent corrective commit.
+- Validation:
+  - exact-SHA Governance run 32009935151 - PASSED
+  - exact-SHA Build/Test before D016-O step - PASSED
+  - D016-O exact-SHA preflight - FAILED
+  - AI formal executions - 0
+  - owner Pixel reviews - 0
+  - external human participants - 0
+- Remaining risks: D016-O is not accepted until a corrected exact-SHA run passes; no formal AI scoring, Pixel review, human recruitment or R003-R009 work is authorized.
+- Blockers: corrected exact-SHA Governance and Build/Test.
+- Follow-up directive: D-016-O
