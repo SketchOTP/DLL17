@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T21:00:00-04:00`
+- Last updated: `2026-08-16T22:00:00-04:00`
 
 ## Active state after adoption
 
 - Local directive ID: D-016-M-R1
 - External directive ID: D016-M-R1
 - Objective: Build and freeze the formal A001 V2 observation and execution substrate without executing models.
-- Current status: `IN_PROGRESS`
-- Acceptance: D016-L is accepted at commit 15c8c4ce784a8ceb553aa6870864d3562099e1eb / CI 31971930245; D016-M remains blocked pending formal execution. R1 has generated 24 neutral bundles, a frozen protocol and manifest, a strict runner/preflight, and zero-execution evidence. No model calls, Pixel review, recruitment or human data.
+- Current status: `BLOCKED`
+- Acceptance: D016-L is accepted at commit 15c8c4ce784a8ceb553aa6870864d3562099e1eb / CI 31971930245. D016-M-R1 is accepted at commit 10e1d028dacb2b767a0fb3219cd724879b76ca85 / CI 31980598716, with Governance and Build/Test successful. D016-M remains blocked pending formal execution. No model calls, Pixel review, recruitment or human data occurred.
 - Current phase: D016-M-R1 pre-execution substrate. V1 human-study material remains historical and superseded for forward execution.
 - Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/realtime-viewer/, research/aliveness-spike/agentic-review/, research/aliveness-spike/evidence/a001-v2/, research/aliveness-spike/study-protocol/, tools/. No organism or comparator behavior changed.
-- Immediate next action: Obtain exact-SHA Governance and Build/Test green for D016-M-R1. Do not execute formal AI calls or request the Pixel review.
+- Immediate next action: Execute D016-M only under its frozen formal-input manifest. Do not request the Pixel review unless AI qualification passes.
 
 ## Temporary task-relevant facts
 
@@ -102,7 +102,7 @@
 
 ## Last validation after adoption
 
-- Command or check: focused realtime-viewer and agentic-review tests, deterministic observation generation, formal-input manifest check, and a001V2FormalPreflight
+- Command or check: focused realtime-viewer and agentic-review tests, deterministic observation generation, formal-input manifest check, a001V2FormalPreflight, and exact-SHA CI run 31980598716 on commit 10e1d028dacb2b767a0fb3219cd724879b76ca85
 - Result: `PASSED`
 
 ## Risks

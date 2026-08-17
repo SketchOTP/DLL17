@@ -762,3 +762,25 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: Exact-SHA CI remains outstanding; formal AI calibration and FULL qualification are intentionally unrun.
 - Blockers: exact-SHA Governance and Build/Test before R1 acceptance; D016-M formal execution remains blocked until R1 closes.
 - Follow-up directive: D-016-M-R1
+
+
+## D-016-M-R1 - COMPLETE
+
+- Outcome ID: O-0033
+- Supersedes outcome: O-0032
+- Closed: 2026-08-16T22:00:00-04:00
+- Acceptance: MET
+- Summary: D016-M-R1 is accepted. The formal substrate is frozen without any AI execution: 12 calibration and 12 qualification neutral observation cases derive from the existing user-visible ViewerSession surface; the evaluator instruction and formal-input manifest are hash-bound; the runner has strict schema validation and one-shot slot persistence; and preflight made zero model or network calls. D016-M remains held pending its authorized formal execution. No Pixel review, recruitment or human data occurred.
+- Changed areas: `.agent/`, `.github/workflows/ci.yml`, `research/aliveness-spike/realtime-viewer/`, `research/aliveness-spike/agentic-review/`, `research/aliveness-spike/evidence/a001-v2/`, `research/aliveness-spike/study-protocol/`, `tools/`
+- Validation:
+  - deterministic observation generation, 24 cases - PASSED
+  - neutral identity and privileged-information leakage tests - PASSED
+  - repeated generation byte identity - PASSED
+  - agentic-review response parser and one-shot ledger tests - PASSED
+  - offline formal preflight and zero network/model calls - PASSED
+  - formal input manifest regeneration - PASSED
+  - exact-SHA CI Governance run 31980598716 - PASSED
+  - exact-SHA CI Build/Test run 31980598716 - PASSED
+- Remaining risks: Formal AI calibration and FULL qualification have not run and no formal result exists.
+- Blockers: D016-M formal execution is the next authorized action; Pixel acceptance and R003-R009 remain held.
+- Follow-up directive: D-016-M-R1
