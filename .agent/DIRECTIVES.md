@@ -604,3 +604,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-Q
 - Status at issuance: ISSUED
+
+
+## D-016-S
+
+- Issued: 2026-08-17T14:30:00-04:00
+- Issuer: User
+- External directive: D016-S
+- Objective: Build an isolated evaluation-only Paragon capsule, capture native CLI telemetry, prequalify Claude, Codex and Antigravity route families independently, and execute fresh A001 V2 scoring only if at least one family satisfies every frozen isolation and audit control.
+- Scope: Preserve D016-Q and D016-R as immutable historical evidence; use clean Paragon base `60c1668de0af459629d8f1e6148b46f167d08ad9`; keep production Paragon untouched; isolate evaluation data, runtime, logs, CLI configuration and child capsules; record shadow provenance; prequalify each authorized CLI family; freeze only a passing route pool; then follow calibration-gated formal and conditional owner Pixel branches.
+- Exclusions: No production Paragon edit/restart/deploy; no organism, candidate, observations, evaluator semantics, rubric, thresholds, aggregator or panel change; no D016-Q/D016-R rewrite or rerun; no historical answer reuse, selective rerun, replacement answer, Pixel work, human recruitment or R003-R009 implementation; Cursor remains out of scope; the pre-existing `.gitignore` remains untouched.
+- Acceptance: Every eligible family must prove normal generation, fresh session, native audit capture, positive tool-attempt detection, effective denial, local/repository/cross-slot context exclusion, no project-config inheritance and complete auditability. If zero qualify, stop with `BLOCKED_PARAGON_EVALUATION_CAPSULE_UNQUALIFIED` and zero formal executions.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-R
+- Status at issuance: ISSUED

@@ -56,7 +56,6 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Follow-up directive: none
 
 
-
 ## D-016-K - PARTIAL
 
 - Outcome ID: O-0026
@@ -989,4 +988,31 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
   - R003-R009 - BLOCKED
 - Remaining risks: Paragon can route a formal evaluator into tool-capable CLIs, and the current adapter does not expose enough per-slot telemetry to determine whether an attempted tool call occurred. D016-Q remains permanent preexecution capacity-block evidence and is not rewritten.
 - Blockers: BLOCKED_PARAGON_TOOL_USE_UNOBSERVABLE; project/global context exclusion is also not proven. Formal D016-R scoring requires an auditable route or a separately authorized router change.
+- Follow-up directive: none
+
+
+## D-016-S - BLOCKED
+
+- Outcome ID: O-0043
+- Supersedes outcome: O-0042
+- Closed: 2026-08-17T14:45:00-04:00
+- Acceptance: MET
+- Summary: D016-S reached the authorized evaluation-capsule prequalification branch and stopped before formal A001 scoring. A clean evaluation-only Paragon shadow was created from base `60c1668de0af459629d8f1e6148b46f167d08ad9`, instrumented for native CLI stdout/stderr and Codex JSONL preservation, and run separately from the active production Paragon service. Six bounded non-formal route calls were attempted across Codex, Claude and Antigravity. Codex normal generation succeeded, but its positive `pwd` probe returned a real capsule path without a native command event. Claude normal generation succeeded, but its positive probe exposed a denied `codebase-memory-mcp` attempt and inherited global connector context. Antigravity failed its route preflight on invalid model/effort selection and then had no catalog-eligible model. No family satisfied the complete route contract, so the terminal result is `BLOCKED_PARAGON_EVALUATION_CAPSULE_UNQUALIFIED`, not an organism or A001 result.
+- Changed areas: `research/aliveness-spike/evidence/a001-v2/d016-s/`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, and `.agent/OUTCOMES.md`. The evaluation-only Paragon shadow telemetry patch was committed separately at `7b6a33cfeb0922c6aff50084f5f5b5a1f699d9e6`; production Paragon remained untouched.
+- Validation:
+  - evaluation-only shadow base identity - PASSED (`60c1668de0af459629d8f1e6148b46f167d08ad9`)
+  - evaluation-only shadow patch syntax and source check - PASSED
+  - Codex normal probe - RESPONSE_SUCCESS; native event stream captured; tool attempts observed `0`
+  - Codex positive tool probe - returned capsule path; native command event observed `false`
+  - Claude normal probe - RESPONSE_SUCCESS; raw native result captured
+  - Claude positive tool probe - permission denial recorded in native result; global connector context exposed
+  - Antigravity normal and positive probes - no eligible terminal route; normal route failed invalid model/effort selection
+  - production Paragon source/head/worktree - UNCHANGED; active service not restarted
+  - formal calibration executions - 0
+  - formal FULL executions - 0
+  - D016-Q/D016-R historical evidence reuse - 0
+  - owner Pixel reviews - 0
+  - external human participants - 0
+- Remaining risks: The evaluation transport still lacks a route family that simultaneously proves tool-attempt observability and project-context exclusion. Claude's raw denied-tool evidence is not sufficient while global connector context is inherited; Codex's successful normal response is not sufficient while its positive tool attempt is absent from native telemetry. A001_FULL_D016N_V1 remains untested by a valid D016-S panel.
+- Blockers: `BLOCKED_PARAGON_EVALUATION_CAPSULE_UNQUALIFIED`; no eligible route pool; no formal A001 execution authorized.
 - Follow-up directive: none

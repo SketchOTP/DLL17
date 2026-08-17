@@ -331,6 +331,27 @@ jobs:
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-r/calibration
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-r/full
 
+      - name: D016-S evaluation capsule prequalification block closure
+        run: |
+          evidence=research/aliveness-spike/evidence/a001-v2/d016-s/D016_S_PREQUALIFICATION.txt
+          test -f "$evidence"
+          grep -q 'D016_S_RESULT=BLOCKED_PARAGON_EVALUATION_CAPSULE_UNQUALIFIED' "$evidence"
+          grep -q 'FORMAL_CALIBRATION_EXECUTIONS=0' "$evidence"
+          grep -q 'FORMAL_FULL_EXECUTIONS=0' "$evidence"
+          grep -q 'ELIGIBLE_ROUTE_POOL=EMPTY' "$evidence"
+          grep -q 'PARAGON_PRODUCTION_UNTOUCHED=true' "$evidence"
+          grep -q 'PARAGON_PRODUCTION_RESTARTED=false' "$evidence"
+          grep -q 'HISTORICAL_D016_Q_PRESERVED=true' "$evidence"
+          grep -q 'HISTORICAL_D016_R_PRESERVED=true' "$evidence"
+          grep -q 'HISTORICAL_ANSWER_REUSE=0' "$evidence"
+          grep -q 'SELECTIVE_RERUNS=0' "$evidence"
+          grep -q 'REPLACEMENT_ANSWERS=0' "$evidence"
+          grep -q 'ORGANISM_CHANGED_DURING_SCORING=false' "$evidence"
+          grep -q 'FROZEN_THRESHOLDS_UNCHANGED=true' "$evidence"
+          grep -q 'FORMAL_SCORING_AUTHORIZED=false' "$evidence"
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-s/calibration
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-s/full
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \
