@@ -276,6 +276,23 @@ jobs:
           test "$(find research/aliveness-spike/evidence/a001-v2/d016-p/calibration/raw-provider -name '*.raw.json' | wc -l)" -eq 20
           test ! -d research/aliveness-spike/evidence/a001-v2/d016-p/full
 
+      - name: D016-Q fresh execution plumbing preflight
+        run: |
+          ./gradlew :research:aliveness-spike:agentic-review:d016QFormalPreflight --no-daemon --quiet \
+            -Pd016QInputRoot="$GITHUB_WORKSPACE/research/aliveness-spike/evidence/a001-v2/d016-q/formal-input" \
+            > d016_q_runner_preflight.txt
+          diff -u research/aliveness-spike/evidence/a001-v2/d016-q/D016_Q_FORMAL_PREFLIGHT.txt d016_q_runner_preflight.txt
+          grep -q 'D016Q_FORMAL_RUNNER_READY=true' d016_q_runner_preflight.txt
+          grep -q 'CANDIDATE_ID=A001_FULL_D016N_V1' d016_q_runner_preflight.txt
+          grep -q 'CANDIDATE_SOURCE_SHA=684579130bef5c820f3db9534ffb744654ebf3b4' d016_q_runner_preflight.txt
+          grep -q 'FORMAL_INPUT_BUNDLE_SHA256=f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69' d016_q_runner_preflight.txt
+          grep -q 'EVALUATOR_INSTRUCTION_SHA256=92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4' d016_q_runner_preflight.txt
+          grep -q 'NETWORK_MODEL_CALLS=0' d016_q_runner_preflight.txt
+          diff -r research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1 research/aliveness-spike/evidence/a001-v2/d016-q/formal-input
+          ! grep -R -n 'D016P-' research/aliveness-spike/evidence/a001-v2/d016-q
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-q/calibration
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-q/full
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

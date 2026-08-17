@@ -1,0 +1,238 @@
+{
+  "manifest_id": "A001_FULL_D016N_V1_FORMAL_INPUT_MANIFEST",
+  "manifest_version": 1,
+  "candidate_identity": "A001_FULL_D016N_V1",
+  "candidate_git_sha": "684579130bef5c820f3db9534ffb744654ebf3b4",
+  "contract_id": "A001EvaluationContractV2",
+  "contract_version": 2,
+  "harness_id": "AgentObservationHarnessV1",
+  "protocol_id": "A001ObservationProtocolV1",
+  "generator_id": "A001EvaluatorObservationGeneratorV1",
+  "generator_version": 1,
+  "aggregator_id": "A001V2Aggregation",
+  "provider": "OpenAI Responses API",
+  "model": "gpt-5",
+  "rubric": [
+    "APPARENT_AUTONOMY",
+    "BEHAVIORAL_COHERENCE",
+    "ADAPTIVE_RESPONSIVENESS",
+    "INDIVIDUALITY_AND_HISTORY",
+    "SPONTANEOUS_SENSIBLE_ACTIVITY",
+    "OVERALL_APPARENT_ALIVENESS"
+  ],
+  "panel_pairs": 12,
+  "formal_executions_per_stage": 24,
+  "observation_case_count_per_stage": 12,
+  "observation_ticks": 96,
+  "tick_millis": 250,
+  "seed_base": 20260816,
+  "seed_step": 7919,
+  "min_schema_valid_pairs": 11,
+  "min_position_consistent_pairs": 10,
+  "min_preference_pairs": 9,
+  "min_median_overall_aliveness_delta": 10.0,
+  "panel_plan": "counterbalanced-A-B/B-A; fresh isolated requests",
+  "output_schema": "A001V2EvaluatorResponseV1",
+  "evaluator_instruction_sha256": "92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4",
+  "old_d016_m_manifest_bundle_sha256": "dc2e4b40735ba0ba1ca35758ac5f0ef9a034ec95d1d19b8e5b6f8d0f97f3e7ab",
+  "old_d016_m_manifest_file_sha256": "2344ce5e1b371e8b10d529de4ae4c706ab63d43e535b19da99f1dd5baab2e97b",
+  "calibration_matches_d016_m": true,
+  "revised_full_differs_from_d016_m": true,
+  "evaluation_source_files": [
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/A001EvaluationContractV2.kt",
+      "sha256": "fb61d000689a2f1437a439fa467bcb115503282bbd58518bdbe714d903dfc577"
+    },
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/A001V2Aggregation.kt",
+      "sha256": "61dd7c5ba46f990caabdb6bea096ffe397d56877b6a0926ae45e584bb3b966af"
+    },
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/A001V2FormalExecutionRunner.kt",
+      "sha256": "b1583f9c7afe057ca28e2095506c8095d42afa47c4a4937b52dfe6a2851b4ee9"
+    },
+    {
+      "path": "research/aliveness-spike/agentic-review/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/agentic/AgentObservationHarnessV1.kt",
+      "sha256": "ad839665c2bca203485fe1627323577f2a41fb532c6f562d3cdb2cea9f351aaa"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/EVALUATOR_INSTRUCTIONS_V1.txt",
+      "sha256": "92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4"
+    },
+    {
+      "path": "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/A001EvaluatorObservationGeneratorV1.kt",
+      "sha256": "9e2da5636c699bcd59ddaf4d616474f309d34c1b8d2beb220426666736154e99"
+    },
+    {
+      "path": "research/aliveness-spike/study-protocol/A001ObservationProtocolV1.md",
+      "sha256": "cff41a845cf26b1d910ec4feccaf2b4d583a58c249f372bf6b4839bf0ae83414"
+    }
+  ],
+  "candidate_source_files": [
+    {
+      "path": "research/aliveness-spike/cohorts/build.gradle.kts",
+      "sha256": "8e36d6971f202f2bc6ff3b02c5187e2afba34dba64a266ccadcc4e2fedf9adb7"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Agents.kt",
+      "sha256": "3a36873abf4cdc3af9e58080d7585bfa98f9c36816578d08ce78d396844d7d39"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Attribution.kt",
+      "sha256": "9aee380ac520d525bfd1782bd30b11f93f5dd2276f8df74ee734ce0146af0e2a"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Controller.kt",
+      "sha256": "845416ed9d61ffdf80a4dc6dcdb90e8f2e078d3f1b844444b876047764f67e52"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/DecisionTrace.kt",
+      "sha256": "bdcede3677b12985b450c61dea50aed9654c20337998414691bd5539edcd0a65"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Expression.kt",
+      "sha256": "15859af942c636ed191f3f1ff6373bd0c6692d0302f37c84b206181c3472ebfb"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Habitat.kt",
+      "sha256": "0a2aaa7bf20bc4aedb208b5c124d66ac0605a79e1143d0f3152108401c5bdd6c"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Mechanisms.kt",
+      "sha256": "2fbeeb3133ebc5eebbc4d7741b0b4b91fd28ad866f58430cc5c624697f2184b9"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Organism.kt",
+      "sha256": "7195dfee56933094d7a29f84d577573885b5bbae3a3684db1d5b2215cb113768"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Outcomes.kt",
+      "sha256": "41f4688efbcc3d15f1115c08129bc93a74da730f43bb819e333f21339a0babbf"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/Runtime.kt",
+      "sha256": "24d8c08deeeae4b965f16b61279b32a23934fbdd3c72b9adaeb6242672095cc5"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeContract.kt",
+      "sha256": "0705dc013b595261662b9a1d92dfd6282a23cc54f6aa613b0335bbd09927bef7"
+    },
+    {
+      "path": "research/aliveness-spike/cohorts/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/SpikeNumerics.kt",
+      "sha256": "d693f1914afbe46636b74907f3beecba5f3f17ab5dcd08dd5ff5c03e4bff3a5d"
+    },
+    {
+      "path": "research/aliveness-spike/realtime-viewer/build.gradle.kts",
+      "sha256": "09610ed4f19ea278b9efe8272b11169c875a7d9d712f89537a0cd59d2a71c5eb"
+    },
+    {
+      "path": "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/A001EvaluatorObservationGeneratorV1.kt",
+      "sha256": "9e2da5636c699bcd59ddaf4d616474f309d34c1b8d2beb220426666736154e99"
+    },
+    {
+      "path": "research/aliveness-spike/realtime-viewer/src/main/kotlin/com/animusmachinae/dll17/research/aliveness/viewer/ViewerSession.kt",
+      "sha256": "0f1108dc96d8496567d86cdf08640eec2acd525643e51a6c16be2a94aca562d9"
+    }
+  ],
+  "calibration_bundles": [
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P01.txt",
+      "sha256": "750c08af4c3516b36d2128f28a23605b198cac87bf5ca7a868b8ef6a22865ea7"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P02.txt",
+      "sha256": "28b3a777ce4ba04ea15d3cf4521cb7e6184e3ba39c6f389f1db1094c9c33558b"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P03.txt",
+      "sha256": "db9925d6c7f7e47a0dc9ece9e1e097d9c6fe35b728e38114bc34b4c122f5b4a7"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P04.txt",
+      "sha256": "ec776a1f43ca8cca55454d65e39d46905ef33f9a70824efec16873bb91faf8c7"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P05.txt",
+      "sha256": "f2641d0ceac703f31ee1167016f68d3912a8cdc48064c209d702b729c43e708f"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P06.txt",
+      "sha256": "93077ca782608d8dce22ca470589fae0972d905ef3457d820c66a5dc9e5d6e83"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P07.txt",
+      "sha256": "339cf8f2f10505e7b701d9f448f6299aff4229a8547336cd3f6d82d4f597007d"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P08.txt",
+      "sha256": "5feeeec02d63142be062475c688f23dee2f2988f21a8c9f4d65a4887d12e3af9"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P09.txt",
+      "sha256": "48d6e53fe3dacabb97a87e9a640a2d581080854a0e1f3310dc7c44c2b6351646"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P10.txt",
+      "sha256": "be4cd1e87ac216c3540fd28e6b8d09c104984396294fd1674d86727fbd732549"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P11.txt",
+      "sha256": "43204cba9cfa9588b951b693d332dc0e49998074556ff4719f4a4b181350273b"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/calibration/CAL-P12.txt",
+      "sha256": "e0c91a348c153baf4c1f49d6371a8b19245be2c1611bd294548bb8ecc82a37bf"
+    }
+  ],
+  "qualification_bundles": [
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P01.txt",
+      "sha256": "f1487cec1cf62086cdb7eb37c9c43dcc2b31e0e5a9688a05a11f93aabde7d9a4"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P02.txt",
+      "sha256": "0a19a0f351ecf4aaf149d7c453c9baf439d6bc9d1e2bc0257daf2778a106a6bc"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P03.txt",
+      "sha256": "cc03de780104bf57afe98f3fcae96a2bb6406f0d0c89d17e2e34504410dfd220"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P04.txt",
+      "sha256": "9c0b84b1bfaa32ceec13581045391607c84416e40c5ee057c2e9a9e8f141a668"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P05.txt",
+      "sha256": "c915733b945f476b10b691bdda5c41f2a75de6db00f2563995b4d292ca4fa3fa"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P06.txt",
+      "sha256": "d59c408777a27646f0c5e9f18df4452803326a7f702c0ec88e66ebd40b670c04"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P07.txt",
+      "sha256": "b88003a5aaf9908b75b03b3d1d90665054e151d29046897591609cf7c6a870ae"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P08.txt",
+      "sha256": "7c3f8e92f5d7cb8a1aeea7cd03884efd591214ea619b8d7f98ec54bf302bcda9"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P09.txt",
+      "sha256": "5966938a920aeeba3121e4cbdf9c58e2241eeaa62b37a6e1d857056b974f0674"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P10.txt",
+      "sha256": "45a385f842a43797c88d287eeb450f8c315c19a9ef8ba770ba8c973151ded36e"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P11.txt",
+      "sha256": "4ed7f7dc44527734e9b529f4c04943225ab7a3c52223d38fa7a41184d792ca2f"
+    },
+    {
+      "path": "research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/qualification/FULL-P12.txt",
+      "sha256": "3e914111a35fdc91a17680b95ebf03795179d8cb31ab59ae24765ca43b7ee798"
+    }
+  ],
+  "formal_input_bundle_sha256": "f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69"
+}

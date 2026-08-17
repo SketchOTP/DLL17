@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T08:50:07-04:00`
+- Last updated: `2026-08-17T09:15:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: NONE
-- External directive ID: NONE
-- Objective: NONE
-- Current status: `IDLE`
-- Acceptance: NONE
-- Current phase: NONE
-- Expected or actual touched areas: NONE
-- Immediate next action: NONE
+- Local directive ID: D-016-Q
+- External directive ID: D016-Q
+- Objective: Execute one fresh A001 V2 requalification of A001_FULL_D016N_V1, then follow only the authorized terminal branch.
+- Current status: `VALIDATING`
+- Acceptance: D016-Q is active at the unchanged D016-O candidate and formal inputs. A fresh namespace and fresh slot identities are required; D016-P outputs are historical-only.
+- Current phase: Q0 repository/freeze precheck and additive execution plumbing. No model call, Pixel work, human participant, or organism/evaluator change has occurred in D016-Q.
+- Expected or actual touched areas: D016-Q formal-input copy/provenance, additive agentic-review execution tasks, offline evidence finalization, CI validation, and governance records. D016-O inputs and the pre-existing .gitignore remain outside scope.
+- Immediate next action: Obtain exact-SHA green CI for the offline Q plumbing, then perform exactly one capacity sentinel before any formal slot.
 
 ## Temporary task-relevant facts
 

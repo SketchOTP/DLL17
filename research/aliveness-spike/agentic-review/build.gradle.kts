@@ -92,6 +92,57 @@ tasks.register<JavaExec>("d016PFormalExecution") {
     )
 }
 
+// D016-Q: fresh namespace preflight, non-formal capacity sentinel, and
+// one-shot formal execution. These tasks never fall back to D016-P paths.
+tasks.register<JavaExec>("d016QFormalPreflight") {
+    group = "verification"
+    mainClass.set("com.animusmachinae.dll17.research.aliveness.agentic.D016QFormalExecution")
+    classpath = sourceSets["main"].runtimeClasspath
+    val inputRoot = project.findProperty("d016QInputRoot")?.toString()
+        ?: error("-Pd016QInputRoot is required")
+    args(
+        "--root=${rootProject.projectDir.absolutePath}",
+        "--input-root=$inputRoot",
+        "--mode=preflight",
+    )
+}
+
+tasks.register<JavaExec>("d016QCapacitySentinel") {
+    group = "verification"
+    mainClass.set("com.animusmachinae.dll17.research.aliveness.agentic.D016QFormalExecution")
+    classpath = sourceSets["main"].runtimeClasspath
+    val inputRoot = project.findProperty("d016QInputRoot")?.toString()
+        ?: error("-Pd016QInputRoot is required")
+    val outputRoot = project.findProperty("d016QOutputRoot")?.toString()
+        ?: error("-Pd016QOutputRoot is required")
+    args(
+        "--root=${rootProject.projectDir.absolutePath}",
+        "--input-root=$inputRoot",
+        "--output-root=$outputRoot",
+        "--mode=sentinel",
+    )
+}
+
+tasks.register<JavaExec>("d016QFormalExecution") {
+    group = "verification"
+    mainClass.set("com.animusmachinae.dll17.research.aliveness.agentic.D016QFormalExecution")
+    classpath = sourceSets["main"].runtimeClasspath
+    val inputRoot = project.findProperty("d016QInputRoot")?.toString()
+        ?: error("-Pd016QInputRoot is required")
+    val outputRoot = project.findProperty("d016QOutputRoot")?.toString()
+        ?: error("-Pd016QOutputRoot is required")
+    val stage = project.findProperty("d016QStage")?.toString()
+        ?: error("-Pd016QStage is required")
+    args(
+        "--root=${rootProject.projectDir.absolutePath}",
+        "--input-root=$inputRoot",
+        "--output-root=$outputRoot",
+        "--stage=$stage",
+        "--mode=run",
+        "--run",
+    )
+}
+
 tasks.test {
     useJUnitPlatform()
 }

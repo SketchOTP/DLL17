@@ -574,3 +574,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-O
 - Status at issuance: ISSUED
+
+
+## D-016-Q
+
+- Issued: 2026-08-17T09:10:00-04:00
+- Issuer: User
+- External directive: D016-Q
+- Objective: Perform one fresh A001 V2 requalification of the unchanged D016-O candidate, using a capacity sentinel first and following the authorized calibration, FULL, research-only Pixel-host, and owner-verdict branches.
+- Scope: Preserve D016-M/D016-O/D016-P history; use a fresh d016-q namespace and fresh slots; execute at most one non-formal capacity sentinel, 24 fresh calibration calls, and 24 fresh FULL calls only after calibration PASS; preserve raw evidence and deterministic aggregates; build and optionally stage the research-only owner Pixel host only after AI PASS.
+- Exclusions: No D016-P output reuse, evaluator/rubric/threshold/protocol/model/provider/candidate change, selective rerun, replacement answer, organism modification during scoring, human recruitment, paid capacity purchase, Gemini, Paragon, production persistence, production R003-R009 implementation, destructive Pixel troubleshooting, automated owner interaction or verdict, or modification of the pre-existing `.gitignore`.
+- Acceptance: Starting SHA and frozen hashes remain bound; the capacity sentinel precedes formal execution; fresh formal evidence reaches a truthful terminal branch; exact-SHA Governance and Build/Test are green for terminal evidence; the project stops at the furthest authorized state.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-P
+- Status at issuance: ISSUED
