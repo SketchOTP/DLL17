@@ -867,3 +867,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: D016-O is not accepted until a corrected exact-SHA run passes; no formal AI scoring, Pixel review, human recruitment or R003-R009 work is authorized.
 - Blockers: corrected exact-SHA Governance and Build/Test.
 - Follow-up directive: D-016-O
+
+
+## D-016-O - FAILED
+
+- Outcome ID: O-0038
+- Supersedes outcome: O-0037
+- Closed: 2026-08-17T04:15:00-04:00
+- Acceptance: NOT MET
+- Summary: Exact-SHA CI run 32010737345 on commit 875d6b33380c4b29f7dc83e8d1293bb02c705e7a passed Governance and the unchanged Build/Test stages through A001 V2 formal preflight, but the D016-O verifier could not resolve candidate source blobs because Build/Test used the default shallow checkout. The verifier and manifest now use canonical Git blobs; the workflow must provide full history for this provenance check. The earlier run 32009935151 remains preserved as the independent EOL failure.
+- Changed areas: none beyond the D016-O workflow correction in the subsequent commit.
+- Validation:
+  - exact-SHA Governance run 32010737345 - PASSED
+  - exact-SHA Build/Test before D016-O step - PASSED
+  - D016-O exact-SHA preflight - FAILED
+  - AI formal executions - 0
+  - owner Pixel reviews - 0
+  - external human participants - 0
+- Remaining risks: D016-O is not accepted until a full-history exact-SHA run passes; no formal AI scoring, Pixel review, human recruitment or R003-R009 work is authorized.
+- Blockers: corrected exact-SHA Governance and Build/Test.
+- Follow-up directive: D-016-O

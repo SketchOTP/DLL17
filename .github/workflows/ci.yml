@@ -74,6 +74,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          # D016-O binds the candidate to a prior commit and verifies its
+          # source blobs, so the build job needs the same full history as
+          # Governance.
+          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5

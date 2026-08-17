@@ -11,7 +11,7 @@
 - External directive ID: D016-O
 - Objective: Freeze the materially changed D016-N candidate as A001_FULL_D016N_V1 under the unchanged A001 V2 evaluation inputs, without executing any formal scoring.
 - Current status: `VALIDATING`
-- Acceptance: D016-N is accepted at 684579130bef5c820f3db9534ffb744654ebf3b4 with exact-SHA CI 31988489760; D016-M evidence remains permanent; D016-O first exact-SHA run 32009935151 failed only at its new preflight because candidate hashes used Windows working-tree bytes; the corrected Git-blob-bound manifest is prepared for a new exact-SHA run.
+- Acceptance: D016-N is accepted at 684579130bef5c820f3db9534ffb744654ebf3b4 with exact-SHA CI 31988489760; D016-M evidence remains permanent; D016-O run 32009935151 exposed Windows working-tree hashing and run 32010737345 exposed the Build/Test shallow checkout; the verifier is corrected to use Git blobs and Build/Test is being changed to full history for the next exact-SHA run.
 - Current phase: D016-O freeze/preflight only. Calibration and FULL AI scoring, Pixel review, human recruitment, and R003-R009 remain blocked.
 - Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/, and tools/generate_a001_d016o_formal_manifest.py. The pre-existing .gitignore modification remains outside the candidate.
 - Immediate next action: Obtain exact-SHA Governance and Build/Test for D016-O, then stop. D016-P requires a separate authorization.
