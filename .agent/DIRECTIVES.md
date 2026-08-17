@@ -544,3 +544,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-M
 - Status at issuance: ISSUED
+
+
+## D-016-O
+
+- Issued: 2026-08-17T02:30:00-04:00
+- Issuer: User
+- External directive: D016-O
+- Objective: Freeze the materially changed D016-N FULL organism as `A001_FULL_D016N_V1` under the exact unchanged A001 V2 evaluation protocol for a future requalification.
+- Scope: Preserve D016-M evidence; regenerate the 12 calibration and 12 D016-N FULL neutral observation bundles from candidate SHA `684579130bef5c820f3db9534ffb744654ebf3b4`; require byte-identical calibration and materially different FULL bundles; create a versioned formal-input manifest with candidate/source hashes; run offline preflight; and verify exact-SHA Governance and Build/Test.
+- Exclusions: No AI/model/network call, formal scoring, Pixel review, organism/comparator/evaluator/protocol/rubric/threshold/panel/aggregator change, D016-M overwrite, human recruitment, participants, R003-R009, or modification of the pre-existing `.gitignore` change. Stop after D016-O.
+- Acceptance: Candidate identity and source hashes are bound; D016-M manifest/bundles remain untouched; the new namespace is reproducible; calibration matches D016-M; revised FULL differs; evaluator instruction SHA and protocol are unchanged; offline preflight reports zero AI/Pixel/human activity and R003-R009 blocked; exact-SHA Governance and Build/Test are green.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-N
+- Status at issuance: ISSUED

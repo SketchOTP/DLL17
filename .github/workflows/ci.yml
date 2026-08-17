@@ -229,6 +229,22 @@ jobs:
           grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' research/aliveness-spike/evidence/A001_V2_DRY_RUN.txt
           grep -q 'R003_R009=BLOCKED' research/aliveness-spike/evidence/A001_V2_DRY_RUN.txt
 
+      - name: D016-O D016-N formal-input freeze preflight
+        run: |
+          python3 tools/generate_a001_d016o_formal_manifest.py --check \
+            | tee d016_o_formal_preflight.txt
+          diff -u research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/D016_O_FORMAL_PREFLIGHT.txt \
+            d016_o_formal_preflight.txt
+          grep -q 'D016_O_FORMAL_PREFLIGHT=PASS' d016_o_formal_preflight.txt
+          grep -q 'FORMAL_CANDIDATE=A001_FULL_D016N_V1' d016_o_formal_preflight.txt
+          grep -q 'CALIBRATION_MATCHES_D016_M=true' d016_o_formal_preflight.txt
+          grep -q 'REVISED_FULL_DIFFERS_FROM_D016_M=true' d016_o_formal_preflight.txt
+          grep -q 'AI_FORMAL_EXECUTIONS=0' d016_o_formal_preflight.txt
+          grep -q 'NETWORK_MODEL_CALLS=0' d016_o_formal_preflight.txt
+          grep -q 'OWNER_PIXEL_REVIEWS=0' d016_o_formal_preflight.txt
+          grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' d016_o_formal_preflight.txt
+          grep -q 'R003_R009=BLOCKED' d016_o_formal_preflight.txt
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

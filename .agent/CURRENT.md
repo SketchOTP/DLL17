@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-16T23:59:00-04:00`
+- Last updated: `2026-08-17T03:00:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-N
-- External directive ID: D016-N
-- Objective: Restore salient-event interruptibility and first-contact agency after the valid D016-M AI qualification failure.
-- Current status: `BLOCKED`
-- Acceptance: D016-M formal execution completed under the frozen manifest and produced A001_AI_QUALIFICATION_FAIL; D016-N organism correction is complete pending exact-SHA CI; Pixel review was not run.
-- Current phase: D016-N complete with valid D016-M failure preserved. V1 human-study material remains historical and superseded for forward execution.
-- Expected or actual touched areas: .agent/, research/aliveness-spike/evidence/a001-v2/. No organism, comparator, evaluator prompt, rubric, threshold, panel size, or runner source changed.
-- Immediate next action: Obtain exact-SHA Governance and Build/Test, then architect authorization to re-freeze and requalify. Do not run Pixel, recruit humans, or expand the evaluator framework.
+- Local directive ID: D-016-O
+- External directive ID: D016-O
+- Objective: Freeze the materially changed D016-N candidate as A001_FULL_D016N_V1 under the unchanged A001 V2 evaluation inputs, without executing any formal scoring.
+- Current status: `VALIDATING`
+- Acceptance: D016-N is accepted at 684579130bef5c820f3db9534ffb744654ebf3b4 with exact-SHA CI 31988489760; D016-M evidence remains permanent; the D016-O versioned manifest and offline preflight are prepared, pending exact-SHA Governance and Build/Test.
+- Current phase: D016-O freeze/preflight only. Calibration and FULL AI scoring, Pixel review, human recruitment, and R003-R009 remain blocked.
+- Expected or actual touched areas: .agent/, .github/workflows/ci.yml, research/aliveness-spike/evidence/a001-v2/formal-input-d016n-v1/, and tools/generate_a001_d016o_formal_manifest.py. The pre-existing .gitignore modification remains outside the candidate.
+- Immediate next action: Obtain exact-SHA Governance and Build/Test for D016-O, then stop. D016-P requires a separate authorization.
 
 ## Temporary task-relevant facts
 

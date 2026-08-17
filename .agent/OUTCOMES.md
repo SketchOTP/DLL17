@@ -827,3 +827,23 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: D016-M remains a valid AI qualification failure; no human aliveness evidence exists; A001 remains untested and R003-R009 remain blocked.
 - Blockers: exact-SHA Governance and Build/Test; architect authorization to re-freeze the materially changed candidate and run the next qualification.
 - Follow-up directive: D-016-N
+
+
+## D-016-N - COMPLETE
+
+- Outcome ID: O-0036
+- Supersedes outcome: O-0035
+- Closed: 2026-08-17T02:15:00-04:00
+- Acceptance: MET
+- Summary: The D016-N candidate is accepted at exact commit `684579130bef5c820f3db9534ffb744654ebf3b4`. Exact-SHA CI run `31988489760` passed Governance and the complete Build/Test chain. The A000 qualification output is byte-identical to the pre-D016-N result; the D016-N cold diagnostic passed for all 12 cases with zero-latency acknowledgement and fresh REST/SLEEP occupancy 0/0. D016-M remains permanent failure evidence; no Pixel review, human participants or R003-R009 activity occurred.
+- Changed areas: none beyond the already recorded D016-N implementation and evidence areas.
+- Validation:
+  - A000 pre/post evidence byte identity - PASSED
+  - D016-N organism and cold-encounter diagnostic - PASSED
+  - exact-SHA Governance and Build/Test run 31988489760 - PASSED
+  - AI model calls - 0
+  - owner Pixel reviews - 0
+  - external human participants - 0
+- Remaining risks: D016-M remains a valid AI qualification failure; the D016-N candidate has not yet been requalified; no human aliveness evidence exists.
+- Blockers: D016-O freeze/preflight is the next authorized action; D016-P and Pixel review remain unauthorized.
+- Follow-up directive: D-016-O
