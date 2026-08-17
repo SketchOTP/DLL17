@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P07-B",
+  "preference": "B",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 50,
+  "overallB": 80,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 35,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 60,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 50
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 70,
+    "BEHAVIORAL_COHERENCE": 75,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 80
+  },
+  "rationale": "Both respond to external events, but B shows broader, more self-initiated and context-appropriate activity. A reacts to TOUCH (t=8), OFFER_FOOD (t=32), and STARTLE (t=68), yet spends long stretches with attention=NONE (t=40\u201367, 72\u201395) and does not engage when PLAY_BALL is presented (t=44). B reacts to TOUCH (t=8), CALL (t=20), OFFER_FOOD (t=32), PRESENT_OBJECT (t=44), and STARTLE (t=68) with prolonged withdrawal, then re-engagement (t=78\u201383). B also initiates sensible, unexplained shifts\u2014toward AVERSIVE_BUZZER (t=18, 30), SEALED_GATE (t=54\u201363), SHELTER (t=66\u201367), and ends with a PLAY_BOW toward PLAY_BALL (t=94\u201395). Vocalizing aligns with attention to PERSON_ALPHA (t=0\u20137, 78\u201383). These patterns indicate higher autonomy, coherence, adaptive responsiveness, and a more distinct evolving behavior history in B."
+}

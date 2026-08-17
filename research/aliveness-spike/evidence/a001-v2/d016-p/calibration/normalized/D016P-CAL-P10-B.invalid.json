@@ -1,0 +1,7 @@
+{
+  "slotId": "D016P-CAL-P10-B",
+  "schemaValid": false,
+  "failure": "A001_AI_PANEL_INVALID",
+  "reason": "response keys do not match frozen schema",
+  "rawProviderPath": "calibration/raw-provider/D016P-CAL-P10-B.raw.json"
+}

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P08-A",
+  "preference": "A",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 84,
+  "overallB": 57,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 88,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 76,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 79,
+    "OVERALL_APPARENT_ALIVENESS": 84
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 52,
+    "BEHAVIORAL_COHERENCE": 72,
+    "ADAPTIVE_RESPONSIVENESS": 58,
+    "INDIVIDUALITY_AND_HISTORY": 46,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 38,
+    "OVERALL_APPARENT_ALIVENESS": 57
+  },
+  "rationale": "A shows multiple self-initiated, sensible shifts (e.g., t18 to buzzer, t42 to ball before it\u2019s presented at t44, t54 sustained focus on Person Beta, t78 to cube, t94 re-engages Person Beta) and consistent reactions to stimuli (TOUCH t8, CALL t20, OFFER_FOOD t32, STARTLE t68, WITHDRAW_ATTENTION t84). B responds to early stimuli (TOUCH t8, OFFER_FOOD t32, STARTLE t68) but at t40 switches to stand/attention-none and largely stays there, ignoring the presented ball at t44 and showing little new purposeful activity thereafter. Thus A appears more autonomous, adaptive, coherent, and lively over time."
+}

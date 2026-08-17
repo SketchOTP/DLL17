@@ -261,6 +261,21 @@ jobs:
           grep -q 'QUALIFICATION_OBSERVATION_CASES=12' d016_p_runner_preflight.txt
           grep -q 'NETWORK_MODEL_CALLS=0' d016_p_runner_preflight.txt
 
+      - name: D016-P invalid branch evidence closure
+        run: |
+          test -f research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FORMAL_EXECUTION.txt
+          test -f research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FAILURE_POSTMORTEM.txt
+          grep -q 'D016P_RESULT=A001_AI_PANEL_INVALID' research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FORMAL_EXECUTION.txt
+          grep -q 'FULL_MODEL_EXECUTIONS=0' research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FORMAL_EXECUTION.txt
+          grep -q 'TOTAL_FORMAL_MODEL_EXECUTIONS=20' research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FORMAL_EXECUTION.txt
+          grep -q 'SELECTIVE_RERUNS=0' research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FORMAL_EXECUTION.txt
+          grep -q 'REPLACEMENT_ANSWERS=0' research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FORMAL_EXECUTION.txt
+          grep -q 'PRIOR_D016M_PHENOTYPE=NOT_EVIDENT' research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FAILURE_POSTMORTEM.txt
+          grep -q 'PIXEL_HOST_BUILD=NOT_PERFORMED' research/aliveness-spike/evidence/a001-v2/d016-p/D016_P_FORMAL_EXECUTION.txt
+          test "$(find research/aliveness-spike/evidence/a001-v2/d016-p/calibration/raw -name '*.raw.txt' | wc -l)" -eq 20
+          test "$(find research/aliveness-spike/evidence/a001-v2/d016-p/calibration/raw-provider -name '*.raw.json' | wc -l)" -eq 20
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-p/full
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

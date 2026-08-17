@@ -1,0 +1,82 @@
+{
+  "stage": "CALIBRATION",
+  "executionsAttempted": 20,
+  "schemaValidExecutions": 19,
+  "schemaInvalidExecutions": 1,
+  "completedPairs": 10,
+  "completeConsistentPairs": 9,
+  "preferenceCountFromCompletePairs": 5,
+  "medianDeltaFromCompletePairs": 31.0,
+  "verdict": "A001_AI_PANEL_INVALID",
+  "invalidSlots": {
+    "D016P-CAL-P10-B": "response keys do not match frozen schema"
+  },
+  "selectiveReruns": false,
+  "replacementAnswers": false,
+  "fullExecuted": false,
+  "pairDetails": [
+    {
+      "pair": 1,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "deltaAverage": 37.5
+    },
+    {
+      "pair": 2,
+      "canonicalPreferenceA": "B",
+      "canonicalPreferenceB": "B",
+      "consistent": true,
+      "deltaAverage": -33.0
+    },
+    {
+      "pair": 3,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "deltaAverage": 40.0
+    },
+    {
+      "pair": 4,
+      "canonicalPreferenceA": "B",
+      "canonicalPreferenceB": "B",
+      "consistent": true,
+      "deltaAverage": -40.5
+    },
+    {
+      "pair": 5,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "deltaAverage": 33.0
+    },
+    {
+      "pair": 6,
+      "canonicalPreferenceA": "B",
+      "canonicalPreferenceB": "B",
+      "consistent": true,
+      "deltaAverage": -44.5
+    },
+    {
+      "pair": 7,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "deltaAverage": 32.5
+    },
+    {
+      "pair": 8,
+      "canonicalPreferenceA": "B",
+      "canonicalPreferenceB": "B",
+      "consistent": true,
+      "deltaAverage": -35.0
+    },
+    {
+      "pair": 9,
+      "canonicalPreferenceA": "A",
+      "canonicalPreferenceB": "A",
+      "consistent": true,
+      "deltaAverage": 31.0
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P08-B",
+  "preference": "B",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 45,
+  "overallB": 88,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 52,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 82,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "rationale": "B consistently links actions to inputs (touch\u2192lean-in, call at t20\u2192reorient to PERSON_ALPHA, food offer\u2192sustained focus on FOOD_TROUGH, present PLAY_BALL\u2192orient to ball, startle\u2192lean away), and also initiates sensible shifts without prompts (play-bow to PLAY_BALL at t42, later to PLAY_CUBE at t78, extended exploration of PERSON_BETA). A reacts to touch, food offer, and startle, but ignores the call (t20) and the presented ball (t44), then spends long periods standing with no attention from t40 onward. B\u2019s timeline shows richer, coherent transitions and history-dependent interests, yielding higher apparent autonomy and aliveness than A."
+}

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P01-B",
+  "preference": "B",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 45,
+  "overallB": 88,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 55,
+    "INDIVIDUALITY_AND_HISTORY": 30,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 35,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "rationale": "A shows clear reactions to TOUCH (t=8), OFFER_FOOD (t=32), and STARTLE (t=68) but ignores CALL (t=20) and PRESENT_OBJECT:PLAY_BALL (t=44), then spends long periods standing with attention=NONE (t=40\u201367, 72\u201395) with only micro-movements, indicating limited autonomous shifts. B displays rich, coherent engagement: responds to TOUCH (t=8), CALL (t=20), OFFER_FOOD (t=32), PRESENT_OBJECT:PLAY_BALL (t=44), and STARTLE (t=68); and makes multiple unprompted but sensible focus shifts (SEALED_GATE \u2192 PERSON_ALPHA \u2192 PLAY_MIRROR \u2192 PLAY_CHIME \u2192 SHELTER \u2192 PERSON_BETA \u2192 FOOD_TROUGH), including recovery after startle (t=78\u201383). This reflects stronger autonomy, adaptability, and sustained coherent activity."
+}

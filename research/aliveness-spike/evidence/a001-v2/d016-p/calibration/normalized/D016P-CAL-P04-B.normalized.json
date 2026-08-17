@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P04-B",
+  "preference": "B",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 45,
+  "overallB": 88,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 40,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 85,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 75,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 85,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "rationale": "B repeatedly responds to inputs (touch, call, food offer, presented ball, startle) and, with no input, initiates sensible shifts of focus (to shelter at t18, mirror at t30, cube at t54, chime at t78, cube again at t94). Its sequences stay connected to context (stays with food after offer, orients to ball when presented, leans away around the aversive, then re-engages with toys). A responds to touch, food, and startle but ignores the call (t20) and presented ball (t44), and spends long stretches with attention NONE (t40\u201367, t72\u201395), showing less autonomous, adaptive, and evolving behavior."
+}

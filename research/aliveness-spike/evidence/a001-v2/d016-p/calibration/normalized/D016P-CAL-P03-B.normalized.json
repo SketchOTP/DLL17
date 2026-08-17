@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P03-B",
+  "preference": "B",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 44,
+  "overallB": 88,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 42,
+    "BEHAVIORAL_COHERENCE": 60,
+    "ADAPTIVE_RESPONSIVENESS": 58,
+    "INDIVIDUALITY_AND_HISTORY": 33,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 28,
+    "OVERALL_APPARENT_ALIVENESS": 44
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 82,
+    "BEHAVIORAL_COHERENCE": 86,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 84,
+    "OVERALL_APPARENT_ALIVENESS": 88
+  },
+  "rationale": "B shows multiple self-initiated, sensible shifts (e.g., PERSON_ALPHA \u2192 PLAY_MIRROR at t18, to PLAY_BALL with play-bow at t30, to PERSON_BETA at t54, to SEALED_GATE at t66, and back to PLAY_MIRROR at t78 and t94) and consistently reacts to inputs (touch, call, food offer, presented ball, startle) in coherent ways. A responds to some inputs (touch at t8, food at t32, startle at t68) but ignores others (call at t20, presented ball at t44) and spends a long stretch disengaged with no clear target after t72, showing less spontaneity and adaptive change."
+}

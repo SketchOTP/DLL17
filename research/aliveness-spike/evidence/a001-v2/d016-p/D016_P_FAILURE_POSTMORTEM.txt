@@ -1,0 +1,20 @@
+D016-P FAILURE POSTMORTEM
+RESULT=A001_AI_PANEL_INVALID
+
+## Quantitative comparison
+D016-M calibration: 24 executions, 12 valid pairs, 12 position-consistent pairs, preference 12/12, median delta +36.5.
+D016-M FULL: 24 executions, 12 valid pairs, 12 position-consistent pairs, preference 0/12, median delta -36.5.
+D016-P calibration: 20 attempted, 19 schema-valid executions, 10 complete pairs, 9 complete consistent pairs, partial preference 5, partial median delta 31.0; these partial diagnostics are not a qualification result.
+D016-P FULL: NOT EXECUTED because calibration was panel-invalid.
+D016-P six-dimension FULL-minus-baseline comparison: NOT APPLICABLE; no D016-P FULL evidence exists. No diagnostic value is fabricated.
+
+## Prior phenotype
+PRIOR_D016M_PHENOTYPE=NOT_EVIDENT
+Reason: D016-P never produced FULL-vs-baseline evidence, so the prior D016-M outward phenotype cannot be assessed from this invalid calibration branch.
+
+## Coder-supported hypotheses
+CODER_SUPPORTED_HYPOTHESES=0
+No organism hypothesis is supportable from this branch because the candidate FULL stage was never executed.
+
+## Boundary
+No organism modification occurred after the invalid result. No evaluator modification occurred. No rescore occurred. Pixel host was not built. R003-R009 remain blocked.

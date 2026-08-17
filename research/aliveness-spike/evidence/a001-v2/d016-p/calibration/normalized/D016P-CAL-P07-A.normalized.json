@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P07-A",
+  "preference": "A",
+  "canonicalCandidate": "FIRST",
+  "order": [
+    "A",
+    "B"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 82,
+  "overallB": 47,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 86,
+    "ADAPTIVE_RESPONSIVENESS": 84,
+    "INDIVIDUALITY_AND_HISTORY": 72,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 76,
+    "OVERALL_APPARENT_ALIVENESS": 82
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 46,
+    "BEHAVIORAL_COHERENCE": 58,
+    "ADAPTIVE_RESPONSIVENESS": 41,
+    "INDIVIDUALITY_AND_HISTORY": 48,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 47
+  },
+  "rationale": "A reacts promptly and appropriately to inputs (TOUCH\u2192lean-in t8; CALL\u2192crouch t20; OFFER_FOOD\u2192orient t32; PRESENT_OBJECT\u2192attend t44; STARTLE\u2192withdraw t68) and shows unprompted but sensible shifts (to AVERSIVE_BUZZER t18/t30, SEALED_GATE t54, SHELTER t66), later re-engaging PERSON_ALPHA with vocalization (t78) and initiating a PLAY_BOW to the ball (t94). Its focus changes are continuous and context-linked (settle/look-away cycles). B initially responds (TOUCH, OFFER_FOOD, STARTLE) but from t40 holds attention=NONE, ignores PRESENT_OBJECT:PLAY_BALL at t44, and remains largely unchanged through t95 aside from the brief startle response, indicating lower autonomy, adaptability, and ongoing activity."
+}

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P02-A",
+  "preference": "A",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 81,
+  "overallB": 45,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 88,
+    "INDIVIDUALITY_AND_HISTORY": 66,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 81
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 34,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 32,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "rationale": "A consistently links behavior to inputs (touch t=8, call t=20, food t=32, present ball t=44, startle t=68, withdraw-attention t=84) and also makes sensible self-initiated shifts (e.g., turns to buzzer at t=30 without input; play-bow to cube t=42; shifts to chime t=54; re-engages play t=78; looks to ball t=94). B responds to touch, food, and startle but ignores the call (t=20) and the presented ball (t=44), and spends long stretches with attention=NONE (t=40\u201367, 72\u201395) despite stimuli. A\u2019s timeline shows more autonomous, coherent, and adaptive activity, indicating greater apparent aliveness."
+}

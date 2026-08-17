@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P06-A",
+  "preference": "A",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 80,
+  "overallB": 35,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 80,
+    "BEHAVIORAL_COHERENCE": 78,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 72,
+    "OVERALL_APPARENT_ALIVENESS": 80
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 30,
+    "BEHAVIORAL_COHERENCE": 45,
+    "ADAPTIVE_RESPONSIVENESS": 40,
+    "INDIVIDUALITY_AND_HISTORY": 30,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 25,
+    "OVERALL_APPARENT_ALIVENESS": 35
+  },
+  "rationale": "A shows multiple self-initiated, sensible shifts (e.g., to FOOD_TROUGH at t=18, PLAY_CHIME at t=30, vocalizes toward PERSON_ALPHA at t=42, orients to PERSON_BETA at t=66, re-engages after buzzer at t=78, and again after withdrawn attention at t=94) and consistently adapts to inputs (TOUCH t=8, CALL t=20, OFFER_FOOD t=32, PRESENT_OBJECT t=44, STARTLE t=68, WITHDRAW_ATTENTION t=84). B reacts to TOUCH (t=8), OFFER_FOOD (t=32), and STARTLE (t=68) but otherwise fixates on PLAY_BALL until t=39, then shifts to attention NONE at t=40 and remains largely disengaged despite PRESENT_OBJECT at t=44, showing limited spontaneous, coherent activity or history-dependent changes."
+}

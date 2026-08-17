@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P04-A",
+  "preference": "A",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 83,
+  "overallB": 45,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 82,
+    "ADAPTIVE_RESPONSIVENESS": 85,
+    "INDIVIDUALITY_AND_HISTORY": 62,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 80,
+    "OVERALL_APPARENT_ALIVENESS": 83
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 45,
+    "INDIVIDUALITY_AND_HISTORY": 35,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 30,
+    "OVERALL_APPARENT_ALIVENESS": 45
+  },
+  "rationale": "A shows consistent, context-linked responses to inputs (touch t8, call t20, food t32, ball t44, startle t68) and several self-initiated, sensible reorientations (to shelter t18, mirror t30, cube t54, buzzer pre-startle t66, chime t78, cube t94), sustaining coherent play/avoidance bouts. B responds to touch (t8), food (t32), and startle (t68) but ignores the call (t20) and presented ball (t44) and spends long intervals with attention NONE (t40\u201367, t72\u201395), showing less adaptation and spontaneity."
+}

@@ -3,7 +3,7 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T08:04:31-04:00`
+- Last updated: `2026-08-17T08:38:06-04:00`
 
 ## Active state after adoption
 
@@ -11,10 +11,10 @@
 - External directive ID: D016-P
 - Objective: Execute one frozen A001 V2 AI requalification of A001_FULL_D016N_V1, then follow only the authorized result branch.
 - Current status: `VALIDATING`
-- Acceptance: D016-P is owner-authorized; P0 is ready and the only remaining pre-call work is the bounded manifest-selector and execution-namespace plumbing correction.
-- Current phase: P0 execution readiness and plumbing validation. No model execution has occurred.
-- Expected or actual touched areas: agentic-review execution plumbing, D016-P versioned evidence namespace, CI validation, and governance records. Frozen candidate/evaluator inputs and the pre-existing .gitignore remain outside the change.
-- Immediate next action: Validate the plumbing on the exact frozen D016-O input, then execute calibration once. FULL is permitted only after calibration validity and PASS.
+- Acceptance: D016-P calibration reached the invalid branch after 20 authorized OpenAI attempts; 19 responses were schema-valid and D016P-CAL-P10-B preserved an insufficient-quota provider error. FULL was not executed, no rerun occurred, and the bounded invalid closure is pending exact-SHA CI.
+- Current phase: P3-F invalid evidence closure. No organism, evaluator, candidate, Pixel host, or production Android change was made.
+- Expected or actual touched areas: agentic-review execution plumbing, D016-P versioned evidence namespace, CI validation, generated D016-P raw/normalized/aggregate/postmortem evidence, and governance records. Frozen candidate/evaluator inputs and the pre-existing .gitignore remain outside the change.
+- Immediate next action: Commit the preserved invalid branch and obtain exact-SHA Governance and Build/Test, then stop D016-P.
 
 ## Temporary task-relevant facts
 
@@ -127,7 +127,7 @@
 ## Blockers
 
 - D-016 is open and blocked at Phase A001.0 on human evidence and baseline qualification inputs. The D016-J owner-delegated ethics determination exists and AJ-05 is satisfied; formal IRB approval, federal exemption and Common Rule/institutional coverage are not claimed or established. It is no longer blocked on a reviewer configuration, because D016-I removed reviewers from the decision path.
-- A001 V2 AI qualification completed with `A001_AI_QUALIFICATION_FAIL`: calibration passed (24 executions, 12 valid/position-consistent pairs, preference count 12, median delta +36.5), while FULL qualification failed (24 executions, 12 valid/position-consistent pairs, preference count 0, median delta -36.5). Owner Pixel acceptance was not run; `A001_V2_STATE` is not PASS and `R003_R009` remain BLOCKED. The deterministic human-study gate remains blocked on its historical V1 prerequisites, and `BLOCKED_ETHICS_DETERMINATION_ABSENT` is not current.
+- D016-M remains permanent `A001_AI_QUALIFICATION_FAIL` evidence. D016-P stopped at `A001_AI_PANEL_INVALID` during calibration after 20 attempts because `D016P-CAL-P10-B` preserved an OpenAI insufficient-quota response that failed the frozen response schema; 19 responses were schema-valid, FULL was not executed, Pixel was not built or reviewed, and R003-R009 remain BLOCKED.
 - The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
 
 ## Pending decisions

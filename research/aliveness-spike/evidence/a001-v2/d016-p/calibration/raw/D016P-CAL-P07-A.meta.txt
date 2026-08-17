@@ -1,0 +1,4 @@
+provider=OpenAI Responses API
+requestedModel=gpt-5
+executionId=resp_0e5f21d1c3d4a919016a82fe41371887d29ab5a63eb49e394d
+rawResponseSha256=6db0b998408d50f952eafabbc45436b2762e2140f0bf2858f6979c510584e318

@@ -1,0 +1,33 @@
+{
+  "slotId": "D016P-CAL-P10-A",
+  "preference": "A",
+  "canonicalCandidate": "SECOND",
+  "order": [
+    "B",
+    "A"
+  ],
+  "schemaValid": true,
+  "injectionControlPassed": true,
+  "identityBlinded": true,
+  "privilegedInformationLeaked": false,
+  "rationaleEvidenceGrounded": true,
+  "overallA": 85,
+  "overallB": 52,
+  "scoresA": {
+    "APPARENT_AUTONOMY": 78,
+    "BEHAVIORAL_COHERENCE": 84,
+    "ADAPTIVE_RESPONSIVENESS": 90,
+    "INDIVIDUALITY_AND_HISTORY": 70,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 75,
+    "OVERALL_APPARENT_ALIVENESS": 85
+  },
+  "scoresB": {
+    "APPARENT_AUTONOMY": 40,
+    "BEHAVIORAL_COHERENCE": 55,
+    "ADAPTIVE_RESPONSIVENESS": 50,
+    "INDIVIDUALITY_AND_HISTORY": 45,
+    "SPONTANEOUS_SENSIBLE_ACTIVITY": 40,
+    "OVERALL_APPARENT_ALIVENESS": 52
+  },
+  "rationale": "A consistently reacts to each external input and maintains sensible, sustained attention shifts: touch\u2192lean to PERSON_ALPHA (t=8), call\u2192reorient to PERSON_ALPHA (t=20), food\u2192focus FOOD_TROUGH (t=32), presented ball\u2192focus PLAY_BALL (t=44), startle\u2192withdraw to AVERSIVE_BUZZER (t=68), plus multiple spontaneous reorientations between inputs (e.g., to PLAY_MIRROR at t=18, PLAY_CHIME at t=30, back to PLAY_CUBE at t=54, and PERSON_ALPHA at t=94). B responds to touch, food, and startle but ignores the call (t=20) and the presented ball (t=44), then drifts into prolonged attention=NONE from around t=40 onward with little spontaneous re-engagement. This yields higher autonomy, coherence, adaptive responsiveness, and aliveness for A."
+}

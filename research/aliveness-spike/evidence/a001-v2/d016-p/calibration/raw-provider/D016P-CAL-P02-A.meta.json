@@ -1,0 +1,14 @@
+{
+  "slotId": "D016P-CAL-P02-A",
+  "stage": "CALIBRATION",
+  "provider": "OpenAI Responses API",
+  "endpoint": "https://api.openai.com/v1/responses",
+  "requestedModel": "gpt-5",
+  "returnedModel": "gpt-5-2025-08-07",
+  "httpStatus": 200,
+  "responseId": "resp_047979a79bf09044016a82fbe44adc81a09f6f9e91752be6d8",
+  "startedUtc": "2026-08-17T12:17:39.424010400Z",
+  "completedUtc": "2026-08-17T12:18:37.532822900Z",
+  "promptSha256": "42b8efd0a9ff23c56e6103c3868fa5aa422cbaae710f96df799c7b1229d31e1c",
+  "rawResponseSha256": "40624d31af66dd47327be5df50119ab3fd1640f71dab59fe0e5651af26cb7ad2"
+}
