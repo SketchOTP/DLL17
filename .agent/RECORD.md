@@ -534,3 +534,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The retry tested the corrected credential path without reopening the historical blocked namespace or reusing any prior answer. The calibration contract is a validity gate, not a tunable score: a schema-valid but position-inconsistent panel cannot support an A001 qualification claim. The result therefore blocks this run and says nothing about organism aliveness.
 - Affected areas: research/aliveness-spike/evidence/a001-v2/d016-u-r1/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
 - Supersedes record: DEC-0049
+
+
+## DEC-0051
+
+- Date: 2026-08-17
+- Record or decision ID: DEC-0051
+- Status: ACTIVE
+- Decision or event: D016-V was executed only through its permitted pre-execution boundary. The fresh runner independently verified the accepted D016-O Git-artifact hashes and the unchanged D016-N candidate identity, then made one direct OpenAI Responses API Structured Outputs preflight for exact model `gpt-5`. The provider returned HTTP 403 `model_not_found` with the redacted explanation that the project key does not have access to `gpt-5`. The terminal result is `BLOCKED_PREEXECUTION`; formal calibration and FULL executions remain zero.
+- Rationale: The directive requires exact `gpt-5` research evaluation and forbids silently substituting Nano or another evaluator. Stopping on model access preserves the frozen evaluator contract and the one-shot boundary. This is a provider entitlement block, not evidence about the organism or the A001 question.
+- Affected areas: tools/run_d016v.py, research/aliveness-spike/evidence/a001-v2/d016-v/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
+- Supersedes record: DEC-0050

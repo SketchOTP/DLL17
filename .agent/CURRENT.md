@@ -3,20 +3,22 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T19:27:56-04:00`
+- Last updated: `2026-08-17T20:35:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-U-R1
-- External directive ID: D016-U
-- Objective: Adopt GPT-5 Nano as the optional cloud verbalizer default and execute the separately isolated direct Responses API A001 V2 evaluator when the owner credential permits it.
+- Local directive ID: D-016-V
+- External directive ID: D016-V
+- Objective: Use direct OpenAI GPT-5 as a research-only evaluator for one fresh frozen A001 V2 qualification attempt.
 - Current status: `BLOCKED`
-- Acceptance: The explicitly authorized fresh D016-U-R1 run passed its direct GPT-5 Nano Structured Outputs preflight and completed exactly 24 fresh calibration calls. All 24 were schema-valid, but only 1 of 12 pairs was position-consistent, so the frozen calibration gate returned A001_AI_PANEL_INVALID and stopped before FULL.
-- Current phase: U1 calibration-invalid terminal branch.
-- Expected or actual touched areas: fresh research/aliveness-spike/evidence/a001-v2/d016-u-r1/ evidence and append-only governance records. D016-U blocked evidence remains immutable; D016-M through D016-T, the organism, frozen candidate/observations, Paragon, Android code and the pre-existing .gitignore remain unchanged.
-- Immediate next action: no automatic retry, no D016-V, no Pixel host, no human recruitment and no R003-R009 implementation. Any future A001 requalification requires a new explicit authorization and fresh execution namespace.
+- Acceptance: D016-V verified the accepted D016-O frozen Git artifacts, then its single GPT-5 Structured Outputs preflight returned HTTP 403 model_not_found: the project key does not have access to gpt-5. Formal calibration and FULL executions are both zero, so the run stopped at BLOCKED_PREEXECUTION without an organism conclusion.
+- Current phase: V pre-execution block.
+- Expected or actual touched areas: fresh research/aliveness-spike/evidence/a001-v2/d016-v/ evidence, tools/run_d016v.py, and append-only governance records. D016-M through D016-U-R1, the frozen candidate/observations/rubric/thresholds/aggregator, Paragon, Android code and the pre-existing .gitignore remain unchanged.
+- Immediate next action: return to Architect. Do not retry the key, alter the evaluator, use Nano for D016-V, enter Pixel work, recruit humans or implement R003-R009 without a new explicit authorization.
 
 ## Temporary task-relevant facts
+
+- D016-V preflight was blocked before formal execution. The canonical current Git-tree bytes matched the accepted D016-O manifest, including the D016-N candidate identity `684579130bef5c820f3db9534ffb744654ebf3b4`, evaluator SHA `92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4`, and formal bundle SHA `f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69`. The one permitted generating preflight used exact model `gpt-5` and returned HTTP 403 `model_not_found`; calibration and FULL remained zero.
 
 - D016-I moved the A001 gate authority off judgement entirely. A001GateAdjudicatorV1 computes the outcome from one canonical evidence record as a pure function with no clock, no randomness, no network, no environment and no model in the path, across ten ordered stages covering the frozen-threshold guard, baseline qualification, pilot validity, feasibility, the ethics determination, protocol and instrument identity, the preregistered exclusions, the powered sample, three-attempt accounting and agreement between any claimed outcome and the recomputation. Recorded as DEC-0047 and O-0024.
 - No A001 threshold changed. The primary rule is still a mean of at least ten points with a two-sided ninety-five per cent confidence lower bound above zero, the four failure modes stay separate, and the mechanism family is still Holm-corrected. D016-I moved who decides rather than what counts, and a redundant guard now holds each of eleven frozen thresholds beside an independently written literal so that a single edit to the contract raises THRESHOLD_WEAKENED_AFTER_FREEZE instead of quietly working.

@@ -1105,3 +1105,32 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The adopted GPT-5 Nano calibration panel did not meet the frozen position-consistency requirement, so it cannot produce a valid A001 AI qualification result. This is evaluator-panel invalid evidence, not evidence that the organism passed or failed the human aliveness question.
 - Blockers: `A001_AI_PANEL_INVALID`
 - Follow-up directive: none
+
+
+## D-016-V - BLOCKED
+
+- Outcome ID: O-0047
+- Supersedes outcome: O-0046
+- Closed: 2026-08-17T20:35:00-04:00
+- Acceptance: MET
+- Summary: D016-V bound a fresh namespace to the accepted D016-O Git artifacts and verified the unchanged D016-N candidate, evaluator instructions, schema, rubric, thresholds, aggregator and 24 observation bundles. The one permitted direct Responses API preflight requested exactly `gpt-5` and returned HTTP 403 `model_not_found`: the project key does not have access to that model. The run therefore stopped at `BLOCKED_PREEXECUTION`; formal calibration and FULL executions are both zero.
+- Changed areas: `tools/run_d016v.py`, `research/aliveness-spike/evidence/a001-v2/d016-v/`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, `.agent/OUTCOMES.md`, `.agent/RECORD.md`, and the D016-V CI assertion. D016-M through D016-U-R1, the frozen candidate/observations/rubric/thresholds/aggregator, organism, Android production host, Paragon and the pre-existing `.gitignore` were not changed.
+- Validation:
+  - accepted D016-O Git-artifact integrity - PASSED
+  - candidate identity and SHA binding - PASSED
+  - evaluator instruction/schema/rubric/threshold/aggregator binding - PASSED
+  - calibration and FULL bundle counts - PASSED, 12 and 12
+  - direct GPT-5 Structured Outputs preflight - FAILED, HTTP 403 `model_not_found`
+  - formal calibration executions - `0`
+  - formal FULL executions - `0`
+  - historical answer reuse - `0`
+  - selective reruns - `0`
+  - replacement answers - `0`
+  - Pixel reviews - `0`
+  - external human participants - `0`
+  - API key exposed, committed or packaged - `false/false/false`
+  - organism changed during scoring - `false`
+  - R003-R009 - `BLOCKED`
+- Remaining risks: The permitted project key cannot access the exact research model required by D016-V. No A001 AI result and no organism conclusion can be inferred.
+- Blockers: `BLOCKED_PREEXECUTION`, safe provider detail `gpt5_model_access_unavailable`.
+- Follow-up directive: none

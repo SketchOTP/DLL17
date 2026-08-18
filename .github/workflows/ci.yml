@@ -437,6 +437,37 @@ jobs:
             exit 1
           fi
 
+      - name: D016-V GPT-5 pre-execution block
+        run: |
+          evidence=research/aliveness-spike/evidence/a001-v2/d016-v/D016_V_FORMAL_EXECUTION.txt
+          preflight=research/aliveness-spike/evidence/a001-v2/d016-v/D016_V_PREFLIGHT_RESULT.json
+          checks=research/aliveness-spike/evidence/a001-v2/d016-v/D016_V_FROZEN_INPUT_CHECKS.json
+          test -f "$evidence"
+          test -f "$preflight"
+          test -f "$checks"
+          grep -q 'D016V_RESULT=BLOCKED_PREEXECUTION' "$evidence"
+          grep -q 'FORMAL_INPUT_BUNDLE_SHA256=f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69' "$evidence"
+          grep -q 'MODEL_REQUESTED=gpt-5' "$evidence"
+          grep -q 'NONFORMAL_PREFLIGHT_RESULT=FAIL' "$evidence"
+          grep -q 'CALIBRATION_MODEL_EXECUTIONS=0' "$evidence"
+          grep -q 'FULL_MODEL_EXECUTIONS=0' "$evidence"
+          grep -q 'TOTAL_FORMAL_MODEL_EXECUTIONS=0' "$evidence"
+          grep -q 'HISTORICAL_ANSWER_REUSE=0' "$evidence"
+          grep -q 'SELECTIVE_RERUNS=0' "$evidence"
+          grep -q 'REPLACEMENT_ANSWERS=0' "$evidence"
+          grep -q 'NO_ORGANISM_CONCLUSION_FROM_D016V=true' "$evidence"
+          grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' "$evidence"
+          grep -q 'OWNER_PIXEL_REVIEWS=0' "$evidence"
+          grep -q 'R003_R009=BLOCKED' "$evidence"
+          grep -q '"preflightBlocker": "GPT5_MODEL_ACCESS_UNAVAILABLE"' "$preflight"
+          grep -q '"FROZEN_INPUTS_PASS": true' "$checks"
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-v/calibration
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-v/full
+          if grep -RIlE '(sk-proj-[A-Za-z0-9]{20,}|Bearer [A-Za-z0-9_-]{32,})' research/aliveness-spike/evidence/a001-v2/d016-v; then
+            echo '::error::a credential-shaped value appeared in D016-V evidence'
+            exit 1
+          fi
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \

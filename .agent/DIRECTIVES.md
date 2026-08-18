@@ -664,3 +664,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-U
 - Status at issuance: ISSUED
+
+
+## D-016-V
+
+- Issued: 2026-08-17T20:35:00-04:00
+- Issuer: User
+- External directive: D016-V
+- Objective: Obtain one fresh direct OpenAI GPT-5 research-only A001 V2 qualification result for unchanged D016-N, with fresh calibration and conditional FULL execution.
+- Scope: Reverify accepted D016-O frozen Git artifacts; use `research/aliveness-spike/evidence/a001-v2/d016-v/`; use fresh D016V slot identities; perform at most one generating Structured Outputs preflight; run exactly 24 calibration calls and FULL only after calibration PASS.
+- Exclusions: No D016-M through D016-U-R1 evidence reuse; no candidate, organism, observation, evaluator instruction, schema, rubric, threshold, panel, pair, aggregator, production verbalizer, Pixel, human, Paragon, Claude, Gemini or R003-R009 changes; no key exposure, commitment or APK packaging; no `.gitignore` modification.
+- Acceptance: Stop at `BLOCKED_INPUT_DRIFT` before generation on frozen-input mismatch, `BLOCKED_PREEXECUTION` on preflight failure, calibration-invalid/fail before FULL, or the existing A001 AI result branches. Return to Architect after the terminal state; do not propose D016-W.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-U-R1
+- Status at issuance: ISSUED

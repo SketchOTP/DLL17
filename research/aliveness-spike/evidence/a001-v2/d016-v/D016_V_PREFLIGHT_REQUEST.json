@@ -1,0 +1,7 @@
+{
+  "model": "gpt-5",
+  "toolsPresentInRequest": false,
+  "inputTextSha256": "799c017ac403204df580f4c279a849431140fd2f70cbd0cc5d835cc9e8671a1d",
+  "structuredOutput": true,
+  "requestSha256": "46c7254dc4eed98458d9a7d00cf326c83f90b5e2481adac7d8d58af85cc73dd2"
+}

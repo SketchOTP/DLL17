@@ -1,0 +1,14 @@
+{
+  "httpStatus": 403,
+  "authenticated": true,
+  "modelListScopeLimited": false,
+  "modelAvailable": false,
+  "structuredOutputValid": false,
+  "preflightBlocker": "GPT5_MODEL_ACCESS_UNAVAILABLE",
+  "response": {
+    "responseId": "UNKNOWN",
+    "returnedModel": "UNKNOWN",
+    "usage": null,
+    "status": null
+  }
+}

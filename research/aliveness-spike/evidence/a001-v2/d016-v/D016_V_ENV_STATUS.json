@@ -1,0 +1,6 @@
+{
+  "ENV_FILE_PRESENT": true,
+  "ENV_FILE_TRACKED": false,
+  "ENV_FILE_IGNORED": true,
+  "OPENAI_API_KEY_PRESENT": true
+}
