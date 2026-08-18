@@ -567,3 +567,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: D016-W-R1 made zero formal evaluator executions and therefore produced no organism conclusion. Direct owner experience is now the highest-value next gate. The current implementation preserves behavioral authority in the organism and stops before any owner aliveness verdict because no Android device is connected.
 - Affected areas: android-host debug integration, research/aliveness-spike/evidence/a001-v2/d016-x/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md, .github/workflows/ci.yml
 - Supersedes record: DEC-0052
+
+
+## DEC-0054
+
+- Date: 2026-08-18
+- Record or decision ID: DEC-0054
+- Status: ACTIVE
+- Decision or event: The first D016-X owner encounter is `INCONCLUSIVE_PRESENTATION_INVALID`, not an A001 or organism failure. D016-Y replaces only that owner presentation with a debug-only `OwnerEmbodimentAdapter` that consumes the actual transient `StepRecord` action and target together with the frozen `ExpressionFrame`. All fifteen existing `SpikeAction` values retain distinct presentation mappings; screen-space interpolation cannot select an action or mutate organism state. The physical Pixel build presents one original full-body creature in a coherent habitat, routes each visible affordance to one of the six existing interactions, and preserves the new owner verdict as not run.
+- Rationale: The frozen comparator-oriented expression frame collapses behaviorally distinct actions and the D016-X diagnostic renderer prevented a valid subjective owner judgment. A transient adapter can reveal canonical selected behavior without changing decisions, the frozen expression contract or study artifacts. Implementation and deployment establish a valid presentation boundary, not an aliveness result.
+- Affected areas: android-host debug owner presentation and tests, research/aliveness-spike/evidence/a001-v2/d016-y/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md
+- Supersedes record: DEC-0053

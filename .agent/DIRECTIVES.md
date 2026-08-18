@@ -724,3 +724,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-W-R1
 - Status at issuance: ISSUED
+
+
+## D-016-Y
+
+- Issued: 2026-08-18T13:28:26-04:00
+- Issuer: User
+- External directive: D016-Y
+- Objective: Replace the presentation-invalid D016-X engineering visualization with a credible owner-only pet embodiment that makes the unchanged D016-N organism's selected behavior visibly understandable on the Pixel.
+- Scope: Preserve and inspect physical before-evidence; add a debug-only transient adapter consuming `StepRecord.choice.action`, `choice.target` and `ExpressionFrame`; render one original full-body creature in a coherent habitat; embody selected actions distinctly; replace the diagnostic grid with direct creature, food and toy interaction plus compact Call, Space and Rustle affordances; validate, install, launch and capture physical after-evidence.
+- Exclusions: No D016-N mechanics, `SpikeExpressionContractV1`, comparator, AI evaluator, prompt, rubric, threshold, panel, production cohort, R003-R009, R014 or pre-existing `.gitignore` changes; no canned behavior that differs from the organism-selected action; no A001 PASS or FAIL claim.
+- Acceptance: Physical Pixel shows a readable full-body creature in a coherent habitat, no diagnostic rectangles or clipped grid, no no-op controls, correct insets, direct meaningful interactions, selected-action-derived embodiment, autonomous runtime stability, and preserved before/after evidence. Stop before a new owner verdict.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-X
+- Status at issuance: ISSUED

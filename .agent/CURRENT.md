@@ -3,25 +3,27 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-18T00:40:44-04:00`
+- Last updated: `2026-08-18T14:24:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-X
-- External directive ID: D016-X
-- Objective: Build the owner-only debug Pixel aliveness experience for the unchanged D016-N FULL organism.
-- Current status: `BLOCKED`
-- Acceptance: D016-W-R1 is closed as evidence with zero formal executions and no organism conclusion. D016-X now has a debug-only Android integration with the real FULL cohort, SpikeRuntime pacing, ExpressionFrame rendering and all six existing interaction mappings. Debug and release APK builds pass, but Pixel installation and launch are blocked because no Android device is connected.
-- Current phase: OWNER_PIXEL_ALIVENESS, implementation ready for owner evaluation.
-- Expected or actual touched areas: android-host debug source, the debug-only cohort dependency, the debug manifest, MainActivity debug handoff, D016-X evidence and append-only governance records. D016-N mechanics, prior evaluator evidence, production persistence, the release dependency graph and the pre-existing .gitignore remain unchanged.
-- Immediate next action: install and experience the debug APK on the designated Pixel when it is available. Do not call an AI evaluator, alter D016-N, claim A001 PASS or FAIL, recruit humans or implement R003-R009.
+- Local directive ID: `NONE`
+- External directive ID: `NONE`
+- Objective: `NONE`
+- Current status: `IDLE`
+- Acceptance: `NONE`
+- Current phase: `NONE`
+- Expected or actual touched areas: `NONE`
+- Immediate next action: `NONE`
 
 ## Temporary task-relevant facts
 
+- D016-Y preserves `D016_X_OWNER_RESULT=INCONCLUSIVE_PRESENTATION_INVALID` and `A001_STATUS=OWNER_EVALUATION_NOT_YET_VALID`. The Pixel 9 Pro XL/API 36 install and launch passed using debug APK SHA-256 `52fbef912b1adfc231fe7d42e1d1f850f6686bed67769e4e1307b70db3c89f9c`; the app remained foreground after exercising creature, bowl, ball, Call, Space and Rustle interactions, with no DLL17 fatal exception or ANR in the inspected log window. The new owner verdict has not run.
+
 - D016-W-R1 passed repository provenance and frozen-input checks using candidate A001_FULL_D016N_V1 at Git SHA 684579130bef5c820f3db9534ffb744654ebf3b4, formal bundle SHA f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69 and evaluator instruction SHA 92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4. One direct Responses API preflight requested gpt-5.6-luna with reasoning effort medium and no tools, then returned HTTP 403 model_not_found. Calibration and FULL remain zero.
 
-- D016-X uses the unchanged D016-N candidate A001_FULL_D016N_V1 at Git SHA 684579130bef5c820f3db9534ffb744654ebf3b4. The debug APK hash is C00FEFA53510F67A1EA7A561099C745EA0AD8BC46E1A0446E8D602AF7E148FE6. The owner harness uses Cohorts.FULL, SpikeRuntime and the frozen SpikeExpressionContract; it makes no AI calls and displays no comparator or mechanism telemetry.
-- D016-X local validation passed the owner harness unit tests, debug APK assembly and release APK assembly. The full Android unit suite still has one unrelated pre-existing persistence-path failure in AndroidLocalKeyBootstrapTest. No physical or emulator Android device was connected, so install and launch were not run.
+- The historical D016-X build used the unchanged D016-N candidate A001_FULL_D016N_V1 at Git SHA 684579130bef5c820f3db9534ffb744654ebf3b4. Its debug APK hash was C00FEFA53510F67A1EA7A561099C745EA0AD8BC46E1A0446E8D602AF7E148FE6. The owner harness used Cohorts.FULL, SpikeRuntime and the frozen SpikeExpressionContract; it made no AI calls and displayed no comparator or mechanism telemetry.
+- At the initial D016-X return, local owner-harness tests plus debug and release APK assembly passed, while install and launch were not run because no device was then connected. That device blocker is superseded by D016-Y physical deployment. The full Android unit suite's unrelated pre-existing persistence-path failure in AndroidLocalKeyBootstrapTest is unchanged.
 
 - D016-V preflight was blocked before formal execution. The canonical current Git-tree bytes matched the accepted D016-O manifest, including the D016-N candidate identity `684579130bef5c820f3db9534ffb744654ebf3b4`, evaluator SHA `92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4`, and formal bundle SHA `f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69`. The one permitted generating preflight used exact model `gpt-5` and returned HTTP 403 `model_not_found`; calibration and FULL remained zero.
 
@@ -115,12 +117,12 @@
 
 ## Last validation after adoption
 
-- Command or check: exact-SHA Governance and Build/Test run 32011475040 on commit 1c3fdd7985973dc1567ef6020af336edeac81764, including D016-O formal-input freeze preflight
+- Command or check: D016-Y owner harness unit tests and debug APK assembly; physical Pixel install, launch, interaction and runtime inspection; adopted-governance validator
 - Result: `PASSED`
 
 ## Risks
 
-- No physical Android device is reachable, so Keystore hardware or StrongBox backing, real device flash behaviour, physical-device latency and on-hardware restart are unqualified. The emulator run does not substitute for them.
+- A physical Pixel is reachable and was used for the D016-Y owner-presentation scope. D016-Y did not authorize the separate R012 Keystore, flash, latency or restart qualification suite, so those properties remain unqualified despite device availability.
 - Power-loss durability is not proven by any test here. It rests on the force-per-commit policy, which is stated rather than measured.
 - The measured latencies are desktop and emulator figures. No production threshold is derived from them and none may be until device evidence exists.
 - Data-encryption-key rotation has no design. If one is ever needed, it must be frozen separately and must not be reached by widening wrapping rotation.
@@ -143,7 +145,7 @@
 - D-016-S is historical blocked evidence at the evaluator transport boundary: `BLOCKED_PARAGON_EVALUATION_CAPSULE_UNQUALIFIED`. No CLI family entered the eligible route pool.
 - D-016-T is additionally blocked at the direct evaluator boundary: `BLOCKED_DIRECT_CLAUDE_EVALUATOR_UNQUALIFIED`. The final authorized evaluator-transport correction did not establish denied-tool telemetry and no formal A001 execution is authorized.
 - D016-M remains permanent `A001_AI_QUALIFICATION_FAIL` evidence. D016-P stopped at `A001_AI_PANEL_INVALID` during calibration after 20 attempts because `D016P-CAL-P10-B` preserved an OpenAI insufficient-quota response that failed the frozen response schema; 19 responses were schema-valid, FULL was not executed, Pixel was not built or reviewed, and R003-R009 remain BLOCKED. D016-Q then consumed one non-formal sentinel, received HTTP 429 `insufficient_quota`, attempted zero formal slots, and has no scientific result.
-- The device half of the R012 substrate cannot close without a physical Android device: BLOCKED_DEVICE_UNAVAILABLE. The suite is written and the adapter is implemented; the missing input is hardware.
+- The device half of the R012 substrate remains unqualified. Hardware is now reachable, but D016-Y did not authorize running the separate R012 device qualification suite; a scoped Architect directive is still required before that historical blocker can be re-evaluated.
 
 ## Pending decisions
 

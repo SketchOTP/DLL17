@@ -1187,3 +1187,30 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The permitted project key cannot access gpt-5.6-luna. No A001 AI result and no organism conclusion can be inferred.
 - Blockers: `BLOCKED_PREEXECUTION`, safe provider detail `luna_model_access_unavailable`.
 - Follow-up directive: none
+
+
+## D-016-Y - COMPLETE
+
+- Outcome ID: O-0050
+- Supersedes outcome: O-0049
+- Closed: 2026-08-18T14:24:00-04:00
+- Acceptance: MET
+- Summary: D016-X owner inspection is preserved as `INCONCLUSIVE_PRESENTATION_INVALID`; no organism or A001 failure is inferred. D016-Y replaces the diagnostic owner renderer with a debug-only pet-first embodiment driven by actual `StepRecord` action, target and frozen expression output. The rebuilt APK was installed and launched on the designated Pixel 9 Pro XL/API 36, all six visible interaction routes were exercised, the app remained foreground without a detected DLL17 fatal exception or ANR, and physical before/after screenshot plus runtime-video evidence is preserved. The new owner aliveness verdict remains to be run.
+- Changed areas: `android-host/src/debug/kotlin/com/animusmachinae/dll17/android/DebugAlivenessActivity.kt`, `OwnerAlivenessHarness.kt`, `OwnerAlivenessPresentation.kt`, `android-host/src/test/kotlin/com/animusmachinae/dll17/android/OwnerAlivenessHarnessTest.kt`, `research/aliveness-spike/evidence/a001-v2/d016-y/`, and append-only governance records. D016-N cohort source, `SpikeExpressionContractV1`, comparator, evaluator/model path, production cohort, R003-R009, R014 and the pre-existing `.gitignore` were unchanged.
+- Validation:
+  - fresh physical D016-X before screenshot inspected and preserved - PASSED
+  - all 15 selected-action presentation mappings distinct - PASSED
+  - animation action authority remains in organism `StepRecord` - PASSED
+  - every visible affordance maps to an existing interaction - PASSED
+  - owner harness/adapter unit tests - PASSED
+  - debug APK assembly - PASSED
+  - APK SHA-256 - `52fbef912b1adfc231fe7d42e1d1f850f6686bed67769e4e1307b70db3c89f9c`
+  - physical Pixel install and `DebugAlivenessActivity` launch - PASSED
+  - physical layout/inset inspection and app-content clipping check - PASSED
+  - physical direct interaction exercise - PASSED
+  - runtime foreground/process and fatal/ANR check - PASSED
+  - AI/model calls, external human participants and A001 attempts - `0/0/0`
+  - R003-R009 - `BLOCKED`
+- Remaining risks: The temporary original vector creature and habitat are evaluation-spike artwork, not production assets. A Microsoft Teams work-profile picture-in-picture call is visible over decorative scenery in the physical capture, but it did not obscure or intercept the creature, bowl, ball or controls. The only scientifically meaningful next result is the owner's fresh subjective evaluation; implementation quality alone cannot produce it.
+- Blockers: none for a fresh owner evaluation.
+- Follow-up directive: none
