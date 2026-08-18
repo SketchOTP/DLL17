@@ -45,3 +45,25 @@
 - Owner aliveness verdict: `NOT RUN`
 
 No A001 PASS or FAIL is claimed by this handoff.
+
+## D016-X-R1 physical deployment
+
+The device-unavailable entries above are the historical initial D016-X handoff. D016-X-R1 completed the owner deployment without changing the source implementation or frozen organism input.
+
+- `D016_X_STATUS=OWNER_READY_FOR_EVALUATION`
+- Pixel: `Google Pixel 9 Pro XL`, serial `49121FDAS0025V`, Android API `36`
+- Atlas ADB endpoint: authorized physical device; emulator excluded
+- APK: `android-host/build/outputs/apk/debug/android-host-debug.apk`
+- APK SHA-256: `C00FEFA53510F67A1EA7A561099C745EA0AD8BC46E1A0446E8D602AF7E148FE6`
+- Install: `SUCCESS` via replacement install; application data was not cleared
+- Normal launcher: `SUCCESS`; `MainActivity` automatically entered `DebugAlivenessActivity`
+- Runtime process: remained alive as `com.animusmachinae.dll17` (PID `22720`) with `DebugAlivenessActivity` foreground
+- Autonomous ticking: `VERIFIED`; screenshots captured three seconds apart differed (`1742a7cc68bb1e2a8da28cdd80a01ebe1b44eb4d917e205a753574ea8d0523a5` and `8f22355ac036ed5dc361294a193f73fb590636c1de114c7ed58b5bcc27228dd7`)
+- TOUCH: `VERIFIED`; creature tap at `(500,995)` produced a subsequent changed frame (`9fae3bdf86f78231736655ffd3a200cc847046529c160ffd39f73ed9fa673094`)
+- SHOW BALL (`PRESENT_OBJECT`): `VERIFIED`; owner control tap at `(816,1996)` produced a subsequent changed frame (`1c8d20e73e88c0a66297013d37ded211f61b4dba1c01f311a79f36559961d71b`)
+- Crash/logcat check: `NO_MATCHING_ANDROIDRUNTIME_OR_FATAL_EXCEPTION`
+- Screenshot evidence: `C:\Users\sketc\AppData\Local\Temp\d016x-pixel-after.png`, `C:\Users\sketc\AppData\Local\Temp\d016x-pixel-touch.png`, `C:\Users\sketc\AppData\Local\Temp\d016x-pixel-show-ball.png`
+- Source changes during R1: `NONE`
+- Owner aliveness verdict: `NOT RUN`; the device is handed off at the owner-verdict boundary
+
+No A001 PASS or FAIL is claimed. R003-R009 remain blocked.
