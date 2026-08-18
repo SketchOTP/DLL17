@@ -556,3 +556,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The corrected directive used repository artifacts as provenance authority and preserved the one-shot preflight boundary. No fallback model was used, and no result can be inferred about the organism.
 - Affected areas: tools/run_d016wr1.py, research/aliveness-spike/evidence/a001-v2/d016-w-r1/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
 - Supersedes record: DEC-0051
+
+
+## DEC-0053
+
+- Date: 2026-08-18
+- Record or decision ID: DEC-0053
+- Status: ACTIVE
+- Decision or event: D016-X superseded the unavailable AI-evaluator path for forward execution and moved A001 to the owner Pixel aliveness boundary. The debug-only Android harness instantiates the unchanged A001_FULL_D016N_V1 candidate through Cohort.FULL and SpikeRuntime, advances at the existing 200 millisecond viewer cadence, maps only the six existing InteractionKind values, and renders only SpikeExpressionContract.ExpressionFrame output. The research cohort dependency is debug-only; the release build remains free of the disposable research integration. No AI call, comparator, cloud service, human participant, automated verdict or R003-R009 work occurred.
+- Rationale: D016-W-R1 made zero formal evaluator executions and therefore produced no organism conclusion. Direct owner experience is now the highest-value next gate. The current implementation preserves behavioral authority in the organism and stops before any owner aliveness verdict because no Android device is connected.
+- Affected areas: android-host debug integration, research/aliveness-spike/evidence/a001-v2/d016-x/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md, .github/workflows/ci.yml
+- Supersedes record: DEC-0052

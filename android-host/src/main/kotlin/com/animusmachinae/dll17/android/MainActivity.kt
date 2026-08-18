@@ -1,6 +1,7 @@
 package com.animusmachinae.dll17.android
 
 import android.os.Bundle
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,9 @@ import com.animusmachinae.dll17.core.state.CoreStateModule
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val debugBuild =
+            applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0
+        if (debugBuild && launchDebugAlivenessExperience()) return
         setContent {
             MaterialTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
@@ -36,6 +40,19 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    /**
+     * D016-X is compiled only into the debug APK. Reflection keeps the release
+     * R000 shell independent of the disposable research cohort module.
+     */
+    private fun launchDebugAlivenessExperience(): Boolean = runCatching {
+        val activity = Class.forName(
+            "com.animusmachinae.dll17.android.DebugAlivenessActivity",
+        )
+        startActivity(Intent(this, activity))
+        finish()
+        true
+    }.getOrDefault(false)
 }
 
 /** Immutable description of what the shell is allowed to say in R000. */

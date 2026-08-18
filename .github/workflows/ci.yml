@@ -641,6 +641,24 @@ jobs:
           ./gradlew :android-host:assembleRelease --no-daemon
           python3 tools/verify_backup_exclusion.py
 
+      # D016-X is an owner-only/debug integration. CI checks the boundary and
+      # the durable handoff without attempting a device interaction or making
+      # an owner verdict.
+      - name: D016-X owner Pixel handoff boundary
+        run: |
+          evidence=research/aliveness-spike/evidence/a001-v2/d016-x/D016X_OWNER_PIXEL_HANDOFF.md
+          test -f "$evidence"
+          grep -q 'Candidate: `A001_FULL_D016N_V1`' "$evidence"
+          grep -q 'Candidate Git SHA: `684579130bef5c820f3db9534ffb744654ebf3b4`' "$evidence"
+          grep -q 'AI evaluator calls in D016-X: `0`' "$evidence"
+          grep -q 'Comparator displayed: `false`' "$evidence"
+          grep -q 'Android-selected organism actions: `false`' "$evidence"
+          grep -q 'Owner aliveness verdict: `NOT RUN`' "$evidence"
+          grep -q 'Pixel install: `BLOCKED_DEVICE_UNAVAILABLE`' "$evidence"
+          grep -q 'Pixel launch: `BLOCKED_DEVICE_UNAVAILABLE`' "$evidence"
+          test -f android-host/build/outputs/apk/debug/android-host-debug.apk
+          test ! -f android-host/build/outputs/apk/release/android-host-release.apk
+
       - name: Record build environment
         if: always()
         run: |

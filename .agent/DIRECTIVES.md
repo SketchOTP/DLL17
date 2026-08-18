@@ -709,3 +709,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-W
 - Status at issuance: ISSUED
+
+
+## D-016-X
+
+- Issued: 2026-08-18T00:40:44-04:00
+- Issuer: User
+- External directive: D016-X
+- Objective: Create and deploy the minimum owner-only debug Pixel experience necessary for direct subjective evaluation of the unchanged D016-N FULL organism.
+- Scope: Integrate the existing Cohort.FULL organism with SpikeRuntime in a debug-only Android harness; render only the resulting ExpressionFrame; pace autonomous ticks in real time; map TOUCH, CALL, OFFER_FOOD, PRESENT_OBJECT, WITHDRAW_ATTENTION and STARTLE to existing InteractionKind values; build and validate the debug APK; install and launch on the designated Pixel when available.
+- Exclusions: No D016-N mechanics, utilities, drives, learning, commitment, curiosity, habituation, preferences, interaction semantics, evaluator/model/prompt/rubric/threshold/panel changes, comparator display, production persistence, cloud service, AI call, human recruitment, automated owner verdict, or R003-R009 implementation. The pre-existing .gitignore remains untouched.
+- Acceptance: Debug APK builds; the real FULL organism advances without input; all six existing interaction classes reach the organism; visible output is derived from ExpressionFrame; Android does not choose organism actions; relevant tests pass; and the result stops at the owner verdict boundary. If no device is available, return the exact device blocker without claiming A001 PASS or FAIL.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-W-R1
+- Status at issuance: ISSUED

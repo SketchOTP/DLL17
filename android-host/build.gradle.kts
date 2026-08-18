@@ -86,6 +86,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
+    // D016-X is a disposable owner/debug experience. The research cohort is
+    // deliberately absent from release and main, so the experimental FULL
+    // organism cannot silently become production architecture.
+    debugImplementation(project(":research:aliveness-spike:cohorts"))
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.junit)

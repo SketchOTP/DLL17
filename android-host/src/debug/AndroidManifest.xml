@@ -20,6 +20,9 @@
             android:name="com.animusmachinae.dll17.android.persistence.DeviceCrashService"
             android:exported="false"
             android:process=":crash" />
+        <activity
+            android:name=".android.DebugAlivenessActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
