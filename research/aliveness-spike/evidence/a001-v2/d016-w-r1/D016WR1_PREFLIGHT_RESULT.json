@@ -1,0 +1,15 @@
+{
+  "httpStatus": 403,
+  "authenticated": true,
+  "modelRequested": "gpt-5.6-luna",
+  "modelReturned": "UNKNOWN",
+  "reasoningEffort": "medium",
+  "structuredOutputValid": false,
+  "preflightBlocker": "LUNA_PREFLIGHT_FAILED",
+  "response": {
+    "responseId": "UNKNOWN",
+    "returnedModel": "UNKNOWN",
+    "usage": null,
+    "status": null
+  }
+}

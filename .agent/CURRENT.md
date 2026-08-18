@@ -3,20 +3,22 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-17T20:35:00-04:00`
+- Last updated: `2026-08-17T22:50:36-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: D-016-V
-- External directive ID: D016-V
-- Objective: Use direct OpenAI GPT-5 as a research-only evaluator for one fresh frozen A001 V2 qualification attempt.
+- Local directive ID: D-016-W-R1
+- External directive ID: D016-W-R1
+- Objective: Use direct OpenAI gpt-5.6-luna as a research-only evaluator for one fresh frozen A001 V2 qualification attempt.
 - Current status: `BLOCKED`
-- Acceptance: D016-V verified the accepted D016-O frozen Git artifacts, then its single GPT-5 Structured Outputs preflight returned HTTP 403 model_not_found: the project key does not have access to gpt-5. Formal calibration and FULL executions are both zero, so the run stopped at BLOCKED_PREEXECUTION without an organism conclusion.
-- Current phase: V pre-execution block.
-- Expected or actual touched areas: fresh research/aliveness-spike/evidence/a001-v2/d016-v/ evidence, tools/run_d016v.py, and append-only governance records. D016-M through D016-U-R1, the frozen candidate/observations/rubric/thresholds/aggregator, Paragon, Android code and the pre-existing .gitignore remain unchanged.
-- Immediate next action: return to Architect. Do not retry the key, alter the evaluator, use Nano for D016-V, enter Pixel work, recruit humans or implement R003-R009 without a new explicit authorization.
+- Acceptance: D016-W-R1 verified the corrected D016-O candidate provenance and all frozen inputs, then its single gpt-5.6-luna Structured Outputs preflight returned HTTP 403 model_not_found: the project key does not have access to gpt-5.6-luna. Formal calibration and FULL executions are both zero, so the run stopped at BLOCKED_PREEXECUTION without an organism conclusion.
+- Current phase: W-R1 pre-execution block.
+- Expected or actual touched areas: fresh research/aliveness-spike/evidence/a001-v2/d016-w-r1/ evidence, tools/run_d016wr1.py, and append-only governance records. D016-W remains a provenance-error history record; D016-M through D016-V, the frozen candidate/observations/rubric/thresholds/aggregator, Paragon, Android code and the pre-existing .gitignore remain unchanged.
+- Immediate next action: return to Architect. Do not retry, substitute another model, alter the evaluator, enter Pixel work, recruit humans or implement R003-R009 without a new explicit authorization.
 
 ## Temporary task-relevant facts
+
+- D016-W-R1 passed repository provenance and frozen-input checks using candidate A001_FULL_D016N_V1 at Git SHA 684579130bef5c820f3db9534ffb744654ebf3b4, formal bundle SHA f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69 and evaluator instruction SHA 92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4. One direct Responses API preflight requested gpt-5.6-luna with reasoning effort medium and no tools, then returned HTTP 403 model_not_found. Calibration and FULL remain zero.
 
 - D016-V preflight was blocked before formal execution. The canonical current Git-tree bytes matched the accepted D016-O manifest, including the D016-N candidate identity `684579130bef5c820f3db9534ffb744654ebf3b4`, evaluator SHA `92147a2ade86db8d602b991b8bbd4099e16f008d1fab9b0f84e15652c6a568a4`, and formal bundle SHA `f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69`. The one permitted generating preflight used exact model `gpt-5` and returned HTTP 403 `model_not_found`; calibration and FULL remained zero.
 

@@ -679,3 +679,33 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-U-R1
 - Status at issuance: ISSUED
+
+
+## D-016-W
+
+- Issued: 2026-08-17T20:50:00-04:00
+- Issuer: User
+- External directive: D016-W
+- Objective: Use direct OpenAI gpt-5.6-luna as a research-only evaluator for one fresh frozen A001 V2 qualification attempt.
+- Scope: Preserve the frozen D016-N candidate and A001 contract; use a fresh W evidence namespace, one preflight, calibration-gated FULL execution, and no Pixel work.
+- Exclusions: No organism, production verbalizer, evaluator contract, observations, thresholds, panel, human, Pixel or R003-R009 changes.
+- Acceptance: BLOCKED_BEFORE_EXECUTION because the directive supplied an incorrect candidate provenance SHA that contradicted the accepted D016-O repository artifacts. Model calls and repository changes were zero.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-V
+- Status at issuance: ISSUED
+
+
+## D-016-W-R1
+
+- Issued: 2026-08-17T22:50:36-04:00
+- Issuer: User
+- External directive: D016-W-R1
+- Objective: Execute one fresh direct OpenAI gpt-5.6-luna research-only A001 V2 qualification attempt using repository-authoritative D016-N provenance.
+- Scope: Verify D016-O manifest and formal preflight, use a new d016-w-r1 namespace and D016WR1 slots, send one tool-free Responses API preflight with reasoning effort medium, then run 24 calibration calls and conditional FULL only after calibration PASS.
+- Exclusions: No D016-W evidence reuse, no model fallback, no organism, production verbalizer, evaluator instruction, schema, rubric, threshold, panel, observation, aggregator, Pixel, human or R003-R009 changes; no key exposure, commitment or APK packaging; no .gitignore modification.
+- Acceptance: Stop at BLOCKED_INPUT_DRIFT on internal provenance mismatch, BLOCKED_PREEXECUTION on preflight failure, calibration-invalid/fail before FULL, or a valid AI terminal result. Return to Architect and do not propose D016-X.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-W
+- Status at issuance: ISSUED

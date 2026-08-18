@@ -545,3 +545,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The directive requires exact `gpt-5` research evaluation and forbids silently substituting Nano or another evaluator. Stopping on model access preserves the frozen evaluator contract and the one-shot boundary. This is a provider entitlement block, not evidence about the organism or the A001 question.
 - Affected areas: tools/run_d016v.py, research/aliveness-spike/evidence/a001-v2/d016-v/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
 - Supersedes record: DEC-0050
+
+
+## DEC-0052
+
+- Date: 2026-08-17
+- Record or decision ID: DEC-0052
+- Status: ACTIVE
+- Decision or event: D016-W-R1 corrected the prior D016-W provenance error by binding candidate A001_FULL_D016N_V1 to the SHA present in both accepted D016-O repository artifacts, 684579130bef5c820f3db9534ffb744654ebf3b4. Frozen-input integrity passed. One direct Responses API preflight requested gpt-5.6-luna with reasoning effort medium and no tools, and the provider returned HTTP 403 model_not_found because the project key lacks access to that model. The terminal result is BLOCKED_PREEXECUTION; formal calibration and FULL executions remain zero.
+- Rationale: The corrected directive used repository artifacts as provenance authority and preserved the one-shot preflight boundary. No fallback model was used, and no result can be inferred about the organism.
+- Affected areas: tools/run_d016wr1.py, research/aliveness-spike/evidence/a001-v2/d016-w-r1/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md
+- Supersedes record: DEC-0051

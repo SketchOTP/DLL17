@@ -1134,3 +1134,56 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The permitted project key cannot access the exact research model required by D016-V. No A001 AI result and no organism conclusion can be inferred.
 - Blockers: `BLOCKED_PREEXECUTION`, safe provider detail `gpt5_model_access_unavailable`.
 - Follow-up directive: none
+
+
+## D-016-W - BLOCKED
+
+- Outcome ID: O-0048
+- Supersedes outcome: O-0047
+- Closed: 2026-08-17T20:50:00-04:00
+- Acceptance: MET
+- Summary: D016-W did not execute. Its supplied candidate SHA contradicted the accepted D016-O manifest and formal preflight, so the directive's own stop rule applied before repository mutation or model generation. The incorrect provenance is preserved as Architect history, not silently repaired.
+- Changed areas: none. No D016-W namespace, runner, model call or scientific evidence was created. D016-M through D016-V, the frozen candidate/observations/rubric/thresholds/aggregator, organism, Android production host, Paragon and the pre-existing .gitignore were unchanged.
+- Validation:
+  - repository candidate provenance comparison, directive SHA contradicted accepted manifest - FAILED
+  - model executions - NOT RUN
+  - formal calibration executions - NOT RUN
+  - formal FULL executions - NOT RUN
+  - scientific result - NOT RUN
+  - historical answer reuse - PASSED
+  - selective reruns - PASSED
+  - replacement answers - PASSED
+  - Pixel reviews - NOT RUN
+  - external human participants - NOT RUN
+  - R003-R009 - BLOCKED
+- Remaining risks: The directive provenance typo required a corrected versioned directive before any Luna execution could begin.
+- Blockers: `ARCHITECT_PROVENANCE_ERROR`
+- Follow-up directive: D-016-W-R1
+
+
+## D-016-W-R1 - BLOCKED
+
+- Outcome ID: O-0049
+- Supersedes outcome: O-0048
+- Closed: 2026-08-17T22:50:36-04:00
+- Acceptance: MET
+- Summary: D016-W-R1 independently verified repository-authoritative candidate provenance, the D016-O frozen bundle, evaluator instructions, schema, rubric, thresholds, aggregator and all frozen observation bytes. One direct Responses API preflight requested exact model gpt-5.6-luna with reasoning effort medium and no tools, then returned HTTP 403 model_not_found because the project key lacks access to that model. The terminal result is BLOCKED_PREEXECUTION; formal calibration and FULL executions are both zero.
+- Changed areas: tools/run_d016wr1.py, research/aliveness-spike/evidence/a001-v2/d016-w-r1/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md and the D016-W-R1 CI assertion. D016-W remains preserved as a zero-call provenance block; D016-M through D016-V, the frozen candidate/observations/rubric/thresholds/aggregator, organism, Android production host, Paragon and the pre-existing .gitignore were not changed.
+- Validation:
+  - HEAD and origin/main start-state binding - PASSED
+  - D016-O manifest and formal preflight candidate provenance - PASSED
+  - frozen bundle, instruction, schema, rubric, threshold, aggregator and Git-tree bytes - PASSED
+  - direct gpt-5.6-luna Structured Outputs preflight, HTTP 403 model_not_found - FAILED
+  - formal calibration executions - NOT RUN
+  - formal FULL executions - NOT RUN
+  - historical answer reuse - PASSED
+  - selective reruns - PASSED
+  - replacement answers - PASSED
+  - Pixel reviews - NOT RUN
+  - external human participants - NOT RUN
+  - organism changed during scoring - PASSED
+  - API key exposed, committed or packaged - PASSED
+  - R003-R009 - BLOCKED
+- Remaining risks: The permitted project key cannot access gpt-5.6-luna. No A001 AI result and no organism conclusion can be inferred.
+- Blockers: `BLOCKED_PREEXECUTION`, safe provider detail `luna_model_access_unavailable`.
+- Follow-up directive: none

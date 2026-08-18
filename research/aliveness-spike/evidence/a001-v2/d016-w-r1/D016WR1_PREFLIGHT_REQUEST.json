@@ -1,0 +1,8 @@
+{
+  "model": "gpt-5.6-luna",
+  "reasoningEffort": "medium",
+  "toolsPresentInRequest": false,
+  "inputTextSha256": "799c017ac403204df580f4c279a849431140fd2f70cbd0cc5d835cc9e8671a1d",
+  "structuredOutput": true,
+  "requestSha256": "63a8e9697ffcc164b8a392e4beca2d6b610bc59dc2054edd88acfa932f1bbcd3"
+}

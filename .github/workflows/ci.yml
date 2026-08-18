@@ -468,6 +468,39 @@ jobs:
             exit 1
           fi
 
+      - name: D016-W-R1 Luna pre-execution block
+        run: |
+          evidence=research/aliveness-spike/evidence/a001-v2/d016-w-r1/D016WR1_FORMAL_EXECUTION.txt
+          preflight=research/aliveness-spike/evidence/a001-v2/d016-w-r1/D016WR1_PREFLIGHT_RESULT.json
+          checks=research/aliveness-spike/evidence/a001-v2/d016-w-r1/D016WR1_FROZEN_INPUT_CHECKS.json
+          test -f "$evidence"
+          test -f "$preflight"
+          test -f "$checks"
+          grep -q 'D016W_R1_RESULT=BLOCKED_PREEXECUTION' "$evidence"
+          grep -q 'CANDIDATE_GIT_SHA=684579130bef5c820f3db9534ffb744654ebf3b4' "$evidence"
+          grep -q 'FORMAL_INPUT_BUNDLE_SHA256=f6f543b3d1cf499b1015c4d66b005915d364a7d0d0b784605c249f13d0592c69' "$evidence"
+          grep -q 'MODEL_REQUESTED=gpt-5.6-luna' "$evidence"
+          grep -q 'REASONING_EFFORT=medium' "$evidence"
+          grep -q 'TOOLS_PRESENT_IN_FORMAL_REQUEST=false' "$evidence"
+          grep -q 'NONFORMAL_PREFLIGHT_RESULT=FAIL' "$evidence"
+          grep -q 'CALIBRATION_EXECUTIONS=0' "$evidence"
+          grep -q 'FULL_EXECUTIONS=0' "$evidence"
+          grep -q 'HISTORICAL_ANSWER_REUSE=0' "$evidence"
+          grep -q 'SELECTIVE_RERUNS=0' "$evidence"
+          grep -q 'REPLACEMENT_ANSWERS=0' "$evidence"
+          grep -q 'SCIENTIFIC_INTERPRETATION=NO_ORGANISM_CONCLUSION' "$evidence"
+          grep -q 'EXTERNAL_HUMAN_PARTICIPANTS=0' "$evidence"
+          grep -q 'OWNER_PIXEL_REVIEWS=0' "$evidence"
+          grep -q 'R003_R009=BLOCKED' "$evidence"
+          grep -q '"preflightBlocker": "LUNA_PREFLIGHT_FAILED"' "$preflight"
+          grep -q '"FROZEN_INPUTS_PASS": true' "$checks"
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-w-r1/calibration
+          test ! -d research/aliveness-spike/evidence/a001-v2/d016-w-r1/full
+          if grep -RIlE '(sk-proj-[A-Za-z0-9]{20,}|Bearer [A-Za-z0-9_-]{32,})' research/aliveness-spike/evidence/a001-v2/d016-w-r1; then
+            echo '::error::a credential-shaped value appeared in D016-W-R1 evidence'
+            exit 1
+          fi
+
       - name: D016-N offline cold encounter diagnostic
         run: |
           ./gradlew :research:aliveness-spike:realtime-viewer:d016NColdEncounterDiagnostic --no-daemon --quiet \
