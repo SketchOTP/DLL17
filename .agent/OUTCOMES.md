@@ -55,7 +55,6 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: none
 - Follow-up directive: none
 
-
 ## D-016-K - PARTIAL
 
 - Outcome ID: O-0026
@@ -1242,4 +1241,29 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
   - R003-R009 - `BLOCKED`
 - Remaining risks: The vector creature remains evaluation-spike artwork, and all action distinctions require live temporal observation rather than inference from one still. Only the owner's fresh subjective encounter can now establish whether the presentation supports a valid aliveness judgment.
 - Blockers: none for a fresh owner evaluation.
+- Follow-up directive: none
+
+
+## D-016-AA - COMPLETE
+
+- Outcome ID: O-0052
+- Supersedes outcome: O-0051
+- Closed: 2026-08-18T18:55:00-04:00
+- Acceptance: MET
+- Summary: D016-Z supplied the valid owner aliveness failure `OWNER_ALIVENESS_FAIL_TEMPORAL_AGENCY_AND_CAUSAL_ENGAGEMENT`. D016-AA measured the accelerated-time/short-commitment mechanism, separated bounded visible intention duration from physiological time, preserved immediate salient interruption, and added bounded owner interaction episodes with deterministic resumption state. The corrected candidate is ready for a fresh owner encounter; no A001 verdict is inferred.
+- Changed areas: `research/aliveness-spike/cohorts/` temporal commitment and interaction state, `research/aliveness-spike/realtime-viewer/` diagnostic, `android-host/src/debug/` candidate label, `research/aliveness-spike/evidence/D016_AA_*`, focused tests, and the research-isolation test's explicit debug-only exception.
+- Validation:
+  - D016-AA temporal diagnostic with three seeds and identical-seed replay - PASSED
+  - D016-N agency and D016-AA interaction/safety tests - PASSED
+  - realtime-viewer test suite - PASSED
+  - debug APK assembly - PASSED
+  - APK SHA-256 - `5C3BBE01AE9BFB881A9EB9AD43690A5D9434276AC868FDDC2C9679718EF3A9C3`
+  - Pixel install and launch on `49121FDAS0025V` - PASSED
+  - autonomous/interruption/interaction runtime recording - PASSED
+  - foreground/process and fatal/ANR inspection - PASSED
+  - full Android unit suite - FAILED on pre-existing unrelated Windows path-separator assertion in `AndroidLocalKeyBootstrapTest`; preserved and not repaired
+  - AI/model calls, external human participants and A001 attempts - `0/0/0`
+  - R003-R009 - `BLOCKED`
+- Remaining risks: The owner has not yet supplied the fresh subjective verdict; the corrected candidate's metrics are not an A001 result. The R012 path-separator failure remains open and unrelated.
+- Blockers: `A001_STATUS=OWNER_EVALUATION_STILL_NOT_VALID` pending a fresh owner encounter.
 - Follow-up directive: none

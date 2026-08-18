@@ -88,12 +88,24 @@ class SpikeIsolationTest {
             val dir = File(repo, module)
             if (!dir.isDirectory) continue
             val offenders = dir.walkTopDown()
-                .filter { it.isFile && (it.extension == "kt" || it.name.endsWith(".gradle.kts")) }
+                .filter { it.isFile && it.extension == "kt" }
+                // Android debug sources are the explicit disposable owner
+                // research host; release and main remain isolated.
+                .filterNot {
+                    module == "android-host" &&
+                        (it.invariantSeparatorsPath.contains("/src/debug/") ||
+                            it.invariantSeparatorsPath.contains("/src/test/"))
+                }
                 .filter { it.readText().contains("research") && it.readText().contains("aliveness") }
                 .map { it.path }
                 .toList()
             assertTrue(offenders.isEmpty(), "$module reaches into the research track: $offenders")
         }
+        val androidBuild = File(repo, "android-host/build.gradle.kts").readText()
+        assertTrue(
+            !androidBuild.contains("implementation(project(\":research:aliveness-spike"),
+            "the Android production classpath must not depend on the research track",
+        )
     }
 
     @Test

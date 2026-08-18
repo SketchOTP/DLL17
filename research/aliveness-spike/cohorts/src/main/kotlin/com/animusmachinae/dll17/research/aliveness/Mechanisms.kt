@@ -142,6 +142,7 @@ public object MechanismUpdates {
             s.committedAction = null
             s.committedTarget = null
         }
+        if (tick >= s.interactionEpisodeUntilTick) s.interactionEpisodeKind = null
     }
 
     /** Apply the consequences of an executed action. */

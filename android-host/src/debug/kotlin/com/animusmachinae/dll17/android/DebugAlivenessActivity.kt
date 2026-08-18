@@ -55,7 +55,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-/** Disposable owner-only D016-Z screen companion. Not part of the release APK. */
+/** Disposable owner-only D016-AA screen companion. Not part of the release APK. */
 internal class DebugAlivenessActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

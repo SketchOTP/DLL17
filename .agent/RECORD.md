@@ -589,3 +589,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: D016-Y's outdoor diorama, fixed targets and cumulative movement transformed selected actions into apparent random hopping and asked the owner to interpret developer-oriented controls. Keeping the creature local while varying depth and body language preserves organism authority and makes motivation legible. Showing food or toy only when the owner offers it or the organism selects the corresponding behavior makes those props interaction context rather than a fake permanent habitat. Implementation evidence can qualify the presentation boundary but cannot decide aliveness.
 - Affected areas: Android debug owner presentation and tests, D016-Z physical evidence, and local governance records. D016-N organism mechanics, frozen expression contract, comparator, evaluator path, R003-R009 and pre-existing `.gitignore` are unchanged.
 - Supersedes record: DEC-0054
+
+
+## DEC-0056
+
+- Date: 2026-08-18
+- Record or decision ID: DEC-0056
+- Status: ACTIVE
+- Decision or event: D016-AA is a new corrected candidate after the valid D016-Z owner failure `OWNER_ALIVENESS_FAIL_TEMPORAL_AGENCY_AND_CAUSAL_ENGAGEMENT`. The correction keeps one virtual minute per canonical tick and 200 ms viewer pacing, but uses bounded 30-tick voluntary intentions and 12-tick owner acknowledgement episodes rather than one-tick interaction reflexes. Tier 0/1 interruption remains immediate, and deterministic replay, focused cohort tests, debug assembly, Pixel install/launch and runtime evidence passed.
+- Rationale: The owner-observed thrashing was supported by the implementation: the prior six-tick commitment mapped to 1.2 wall seconds and pending owner stimulus responses were committed for one tick. Separating visible intention duration from physiological time addresses the demonstrated temporal mechanism without adding sensors, speech, models or production mechanisms. This establishes readiness for a fresh owner encounter, not A001 success.
+- Affected areas: research/aliveness-spike/cohorts, research/aliveness-spike/realtime-viewer, android-host debug owner harness label, D016-AA evidence and focused tests.
+- Supersedes record: DEC-0055

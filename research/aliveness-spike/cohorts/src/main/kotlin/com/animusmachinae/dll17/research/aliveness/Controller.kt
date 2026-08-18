@@ -141,7 +141,10 @@ public class Controller(private val fx: Fx) {
     ): Decision {
         require(proposals.isNotEmpty()) { "controller must always have a candidate" }
 
-        // An active commitment continues unless a higher-priority tier interrupts.
+        // An active intention continues unless safety, critical physiology, or
+        // one newly arrived salient owner event interrupts it. The event is
+        // consumed after that one selection; its bounded response commitment
+        // then continues without fresh arbitration every tick.
         val committed = state.committedAction
         if (state.has(Mechanism.TIERED_COMMITMENT) &&
             committed != null &&

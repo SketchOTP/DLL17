@@ -754,3 +754,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-Y
 - Status at issuance: ISSUED
+
+
+## D-016-AA
+
+- Issued: 2026-08-18T18:45:00-04:00
+- Issuer: User
+- External directive: D016-AA
+- Objective: Correct D016-N-derived temporal agency and owner-interaction causality after the valid D016-Z owner aliveness failure.
+- Scope: Measure the pre-change timing phenotype; separate bounded visible intention duration from accelerated physiological time; preserve explainable interruption and resumption; make six owner interactions produce bounded causal episodes; preserve existing traits/history and deterministic arbitration; add only faithful presentation changes; validate cohort/replay behavior, build the debug APK, and deploy to the designated Pixel.
+- Exclusions: No camera, microphone, speech, sensors, LLM, R003-R009, scripted pet responses, deterministic-arbitration removal, safety weakening, unbounded commitment, interaction auto-compliance, organism redesign beyond the temporal correction, `.gitignore`, unrelated R014/R012 repair, or A001 verdict.
+- Acceptance: Pre/post diagnostic evidence, deterministic replay, relevant cohort tests, fresh APK, Pixel installation/launch, and runtime evidence showing autonomous activity, owner interruption, response, and resumption or abandonment. Return the corrected candidate to the Architect for a fresh owner encounter.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-Z
+- Status at issuance: ISSUED

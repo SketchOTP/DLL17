@@ -70,7 +70,7 @@ public class OrganismAgent(
             state.committedTarget = winner.target
             state.committedTier = decision.winningTier
             state.commitmentRemaining = when {
-                state.pendingStimulus?.activeAt(tick) == true -> 1
+                state.pendingStimulus?.activeAt(tick) == true -> SpikeContract.COMMITMENT_TICKS_INTERACTION
                 winner.action == SpikeAction.SLEEP -> SpikeContract.COMMITMENT_TICKS_SLEEP
                 else -> SpikeContract.COMMITMENT_TICKS_DEFAULT
             }
@@ -91,6 +91,8 @@ public class OrganismAgent(
         if (state.pendingStimulus?.activeAt(tick) == true &&
             winner.action != SpikeAction.RESUME_INTERRUPTED
         ) {
+            state.interactionEpisodeKind = state.pendingStimulus?.kind
+            state.interactionEpisodeUntilTick = tick + state.commitmentRemaining
             state.pendingStimulus = null
             state.pendingTouchFrom = null
         }

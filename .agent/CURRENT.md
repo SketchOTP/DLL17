@@ -3,7 +3,7 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-18T17:30:16-04:00`
+- Last updated: `2026-08-18T18:55:00-04:00`
 
 ## Active state after adoption
 
@@ -20,6 +20,8 @@
 
 - `D016_Y_OWNER_RESULT=OWNER_REJECTED_SCREEN_DWELLING_EMBODIMENT`. The owner rejected the habitat model, composition, action legibility, persistent props and cryptic controls; this is not an organism or A001 failure.
 - `A001_STATUS=OWNER_EVALUATION_STILL_NOT_VALID`. D016-Z is implemented and physically validated as centered body-language, depth and transient-prop presentation driven by the unchanged selected action. Focused tests, debug assembly, Pixel install/launch, all-six-route exercise, screenshots and runtime video pass; the fresh owner verdict has not run.
+
+- `D016_Z_OWNER_RESULT=OWNER_ALIVENESS_FAIL_TEMPORAL_AGENCY_AND_CAUSAL_ENGAGEMENT`. This is a valid organism aliveness failure, distinct from D016-X/Y presentation-invalid history. D016-AA is a new corrected candidate with bounded 30-tick voluntary intentions, 12-tick owner episodes, 45-tick per-object engagement bound, immediate Tier 0/1 interruption and deterministic Pixel runtime evidence. It is ready for a fresh owner encounter; no A001 PASS/FAIL is claimed.
 
 - D016-Y preserves `D016_X_OWNER_RESULT=INCONCLUSIVE_PRESENTATION_INVALID` and `A001_STATUS=OWNER_EVALUATION_NOT_YET_VALID`. The Pixel 9 Pro XL/API 36 install and launch passed using debug APK SHA-256 `52fbef912b1adfc231fe7d42e1d1f850f6686bed67769e4e1307b70db3c89f9c`; the app remained foreground after exercising creature, bowl, ball, Call, Space and Rustle interactions, with no DLL17 fatal exception or ANR in the inspected log window. The new owner verdict has not run.
 

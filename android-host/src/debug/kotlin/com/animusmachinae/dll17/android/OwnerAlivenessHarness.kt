@@ -25,7 +25,7 @@ internal class OwnerAlivenessHarness(
     private val habitat = Habitat(seed, HabitatCondition.CONTROLLED_NOVELTY)
     private val organism = Cohorts.create(Cohort.FULL, seed, fx)
     private val runtime = SpikeRuntime(
-        runId = "D016-Z-OWNER-PIXEL",
+        runId = "D016-AA-OWNER-PIXEL",
         agent = organism,
         habitat = habitat,
         outcomes = OutcomeModel(),

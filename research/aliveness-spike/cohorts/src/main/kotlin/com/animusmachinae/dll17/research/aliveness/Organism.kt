@@ -228,6 +228,10 @@ public class OrganismState(
     public var pendingStimulus: PendingStimulus? = null
     public var lastInteractionTick: Long = Long.MIN_VALUE / 4
 
+    /** Bounded, inspectable aftereffect of the last owner event. */
+    public var interactionEpisodeKind: InteractionKind? = null
+    public var interactionEpisodeUntilTick: Long = Long.MIN_VALUE / 4
+
     public fun has(m: Mechanism): Boolean = m in mechanisms
 
     public fun index(action: SpikeAction, target: HabitatObject): Int =
@@ -298,6 +302,11 @@ public class OrganismState(
         for (a in uncertainty) mix(a)
         for (a in absoluteShift) mix(a)
         for (a in actionSatiation) mix(a)
+        mix(committedAction?.ordinal?.toLong() ?: -1L)
+        mix(committedTarget?.ordinal0?.toLong() ?: -1L)
+        mix(commitmentRemaining.toLong())
+        mix(interactionEpisodeKind?.ordinal?.toLong() ?: -1L)
+        mix(interactionEpisodeUntilTick)
         mix(episodeCount.toLong())
         for (e in episodes) mix(e?.valence ?: 0L)
         return h

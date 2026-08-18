@@ -233,7 +233,15 @@ public object SpikeContract {
     /** Minimum winner margin: below this the tie-break substream decides. */
     public val MINIMUM_WINNER_MARGIN: Long = FixedPoint.of(0L, 4_000L)
 
-    public const val COMMITMENT_TICKS_DEFAULT: Int = 6
+    /**
+     * Physiological time remains one virtual minute per tick, but a visible
+     * intention is not a one-minute physiological event.  This separate,
+     * bounded wall-readable duration prevents the owner host from presenting a
+     * new intention every 1.2 seconds while preserving the accelerated model.
+     */
+    public const val COMMITMENT_TICKS_DEFAULT: Int = 30
+    /** Acknowledgement is an episode, not a one-frame reflex. */
+    public const val COMMITMENT_TICKS_INTERACTION: Int = 12
     public const val COMMITMENT_TICKS_SLEEP: Int = 240
     public const val PENDING_STIMULUS_LIFETIME_TICKS: Long = 2L
     public const val REFRACTORY_TICKS_VOCALIZE: Int = 45
@@ -247,7 +255,7 @@ public object SpikeContract {
      * cannot do it: under continuous engagement every object saturates, and a
      * uniformly saturated term stops discriminating between them.
      */
-    public const val MAX_ENGAGEMENT_TICKS: Int = 15
+    public const val MAX_ENGAGEMENT_TICKS: Int = 45
 
     /**
      * Action satiation. Diminishing marginal utility for *doing the same kind of
