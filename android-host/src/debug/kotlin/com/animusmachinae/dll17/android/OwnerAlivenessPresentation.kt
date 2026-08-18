@@ -4,35 +4,18 @@ import com.animusmachinae.dll17.research.aliveness.HabitatObject
 import com.animusmachinae.dll17.research.aliveness.SpikeAction
 import com.animusmachinae.dll17.research.aliveness.SpikeExpressionContract
 import com.animusmachinae.dll17.research.aliveness.StepRecord
-import kotlin.math.sqrt
 
-/** Normalized, presentation-only position inside the owner habitat. */
+/** Normalized presentation-only point inside the phone screen. */
 internal data class ScenePoint(val x: Float, val y: Float)
 
-/**
- * One-to-one embodiment vocabulary for the canonical SpikeAction set.
- *
- * These values describe how Android depicts an action the organism already
- * selected. They never feed back into the runtime and cannot select, replace or
- * reward an action.
- */
+/** One-to-one body-language vocabulary for the canonical action set. */
 internal enum class EmbodiedBehavior {
-    INSPECTING,
-    ORIENTING,
-    APPROACHING,
-    RETREATING,
-    SEEKING_OWNER,
-    RESPONDING_TO_TOUCH,
-    VOCALIZING,
-    EXPLORING,
-    PLAYING,
-    EATING,
-    RESTING,
-    SLEEPING,
-    RESUMING,
-    RETRYING,
-    IDLING,
+    INSPECTING, ORIENTING, APPROACHING, RETREATING, SEEKING_OWNER,
+    RESPONDING_TO_TOUCH, VOCALIZING, EXPLORING, PLAYING, EATING,
+    RESTING, SLEEPING, RESUMING, RETRYING, IDLING,
 }
+
+internal enum class CompanionCue { ATTENTION, ALERT, FOOD, PLAY, SLEEP }
 
 internal data class OwnerEmbodimentFrame(
     val tick: Long,
@@ -41,87 +24,106 @@ internal data class OwnerEmbodimentFrame(
     val behavior: EmbodiedBehavior,
     val position: ScenePoint,
     val facing: Float,
+    val depthScale: Float,
+    val bodyLean: Float,
     val expression: SpikeExpressionContract.Expression,
     val gazeTarget: HabitatObject?,
     val motionAmplitude: Long,
     val vocalizing: Boolean,
     val microMovement: String,
+    val cue: CompanionCue?,
 )
 
 /**
- * D016-Y owner-only presentation adapter.
+ * D016-Z owner-only presentation adapter.
  *
- * It consumes the actual StepRecord so action identity is not lost at the
- * ExpressionFrame boundary. Its only mutable state is screen-space position;
- * canonical organism state, action selection and outcomes remain untouched.
+ * Every pose is derived from the actual selected action. Position is a small
+ * local body-language offset around screen center, never a habitat destination.
+ * This adapter has no organism input and cannot select or reward an action.
  */
-internal class OwnerEmbodimentAdapter(
-    initialFrame: SpikeExpressionContract.ExpressionFrame,
-) {
-    private var position = ScenePoint(0.50f, 0.57f)
-    private var facing = 1f
-
-    internal var current: OwnerEmbodimentFrame = OwnerEmbodimentFrame(
+internal class OwnerEmbodimentAdapter(initialFrame: SpikeExpressionContract.ExpressionFrame) {
+    internal var current: OwnerEmbodimentFrame = frameFor(
         tick = 0L,
         action = SpikeAction.IDLE_VARIATION,
         target = null,
-        behavior = EmbodiedBehavior.IDLING,
-        position = position,
-        facing = facing,
-        expression = initialFrame.expression,
-        gazeTarget = initialFrame.gazeTarget,
-        motionAmplitude = initialFrame.motionAmplitude,
-        vocalizing = initialFrame.vocalizing,
-        microMovement = initialFrame.microMovement,
+        frame = initialFrame,
     )
         private set
 
     internal fun consume(record: StepRecord): OwnerEmbodimentFrame {
-        val action = record.choice.action
-        val target = record.choice.target
-        val destination = destinationFor(action, target, record.tick)
-        val previous = position
-
-        position = when (action) {
-            SpikeAction.APPROACH,
-            SpikeAction.EXPLORE,
-            SpikeAction.PLAY,
-            SpikeAction.EAT,
-            SpikeAction.RETRY,
-            SpikeAction.RESUME_INTERRUPTED,
-            -> moveToward(position, destination, 0.075f)
-
-            SpikeAction.SEEK_INTERACTION -> moveToward(position, OWNER_EDGE, 0.070f)
-            SpikeAction.REST, SpikeAction.SLEEP -> moveToward(position, BED, 0.055f)
-            SpikeAction.WITHDRAW -> moveAway(position, destination, 0.085f)
-            else -> position
-        }
-
-        val gaze = record.frame.gazeTarget ?: target
-        val gazePoint = gaze?.let(::scenePointFor)
-        val horizontalIntent = when {
-            position.x != previous.x -> position.x - previous.x
-            gazePoint != null -> gazePoint.x - position.x
-            else -> 0f
-        }
-        if (horizontalIntent > 0.005f) facing = 1f
-        if (horizontalIntent < -0.005f) facing = -1f
-
-        current = OwnerEmbodimentFrame(
-            tick = record.tick,
-            action = action,
-            target = target,
-            behavior = embodiedBehaviorFor(action),
-            position = position,
-            facing = facing,
-            expression = record.frame.expression,
-            gazeTarget = gaze,
-            motionAmplitude = record.frame.motionAmplitude,
-            vocalizing = record.frame.vocalizing,
-            microMovement = record.frame.microMovement,
-        )
+        current = frameFor(record.tick, record.choice.action, record.choice.target, record.frame)
         return current
     }
+}
+
+private fun frameFor(
+    tick: Long,
+    action: SpikeAction,
+    target: HabitatObject?,
+    frame: SpikeExpressionContract.ExpressionFrame,
+): OwnerEmbodimentFrame {
+    val pose = poseFor(action, tick)
+    return OwnerEmbodimentFrame(
+        tick = tick,
+        action = action,
+        target = target,
+        behavior = embodiedBehaviorFor(action),
+        position = pose.position,
+        facing = facingFor(action, target, tick),
+        depthScale = pose.depthScale,
+        bodyLean = pose.bodyLean,
+        expression = frame.expression,
+        gazeTarget = frame.gazeTarget ?: target,
+        motionAmplitude = frame.motionAmplitude,
+        vocalizing = frame.vocalizing,
+        microMovement = frame.microMovement,
+        cue = cueFor(action),
+    )
+}
+
+private data class CompanionPose(
+    val position: ScenePoint,
+    val depthScale: Float,
+    val bodyLean: Float,
+)
+
+private fun poseFor(action: SpikeAction, tick: Long): CompanionPose = when (action) {
+    SpikeAction.OBSERVE -> CompanionPose(ScenePoint(0.50f, 0.52f), 1.00f, -3f)
+    SpikeAction.ORIENT -> CompanionPose(ScenePoint(0.50f, 0.52f), 1.00f, 5f)
+    SpikeAction.APPROACH -> CompanionPose(ScenePoint(0.50f, 0.50f), 1.10f, -5f)
+    SpikeAction.WITHDRAW -> CompanionPose(ScenePoint(0.50f, 0.56f), 0.90f, 7f)
+    SpikeAction.SEEK_INTERACTION -> CompanionPose(ScenePoint(0.50f, 0.49f), 1.13f, -7f)
+    SpikeAction.RESPOND_TO_TOUCH -> CompanionPose(ScenePoint(0.48f, 0.51f), 1.06f, -9f)
+    SpikeAction.VOCALIZE -> CompanionPose(ScenePoint(0.50f, 0.51f), 1.04f, -2f)
+    SpikeAction.EXPLORE -> CompanionPose(
+        ScenePoint(if ((tick / 4L) % 2L == 0L) 0.47f else 0.53f, 0.52f),
+        0.99f,
+        if ((tick / 4L) % 2L == 0L) -4f else 4f,
+    )
+    SpikeAction.PLAY -> CompanionPose(ScenePoint(0.50f, 0.53f), 1.04f, -8f)
+    SpikeAction.EAT -> CompanionPose(ScenePoint(0.50f, 0.56f), 1.00f, 10f)
+    SpikeAction.REST -> CompanionPose(ScenePoint(0.50f, 0.57f), 0.97f, 0f)
+    SpikeAction.SLEEP -> CompanionPose(ScenePoint(0.50f, 0.58f), 0.94f, 0f)
+    SpikeAction.RESUME_INTERRUPTED -> CompanionPose(ScenePoint(0.51f, 0.52f), 1.05f, -4f)
+    SpikeAction.RETRY -> CompanionPose(ScenePoint(0.49f, 0.52f), 1.02f, 8f)
+    SpikeAction.IDLE_VARIATION -> CompanionPose(ScenePoint(0.50f, 0.53f), 1.00f, 0f)
+}
+
+private fun facingFor(action: SpikeAction, target: HabitatObject?, tick: Long): Float = when {
+    action == SpikeAction.RESPOND_TO_TOUCH || action == SpikeAction.SEEK_INTERACTION -> 1f
+    target in LEFT_TARGETS -> -1f
+    target != null -> 1f
+    action == SpikeAction.EXPLORE && (tick / 4L) % 2L == 0L -> -1f
+    else -> 1f
+}
+
+private fun cueFor(action: SpikeAction): CompanionCue? = when (action) {
+    SpikeAction.SEEK_INTERACTION, SpikeAction.RESPOND_TO_TOUCH -> CompanionCue.ATTENTION
+    SpikeAction.WITHDRAW, SpikeAction.RETRY -> CompanionCue.ALERT
+    SpikeAction.EAT -> CompanionCue.FOOD
+    SpikeAction.PLAY -> CompanionCue.PLAY
+    SpikeAction.SLEEP -> CompanionCue.SLEEP
+    else -> null
 }
 
 internal fun embodiedBehaviorFor(action: SpikeAction): EmbodiedBehavior = when (action) {
@@ -142,82 +144,17 @@ internal fun embodiedBehaviorFor(action: SpikeAction): EmbodiedBehavior = when (
     SpikeAction.IDLE_VARIATION -> EmbodiedBehavior.IDLING
 }
 
-internal fun scenePointFor(target: HabitatObject): ScenePoint = when (target) {
-    HabitatObject.FOOD_TROUGH, HabitatObject.FOOD_CACHE -> FOOD_BOWL
-    HabitatObject.SHELTER -> BED
-    HabitatObject.PERSON_ALPHA, HabitatObject.PERSON_BETA -> OWNER_EDGE
-    HabitatObject.PLAY_BALL -> BALL
-    HabitatObject.PLAY_CUBE -> ScenePoint(0.70f, 0.64f)
-    HabitatObject.PLAY_CHIME -> ScenePoint(0.16f, 0.38f)
-    HabitatObject.PLAY_MIRROR -> ScenePoint(0.84f, 0.43f)
-    HabitatObject.AVERSIVE_BUZZER -> ScenePoint(0.12f, 0.18f)
-    HabitatObject.SEALED_GATE -> ScenePoint(0.88f, 0.24f)
-    HabitatObject.NOVEL_SLOT -> ScenePoint(0.18f, 0.25f)
-}
+/** The creature is the direct scene target; a background tap withdraws attention. */
+internal fun interactionAt(normalizedTap: ScenePoint, petPosition: ScenePoint): OwnerInteraction =
+    if (
+        normalizedTap.x in (petPosition.x - 0.30f)..(petPosition.x + 0.30f) &&
+        normalizedTap.y in (petPosition.y - 0.30f)..(petPosition.y + 0.30f)
+    ) OwnerInteraction.TOUCH else OwnerInteraction.WITHDRAW_ATTENTION
 
-private fun destinationFor(action: SpikeAction, target: HabitatObject?, tick: Long): ScenePoint = when {
-    action == SpikeAction.REST || action == SpikeAction.SLEEP -> ScenePoint(0.68f, 0.38f)
-    action == SpikeAction.SEEK_INTERACTION || action == SpikeAction.RESPOND_TO_TOUCH -> OWNER_EDGE
-    action == SpikeAction.EAT && target != null -> approachPointFor(target)
-    action == SpikeAction.PLAY && target != null -> approachPointFor(target)
-    action == SpikeAction.APPROACH && target != null -> approachPointFor(target)
-    action == SpikeAction.RETRY && target != null -> approachPointFor(target)
-    action == SpikeAction.RESUME_INTERRUPTED && target != null -> approachPointFor(target)
-    target != null -> scenePointFor(target)
-    action == SpikeAction.EXPLORE -> if ((tick / 6L) % 2L == 0L) {
-        ScenePoint(0.28f, 0.42f)
-    } else {
-        ScenePoint(0.72f, 0.52f)
-    }
-    else -> ScenePoint(0.50f, 0.57f)
-}
-
-private fun approachPointFor(target: HabitatObject): ScenePoint {
-    val targetPoint = scenePointFor(target)
-    val horizontalOffset = if (targetPoint.x < 0.50f) 0.16f else -0.16f
-    return ScenePoint(targetPoint.x + horizontalOffset, targetPoint.y - 0.02f).clamped()
-}
-
-private fun moveToward(from: ScenePoint, to: ScenePoint, step: Float): ScenePoint {
-    val dx = to.x - from.x
-    val dy = to.y - from.y
-    val distance = sqrt(dx * dx + dy * dy)
-    if (distance <= step || distance == 0f) return to.clamped()
-    return ScenePoint(from.x + dx / distance * step, from.y + dy / distance * step).clamped()
-}
-
-private fun moveAway(from: ScenePoint, threat: ScenePoint, step: Float): ScenePoint {
-    val dx = from.x - threat.x
-    val dy = from.y - threat.y
-    val distance = sqrt(dx * dx + dy * dy)
-    val safeDx = if (distance == 0f) 1f else dx / distance
-    val safeDy = if (distance == 0f) 0f else dy / distance
-    return ScenePoint(from.x + safeDx * step, from.y + safeDy * step).clamped()
-}
-
-private fun ScenePoint.clamped(): ScenePoint = ScenePoint(
-    x.coerceIn(0.16f, 0.84f),
-    y.coerceIn(0.28f, 0.78f),
+private val LEFT_TARGETS = setOf(
+    HabitatObject.FOOD_TROUGH,
+    HabitatObject.FOOD_CACHE,
+    HabitatObject.PLAY_CHIME,
+    HabitatObject.NOVEL_SLOT,
+    HabitatObject.AVERSIVE_BUZZER,
 )
-
-/** Direct scene hit testing; decorative habitat elements deliberately return null. */
-internal fun interactionAt(
-    normalizedTap: ScenePoint,
-    petPosition: ScenePoint,
-): OwnerInteraction? = when {
-    normalizedTap.distanceTo(petPosition) <= 0.17f -> OwnerInteraction.TOUCH
-    normalizedTap.distanceTo(FOOD_BOWL) <= 0.12f -> OwnerInteraction.OFFER_FOOD
-    normalizedTap.distanceTo(BALL) <= 0.12f -> OwnerInteraction.PRESENT_OBJECT
-    else -> null
-}
-
-private fun ScenePoint.distanceTo(other: ScenePoint): Float {
-    val dx = x - other.x
-    val dy = y - other.y
-    return sqrt(dx * dx + dy * dy)
-}
-
-internal val FOOD_BOWL = ScenePoint(0.22f, 0.72f)
-internal val BED = ScenePoint(0.78f, 0.34f)
-internal val BALL = ScenePoint(0.78f, 0.72f)
-internal val OWNER_EDGE = ScenePoint(0.50f, 0.80f)

@@ -739,3 +739,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-X
 - Status at issuance: ISSUED
+
+
+## D-016-Z
+
+- Issued: 2026-08-18T17:08:31-04:00
+- Issuer: User
+- External directive: D016-Z
+- Objective: Replace the rejected D016-Y diorama with a full-screen embodiment of the unchanged D016-N organism as a companion living in the phone screen.
+- Scope: Make the original full-body creature visually dominant on an abstract screen; derive readable local posture, gaze, depth and intention cues from the actual StepRecord action, target and ExpressionFrame; show food and toy only when offered or behaviorally relevant; replace Call, Space and Rustle text with direct creature/background interaction and minimal icon affordances; preserve all six existing interaction routes; validate, deploy and capture fresh physical evidence.
+- Exclusions: No D016-N mechanics, action selection, drives, utilities, learning, curiosity, habituation, commitments, SpikeExpressionContractV1, comparator, AI evaluator, R003-R009, unrelated governance, pre-existing .gitignore, fake action, or A001 PASS/FAIL claim.
+- Acceptance: The Pixel immediately reads as a screen-dwelling companion with a creature occupying roughly 60-80% of the useful presentation width, no outdoor scene or permanent props, no cryptic text controls, no anchor-jumping, readable major action classes, unchanged D016-N source, stable physical install/launch, and fresh screenshot/video evidence. Stop before the owner verdict.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-Y
+- Status at issuance: ISSUED

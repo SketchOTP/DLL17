@@ -1214,3 +1214,32 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The temporary original vector creature and habitat are evaluation-spike artwork, not production assets. A Microsoft Teams work-profile picture-in-picture call is visible over decorative scenery in the physical capture, but it did not obscure or intercept the creature, bowl, ball or controls. The only scientifically meaningful next result is the owner's fresh subjective evaluation; implementation quality alone cannot produce it.
 - Blockers: none for a fresh owner evaluation.
 - Follow-up directive: none
+
+
+## D-016-Z - COMPLETE
+
+- Outcome ID: O-0051
+- Supersedes outcome: O-0050
+- Closed: 2026-08-18T17:30:16-04:00
+- Acceptance: MET
+- Summary: The owner rejected D016-Y as `OWNER_REJECTED_SCREEN_DWELLING_EMBODIMENT`; this remains presentation-invalid evidence rather than an organism or A001 failure. D016-Z replaces the outdoor diorama and anchor travel with a debug-only full-screen companion whose actual selected action drives local posture, gaze, depth, lean, expression, transient props and small intention cues. The designated Pixel 9 Pro XL/API 36 installed and launched APK SHA-256 `edd87506a150bb96327540ffedaee52d0df2c4b10a1b64ca4ef46bd2c22e5a3a`; all six interaction routes were exercised, the activity stayed foreground, and fresh screenshots plus a 12.056-second runtime recording are preserved. The owner verdict remains not run.
+- Changed areas: Android debug owner presentation, adapter and focused tests; `research/aliveness-spike/evidence/a001-v2/d016-z/`; and append-only governance records. D016-N cohort source, `SpikeExpressionContractV1`, comparator, evaluator/model path, R003-R009 and the pre-existing `.gitignore` were unchanged.
+- Validation:
+  - all fifteen canonical actions retain distinct selected-action-derived embodiments - PASSED
+  - local pose/depth semantics replace habitat-anchor travel - PASSED
+  - food and toy remain transient and interaction-relevant - PASSED
+  - six owner routes map only to existing interaction vocabulary - PASSED
+  - owner harness/adapter focused unit tests - PASSED
+  - debug APK assembly - PASSED
+  - D016-N cohort source unchanged from implementation parent - PASSED
+  - R012DEV2 qualification bundle - PASSED
+  - historical out-of-scope R014 bundle mismatch - FAILED
+  - Pixel install and DebugAlivenessActivity launch - PASSED
+  - physical screen-dwelling layout and intuitive-control inspection - PASSED
+  - physical six-route interaction recording - PASSED
+  - runtime foreground/process and fatal/ANR inspection - PASSED
+  - AI/model calls, external human participants and A001 attempts - `0/0/0`
+  - R003-R009 - `BLOCKED`
+- Remaining risks: The vector creature remains evaluation-spike artwork, and all action distinctions require live temporal observation rather than inference from one still. Only the owner's fresh subjective encounter can now establish whether the presentation supports a valid aliveness judgment.
+- Blockers: none for a fresh owner evaluation.
+- Follow-up directive: none

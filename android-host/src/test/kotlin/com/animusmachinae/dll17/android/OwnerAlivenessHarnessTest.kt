@@ -66,7 +66,7 @@ class OwnerAlivenessHarnessTest {
     }
 
     @Test
-    fun movementComesOnlyFromTheSelectedAction() {
+    fun actionPosesStayLocalAndExpressDepthRatherThanHabitatTravel() {
         val idleAdapter = OwnerEmbodimentAdapter(initialFrame())
         val idle = idleAdapter.consume(record(SpikeAction.IDLE_VARIATION, null, 1L))
         val approachAdapter = OwnerEmbodimentAdapter(initialFrame())
@@ -74,25 +74,43 @@ class OwnerAlivenessHarnessTest {
         val withdrawAdapter = OwnerEmbodimentAdapter(initialFrame())
         val withdraw = withdrawAdapter.consume(record(SpikeAction.WITHDRAW, HabitatObject.AVERSIVE_BUZZER, 1L))
 
-        assertEquals(ScenePoint(0.50f, 0.57f), idle.position)
-        assertTrue(approach.position.x > idle.position.x)
-        assertTrue(withdraw.position.x > idle.position.x)
+        assertEquals(ScenePoint(0.50f, 0.53f), idle.position)
+        assertTrue(approach.depthScale > idle.depthScale)
+        assertTrue(withdraw.depthScale < idle.depthScale)
+        assertTrue(listOf(idle, approach, withdraw).all { it.position.x in 0.45f..0.55f })
+        assertTrue(listOf(idle, approach, withdraw).all { it.position.y in 0.45f..0.60f })
         assertEquals(EmbodiedBehavior.APPROACHING, approach.behavior)
         assertEquals(EmbodiedBehavior.RETREATING, withdraw.behavior)
     }
 
     @Test
-    fun everyVisibleSceneAffordanceRoutesToExistingVocabulary() {
-        val pet = ScenePoint(0.50f, 0.57f)
+    fun directCreatureAndBackgroundTapsHaveNaturalMeaning() {
+        val pet = ScenePoint(0.50f, 0.53f)
 
         assertEquals(OwnerInteraction.TOUCH, interactionAt(pet, pet))
-        assertEquals(OwnerInteraction.OFFER_FOOD, interactionAt(FOOD_BOWL, pet))
-        assertEquals(OwnerInteraction.PRESENT_OBJECT, interactionAt(BALL, pet))
-        assertEquals(null, interactionAt(ScenePoint(0.50f, 0.10f), pet))
+        assertEquals(
+            OwnerInteraction.WITHDRAW_ATTENTION,
+            interactionAt(ScenePoint(0.05f, 0.08f), pet),
+        )
 
         assertEquals(InteractionKind.CALL, OwnerInteraction.CALL.toEvent().first)
         assertEquals(InteractionKind.WITHDRAW_ATTENTION, OwnerInteraction.WITHDRAW_ATTENTION.toEvent().first)
         assertEquals(InteractionKind.STARTLE, OwnerInteraction.STARTLE.toEvent().first)
+    }
+
+    @Test
+    fun propsAndIntentionCuesAppearOnlyForRelevantSelectedActions() {
+        val adapter = OwnerEmbodimentAdapter(initialFrame())
+
+        val eat = adapter.consume(record(SpikeAction.EAT, HabitatObject.FOOD_TROUGH, 1L))
+        val play = adapter.consume(record(SpikeAction.PLAY, HabitatObject.PLAY_BALL, 2L))
+        val sleep = adapter.consume(record(SpikeAction.SLEEP, HabitatObject.SHELTER, 3L))
+        val idle = adapter.consume(record(SpikeAction.IDLE_VARIATION, null, 4L))
+
+        assertEquals(CompanionCue.FOOD, eat.cue)
+        assertEquals(CompanionCue.PLAY, play.cue)
+        assertEquals(CompanionCue.SLEEP, sleep.cue)
+        assertEquals(null, idle.cue)
     }
 
     @Test

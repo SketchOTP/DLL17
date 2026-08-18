@@ -3,7 +3,7 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-18T14:24:00-04:00`
+- Last updated: `2026-08-18T17:30:16-04:00`
 
 ## Active state after adoption
 
@@ -17,6 +17,9 @@
 - Immediate next action: `NONE`
 
 ## Temporary task-relevant facts
+
+- `D016_Y_OWNER_RESULT=OWNER_REJECTED_SCREEN_DWELLING_EMBODIMENT`. The owner rejected the habitat model, composition, action legibility, persistent props and cryptic controls; this is not an organism or A001 failure.
+- `A001_STATUS=OWNER_EVALUATION_STILL_NOT_VALID`. D016-Z is implemented and physically validated as centered body-language, depth and transient-prop presentation driven by the unchanged selected action. Focused tests, debug assembly, Pixel install/launch, all-six-route exercise, screenshots and runtime video pass; the fresh owner verdict has not run.
 
 - D016-Y preserves `D016_X_OWNER_RESULT=INCONCLUSIVE_PRESENTATION_INVALID` and `A001_STATUS=OWNER_EVALUATION_NOT_YET_VALID`. The Pixel 9 Pro XL/API 36 install and launch passed using debug APK SHA-256 `52fbef912b1adfc231fe7d42e1d1f850f6686bed67769e4e1307b70db3c89f9c`; the app remained foreground after exercising creature, bowl, ball, Call, Space and Rustle interactions, with no DLL17 fatal exception or ANR in the inspected log window. The new owner verdict has not run.
 
@@ -117,12 +120,12 @@
 
 ## Last validation after adoption
 
-- Command or check: D016-Y owner harness unit tests and debug APK assembly; physical Pixel install, launch, interaction and runtime inspection; adopted-governance validator
+- Command or check: D016-Z owner harness unit tests and debug APK assembly; physical Pixel install, launch, six-route interaction recording and runtime inspection; D016-N source diff; adopted-governance validator
 - Result: `PASSED`
 
 ## Risks
 
-- A physical Pixel is reachable and was used for the D016-Y owner-presentation scope. D016-Y did not authorize the separate R012 Keystore, flash, latency or restart qualification suite, so those properties remain unqualified despite device availability.
+- A physical Pixel is reachable and was used for the D016-Z owner-presentation scope. D016-Z did not authorize the separate R012 Keystore, flash, latency or restart qualification suite, so those properties remain unqualified despite device availability.
 - Power-loss durability is not proven by any test here. It rests on the force-per-commit policy, which is stated rather than measured.
 - The measured latencies are desktop and emulator figures. No production threshold is derived from them and none may be until device evidence exists.
 - Data-encryption-key rotation has no design. If one is ever needed, it must be frozen separately and must not be reached by widening wrapping rotation.

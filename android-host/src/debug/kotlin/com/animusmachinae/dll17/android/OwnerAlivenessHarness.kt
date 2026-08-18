@@ -15,7 +15,7 @@ import com.animusmachinae.dll17.research.aliveness.SpikeRuntime
 import com.animusmachinae.dll17.research.aliveness.StepRecord
 
 /**
- * D016-X/Y owner/debug bridge. It owns timing and event normalization, but
+ * D016-X/Y/Z owner/debug bridge. It owns timing and event normalization, but
  * never chooses an organism action or synthesizes a presentation frame.
  */
 internal class OwnerAlivenessHarness(
@@ -25,7 +25,7 @@ internal class OwnerAlivenessHarness(
     private val habitat = Habitat(seed, HabitatCondition.CONTROLLED_NOVELTY)
     private val organism = Cohorts.create(Cohort.FULL, seed, fx)
     private val runtime = SpikeRuntime(
-        runId = "D016-Y-OWNER-PIXEL",
+        runId = "D016-Z-OWNER-PIXEL",
         agent = organism,
         habitat = habitat,
         outcomes = OutcomeModel(),

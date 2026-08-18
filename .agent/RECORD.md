@@ -578,3 +578,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The frozen comparator-oriented expression frame collapses behaviorally distinct actions and the D016-X diagnostic renderer prevented a valid subjective owner judgment. A transient adapter can reveal canonical selected behavior without changing decisions, the frozen expression contract or study artifacts. Implementation and deployment establish a valid presentation boundary, not an aliveness result.
 - Affected areas: android-host debug owner presentation and tests, research/aliveness-spike/evidence/a001-v2/d016-y/, .agent/CURRENT.md, .agent/DIRECTIVES.md, .agent/OUTCOMES.md, .agent/RECORD.md
 - Supersedes record: DEC-0053
+
+
+## DEC-0055
+
+- Date: 2026-08-18
+- Record or decision ID: DEC-0055
+- Status: ACTIVE
+- Decision or event: D016-Y is rejected as `OWNER_REJECTED_SCREEN_DWELLING_EMBODIMENT`, not as an organism or A001 failure. D016-Z makes the unchanged D016-N organism a full-screen phone companion: the creature is visually dominant, the phone screen is its world, persistent scenery and props are absent, and actual selected actions are expressed through local posture, gaze, depth, lean, transient props and small non-diagnostic cues instead of travel between habitat anchors. Owner interaction is direct creature touch, background withdrawal, and heart, apple, ball and musical-note affordances, preserving exactly the six existing interaction kinds. Physical Pixel deployment and evidence passed; the fresh owner verdict remains unrun.
+- Rationale: D016-Y's outdoor diorama, fixed targets and cumulative movement transformed selected actions into apparent random hopping and asked the owner to interpret developer-oriented controls. Keeping the creature local while varying depth and body language preserves organism authority and makes motivation legible. Showing food or toy only when the owner offers it or the organism selects the corresponding behavior makes those props interaction context rather than a fake permanent habitat. Implementation evidence can qualify the presentation boundary but cannot decide aliveness.
+- Affected areas: Android debug owner presentation and tests, D016-Z physical evidence, and local governance records. D016-N organism mechanics, frozen expression contract, comparator, evaluator path, R003-R009 and pre-existing `.gitignore` are unchanged.
+- Supersedes record: DEC-0054

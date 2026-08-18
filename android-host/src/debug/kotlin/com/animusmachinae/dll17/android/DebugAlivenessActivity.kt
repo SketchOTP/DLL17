@@ -55,7 +55,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-/** Disposable owner-only D016-Y pet embodiment. Not part of the release APK. */
+/** Disposable owner-only D016-Z screen companion. Not part of the release APK. */
 internal class DebugAlivenessActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,71 +92,64 @@ private fun OwnerPetExperience(harness: OwnerAlivenessHarness) {
         }
     }
 
+    var offeredCue by remember { mutableStateOf<CompanionCue?>(null) }
+
     val animatedX by animateFloatAsState(
         targetValue = embodiment.position.x,
-        animationSpec = tween(180, easing = FastOutSlowInEasing),
+        animationSpec = tween(360, easing = FastOutSlowInEasing),
         label = "pet-x",
     )
     val animatedY by animateFloatAsState(
         targetValue = embodiment.position.y,
-        animationSpec = tween(180, easing = FastOutSlowInEasing),
+        animationSpec = tween(360, easing = FastOutSlowInEasing),
         label = "pet-y",
     )
     val displayed = embodiment.copy(position = ScenePoint(animatedX, animatedY))
 
-    fun submit(interaction: OwnerInteraction) {
+    fun submit(interaction: OwnerInteraction, offered: CompanionCue? = null) {
+        offeredCue = offered
         val (kind, target) = interaction.toEvent()
         harness.submit(kind, target)
+    }
+
+    LaunchedEffect(offeredCue) {
+        if (offeredCue != null) {
+            delay(2200L)
+            offeredCue = null
+        }
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF101A16))
+            .background(Color(0xFF101816))
             .safeDrawingPadding()
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(8.dp),
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Text(
-                text = "The little hollow",
-                color = Color(0xFFF4E8C9),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-            )
-            Text(
-                text = "Touch your companion, the bowl, or the ball.",
-                color = Color(0xFFBED0C3),
-                fontSize = 13.sp,
-                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-            )
+        CompanionScreen(
+            embodiment = displayed,
+            offeredCue = offeredCue,
+            animationMillis = animationMillis,
+            onInteraction = { submit(it) },
+            modifier = Modifier.fillMaxSize(),
+        )
 
-            HabitatScene(
-                embodiment = displayed,
-                animationMillis = animationMillis,
-                onInteraction = ::submit,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(top = 6.dp),
-            )
-
-            Surface(
-                color = Color(0xCC20342A),
-                shape = RoundedCornerShape(24.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
+        Surface(
+            color = Color(0x8F24312E),
+            shape = RoundedCornerShape(28.dp),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 8.dp),
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    PetAffordance("Call") { submit(OwnerInteraction.CALL) }
-                    PetAffordance("Space") { submit(OwnerInteraction.WITHDRAW_ATTENTION) }
-                    PetAffordance("Rustle") { submit(OwnerInteraction.STARTLE) }
-                }
+                PetAffordance("♥") { submit(OwnerInteraction.CALL, CompanionCue.ATTENTION) }
+                PetAffordance("🍎") { submit(OwnerInteraction.OFFER_FOOD, CompanionCue.FOOD) }
+                PetAffordance("⚽") { submit(OwnerInteraction.PRESENT_OBJECT, CompanionCue.PLAY) }
+                PetAffordance("♪") { submit(OwnerInteraction.STARTLE, CompanionCue.ALERT) }
             }
         }
     }
@@ -167,90 +160,102 @@ private fun PetAffordance(label: String, onClick: () -> Unit) {
     TextButton(onClick = onClick) {
         Text(
             text = label,
-            color = Color(0xFFF2D99B),
-            fontSize = 13.sp,
+            color = Color(0xFFF3DCA7),
+            fontSize = 24.sp,
             textAlign = TextAlign.Center,
         )
     }
 }
 
 @Composable
-private fun HabitatScene(
+private fun CompanionScreen(
     embodiment: OwnerEmbodimentFrame,
+    offeredCue: CompanionCue?,
     animationMillis: Long,
     onInteraction: (OwnerInteraction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Canvas(
         modifier = modifier
-            .background(Color(0xFF27483A), RoundedCornerShape(28.dp))
+            .background(Color(0xFF17211F), RoundedCornerShape(32.dp))
             .pointerInput(embodiment.position) {
                 detectTapGestures { tap ->
-                    interactionAt(
+                    onInteraction(interactionAt(
                         normalizedTap = ScenePoint(tap.x / size.width, tap.y / size.height),
                         petPosition = embodiment.position,
-                    )?.let(onInteraction)
+                    ))
                 }
             },
     ) {
-        drawHollow(embodiment, animationMillis)
+        drawCompanionWorld(embodiment, offeredCue, animationMillis)
     }
 }
 
-private fun DrawScope.drawHollow(
+private fun DrawScope.drawCompanionWorld(
     embodiment: OwnerEmbodimentFrame,
+    offeredCue: CompanionCue?,
     animationMillis: Long,
 ) {
     drawRect(
-        brush = Brush.verticalGradient(
-            listOf(Color(0xFF799CA2), Color(0xFFA9B89E), Color(0xFF4F7558)),
+        brush = Brush.radialGradient(
+            listOf(Color(0xFF344740), Color(0xFF17211F), Color(0xFF0E1514)),
+            center = Offset(size.width * 0.50f, size.height * 0.46f),
+            radius = size.maxDimension * 0.72f,
         ),
     )
-
-    val farHill = Path().apply {
-        moveTo(0f, size.height * 0.34f)
-        cubicTo(
-            size.width * 0.22f, size.height * 0.22f,
-            size.width * 0.44f, size.height * 0.38f,
-            size.width * 0.66f, size.height * 0.27f,
-        )
-        cubicTo(
-            size.width * 0.82f, size.height * 0.20f,
-            size.width, size.height * 0.31f,
-            size.width, size.height * 0.31f,
-        )
-        lineTo(size.width, size.height)
-        lineTo(0f, size.height)
-        close()
-    }
-    drawPath(farHill, Color(0xFF5F8164))
-
-    val nearGround = Path().apply {
-        moveTo(0f, size.height * 0.50f)
-        cubicTo(
-            size.width * 0.28f, size.height * 0.43f,
-            size.width * 0.67f, size.height * 0.48f,
-            size.width, size.height * 0.40f,
-        )
-        lineTo(size.width, size.height)
-        lineTo(0f, size.height)
-        close()
-    }
-    drawPath(nearGround, Color(0xFF365D43))
-
-    drawCloud(Offset(size.width * 0.22f, size.height * 0.14f), size.minDimension * 0.06f)
-    drawSun(Offset(size.width * 0.82f, size.height * 0.13f), size.minDimension * 0.045f)
-    drawTree(Offset(size.width * 0.10f, size.height * 0.42f), size.minDimension * 0.16f)
-    drawShrub(Offset(size.width * 0.88f, size.height * 0.52f), size.minDimension * 0.12f)
-
-    drawBed(point(BED), size.minDimension * 0.16f)
-    drawFoodBowl(point(FOOD_BOWL), size.minDimension * 0.11f, embodiment.behavior)
-    drawBall(point(BALL), size.minDimension * 0.055f, embodiment.behavior, animationMillis)
-    drawWindChime(Offset(size.width * 0.16f, size.height * 0.38f), size.minDimension * 0.07f)
-
     val petCenter = point(embodiment.position)
     val phase = ((animationMillis % 1600L).toDouble() / 1600.0 * 2.0 * PI).toFloat()
-    drawPet(petCenter, size.minDimension / 520f, embodiment, phase)
+    val unit = size.minDimension / 245f * embodiment.depthScale
+
+    drawOval(
+        Brush.radialGradient(
+            listOf(Color(0x5945574F), Color.Transparent),
+            center = Offset(petCenter.x, petCenter.y + 92f * unit),
+            radius = 150f * unit,
+        ),
+        Offset(petCenter.x - 170f * unit, petCenter.y + 55f * unit),
+        Size(340f * unit, 90f * unit),
+    )
+
+    val visibleCue = embodiment.cue ?: offeredCue
+    if (visibleCue == CompanionCue.FOOD || embodiment.behavior == EmbodiedBehavior.EATING) {
+        drawFoodBowl(
+            Offset(petCenter.x + 84f * unit, petCenter.y + 92f * unit),
+            72f * unit,
+            embodiment.behavior,
+        )
+    }
+    if (visibleCue == CompanionCue.PLAY || embodiment.behavior == EmbodiedBehavior.PLAYING) {
+        drawBall(
+            Offset(petCenter.x + 100f * unit, petCenter.y + 70f * unit),
+            24f * unit,
+            embodiment.behavior,
+            animationMillis,
+        )
+    }
+
+    withTransform({ rotate(embodiment.bodyLean, petCenter) }) {
+        drawPet(petCenter, unit, embodiment, phase)
+    }
+    drawIntentionCue(visibleCue, Offset(petCenter.x + 104f * unit, petCenter.y - 118f * unit), 20f * unit)
+}
+
+private fun DrawScope.drawIntentionCue(cue: CompanionCue?, center: Offset, radius: Float) {
+    if (cue == null || cue == CompanionCue.FOOD || cue == CompanionCue.PLAY) return
+    drawCircle(Color(0xDDF3E7C6), radius * 1.15f, center)
+    drawCircle(Color(0xFF26352F), radius * 0.82f, center)
+    when (cue) {
+        CompanionCue.ATTENTION -> {
+            drawCircle(Color(0xFFF3DCA7), radius * 0.21f, Offset(center.x - radius * 0.28f, center.y))
+            drawCircle(Color(0xFFF3DCA7), radius * 0.21f, Offset(center.x + radius * 0.28f, center.y))
+        }
+        CompanionCue.ALERT -> {
+            drawLine(Color(0xFFF3DCA7), Offset(center.x, center.y - radius * 0.42f), Offset(center.x, center.y + radius * 0.15f), radius * 0.16f, StrokeCap.Round)
+            drawCircle(Color(0xFFF3DCA7), radius * 0.09f, Offset(center.x, center.y + radius * 0.46f))
+        }
+        CompanionCue.SLEEP -> drawTextMark("z", center, radius * 0.72f, Color(0xFFF3DCA7))
+        CompanionCue.FOOD, CompanionCue.PLAY -> Unit
+    }
 }
 
 private fun DrawScope.point(point: ScenePoint): Offset = Offset(size.width * point.x, size.height * point.y)
