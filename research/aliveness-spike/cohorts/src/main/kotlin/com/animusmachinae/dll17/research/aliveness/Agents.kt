@@ -245,7 +245,7 @@ private val NON_RESUMABLE = setOf(
     SpikeAction.RETRY,
 )
 
-private val WORLD_ATTEND_THRESHOLD: Long = FixedPoint.of(0L, 350_000L)
+private val WORLD_ATTEND_THRESHOLD: Long = FixedPoint.of(0L, 500_000L)
 private val WORLD_INTERRUPT_THRESHOLD: Long = FixedPoint.of(0L, 700_000L)
 
 /**
