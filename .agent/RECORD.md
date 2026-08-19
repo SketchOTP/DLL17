@@ -611,3 +611,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: A screen-only pet presentation cannot establish the intended phone-as-body target. This narrow research slice tests the causal boundary from platform observation to organism belief/decision to expression without hardcoding a scenario or allowing the platform adapter to choose organism action. The missing device is an execution-capacity blocker, not evidence about aliveness and not a reason to claim A001 or unblock R003-R009.
 - Affected areas: PhoneSensoriumContractV1, PhoneBodyRuntime, Android debug sensor/TTS host, realtime diagnostic, architecture/research documentation, D016-AB evidence and append-only governance records.
 - Supersedes record: DEC-0056
+
+
+## DEC-0058
+
+- Date: 2026-08-19
+- Record or decision ID: DEC-0058
+- Status: ACTIVE
+- Decision or event: Architect review classified the original D016-AB implementation as `PARTIAL_IMPLEMENTATION_REVIEW_FAILED_AUTONOMY_AND_LANGUAGE_BOUNDARY`. D016-AB-R1 corrected the compulsory world ORIENT proposal and commitment interruption, replaced fixed topic phrases with a bounded compositional semantic language frame, added three-sample motion debounce/hysteresis, and introduced a complete D016-AB research replay signature covering world state and adapter state. Seven focused fixtures, the realtime diagnostic and debug APK assembly pass at commit `67b7508f62ce66d93ea063988ae03c7a4d55352c`; physical Pixel validation remains pending because Atlas still has no ADB device.
+- Rationale: A platform observation must be evidence available to the organism, not a disguised action command or sentence selector. The correction preserves the existing FULL organism and D016-AA bounded intentions while making attention state-dependent, language compositional and replay evidence complete. The missing Pixel is recorded only after the local correction passes and is not the sole explanation of the earlier review failure.
+- Affected areas: D016-AB sensorium normalizer, organism world-attention state, controller arbitration, research replay signature, semantic speech frame/grammar, focused fixtures, realtime diagnostic, architecture documentation and append-only governance records.
+- Supersedes record: DEC-0057

@@ -1291,3 +1291,30 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The Android-to-organism boundary and foreground diagnostic are implemented, but actual device motion, TTS, runtime stability and battery behavior remain unqualified until the designated Pixel is connected and authorized.
 - Blockers: `BLOCKED_DEVICE_NOT_CONNECTED`
 - Follow-up directive: none
+
+
+## D-016-AB-R1 - BLOCKED
+
+- Outcome ID: O-0054
+- Supersedes outcome: O-0053
+- Closed: 2026-08-19T11:34:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-AB-R1 corrected the reviewed autonomy and language boundary defects. World observations now become bounded organism-owned IGNORE, ATTEND or INTERRUPT opportunities; low evidence can leave an intention continuing, relevant evidence can produce Tier-3 attention, and strong evidence can produce bounded Tier-2 interruption. Motion transitions require three stable classified samples with hysteresis. Speech is silent unless the organism selects VOCALIZE, and the semantic frame is rendered by bounded composition rather than a topic-to-sentence table. D016-AA behavior and A001 artifacts remain preserved. Physical Pixel validation was not run because the Atlas ADB session still reports no device.
+- Changed areas: D016-AB world-attention state and controller path, stabilized MotionObservationNormalizer, compositional PhoneBodyRuntime speech frame/grammar, D016-AB research replay signature, focused fixtures, realtime diagnostic, architecture documentation and append-only governance records. D016-AA, A001, production mechanisms, R003-R009 and `.gitignore` were unchanged.
+- Validation:
+  - D016-AB focused cohort fixtures - PASSED (7 tests)
+  - occupied/ignored, curious/attend and salient/interruption behavior - PASSED
+  - motion debounce/hysteresis fixture - PASSED
+  - silence and compositional language fixtures - PASSED
+  - complete D016-AB adapter/organism/output replay - PASSED
+  - realtime-viewer tests - PASSED
+  - D016-AB realtime diagnostic - PASSED
+  - debug APK assembly - PASSED
+  - APK SHA-256 - `52defd1d6505884122b844a6636d8028489ef98efd34bfc6028108c08a896817`
+  - Pixel installation, movement, runtime video and TTS evidence - NOT RUN; device absent from `adb devices`
+  - bounded Pixel battery observation - NOT MEASURED
+  - AI/model calls, external human participants and A001 attempts - `0/0/0`
+  - R003-R009 - `BLOCKED`
+- Remaining risks: Physical behavior, real SensorManager transitions, actual silence/TTS selection, runtime stability and battery behavior remain unqualified until the corrected APK is run on the designated Pixel.
+- Blockers: `BLOCKED_DEVICE_NOT_CONNECTED_AFTER_LOCAL_CORRECTION`
+- Follow-up directive: none

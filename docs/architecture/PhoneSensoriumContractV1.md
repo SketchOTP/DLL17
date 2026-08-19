@@ -82,17 +82,23 @@ Pixel linear acceleration
   -> MotionObservationNormalizer
   -> WorldObservation(MOVEMENT_ACTIVITY)
   -> OrganismAgent salience/arousal
-  -> FULL Controller ORIENT decision
-  -> OrganismSpeechFrame
-  -> ChildlikeUtteranceGenerator
-  -> local TextToSpeech
+  -> organism-owned IGNORE / ATTEND / INTERRUPT arbitration
+  -> selected attention or communicative action
+  -> optional OrganismSpeechFrame
+  -> bounded compositional ChildlikeUtteranceGenerator
+  -> local TextToSpeech only when VOCALIZE is selected
 ```
 
-The normalizer emits only transitions such as `STILL -> WALKING` or
-`WALKING -> RUNNING`. The complete utterance is not selected by the sensor
-adapter. The organism's selected attention action and bounded semantic frame
-are the gate to language rendering. Identical normalized observations plus the
-same starting organism state replay byte-identically in the JVM tests.
+The normalizer emits only stabilized transitions such as `STILL -> WALKING` or
+`WALKING -> RUNNING`, using three-sample debounce and bounded hysteresis. World
+evidence can be ignored, attended, or allowed to interrupt a bounded intention;
+the platform adapter never selects an action. Speech is optional: an ORIENT
+response is silent unless the organism separately selects VOCALIZE. The semantic
+frame carries change, activity, intensity, question, affect, urgency, context
+and uncertainty, and the local renderer composes short childlike language from
+bounded fragments rather than looking up a complete sentence by topic.
+Identical normalized observations plus the same starting organism and adapter
+state replay byte-identically in the D016-AB tests.
 
 This is research evidence only. It does not qualify A001, authorize R003-R009,
 or establish all-day battery viability.

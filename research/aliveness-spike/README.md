@@ -54,7 +54,9 @@ The phone is now the intended embodied vessel for forward architecture. The
 screen companion remains a research scaffold. `PhoneSensoriumContractV1` keeps
 raw Android signals outside canonical state, normalizes them into ordered
 `WorldObservation` values, and feeds the existing FULL organism's salience,
-attention and semantic speech boundary. The debug-only Pixel slice uses visible
+attention and semantic speech boundary. Attention is state-dependent and may be
+ignored, attended, or interrupt a bounded intention; local speech is optional
+and compositional. The debug-only Pixel slice uses stabilized visible
 foreground motion evidence and local TTS; it does not claim continuous
 background access, A001 success, all-day battery life or production readiness.
 

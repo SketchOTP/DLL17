@@ -784,3 +784,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-AA
 - Status at issuance: ISSUED
+
+
+## D-016-AB-R1
+
+- Issued: 2026-08-19T11:34:00-04:00
+- Issuer: User
+- External directive: D016-AB-R1
+- Objective: Correct the D016-AB autonomy, motion-stability, language-composition and replay-boundary defects, then physically validate the corrected vertical slice on the designated Pixel.
+- Scope: Make normalized world evidence optional organism-owned attention with bounded IGNORE/ATTEND/INTERRUPT outcomes; preserve meaningful bounded interruption and D016-AA intentions; add deterministic motion debounce/hysteresis; replace fixed topic phrases with a bounded compositional semantic speech frame and grammar; allow silence; include all D016-AB behaviorally relevant state in research replay; add occupied, curious, salient, silence and language fixtures; run focused validation, build the debug APK, then deploy and validate the Pixel with runtime video and bounded battery observation.
+- Exclusions: No camera, microphone, SpeechRecognizer conversation, location, maps, calendar, weather, face recognition, emotional vision, persistent world-model learning, LLM verbalization, UI redesign, A001 verdict, R003-R009 unblocking, D016-AA rewrite, threshold/sample/analysis changes, production mechanisms, or `.gitignore` modification.
+- Acceptance: No observation inherently forces ORIENT; low evidence can be ignored; relevant evidence can attend; strong evidence can interrupt; noise does not flap; speech is optional and compositional; replay covers relevant state; focused tests and debug APK pass; the corrected behavior is physically demonstrated on the Pixel with runtime and bounded battery evidence.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-AB
+- Status at issuance: ISSUED
