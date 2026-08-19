@@ -1318,3 +1318,28 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: Physical behavior, real SensorManager transitions, actual silence/TTS selection, runtime stability and battery behavior remain unqualified until the corrected APK is run on the designated Pixel.
 - Blockers: `BLOCKED_DEVICE_NOT_CONNECTED_AFTER_LOCAL_CORRECTION`
 - Follow-up directive: none
+
+
+## D-016-AB-R1 - PARTIAL
+
+- Outcome ID: O-0055
+- Supersedes outcome: O-0054
+- Closed: 2026-08-19T11:52:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-AB-R1 physical validation completed on the designated Pixel after local correction acceptance. The exact APK was installed and a 45.018-second real-motion recording, final screenshot, logcat and bounded battery readings were preserved. The video shows stabilized visible `WALKING` and `STILL` transitions, organism-selected `ORIENT` attention, and no speech for those events. No `VOCALIZE` action occurred, so TTS was not exercised. The app remained foreground with no fatal or ANR entries in the inspected log window.
+- Changed areas: `research/aliveness-spike/evidence/a001-v2/d016-ab-r1/` physical runtime evidence and append-only governance records. No Kotlin, UI, A001, D016-AA, production, evaluator/model, participant or `.gitignore` changes occurred during physical validation.
+- Validation:
+  - designated Pixel ADB identity and authorization - PASSED
+  - exact APK digest verification and installation - PASSED
+  - real physical movement through Android SensorManager - PASSED
+  - stabilized movement/no rapid transition flapping in bounded recording - PASSED
+  - organism-selected attention response - PASSED
+  - no-reaction/no-speech event - PASSED
+  - VOCALIZE/TTS path - NOT RUN; no VOCALIZE selected
+  - runtime foreground and fatal/ANR inspection - PASSED
+  - bounded battery observation - PASSED; no extrapolated all-day claim
+  - A001 verdict - NOT RUN
+  - R003-R009 - BLOCKED
+- Remaining risks: The bounded run did not naturally select VOCALIZE, so physical TTS playback remains unobserved. Whether the phone-as-body concept is sufficient to expand into additional senses requires Architect review of the preserved video and evidence.
+- Blockers: `ARCHITECT_REVIEW_OF_PHYSICAL_SENSORIUM_EVIDENCE`
+- Follow-up directive: none

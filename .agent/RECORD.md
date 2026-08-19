@@ -622,3 +622,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: A platform observation must be evidence available to the organism, not a disguised action command or sentence selector. The correction preserves the existing FULL organism and D016-AA bounded intentions while making attention state-dependent, language compositional and replay evidence complete. The missing Pixel is recorded only after the local correction passes and is not the sole explanation of the earlier review failure.
 - Affected areas: D016-AB sensorium normalizer, organism world-attention state, controller arbitration, research replay signature, semantic speech frame/grammar, focused fixtures, realtime diagnostic, architecture documentation and append-only governance records.
 - Supersedes record: DEC-0057
+
+
+## DEC-0059
+
+- Date: 2026-08-19
+- Record or decision ID: DEC-0059
+- Status: ACTIVE
+- Decision or event: D016-AB-R1 physical validation was captured on the designated Pixel 9 Pro XL serial `49121FDAS0025V` using APK SHA-256 `52defd1d6505884122b844a6636d8028489ef98efd34bfc6028108c08a896817`. A 45.018-second real-motion recording shows stabilized `WALKING` and `STILL` transitions with organism-selected `ORIENT` attention and no speech. The app remained foreground without fatal/ANR evidence. Battery level stayed 78% over the bounded window; voltage changed 4158mV to 4164mV and temperature 30.0C to 30.1C. No `VOCALIZE` action occurred, so TTS remains unobserved.
+- Rationale: The corrected sensorium boundary now has physical evidence rather than only JVM evidence. The run supports stable normalized movement and optional silent attention, but it does not itself decide whether the phone-as-body concept is ready for additional senses and does not produce an A001 result.
+- Affected areas: research/aliveness-spike/evidence/a001-v2/d016-ab-r1/ and append-only governance records.
+- Supersedes record: DEC-0058

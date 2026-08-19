@@ -1,0 +1,6 @@
+Captured before the bounded D016-AB-R1 Pixel runtime window on 2026-08-19.
+status: 2
+level: 78
+voltage: 4158
+temperature: 300
+capacity level: 2

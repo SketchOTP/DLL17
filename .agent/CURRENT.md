@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-19T11:34:00-04:00`
+- Last updated: `2026-08-19T11:52:00-04:00`
 
 ## Active state after adoption
 
 - Local directive ID: `D-016-AB-R1`
 - External directive ID: `D016-AB-R1`
 - Objective: `Correct D016-AB so phone-world evidence creates optional organism-owned attention, stabilized movement transitions, compositional childlike language, and complete replay proof before Pixel validation.`
-- Current status: `BLOCKED`
-- Acceptance: `PHYSICAL_PIXEL_VALIDATION_PENDING`
+- Current status: `VALIDATING`
+- Acceptance: `PHYSICAL_PIXEL_VALIDATION_CAPTURED_PENDING_ARCHITECT_REVIEW`
 - Current phase: `D016-AB-R1`
 - Expected or actual touched areas: research/aliveness-spike/cohorts/, research/aliveness-spike/realtime-viewer/, android-host/src/debug/, docs/architecture/, research/aliveness-spike/README.md, and append-only governance/evidence records
-- Immediate next action: `Reconnect and authorize the designated Pixel, then deploy the exact D016-AB-R1 debug APK and capture real motion transitions, optional attention, silence/TTS behavior, runtime stability, and bounded battery observations.`
+- Immediate next action: `Return the exact physical evidence to the Architect; do not expand senses or issue another coding directive until the phone-as-body boundary is reviewed.`
 
 ## Temporary task-relevant facts
 
@@ -139,6 +139,7 @@
 - D016-AB physical proof is currently blocked because the Atlas Docker ADB session reports no device and host USB enumeration reports no Pixel. The exact-head debug APK has assembled on Atlas at `/home/sketch/Projects/DLL17/android-host/build/outputs/apk/debug/android-host-debug.apk` with SHA-256 `353ab482a8495e1a037decc514b13615be9f57deff60af704ab5936cbca0a434`; it has not been installed or run on a connected Pixel and battery observation is not measured.
 - Architect review classified D016-AB as `PARTIAL_IMPLEMENTATION_REVIEW_FAILED_AUTONOMY_AND_LANGUAGE_BOUNDARY`: the original implementation forced Tier-2 ORIENT, used fixed topic phrases, omitted world-coupled state from replay evidence, and used instantaneous motion thresholds. D016-AB-R1 corrects these boundaries without changing D016-AA or A001 artifacts.
 - D016-AB-R1 local correction passes at commit `67b7508f62ce66d93ea063988ae03c7a4d55352c`: optional IGNORE/ATTEND/INTERRUPT attention, three-sample debounce plus hysteresis, optional speech only for organism-selected VOCALIZE, compositional bounded language, seven focused fixtures, complete research replay signatures, realtime diagnostic and debug APK assembly. Exact-head APK SHA-256 is `52defd1d6505884122b844a6636d8028489ef98efd34bfc6028108c08a896817`.
+- D016-AB-R1 physical validation was captured on Pixel 9 Pro XL serial `49121FDAS0025V`: exact APK installed, 45.018-second real-motion recording preserved, visible stabilized WALKING and STILL organism-attention transitions observed, silence observed for ORIENT, no VOCALIZE selected, no fatal/ANR log entries, and bounded battery readings remained 78% with 4158mV to 4164mV and 30.0C to 30.1C. This is pending Architect interpretation and does not claim A001.
 - The deterministic adjudicator is qualified by test rather than by agreement with human judgement. Nobody has checked that its rulings match what a competent reviewer would conclude, and no such check is planned; what is claimed is that it applies the preregistered rules correctly and identically every time, not that the rules are the right ones. Determinism is not correctness, and a rule frozen before the data is still a rule someone chose.
 - The adversarial auditors have never been executed in their new role, so the structure that makes their output non-load-bearing is proven while their usefulness is not. An auditor emitting ambiguous findings on every run would suspend every otherwise-passing gate, which is a denial of service on the Architect's attention rather than a threat to a result.
 - The graded instrument is frozen but not cognitively pretested, and was written by a party with an interest in the outcome.
