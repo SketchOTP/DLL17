@@ -312,8 +312,6 @@ public class OrganismState(
         mix(commitmentRemaining.toLong())
         mix(interactionEpisodeKind?.ordinal?.toLong() ?: -1L)
         mix(interactionEpisodeUntilTick)
-        mix(lastWorldActivity?.ordinal?.toLong() ?: -1L)
-        mix(worldObservationSalience)
         mix(episodeCount.toLong())
         for (e in episodes) mix(e?.valence ?: 0L)
         return h

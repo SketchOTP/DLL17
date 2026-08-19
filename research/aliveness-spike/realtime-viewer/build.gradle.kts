@@ -50,3 +50,12 @@ tasks.register<JavaExec>("d016AATemporalAgencyDiagnostic") {
     classpath = sourceSets["main"].runtimeClasspath
     args("--root=${rootProject.projectDir.absolutePath}")
 }
+
+tasks.register<JavaExec>("d016ABPhoneSensoriumDiagnostic") {
+    group = "verification"
+    mainClass.set(
+        "com.animusmachinae.dll17.research.aliveness.viewer.D016ABPhoneSensoriumDiagnostic",
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+    args("--root=${rootProject.projectDir.absolutePath}")
+}
