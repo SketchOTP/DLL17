@@ -96,11 +96,13 @@ public class OrganismAgent(
             state.pendingStimulus = null
             state.pendingTouchFrom = null
             state.pendingWorldObservation = null
+            state.worldAttentionLevel = WorldAttentionLevel.NONE
         }
         if (state.pendingWorldObservation != null &&
             winner.action != SpikeAction.RESUME_INTERRUPTED
         ) {
             state.pendingWorldObservation = null
+            state.worldAttentionLevel = WorldAttentionLevel.NONE
         }
         return AgentChoice(winner.action, winner.target, decision.winningTier, decision)
     }
@@ -168,15 +170,49 @@ public class OrganismAgent(
             FixedPoint.of(0L, 180_000L)
         }
         val confidence = observation.meta.confidencePpm.toLong()
-        state.worldObservationSalience = fx.mul(novelty, confidence)
+        val evidenceSalience = fx.mul(novelty, confidence)
+        val stateModulation = fx.add(
+            fx.mul(state.arousal, FixedPoint.of(0L, 250_000L)),
+            fx.mul(state.stress, FixedPoint.of(0L, 250_000L)),
+        )
+        val traitModulation = fx.add(
+            fx.mul(state.traits.curiosity, FixedPoint.of(0L, 150_000L)),
+            fx.mul(state.traits.caution, FixedPoint.of(0L, 100_000L)),
+        )
+        val motionModulation = when (observation.motionBand) {
+            MotionBand.HIGH -> FixedPoint.of(0L, 180_000L)
+            MotionBand.MODERATE -> FixedPoint.of(0L, 50_000L)
+            else -> FixedPoint.ZERO
+        }
+        val significantMotionModulation = if (observation.significantMotion == true) {
+            FixedPoint.of(0L, 200_000L)
+        } else {
+            FixedPoint.ZERO
+        }
+        val attentionScore = fx.unit(
+            fx.add(
+                fx.add(evidenceSalience, stateModulation),
+                fx.add(traitModulation, fx.add(motionModulation, significantMotionModulation)),
+            ),
+        )
+        val attention = when {
+            attentionScore >= WORLD_INTERRUPT_THRESHOLD && observation.motionBand == MotionBand.HIGH ->
+                WorldAttentionLevel.INTERRUPT
+            attentionScore >= WORLD_ATTEND_THRESHOLD -> WorldAttentionLevel.ATTEND
+            else -> WorldAttentionLevel.IGNORE
+        }
+        state.worldObservationSalience = attentionScore
         state.arousal = fx.unit(
             fx.add(
                 state.arousal,
-                fx.mul(state.worldObservationSalience, FixedPoint.of(0L, 600_000L)),
+                fx.mul(evidenceSalience, FixedPoint.of(0L, 600_000L)),
             ),
         )
         state.lastWorldActivity = nextActivity ?: state.lastWorldActivity
         state.pendingWorldObservation = observation
+        state.worldAttentionLevel = attention
+        state.lastWorldAttention = attention
+        state.lastWorldObservationSequence = observation.meta.sequence
     }
 
     override fun presentation(
@@ -208,6 +244,9 @@ private val NON_RESUMABLE = setOf(
     SpikeAction.RESUME_INTERRUPTED,
     SpikeAction.RETRY,
 )
+
+private val WORLD_ATTEND_THRESHOLD: Long = FixedPoint.of(0L, 350_000L)
+private val WORLD_INTERRUPT_THRESHOLD: Long = FixedPoint.of(0L, 700_000L)
 
 /**
  * `ScriptedPetBaselineV1` — the primary external comparator.

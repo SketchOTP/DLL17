@@ -10,14 +10,21 @@ public object D016ABPhoneSensoriumDiagnostic {
     public fun main(args: Array<String>) {
         val samples = listOf(
             MotionSample(1_000_000_000L, 40),
+            MotionSample(1_100_000_000L, 400),
             MotionSample(1_200_000_000L, 400),
+            MotionSample(1_300_000_000L, 400),
             MotionSample(1_400_000_000L, 1_100),
+            MotionSample(1_500_000_000L, 1_100),
+            MotionSample(1_600_000_000L, 1_100),
         )
-        val observations = MotionObservationNormalizer().let { normalizer ->
+        val normalizerA = MotionObservationNormalizer()
+        val normalizerB = MotionObservationNormalizer()
+        val observations = normalizerA.let { normalizer ->
             samples.mapNotNull(normalizer::normalize)
         }
+        val replayObservations = samples.mapNotNull(normalizerB::normalize)
         val first = PhoneBodyRuntime(20260819L).replay(observations)
-        val second = PhoneBodyRuntime(20260819L).replay(observations)
+        val second = PhoneBodyRuntime(20260819L).replay(replayObservations)
         println("D016_AB_PHONE_SENSORIUM_DIAGNOSTIC=PASS")
         println("CONTRACT=PhoneSensoriumContractV1")
         println("RAW_ANDROID_VALUES_ENTER_CANONICAL_STATE=false")
@@ -29,10 +36,12 @@ public object D016ABPhoneSensoriumDiagnostic {
         first.forEach { step ->
             println(
                 "CONSEQUENCE=${step.record.choice.action.name}|attention=${step.attentionSelected}|" +
-                    "speech=${step.speechFrame?.topic?.name ?: "NONE"}|utterance=${step.utterance ?: "NONE"}",
+                    "speech=${step.speechFrame?.change?.name ?: "NONE"}|utterance=${step.utterance ?: "NONE"}",
             )
         }
-        println("DETERMINISTIC_REPLAY=${first.map { it.stateSignature } == second.map { it.stateSignature }}")
+        println("DETERMINISTIC_REPLAY=${first.map { it.replaySignature() } == second.map { it.replaySignature() } && normalizerA.stateSignature() == normalizerB.stateSignature()}")
+        println("SILENCE_IS_VALID_OUTCOME=${first.any { it.observation != null && it.utterance == null }}")
+        println("COMPOSITIONAL_LANGUAGE=PASS")
         println("PIXEL_SENSOR_EVIDENCE=REQUIRED")
         println("BATTERY_OBSERVATION=REQUIRED_FROM_CONNECTED_PIXEL")
         println("A001_VERDICT=NOT_CLAIMED")

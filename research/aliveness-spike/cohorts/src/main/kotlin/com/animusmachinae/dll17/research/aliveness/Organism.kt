@@ -104,6 +104,14 @@ public data class Episode(
     public val context: Int,
 )
 
+/** D016-AB's bounded organism-owned interpretation of fresh world evidence. */
+public enum class WorldAttentionLevel {
+    NONE,
+    IGNORE,
+    ATTEND,
+    INTERRUPT,
+}
+
 /**
  * Immutable per-organism personality. Derived from the seed so two organisms
  * with different seeds are genuinely different individuals rather than the same
@@ -232,6 +240,9 @@ public class OrganismState(
     public var pendingWorldObservation: WorldObservation? = null
     public var lastWorldActivity: ActivityBand? = null
     public var worldObservationSalience: Long = FixedPoint.ZERO
+    public var worldAttentionLevel: WorldAttentionLevel = WorldAttentionLevel.NONE
+    public var lastWorldAttention: WorldAttentionLevel = WorldAttentionLevel.NONE
+    public var lastWorldObservationSequence: Long = -1L
 
     /** Bounded, inspectable aftereffect of the last owner event. */
     public var interactionEpisodeKind: InteractionKind? = null
@@ -314,6 +325,32 @@ public class OrganismState(
         mix(interactionEpisodeUntilTick)
         mix(episodeCount.toLong())
         for (e in episodes) mix(e?.valence ?: 0L)
+        return h
+    }
+
+    /**
+     * Complete D016-AB research replay signature. The canonical signature above
+     * remains unchanged so the frozen A001/A000 evidence surface is untouched.
+     */
+    public fun researchStateSignature(): Long {
+        var h = stateSignature()
+        fun mix(value: Long) {
+            h = (h xor value) * 0x100000001B3L
+        }
+        fun mixText(value: String) {
+            value.forEach { mix(it.code.toLong()) }
+        }
+        mix(pendingWorldObservation?.signature()?.let { value ->
+            value.fold(0xCBF29CE484222325uL.toLong()) { acc, character ->
+                (acc xor character.code.toLong()) * 0x100000001B3L
+            }
+        } ?: 0L)
+        mix(lastWorldActivity?.ordinal?.toLong() ?: -1L)
+        mix(worldObservationSalience)
+        mix(worldAttentionLevel.ordinal.toLong())
+        mix(lastWorldAttention.ordinal.toLong())
+        mix(lastWorldObservationSequence)
+        pendingWorldObservation?.signature()?.let(::mixText)
         return h
     }
 }

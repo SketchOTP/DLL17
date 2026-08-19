@@ -134,31 +134,45 @@ public data class MotionSample(
 /**
  * Small deterministic platform interpretation for the research slice. The
  * thresholds are diagnostic, not a claim that this replaces Activity
- * Recognition for production. It emits only transitions, not every raw sample.
+ * Recognition for production. It emits only stabilized transitions, not every
+ * raw sample. Three consecutive classified samples are required, and the
+ * thresholds use bounded hysteresis around the current stable band.
  */
 public class MotionObservationNormalizer(
     private val mode: SensoriumMode = SensoriumMode.FOREGROUND_SENSORIUM,
 ) {
     private var previous: ActivityBand = ActivityBand.STILL
+    private var candidate: ActivityBand = ActivityBand.STILL
+    private var candidateSamples: Int = 0
     private var sequence: Long = 0L
 
     public fun normalize(sample: MotionSample): WorldObservation? {
-        val next = when {
-            sample.linearAccelerationMagnitudeMilliG < 180 -> ActivityBand.STILL
-            sample.linearAccelerationMagnitudeMilliG < 850 -> ActivityBand.WALKING
-            else -> ActivityBand.RUNNING
+        val next = classify(sample.linearAccelerationMagnitudeMilliG)
+        if (next == previous) {
+            candidate = previous
+            candidateSamples = 0
+            return null
         }
-        if (next == previous) return null
+        if (next != candidate) {
+            candidate = next
+            candidateSamples = 1
+        } else {
+            candidateSamples += 1
+        }
+        if (candidateSamples < STABLE_SAMPLES) return null
+
         val old = previous
-        previous = next
+        previous = candidate
+        candidate = previous
+        candidateSamples = 0
         val capturedAtMillis = sample.timestampNanos / 1_000_000L
-        val confidence = when (next) {
+        val confidence = when (previous) {
             ActivityBand.STILL -> 900_000
             ActivityBand.WALKING -> 700_000
             ActivityBand.RUNNING -> 650_000
             ActivityBand.VEHICLE, ActivityBand.UNKNOWN -> 400_000
         }
-        val motion = when (next) {
+        val motion = when (previous) {
             ActivityBand.STILL -> MotionBand.NONE
             ActivityBand.WALKING -> MotionBand.MODERATE
             ActivityBand.RUNNING -> MotionBand.HIGH
@@ -168,7 +182,7 @@ public class MotionObservationNormalizer(
         return WorldObservation(
             family = ObservationFamily.MOVEMENT_ACTIVITY,
             activityFrom = old,
-            activityTo = next,
+            activityTo = previous,
             motionBand = motion,
             meta = ObservationMeta(
                 capturedAtMillis = capturedAtMillis,
@@ -186,6 +200,52 @@ public class MotionObservationNormalizer(
 
     public fun reset() {
         previous = ActivityBand.STILL
+        candidate = ActivityBand.STILL
+        candidateSamples = 0
         sequence = 0L
+    }
+
+    /** Complete bounded adapter state for D016-AB replay, not A001 state. */
+    public fun stateSignature(): Long {
+        var h = 0xCBF29CE484222325uL.toLong()
+        fun mix(value: Long) {
+            h = (h xor value) * 0x100000001B3L
+        }
+        mix(previous.ordinal.toLong())
+        mix(candidate.ordinal.toLong())
+        mix(candidateSamples.toLong())
+        mix(sequence)
+        return h
+    }
+
+    private fun classify(milliG: Int): ActivityBand = when (previous) {
+        ActivityBand.STILL -> when {
+            milliG >= RUNNING_ENTER_MILLI_G -> ActivityBand.RUNNING
+            milliG >= WALKING_ENTER_MILLI_G -> ActivityBand.WALKING
+            else -> ActivityBand.STILL
+        }
+        ActivityBand.WALKING -> when {
+            milliG >= RUNNING_ENTER_MILLI_G -> ActivityBand.RUNNING
+            milliG <= STILL_EXIT_MILLI_G -> ActivityBand.STILL
+            else -> ActivityBand.WALKING
+        }
+        ActivityBand.RUNNING -> when {
+            milliG <= STILL_EXIT_MILLI_G -> ActivityBand.STILL
+            milliG <= WALKING_EXIT_MILLI_G -> ActivityBand.WALKING
+            else -> ActivityBand.RUNNING
+        }
+        ActivityBand.VEHICLE, ActivityBand.UNKNOWN -> when {
+            milliG <= STILL_EXIT_MILLI_G -> ActivityBand.STILL
+            milliG >= RUNNING_ENTER_MILLI_G -> ActivityBand.RUNNING
+            else -> ActivityBand.WALKING
+        }
+    }
+
+    public companion object {
+        public const val STABLE_SAMPLES: Int = 3
+        public const val WALKING_ENTER_MILLI_G: Int = 250
+        public const val RUNNING_ENTER_MILLI_G: Int = 950
+        public const val STILL_EXIT_MILLI_G: Int = 120
+        public const val WALKING_EXIT_MILLI_G: Int = 700
     }
 }
