@@ -3,18 +3,18 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-18T18:55:00-04:00`
+- Last updated: `2026-08-19T12:00:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: `NONE`
-- External directive ID: `NONE`
-- Objective: `NONE`
-- Current status: `IDLE`
-- Acceptance: `NONE`
-- Current phase: `NONE`
-- Expected or actual touched areas: `NONE`
-- Immediate next action: `NONE`
+- Local directive ID: `D-016-AB`
+- External directive ID: `D016-AB`
+- Objective: `Re-anchor the research architecture on the phone as the organism's body and prove one normalized Pixel sensor-to-organism-to-expression slice.`
+- Current status: `BLOCKED`
+- Acceptance: `PARTIAL_IMPLEMENTATION_DEVICE_PROOF_PENDING`
+- Current phase: `D016-AB`
+- Expected or actual touched areas: `research/aliveness-spike/cohorts/`, `research/aliveness-spike/realtime-viewer/`, `android-host/src/debug/`, `docs/architecture/`, `research/aliveness-spike/README.md`, and append-only governance/evidence records
+- Immediate next action: `Reconnect and authorize the designated Pixel, then deploy the exact D016-AB debug APK and capture normalized motion, organism consequence, TTS, runtime, and bounded battery observations.`
 
 ## Temporary task-relevant facts
 
@@ -135,6 +135,8 @@
 - Multipart upload is not implemented. A recovery package above sixty four mebibytes is refused before it is sent rather than split.
 - The identity authority has a transport and written operations procedures, and is deployed nowhere. Its backup, restore, upgrade and incident procedures have never been exercised, no availability, redundancy or disaster-recovery claim is made, and verification-key rotation is not designed.
 - A001 remains blocked on inputs that no code in this repository can supply, namely an independently qualified scripted baseline, a registered variance pilot and the paired-difference standard deviation it releases. The owner resource ceiling, provider diversity, reviewer tool isolation, route access and a qualified reviewer configuration are no longer among them.
+- D016-AB adopts `PhoneSensoriumContractV1` as the forward research boundary for phone-as-body embodiment. The implemented diagnostic slice adapts Android motion samples into normalized observations, feeds the existing habitat/organism decision path, and derives semantic speech plus childlike utterances from organism-selected attention. The deterministic diagnostic passes at commit `8768883929a93c8f8886bfb4be58c15241f2f193`; this is not Pixel evidence, not an A001 result, and does not unblock R003-R009.
+- D016-AB physical proof is currently blocked because the Atlas Docker ADB session reports no device and host USB enumeration reports no Pixel. The debug APK has assembled on Atlas at `/home/sketch/Projects/DLL17/android-host/build/outputs/apk/debug/android-host-debug.apk` with SHA-256 `29948b1c97ef94ea82e4f0510e609a47ea0de4ac851b5ecd24358fcd39fbf4c7`; it has not been installed or run on a connected Pixel and battery observation is not measured.
 - The deterministic adjudicator is qualified by test rather than by agreement with human judgement. Nobody has checked that its rulings match what a competent reviewer would conclude, and no such check is planned; what is claimed is that it applies the preregistered rules correctly and identically every time, not that the rules are the right ones. Determinism is not correctness, and a rule frozen before the data is still a rule someone chose.
 - The adversarial auditors have never been executed in their new role, so the structure that makes their output non-load-bearing is proven while their usefulness is not. An auditor emitting ambiguous findings on every run would suspend every otherwise-passing gate, which is a denial of service on the Architect's attention rather than a threat to a result.
 - The graded instrument is frozen but not cognitively pretested, and was written by a party with an interest in the outcome.

@@ -769,3 +769,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-Z
 - Status at issuance: ISSUED
+
+
+## D-016-AB
+
+- Issued: 2026-08-19T12:00:00-04:00
+- Issuer: User
+- External directive: D016-AB
+- Objective: Re-anchor the research architecture on the phone as the organism's body and prove one normalized phone-sensor-to-organism-to-expression slice on the designated Pixel.
+- Scope: Add the versioned `PhoneSensoriumContractV1`; preserve and adapt the existing habitat, organism, deterministic arbitration and expression path; normalize Android observations with provenance, confidence, uncertainty, permission, capability, freshness and ordering metadata; implement a debug-only foreground motion slice; derive self-selected attention, semantic speech and bounded childlike utterance/TTS from organism state; validate deterministic JVM replay; assemble and deploy the debug APK; capture actual Pixel motion evidence, runtime evidence and bounded battery observations.
+- Exclusions: No A001 execution or verdict; no R003-R009 unblocking; no D016-AA history rewrite; no replacement organism, scripted running-late scenario, fixed sensor-tied sentence, camera/microphone/cloud inference, production background service, production persistence, participant work, evaluator/model/Paragon work, threshold/sample/analysis changes, or `.gitignore` modification.
+- Acceptance: Architecture delta and capability matrix are documented; normalized observation and organism consequence contracts are tested; diagnostic/replay and relevant builds are green; the designated Pixel supplies actual motion evidence through the normalized boundary to organism-selected expression/TTS; bounded battery observations are recorded; return the result to the Architect and stop.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-AA
+- Status at issuance: ISSUED

@@ -1267,3 +1267,27 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The owner has not yet supplied the fresh subjective verdict; the corrected candidate's metrics are not an A001 result. The R012 path-separator failure remains open and unrelated.
 - Blockers: `A001_STATUS=OWNER_EVALUATION_STILL_NOT_VALID` pending a fresh owner encounter.
 - Follow-up directive: none
+
+
+## D-016-AB - BLOCKED
+
+- Outcome ID: O-0053
+- Supersedes outcome: O-0052
+- Closed: 2026-08-19T12:00:00-04:00
+- Acceptance: PARTIAL_IMPLEMENTATION_DEVICE_PROOF_PENDING
+- Summary: D016-AB re-anchors the forward research architecture on the phone as the organism's body through `PhoneSensoriumContractV1`. The existing habitat, `OrganismAgent`, deterministic arbitration, `SpikeRuntime` and expression path are preserved and adapted rather than replaced. The JVM diagnostic produces ordered normalized motion observations, organism-selected ORIENT attention, semantic speech frames and bounded childlike utterances; deterministic replay passes. Physical Pixel proof is not accepted because the Atlas Docker ADB session reports no device and host USB enumeration reports no Pixel.
+- Changed areas: `research/aliveness-spike/cohorts/`, `research/aliveness-spike/realtime-viewer/`, `android-host/src/debug/`, `docs/architecture/PhoneSensoriumContractV1.md`, `docs/architecture/README.md`, `research/aliveness-spike/README.md`, `research/aliveness-spike/evidence/D016_AB_PHONE_SENSORIUM_DIAGNOSTIC.txt`, and append-only governance records. D016-AA history, A001 thresholds/sample/analysis, evaluator/model/Paragon infrastructure, production persistence, participant scope, R003-R009 and the pre-existing `.gitignore` were unchanged.
+- Validation:
+  - PhoneSensoriumContractV1 normalization and metadata tests - PASSED
+  - deterministic phone-body replay and semantic utterance tests - PASSED
+  - realtime-viewer test suite with relocated temporary directory - PASSED
+  - D016-AB realtime diagnostic - PASSED (`D016_AB_PHONE_SENSORIUM_DIAGNOSTIC=PASS`)
+  - debug APK assembly - PASSED
+  - APK SHA-256 - `29948b1c97ef94ea82e4f0510e609a47ea0de4ac851b5ecd24358fcd39fbf4c7`
+  - Pixel installation, launch and Android SensorManager evidence - NOT RUN; device absent from `adb devices`
+  - bounded Pixel battery observation - NOT MEASURED
+  - AI/model calls, external human participants and A001 attempts - `0/0/0`
+  - R003-R009 - `BLOCKED`
+- Remaining risks: The Android-to-organism boundary and foreground diagnostic are implemented, but actual device motion, TTS, runtime stability and battery behavior remain unqualified until the designated Pixel is connected and authorized.
+- Blockers: `BLOCKED_DEVICE_NOT_CONNECTED`
+- Follow-up directive: none

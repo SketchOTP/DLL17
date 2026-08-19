@@ -600,3 +600,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The owner-observed thrashing was supported by the implementation: the prior six-tick commitment mapped to 1.2 wall seconds and pending owner stimulus responses were committed for one tick. Separating visible intention duration from physiological time addresses the demonstrated temporal mechanism without adding sensors, speech, models or production mechanisms. This establishes readiness for a fresh owner encounter, not A001 success.
 - Affected areas: research/aliveness-spike/cohorts, research/aliveness-spike/realtime-viewer, android-host debug owner harness label, D016-AA evidence and focused tests.
 - Supersedes record: DEC-0055
+
+
+## DEC-0057
+
+- Date: 2026-08-19
+- Record or decision ID: DEC-0057
+- Status: ACTIVE
+- Decision or event: D016-AB adopts `PhoneSensoriumContractV1` as the forward architecture boundary for phone-as-body embodiment. The existing habitat, organism, deterministic arbitration and expression path are preserved and adapted. Android motion is normalized with provenance, confidence, uncertainty, permission, capability, freshness and ordering metadata; normalized observations can produce organism-selected attention, semantic speech frames and bounded childlike utterances. The JVM diagnostic, deterministic replay, realtime-viewer tests and debug APK assembly passed. Physical Pixel proof and battery observation remain pending because the Atlas ADB session currently has no device.
+- Rationale: A screen-only pet presentation cannot establish the intended phone-as-body target. This narrow research slice tests the causal boundary from platform observation to organism belief/decision to expression without hardcoding a scenario or allowing the platform adapter to choose organism action. The missing device is an execution-capacity blocker, not evidence about aliveness and not a reason to claim A001 or unblock R003-R009.
+- Affected areas: PhoneSensoriumContractV1, PhoneBodyRuntime, Android debug sensor/TTS host, realtime diagnostic, architecture/research documentation, D016-AB evidence and append-only governance records.
+- Supersedes record: DEC-0056
