@@ -125,6 +125,21 @@ public class Controller(private val fx: Fx) {
             }
         }
 
+        // D016-AB world evidence is separate from owner input. The observation
+        // raises bounded salience, then the organism chooses whether attention
+        // is warranted from its own state.
+        if (state.pendingWorldObservation != null) {
+            out += build(
+                SpikeAction.ORIENT,
+                null,
+                2,
+                state,
+                habitat,
+                tick,
+                state.worldObservationSalience,
+            )
+        }
+
         return out
     }
 
@@ -150,7 +165,8 @@ public class Controller(private val fx: Fx) {
             committed != null &&
             state.commitmentRemaining > 0 &&
             proposals.none { it.tier <= 1 } &&
-            state.pendingStimulus?.activeAt(tick) != true
+            state.pendingStimulus?.activeAt(tick) != true &&
+            state.pendingWorldObservation == null
         ) {
             val continuation = proposals.firstOrNull {
                 it.action == committed && it.target == state.committedTarget

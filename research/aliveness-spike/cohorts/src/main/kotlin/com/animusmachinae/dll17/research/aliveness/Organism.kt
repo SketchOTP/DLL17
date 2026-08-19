@@ -228,6 +228,11 @@ public class OrganismState(
     public var pendingStimulus: PendingStimulus? = null
     public var lastInteractionTick: Long = Long.MIN_VALUE / 4
 
+    /** Last normalized world evidence and the organism's bounded salience of it. */
+    public var pendingWorldObservation: WorldObservation? = null
+    public var lastWorldActivity: ActivityBand? = null
+    public var worldObservationSalience: Long = FixedPoint.ZERO
+
     /** Bounded, inspectable aftereffect of the last owner event. */
     public var interactionEpisodeKind: InteractionKind? = null
     public var interactionEpisodeUntilTick: Long = Long.MIN_VALUE / 4
@@ -307,6 +312,8 @@ public class OrganismState(
         mix(commitmentRemaining.toLong())
         mix(interactionEpisodeKind?.ordinal?.toLong() ?: -1L)
         mix(interactionEpisodeUntilTick)
+        mix(lastWorldActivity?.ordinal?.toLong() ?: -1L)
+        mix(worldObservationSalience)
         mix(episodeCount.toLong())
         for (e in episodes) mix(e?.valence ?: 0L)
         return h

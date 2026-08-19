@@ -20,7 +20,7 @@ import com.animusmachinae.dll17.research.aliveness.StepRecord
  */
 internal class OwnerAlivenessHarness(
     seed: Long = DEFAULT_SEED,
-) {
+) : DebugExperienceHarness {
     private val fx = Fx.counting().first
     private val habitat = Habitat(seed, HabitatCondition.CONTROLLED_NOVELTY)
     private val organism = Cohorts.create(Cohort.FULL, seed, fx)
@@ -38,8 +38,12 @@ internal class OwnerAlivenessHarness(
     internal var tick: Long = 0L
         private set
 
-    internal var frame: SpikeExpressionContract.ExpressionFrame = initialFrame()
+    override var frame: SpikeExpressionContract.ExpressionFrame = initialFrame()
         private set
+
+    override val showManualControls: Boolean = true
+
+    override val statusText: String = "screen-companion research scaffold"
 
     internal val presentObjects: List<HabitatObject>
         get() = HabitatObject.ALL.filter(habitat::isPresent)

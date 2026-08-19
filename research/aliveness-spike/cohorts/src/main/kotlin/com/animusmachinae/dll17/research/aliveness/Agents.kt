@@ -95,6 +95,12 @@ public class OrganismAgent(
             state.interactionEpisodeUntilTick = tick + state.commitmentRemaining
             state.pendingStimulus = null
             state.pendingTouchFrom = null
+            state.pendingWorldObservation = null
+        }
+        if (state.pendingWorldObservation != null &&
+            winner.action != SpikeAction.RESUME_INTERRUPTED
+        ) {
+            state.pendingWorldObservation = null
         }
         return AgentChoice(winner.action, winner.target, decision.winningTier, decision)
     }
@@ -151,6 +157,26 @@ public class OrganismAgent(
                 state.lastThreatTarget = event.target ?: HabitatObject.AVERSIVE_BUZZER
             }
         }
+    }
+
+    /** D016-AB research boundary. It does not masquerade as owner input. */
+    public fun receiveWorldObservation(observation: WorldObservation, tick: Long) {
+        val nextActivity = observation.activityTo
+        val novelty = if (nextActivity != null && nextActivity != state.lastWorldActivity) {
+            FixedPoint.of(0L, 650_000L)
+        } else {
+            FixedPoint.of(0L, 180_000L)
+        }
+        val confidence = observation.meta.confidencePpm.toLong()
+        state.worldObservationSalience = fx.mul(novelty, confidence)
+        state.arousal = fx.unit(
+            fx.add(
+                state.arousal,
+                fx.mul(state.worldObservationSalience, FixedPoint.of(0L, 600_000L)),
+            ),
+        )
+        state.lastWorldActivity = nextActivity ?: state.lastWorldActivity
+        state.pendingWorldObservation = observation
     }
 
     override fun presentation(

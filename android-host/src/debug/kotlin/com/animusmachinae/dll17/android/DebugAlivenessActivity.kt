@@ -1,6 +1,11 @@
 package com.animusmachinae.dll17.android
 
 import android.os.Bundle
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
+import android.speech.tts.TextToSpeech
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -55,11 +60,29 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-/** Disposable owner-only D016-AA screen companion. Not part of the release APK. */
-internal class DebugAlivenessActivity : ComponentActivity() {
+/** D016-AB research-only phone-as-body embodiment. Not part of the release APK. */
+internal class DebugAlivenessActivity : ComponentActivity(), SensorEventListener {
+    private lateinit var sensorManager: SensorManager
+    private var accelerometer: Sensor? = null
+    private var textToSpeech: TextToSpeech? = null
+    private lateinit var phoneBodyHarness: PhoneBodyHarness
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
+            ?: sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        textToSpeech = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeech?.language = java.util.Locale.US
+                textToSpeech?.setPitch(1.28f)
+                textToSpeech?.setSpeechRate(0.92f)
+            }
+        }
+        phoneBodyHarness = PhoneBodyHarness { utterance ->
+            textToSpeech?.speak(utterance, TextToSpeech.QUEUE_FLUSH, null, "D016-AB-${System.nanoTime()}")
+        }
         setContent {
             MaterialTheme(
                 colorScheme = darkColorScheme(
@@ -68,21 +91,59 @@ internal class DebugAlivenessActivity : ComponentActivity() {
                     onSurface = Color(0xFFF5F0DF),
                 ),
             ) {
-                OwnerPetExperience(OwnerAlivenessHarness())
+                OwnerPetExperience(phoneBodyHarness)
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        accelerometer?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
+    }
+
+    override fun onPause() {
+        sensorManager.unregisterListener(this)
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        textToSpeech?.stop()
+        textToSpeech?.shutdown()
+        super.onDestroy()
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        if (event.values.size < 3) return
+        val magnitude = kotlin.math.sqrt(
+            (event.values[0] * event.values[0] +
+                event.values[1] * event.values[1] +
+                event.values[2] * event.values[2]).toDouble(),
+        )
+        val linearMagnitude = if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+            kotlin.math.abs(magnitude - SensorManager.GRAVITY_EARTH.toDouble())
+        } else {
+            magnitude
+        }
+        phoneBodyHarness.submitSensorSample(
+            event.timestamp,
+            (linearMagnitude * 1_000.0 / SensorManager.GRAVITY_EARTH).toInt(),
+        )
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
 }
 
 @Composable
-private fun OwnerPetExperience(harness: OwnerAlivenessHarness) {
+private fun OwnerPetExperience(harness: DebugExperienceHarness) {
     val adapter = remember(harness) { OwnerEmbodimentAdapter(harness.frame) }
     var embodiment by remember { mutableStateOf(adapter.current) }
     var animationMillis by remember { mutableLongStateOf(0L) }
+    var statusText by remember { mutableStateOf(harness.statusText) }
 
     LaunchedEffect(harness) {
         while (true) {
             embodiment = adapter.consume(harness.advance())
+            statusText = harness.statusText
             delay(OWNER_TICK_MILLIS)
         }
     }
@@ -135,6 +196,19 @@ private fun OwnerPetExperience(harness: OwnerAlivenessHarness) {
         )
 
         Surface(
+            color = Color(0xB824312E),
+            shape = RoundedCornerShape(18.dp),
+            modifier = Modifier.align(Alignment.TopCenter).padding(top = 8.dp),
+        ) {
+            Text(
+                text = statusText,
+                color = Color(0xFFF3DCA7),
+                fontSize = 11.sp,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+            )
+        }
+
+        if (harness.showManualControls) Surface(
             color = Color(0x8F24312E),
             shape = RoundedCornerShape(28.dp),
             modifier = Modifier
