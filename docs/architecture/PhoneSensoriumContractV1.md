@@ -40,8 +40,28 @@ family. The metadata carries:
 The supported observation families are movement/activity, orientation,
 significant motion, light, proximity, trusted time, coarse location/place,
 foreground camera, bounded auditory evidence, owner speech, calendar context,
-and capability state. The D016-AB vertical slice implements movement/activity
-only.
+and capability state. D016-AB implemented movement/activity. D016-AC adds a
+research-only trusted-time and coarse-place context slice.
+
+D016-AC's time boundary carries only local day pattern, coarse time-of-day
+bucket, circadian context and the trust class produced from the existing R002
+clock evidence rules. Wall-clock time describes when something appears to be
+happening; it does not grant elapsed biological time or become reward,
+development or persistence authority.
+
+D016-AC's place boundary quantizes one current Android location reading into a
+stable opaque local coarse-place identity. Raw latitude, longitude, accuracy
+and provider values are discarded before `WorldObservation` is created. A
+denied, unavailable or stale location produces `UNKNOWN_PLACE` with explicit
+permission/capability metadata.
+
+The bounded routine learner stores at most 32 place/time/day patterns, caps
+each count at 8, records only the latest sequence for recency and decrements
+counts on a deterministic 64-observation decay boundary. It derives
+`EXPECTED_CONTEXT`, `FAMILIAR_CONTEXT`, `FAMILIAR_BUT_UNUSUAL`,
+`NOVEL_CONTEXT` or `UNKNOWN_CONTEXT` from current evidence plus that bounded
+history. Context adds salience only; it cannot select `ORIENT`, `VOCALIZE` or
+any other action.
 
 ## Sensorium modes
 
@@ -58,7 +78,7 @@ only.
 | --- | --- | --- |
 | Walking/running transitions | Activity Recognition transitions or normalized motion sensors | Use foreground `SensorManager` proof; production may adopt Activity Recognition for lower power |
 | Orientation/significant motion/light/proximity | `SensorManager` | Contract only |
-| Place/location | Fused Location/geofencing | Contract only, permission and background limits remain explicit |
+| Place/location | Fused Location/geofencing | D016-AC uses one debug foreground current/last-known location read, quantized to an opaque place; geofencing remains future work |
 | Camera observations | CameraX `ImageAnalysis` while visible/authorized | Contract only |
 | Ambient audio | Bounded foreground capture | Contract only |
 | Owner speech | Bounded `SpeechRecognizer`, on-device when available | Contract only |
@@ -102,3 +122,29 @@ state replay byte-identically in the D016-AB tests.
 
 This is research evidence only. It does not qualify A001, authorize R003-R009,
 or establish all-day battery viability.
+
+## D016-AC contextual slice
+
+The debug Pixel path adds two independent evidence boundaries:
+
+```text
+System wall time + elapsedRealtime + boot count
+  -> existing ClockTrust classification
+  -> TrustedTimeObservation(day/time bucket, circadian context, trust class)
+
+one current coarse Android location
+  -> quantized opaque PLACE identity
+  -> CoarsePlaceObservation(permission/capability metadata)
+
+time + opaque place + bounded routine history
+  -> organism-derived context belief
+  -> salience modulation only
+  -> existing D016-AB organism arbitration
+```
+
+The context learner is research-only and fixed-size. It does not retain raw
+coordinates, route history, place names, calendar data, maps, prediction
+models or continuous background location. Identical normalized evidence and
+identical bounded history replay identically; the same current place/time can
+be novel without history, expected after repeated history, or familiar-but-
+unusual at a materially different time.

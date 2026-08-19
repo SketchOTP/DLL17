@@ -97,6 +97,9 @@ public data class WorldObservation(
     public val significantMotion: Boolean? = null,
     public val ambientLight: AmbientLightBand? = null,
     public val proximity: ProximityBand? = null,
+    public val trustedTime: TrustedTimeObservation? = null,
+    public val place: CoarsePlaceObservation? = null,
+    public val context: RoutineContext? = null,
     public val meta: ObservationMeta,
 ) {
     init {
@@ -113,6 +116,9 @@ public data class WorldObservation(
         significantMotion?.toString() ?: "-",
         ambientLight?.name ?: "-",
         proximity?.name ?: "-",
+        trustedTime?.signature() ?: "-",
+        place?.signature() ?: "-",
+        context?.signature() ?: "-",
         meta.capturedAtMillis,
         meta.sequence,
         meta.freshUntilMillis,

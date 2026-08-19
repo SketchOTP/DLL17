@@ -126,26 +126,29 @@ public class PhoneBodyRuntime(
         traceEveryDecision = false,
         attributionSampleEvery = 0,
     )
+    private val routineContext = BoundedRoutineContextMemory()
+    private var latestTrustedTime: TrustedTimeObservation? = null
     private var tick: Long = 0L
 
     public fun step(observation: WorldObservation? = null): PhoneBodyStep {
-        if (observation != null) organism.receiveWorldObservation(observation, tick)
+        val enriched = normalizeContext(observation)
+        if (enriched != null) organism.receiveWorldObservation(enriched, tick)
         val record = runtime.step(tick)
         // ORIENT is silent by default. Speech requires the organism to choose
         // its communicative VOCALIZE action; world evidence alone cannot talk.
-        val speechFrame = if (observation != null && record.choice.action == SpikeAction.VOCALIZE) {
-            speechFrame(observation)
+        val speechFrame = if (enriched != null && record.choice.action == SpikeAction.VOCALIZE) {
+            speechFrame(enriched)
         } else {
             null
         }
         val result = PhoneBodyStep(
             record = record,
-            observation = observation,
-            attentionSelected = observation != null &&
+            observation = enriched,
+            attentionSelected = enriched != null &&
                 record.choice.action in setOf(SpikeAction.ORIENT, SpikeAction.VOCALIZE),
             speechFrame = speechFrame,
             utterance = speechFrame?.let(ChildlikeUtteranceGenerator::render),
-            stateSignature = organism.state.researchStateSignature(),
+            stateSignature = researchStateSignature(),
         )
         tick += 1L
         return result
@@ -153,6 +156,32 @@ public class PhoneBodyRuntime(
 
     public fun replay(observations: List<WorldObservation>): List<PhoneBodyStep> =
         observations.map(::step)
+
+    /** Research-only state digest, including bounded context memory and time. */
+    public fun researchStateSignature(): Long {
+        var hash = organism.state.researchStateSignature()
+        fun mix(value: Long) {
+            hash = (hash xor value) * 0x100000001B3L
+        }
+        mix(routineContext.stateSignature())
+        latestTrustedTime?.signature()?.forEach { mix(it.code.toLong()) }
+        return hash
+    }
+
+    private fun normalizeContext(observation: WorldObservation?): WorldObservation? {
+        if (observation == null) return null
+        if (observation.trustedTime != null) latestTrustedTime = observation.trustedTime
+        if (observation.family != ObservationFamily.LOCATION_PLACE || observation.place == null) {
+            return observation
+        }
+        if (observation.context != null) return observation
+        val context = routineContext.observe(
+            place = observation.place,
+            time = observation.trustedTime ?: latestTrustedTime,
+            sequence = observation.meta.sequence,
+        )
+        return observation.copy(context = context)
+    }
 
     private fun speechFrame(observation: WorldObservation): OrganismSpeechFrame {
         val affect = when {

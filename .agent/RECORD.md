@@ -633,3 +633,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: The corrected sensorium boundary now has physical evidence rather than only JVM evidence. The run supports stable normalized movement and optional silent attention, but it does not itself decide whether the phone-as-body concept is ready for additional senses and does not produce an A001 result.
 - Affected areas: research/aliveness-spike/evidence/a001-v2/d016-ab-r1/ and append-only governance records.
 - Supersedes record: DEC-0058
+
+
+## DEC-0060
+
+- Date: 2026-08-19
+- Record or decision ID: DEC-0060
+- Status: ACTIVE
+- Decision or event: D016-AC implements a research-only context layer at the phone sensorium boundary. Trusted time is reduced to local day pattern, coarse time bucket, circadian context and an R002-derived trust class. A single Android location observation is reduced to a stable opaque coarse place identity before it becomes `WorldObservation`; raw latitude, longitude, accuracy and provider values are not retained. Bounded routine memory stores at most 32 patterns, caps each count at 8 and decays every 64 observations. Context modifies organism salience only and cannot directly select an action. Local fixtures and debug APK assembly pass; physical Pixel validation is blocked because neither Atlas nor local ADB currently sees the designated device.
+- Rationale: Movement alone provides little meaning. The smallest useful next boundary is where/when/familiarity/history, while preserving local-first privacy and the existing organism action authority. The hardware precondition is an execution blocker, not evidence about context quality, organism aliveness or A001.
+- Affected areas: `research/aliveness-spike/cohorts/`, `android-host/src/debug/`, `docs/architecture/PhoneSensoriumContractV1.md`, `research/aliveness-spike/evidence/a001-v2/d016-ac/`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, `.agent/OUTCOMES.md`.
+- Supersedes record: DEC-0059

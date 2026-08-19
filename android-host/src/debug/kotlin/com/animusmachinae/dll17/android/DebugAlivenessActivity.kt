@@ -1,5 +1,7 @@
 package com.animusmachinae.dll17.android
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -54,6 +56,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import androidx.core.content.ContextCompat
 import com.animusmachinae.dll17.research.aliveness.SpikeExpressionContract
 import kotlinx.coroutines.delay
 import kotlin.math.PI
@@ -66,11 +69,13 @@ internal class DebugAlivenessActivity : ComponentActivity(), SensorEventListener
     private var accelerometer: Sensor? = null
     private var textToSpeech: TextToSpeech? = null
     private lateinit var phoneBodyHarness: PhoneBodyHarness
+    private lateinit var phoneContextBoundary: PhoneContextBoundary
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        phoneContextBoundary = PhoneContextBoundary(this)
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
             ?: sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         textToSpeech = TextToSpeech(this) { status ->
@@ -99,6 +104,29 @@ internal class DebugAlivenessActivity : ComponentActivity(), SensorEventListener
     override fun onResume() {
         super.onResume()
         accelerometer?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
+        captureContextEvidence()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_REQUEST_CODE) captureContextEvidence()
+    }
+
+    private fun captureContextEvidence() {
+        phoneBodyHarness.submitContextObservation(phoneContextBoundary.trustedTimeObservation())
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_REQUEST_CODE)
+            return
+        }
+        phoneContextBoundary.requestCurrentPlace { observation ->
+            runOnUiThread { phoneBodyHarness.submitContextObservation(observation) }
+        }
     }
 
     override fun onPause() {
@@ -131,6 +159,10 @@ internal class DebugAlivenessActivity : ComponentActivity(), SensorEventListener
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
+
+    private companion object {
+        const val LOCATION_REQUEST_CODE: Int = 16016
+    }
 }
 
 @Composable

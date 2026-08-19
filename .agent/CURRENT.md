@@ -3,18 +3,23 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-19T11:52:00-04:00`
+- Last updated: `2026-08-19T13:20:00-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: `D-016-AB-R1`
-- External directive ID: `D016-AB-R1`
-- Objective: `Correct D016-AB so phone-world evidence creates optional organism-owned attention, stabilized movement transitions, compositional childlike language, and complete replay proof before Pixel validation.`
-- Current status: `VALIDATING`
-- Acceptance: `PHYSICAL_PIXEL_VALIDATION_CAPTURED_PENDING_ARCHITECT_REVIEW`
-- Current phase: `D016-AB-R1`
-- Expected or actual touched areas: research/aliveness-spike/cohorts/, research/aliveness-spike/realtime-viewer/, android-host/src/debug/, docs/architecture/, research/aliveness-spike/README.md, and append-only governance/evidence records
-- Immediate next action: `Return the exact physical evidence to the Architect; do not expand senses or issue another coding directive until the phone-as-body boundary is reviewed.`
+- Local directive ID: `D-016-AC`
+- External directive ID: `D016-AC`
+- Objective: `Add bounded trusted-time, coarse-place and routine-familiarity context to the accepted phone sensorium without adding a second controller or retaining raw location.`
+- Current status: `BLOCKED`
+- Acceptance: `LOCAL_CONTEXT_IMPLEMENTATION_AND_TESTS_PASS_PHYSICAL_PIXEL_VALIDATION_BLOCKED`
+- Current phase: `D016-AC`
+- Expected or actual touched areas: research/aliveness-spike/cohorts/, android-host/src/debug/, docs/architecture/, research/aliveness-spike/evidence/a001-v2/d016-ac/, and append-only governance/evidence records
+- Immediate next action: `Reconnect and authorize the designated Pixel for the required one-shot time/place boundary validation; no additional sensor or architecture work is authorized.`
+
+- `D016_AB_R1=ACCEPTED_PHONE_SENSORIUM_PROOF`; physical TTS remains unobserved because no VOCALIZE action occurred in the accepted bounded run.
+- D016-AC local deterministic fixtures and debug APK assembly pass. The APK SHA-256 is `96CABA8B27578B3CCF54DE28113FABBBE02725E63C898D3E4A10128856D23584`.
+- The Pixel precondition is currently absent from Atlas USB/ADB and local ADB. No Pixel installation, real trusted-time observation, coarse-place observation, permission-degraded device run or battery observation is claimed.
+- A001 remains unclaimed and `R003-R009` remain blocked.
 
 ## Temporary task-relevant facts
 

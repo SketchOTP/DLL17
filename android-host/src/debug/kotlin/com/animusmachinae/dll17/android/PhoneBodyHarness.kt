@@ -40,6 +40,19 @@ internal class PhoneBodyHarness(
         statusText = "phone-body sensorium • ${observation.activityFrom} → ${observation.activityTo}"
     }
 
+    internal fun submitContextObservation(observation: WorldObservation) {
+        pendingObservation = observation
+        lastObservation = observation
+        val context = observation.context?.interpretation?.name
+        statusText = when (observation.family) {
+            com.animusmachinae.dll17.research.aliveness.ObservationFamily.TRUSTED_TIME ->
+                "phone-body sensorium • trusted time ${observation.trustedTime?.timeOfDay}"
+            com.animusmachinae.dll17.research.aliveness.ObservationFamily.LOCATION_PLACE ->
+                "phone-body sensorium • place context ${context ?: "UNKNOWN_CONTEXT"}"
+            else -> "phone-body sensorium • ${observation.family}"
+        }
+    }
+
     override fun submit(kind: InteractionKind, target: HabitatObject?) {
         // The D016-AB proof deliberately has no pet-game controls. Retain this
         // method for the shared debug UI contract, but do not synthesize input.

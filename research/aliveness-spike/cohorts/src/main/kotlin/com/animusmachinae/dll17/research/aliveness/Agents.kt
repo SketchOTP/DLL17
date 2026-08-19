@@ -189,10 +189,22 @@ public class OrganismAgent(
         } else {
             FixedPoint.ZERO
         }
+        val contextModulation = when (observation.context?.interpretation) {
+            ContextInterpretation.FAMILIAR_BUT_UNUSUAL -> FixedPoint.of(0L, 350_000L)
+            ContextInterpretation.NOVEL_CONTEXT -> FixedPoint.of(0L, 300_000L)
+            ContextInterpretation.FAMILIAR_CONTEXT -> FixedPoint.of(0L, 50_000L)
+            ContextInterpretation.EXPECTED_CONTEXT,
+            ContextInterpretation.UNKNOWN_CONTEXT,
+            null,
+            -> FixedPoint.ZERO
+        }
         val attentionScore = fx.unit(
             fx.add(
                 fx.add(evidenceSalience, stateModulation),
-                fx.add(traitModulation, fx.add(motionModulation, significantMotionModulation)),
+                fx.add(
+                    traitModulation,
+                    fx.add(motionModulation, fx.add(significantMotionModulation, contextModulation)),
+                ),
             ),
         )
         val attention = when {

@@ -55,6 +55,7 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Blockers: none
 - Follow-up directive: none
 
+
 ## D-016-K - PARTIAL
 
 - Outcome ID: O-0026
@@ -1342,4 +1343,33 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
   - R003-R009 - BLOCKED
 - Remaining risks: The bounded run did not naturally select VOCALIZE, so physical TTS playback remains unobserved. Whether the phone-as-body concept is sufficient to expand into additional senses requires Architect review of the preserved video and evidence.
 - Blockers: `ARCHITECT_REVIEW_OF_PHYSICAL_SENSORIUM_EVIDENCE`
+- Follow-up directive: none
+
+
+## D-016-AC - PARTIAL
+
+- Outcome ID: O-0056
+- Supersedes outcome: O-0055
+- Closed: 2026-08-19T13:20:00-04:00
+- Acceptance: PARTIAL
+- Summary: D016-AC implements the bounded contextual phone-sensorium slice. Trusted time is normalized into coarse local day/time/circadian concepts with the existing R002 ClockTrust evidence class. One current Android location read is quantized to a stable opaque coarse place identity; raw coordinates, accuracy and provider values are discarded before WorldObservation. A fixed 32-entry place/time/day learner saturates counts at 8 and decays deterministically. Context derives expected, familiar, familiar-but-unusual, novel or unknown interpretations and modifies salience only. Local deterministic validation passes, but Pixel validation is blocked because Atlas and local ADB currently enumerate no device.
+- Changed areas: `research/aliveness-spike/cohorts/`, `android-host/src/debug/`, `docs/architecture/PhoneSensoriumContractV1.md`, `research/aliveness-spike/evidence/a001-v2/d016-ac/`, and append-only governance records. D016-AB-R1 motion behavior, A001 artifacts, production organism mechanisms, evaluator/model/Paragon infrastructure and `.gitignore` were not changed.
+- Validation:
+  - D016-AC deterministic context fixtures - PASSED
+  - repeated place/time expected context - PASSED
+  - history-free novel context - PASSED
+  - familiar-but-unusual time context - PASSED
+  - differing histories for identical current evidence - PASSED
+  - permission-denied/unknown-place degradation - PASSED
+  - stable opaque place identity and raw-coordinate-free signature - PASSED
+  - bounded capacity/count saturation/decay - PASSED
+  - deterministic context replay - PASSED
+  - existing D016-AB cohort fixtures - PASSED
+  - debug APK assembly - PASSED; SHA-256 `96CABA8B27578B3CCF54DE28113FABBBE02725E63C898D3E4A10128856D23584`
+  - Atlas ADB and USB Pixel precondition - BLOCKED; no device enumerated
+  - Pixel trusted-time/place/permission/battery validation - NOT RUN
+  - A001 verdict - NOT RUN
+  - R003-R009 - BLOCKED
+- Remaining risks: The real Android time/place boundary, permission degradation on hardware, runtime stability and battery behavior remain unqualified until the designated Pixel is connected and authorized. No A001 or organism aliveness conclusion follows.
+- Blockers: `BLOCKED_DEVICE_NOT_CONNECTED_FOR_D016_AC_PIXEL_VALIDATION`
 - Follow-up directive: none

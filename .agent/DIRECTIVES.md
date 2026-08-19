@@ -799,3 +799,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-AB
 - Status at issuance: ISSUED
+
+
+## D-016-AC
+
+- Issued: 2026-08-19T13:00:00-04:00
+- Issuer: User
+- External directive: D016-AC
+- Objective: Extend the accepted phone-as-body sensorium with the smallest bounded context layer for trusted local time, privacy-preserving coarse place, familiarity, routine expectation and history-dependent context interpretation.
+- Scope: Reuse the existing trusted-time principles; add normalized TRUSTED_TIME and LOCATION_PLACE observations; discard raw coordinates before organism state; use stable opaque place identities; add fixed-size place/time/day familiarity with bounded counts and decay; derive EXPECTED_CONTEXT, FAMILIAR_CONTEXT, FAMILIAR_BUT_UNUSUAL, NOVEL_CONTEXT and UNKNOWN_CONTEXT; let context modify salience only; preserve D016-AB replay and action authority; run deterministic fixtures, debug build and designated Pixel time/place validation.
+- Exclusions: No camera, microphone, SpeechRecognizer, calendar, weather, maps, navigation, semantic place names, neural or LLM context prediction, deep mobility prediction, centralized tracking, raw route history, production R003-R009 work, D016-AB motion-boundary changes, A001 verdict, participant work, or `.gitignore` modification.
+- Acceptance: Trusted time crosses the normalized boundary; actual Pixel place evidence crosses it without raw coordinates in organism state or evidence logs; opaque place identity is stable; repeated history changes familiarity; memory remains bounded; identical current evidence differs under valid histories; familiar-but-unusual differs from novel; context affects salience but not action choice; replay is deterministic; denied location degrades cleanly; D016-AB remains intact; Pixel runtime and bounded battery evidence are recorded.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-AB-R1
+- Status at issuance: ISSUED
