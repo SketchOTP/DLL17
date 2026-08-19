@@ -1274,7 +1274,7 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Outcome ID: O-0053
 - Supersedes outcome: O-0052
 - Closed: 2026-08-19T12:00:00-04:00
-- Acceptance: PARTIAL_IMPLEMENTATION_DEVICE_PROOF_PENDING
+- Acceptance: PARTIAL
 - Summary: D016-AB re-anchors the forward research architecture on the phone as the organism's body through `PhoneSensoriumContractV1`. The existing habitat, `OrganismAgent`, deterministic arbitration, `SpikeRuntime` and expression path are preserved and adapted rather than replaced. The JVM diagnostic produces ordered normalized motion observations, organism-selected ORIENT attention, semantic speech frames and bounded childlike utterances; deterministic replay passes. Physical Pixel proof is not accepted because the Atlas Docker ADB session reports no device and host USB enumeration reports no Pixel.
 - Changed areas: `research/aliveness-spike/cohorts/`, `research/aliveness-spike/realtime-viewer/`, `android-host/src/debug/`, `docs/architecture/PhoneSensoriumContractV1.md`, `docs/architecture/README.md`, `research/aliveness-spike/README.md`, `research/aliveness-spike/evidence/D016_AB_PHONE_SENSORIUM_DIAGNOSTIC.txt`, and append-only governance records. D016-AA history, A001 thresholds/sample/analysis, evaluator/model/Paragon infrastructure, production persistence, participant scope, R003-R009 and the pre-existing `.gitignore` were unchanged.
 - Validation:

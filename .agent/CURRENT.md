@@ -13,7 +13,7 @@
 - Current status: `BLOCKED`
 - Acceptance: `PARTIAL_IMPLEMENTATION_DEVICE_PROOF_PENDING`
 - Current phase: `D016-AB`
-- Expected or actual touched areas: `research/aliveness-spike/cohorts/`, `research/aliveness-spike/realtime-viewer/`, `android-host/src/debug/`, `docs/architecture/`, `research/aliveness-spike/README.md`, and append-only governance/evidence records
+- Expected or actual touched areas: research/aliveness-spike/cohorts/, research/aliveness-spike/realtime-viewer/, android-host/src/debug/, docs/architecture/, research/aliveness-spike/README.md, and append-only governance/evidence records
 - Immediate next action: `Reconnect and authorize the designated Pixel, then deploy the exact D016-AB debug APK and capture normalized motion, organism consequence, TTS, runtime, and bounded battery observations.`
 
 ## Temporary task-relevant facts
