@@ -51,12 +51,12 @@ internal class OwnerAlivenessHarness(
     /** Diagnostics for local validation only. Never rendered by the owner UI. */
     internal val deliveredInteractions = ArrayList<InteractionEvent>()
 
-    internal fun submit(kind: InteractionKind, target: HabitatObject? = null) {
+    override fun submit(kind: InteractionKind, target: HabitatObject?) {
         val person = target?.takeIf { it.kind == com.animusmachinae.dll17.research.aliveness.ObjectKind.SOCIAL }
         pending += InteractionEvent(tick, kind, target, person)
     }
 
-    internal fun advance(): StepRecord {
+    override fun advance(): StepRecord {
         val events = pending.toList()
         pending.clear()
         deliveredInteractions += events
