@@ -1283,7 +1283,7 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
   - realtime-viewer test suite with relocated temporary directory - PASSED
   - D016-AB realtime diagnostic - PASSED (`D016_AB_PHONE_SENSORIUM_DIAGNOSTIC=PASS`)
   - debug APK assembly - PASSED
-  - APK SHA-256 - `29948b1c97ef94ea82e4f0510e609a47ea0de4ac851b5ecd24358fcd39fbf4c7`
+  - APK SHA-256 - `353ab482a8495e1a037decc514b13615be9f57deff60af704ab5936cbca0a434`
   - Pixel installation, launch and Android SensorManager evidence - NOT RUN; device absent from `adb devices`
   - bounded Pixel battery observation - NOT MEASURED
   - AI/model calls, external human participants and A001 attempts - `0/0/0`
