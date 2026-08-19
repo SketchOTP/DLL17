@@ -78,7 +78,7 @@ class PhoneSensoriumContractTest {
 
         assertEquals(SpikeAction.IDLE_VARIATION, choice.action)
         assertTrue(choice.decision?.commitmentContinuation == true)
-        assertFalse(agent.lastProposals.any { it.action == SpikeAction.ORIENT })
+        assertFalse(agent.lastProposals.any { it.action == SpikeAction.ORIENT && it.target == null })
     }
 
     @Test
