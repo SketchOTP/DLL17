@@ -141,6 +141,8 @@ public data class RoutineContext(
     public val place: CoarsePlaceIdentity,
     public val timeOfDay: TimeOfDayBucket?,
     public val dayPattern: DayPattern?,
+    public val timeTrust: TimeTrustClass?,
+    public val learningEligible: Boolean,
     public val placeVisitCount: Int,
     public val matchingRoutineCount: Int,
     public val recentVisit: Boolean,
@@ -151,10 +153,37 @@ public data class RoutineContext(
         place.value,
         timeOfDay?.name ?: "-",
         dayPattern?.name ?: "-",
+        timeTrust?.name ?: "-",
+        learningEligible,
         placeVisitCount,
         matchingRoutineCount,
         recentVisit,
         familiarityPpm,
+    ).joinToString("|")
+}
+
+/**
+ * The latest derived context carried between compatible observations. The
+ * sequence deadline is explicit so place/time belief cannot follow the
+ * organism indefinitely or depend on wall-clock scheduling.
+ */
+public data class CurrentRoutineContext(
+    public val context: RoutineContext,
+    public val sourceSequence: Long,
+    public val expiresAtSequenceExclusive: Long,
+) {
+    init {
+        require(sourceSequence >= 0L)
+        require(expiresAtSequenceExclusive > sourceSequence)
+    }
+
+    public fun isFreshAt(sequence: Long): Boolean =
+        sequence >= sourceSequence && sequence < expiresAtSequenceExclusive
+
+    public fun signature(): String = listOf(
+        context.signature(),
+        sourceSequence,
+        expiresAtSequenceExclusive,
     ).joinToString("|")
 }
 
@@ -188,6 +217,8 @@ public class BoundedRoutineContextMemory(
                 place = CoarsePlaceIdentity.UNKNOWN,
                 timeOfDay = time?.timeOfDay,
                 dayPattern = time?.localDayPattern,
+                timeTrust = time?.trust,
+                learningEligible = false,
                 placeVisitCount = 0,
                 matchingRoutineCount = 0,
                 recentVisit = false,
@@ -210,15 +241,23 @@ public class BoundedRoutineContextMemory(
             place = place.identity,
             timeOfDay = time.timeOfDay,
             dayPattern = time.localDayPattern,
+            timeTrust = time.trust,
+            learningEligible = time.trust in TRAINING_TRUST_CLASSES,
             placeVisitCount = placeVisitCount,
             matchingRoutineCount = exact?.visits ?: 0,
             recentVisit = exact?.let { sequence - it.lastSequence <= RECENT_SEQUENCE_WINDOW } ?: false,
             familiarityPpm = (placeVisitCount * 1_000_000 / MAX_VISITS).coerceAtMost(1_000_000),
         )
 
-        record(place.identity, time, sequence)
-        observations += 1L
-        if (observations % DECAY_PERIOD == 0L) decay()
+        // Only monotonic or authenticated time can train routine expectations.
+        // UNVERIFIED_REBOOT, ANOMALOUS and UNAVAILABLE time may still produce a
+        // bounded temporary interpretation from existing entries, but they do
+        // not create, reinforce or age the learned routine memory.
+        if (time.trust in TRAINING_TRUST_CLASSES) {
+            record(place.identity, time, sequence)
+            observations += 1L
+            if (observations % DECAY_PERIOD == 0L) decay()
+        }
         return result
     }
 
@@ -280,6 +319,10 @@ public class BoundedRoutineContextMemory(
     }
 
     public companion object {
+        public val TRAINING_TRUST_CLASSES: Set<TimeTrustClass> = setOf(
+            TimeTrustClass.VERIFIED_MONOTONIC,
+            TimeTrustClass.AUTHENTICATED,
+        )
         public const val MAX_ENTRIES: Int = 32
         public const val MAX_VISITS: Int = 8
         public const val EXPECTED_VISITS: Int = 3

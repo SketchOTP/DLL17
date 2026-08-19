@@ -1373,3 +1373,32 @@ Allowed adopted-project outcome states: `COMPLETE`, `PARTIAL`, `BLOCKED`, `FAILE
 - Remaining risks: The real Android time/place boundary, permission degradation on hardware, runtime stability and battery behavior remain unqualified until the designated Pixel is connected and authorized. No A001 or organism aliveness conclusion follows.
 - Blockers: `BLOCKED_DEVICE_NOT_CONNECTED_FOR_D016_AC_PIXEL_VALIDATION`
 - Follow-up directive: none
+
+
+## D-016-AC-R1 - PARTIAL
+
+- Outcome ID: O-0057
+- Supersedes outcome: O-0056
+- Closed: 2026-08-19T13:02:44-04:00
+- Acceptance: PARTIAL
+- Summary: D016-AC-R1 corrects the reviewed context-propagation defect. The latest valid derived routine context is carried as explicit bounded research state for fewer than eight subsequent normalized observation sequences, enriches later compatible movement observations, and is included in the research replay signature. Only verified-monotonic and authenticated time may train or age routine memory; anomalous, unavailable and unverified-reboot time remain non-learning. The identical `WALKING -> RUNNING` fixture receives expected versus familiar-but-unusual context under matched histories and produces a measurable salience difference without context selecting an action. Local tests and debug APK assembly pass; Pixel validation remains blocked because Atlas and local ADB enumerate no device.
+- Changed areas: `research/aliveness-spike/cohorts/`, `docs/architecture/PhoneSensoriumContractV1.md`, `research/aliveness-spike/evidence/a001-v2/d016-ac/`, and append-only governance records. D016-AB-R1 motion semantics, A001 artifacts, production organism mechanisms, evaluator/model/Paragon infrastructure and `.gitignore` were not changed.
+- Validation:
+  - current-context persistence across location to movement - PASSED
+  - explicit bounded freshness and expiry - PASSED
+  - identical movement expected-vs-unusual context fixture - PASSED
+  - measurable context salience difference - PASSED
+  - context cannot directly select actions - PASSED by unchanged organism arbitration path
+  - anomalous/unavailable/unverified-reboot non-learning policy - PASSED
+  - raw-coordinate-free boundary - PASSED
+  - bounded routine memory - PASSED
+  - deterministic replay including current context - PASSED
+  - existing D016-AB cohort fixtures - PASSED
+  - debug APK assembly - PASSED; SHA-256 `FC3DE21554E33FA4BCB771DBE7D4D1F700A293AD5E8C4C1DF403DC02D6436D2F`
+  - Atlas ADB and USB Pixel precondition - BLOCKED; no device enumerated
+  - Pixel trusted-time/place/movement/permission/battery validation - NOT RUN
+  - A001 verdict - NOT RUN
+  - R003-R009 - BLOCKED
+- Remaining risks: The real Android time/place boundary, context propagation on hardware, permission degradation, runtime stability and battery behavior remain unqualified until the designated Pixel is connected and authorized. No A001 or organism aliveness conclusion follows.
+- Blockers: `BLOCKED_DEVICE_NOT_CONNECTED_FOR_D016_AC_R1_PIXEL_VALIDATION`
+- Follow-up directive: none

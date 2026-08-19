@@ -814,3 +814,18 @@ Do not record execution results here. Do not rewrite historical entries after ad
 - Relationship: amends
 - Related directive: D-016-AB-R1
 - Status at issuance: ISSUED
+
+
+## D-016-AC-R1
+
+- Issued: 2026-08-19T13:02:44-04:00
+- Issuer: User
+- External directive: D016-AC-R1
+- Objective: Correct the failed context-propagation boundary by retaining the latest valid derived routine context as bounded fresh research state, contextualizing subsequent compatible observations including movement, proving an identical-movement salience difference, and restricting routine learning to verified or authenticated time.
+- Scope: Add explicit sequence freshness and expiry to current context; carry fresh context into later compatible observations; include current-context state in the research replay signature; make only `VERIFIED_MONOTONIC` and `AUTHENTICATED` time eligible to train or age routine memory; add deterministic movement, salience, expiry and time-trust fixtures; preserve all D016-AB behavior and physical validation boundary.
+- Exclusions: No second controller, raw coordinates, unbounded history, direct action selection, new sensors, camera, microphone, speech recognition, calendar, weather, maps, semantic place labels, LLM reasoning, A001 verdict, R003-R009 unblocking, participant work, D016-AB motion-semantic change, or `.gitignore` modification.
+- Acceptance: Current context persists beyond location; fresh movement receives it; identical movement differs between expected and familiar-but-unusual histories; salience differs measurably; expiry is explicit; uncertain time cannot train; replay remains exact; raw coordinates and bounded memory protections remain intact; local tests and debug APK pass; then physical Pixel validation is attempted.
+- Risk class: HIGH
+- Relationship: amends
+- Related directive: D-016-AC
+- Status at issuance: ISSUED

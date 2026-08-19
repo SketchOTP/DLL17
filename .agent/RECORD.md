@@ -644,3 +644,14 @@ Do not add live decisions or milestones to this template. Examples must remain o
 - Rationale: Movement alone provides little meaning. The smallest useful next boundary is where/when/familiarity/history, while preserving local-first privacy and the existing organism action authority. The hardware precondition is an execution blocker, not evidence about context quality, organism aliveness or A001.
 - Affected areas: `research/aliveness-spike/cohorts/`, `android-host/src/debug/`, `docs/architecture/PhoneSensoriumContractV1.md`, `research/aliveness-spike/evidence/a001-v2/d016-ac/`, `.agent/CURRENT.md`, `.agent/DIRECTIVES.md`, `.agent/OUTCOMES.md`.
 - Supersedes record: DEC-0059
+
+
+## DEC-0061
+
+- Date: 2026-08-19
+- Record or decision ID: DEC-0061
+- Status: ACTIVE
+- Decision or event: Architect review classified D016-AC as `PARTIAL_IMPLEMENTATION_REVIEW_FAILED_CONTEXT_PROPAGATION`. D016-AC-R1 retains the latest valid derived routine context as `CurrentRoutineContext` with a sequence-bounded expiry, carries fresh context onto compatible later observations including movement, and includes the current-context state in replay signatures. Only `VERIFIED_MONOTONIC` and `AUTHENTICATED` time train or age routine memory; `ANOMALOUS`, `UNAVAILABLE` and `UNVERIFIED_REBOOT` are explicitly non-learning. The matched `WALKING -> RUNNING` fixture produces expected versus familiar-but-unusual context and a measurable salience difference without changing action authority. Local tests and debug APK assembly pass; physical Pixel validation remains blocked by absent device enumeration.
+- Rationale: A place/time interpretation that disappears after the location observation cannot make later movement meaningful. Carrying it as bounded evidence preserves the existing organism controller while allowing subsequent sensor observations to be evaluated in lived context. Restricting training to trustworthy time prevents uncertain reboot or anomalous clock evidence from becoming routine authority.
+- Affected areas: `research/aliveness-spike/cohorts/`, `docs/architecture/PhoneSensoriumContractV1.md`, `research/aliveness-spike/evidence/a001-v2/d016-ac/`, and append-only governance records.
+- Supersedes record: DEC-0060

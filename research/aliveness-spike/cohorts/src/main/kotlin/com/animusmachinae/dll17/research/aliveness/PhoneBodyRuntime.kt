@@ -90,6 +90,7 @@ public data class PhoneBodyStep(
     public val record: StepRecord,
     public val observation: WorldObservation?,
     public val attentionSelected: Boolean,
+    public val worldObservationSalience: Long,
     public val speechFrame: OrganismSpeechFrame?,
     public val utterance: String?,
     public val stateSignature: Long,
@@ -128,6 +129,7 @@ public class PhoneBodyRuntime(
     )
     private val routineContext = BoundedRoutineContextMemory()
     private var latestTrustedTime: TrustedTimeObservation? = null
+    private var currentContext: CurrentRoutineContext? = null
     private var tick: Long = 0L
 
     public fun step(observation: WorldObservation? = null): PhoneBodyStep {
@@ -146,6 +148,7 @@ public class PhoneBodyRuntime(
             observation = enriched,
             attentionSelected = enriched != null &&
                 record.choice.action in setOf(SpikeAction.ORIENT, SpikeAction.VOCALIZE),
+            worldObservationSalience = organism.state.worldObservationSalience,
             speechFrame = speechFrame,
             utterance = speechFrame?.let(ChildlikeUtteranceGenerator::render),
             stateSignature = researchStateSignature(),
@@ -165,22 +168,44 @@ public class PhoneBodyRuntime(
         }
         mix(routineContext.stateSignature())
         latestTrustedTime?.signature()?.forEach { mix(it.code.toLong()) }
+        currentContext?.signature()?.forEach { mix(it.code.toLong()) }
         return hash
     }
 
     private fun normalizeContext(observation: WorldObservation?): WorldObservation? {
         if (observation == null) return null
         if (observation.trustedTime != null) latestTrustedTime = observation.trustedTime
-        if (observation.family != ObservationFamily.LOCATION_PLACE || observation.place == null) {
-            return observation
+        if (observation.family == ObservationFamily.LOCATION_PLACE && observation.place != null) {
+            val context = observation.context ?: routineContext.observe(
+                place = observation.place,
+                time = observation.trustedTime ?: latestTrustedTime,
+                sequence = observation.meta.sequence,
+            )
+            currentContext = if (context.interpretation == ContextInterpretation.UNKNOWN_CONTEXT) {
+                null
+            } else {
+                CurrentRoutineContext(
+                    context = context,
+                    sourceSequence = observation.meta.sequence,
+                    expiresAtSequenceExclusive = observation.meta.sequence + CURRENT_CONTEXT_TTL_SEQUENCES,
+                )
+            }
+            return observation.copy(context = context)
         }
-        if (observation.context != null) return observation
-        val context = routineContext.observe(
-            place = observation.place,
-            time = observation.trustedTime ?: latestTrustedTime,
-            sequence = observation.meta.sequence,
-        )
-        return observation.copy(context = context)
+
+        val carried = currentContext
+        if (carried != null && carried.isFreshAt(observation.meta.sequence)) {
+            // Context is evidence attached to the observation; it never enters
+            // the action path and the organism still owns salience/arbitration.
+            return observation.copy(context = carried.context)
+        }
+        if (carried != null) currentContext = null
+        return observation
+    }
+
+    public companion object {
+        /** Fresh for fewer than eight subsequent normalized observations. */
+        public const val CURRENT_CONTEXT_TTL_SEQUENCES: Long = 8L
     }
 
     private fun speechFrame(observation: WorldObservation): OrganismSpeechFrame {

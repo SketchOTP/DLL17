@@ -147,4 +147,12 @@ coordinates, route history, place names, calendar data, maps, prediction
 models or continuous background location. Identical normalized evidence and
 identical bounded history replay identically; the same current place/time can
 be novel without history, expected after repeated history, or familiar-but-
-unusual at a materially different time.
+unusual at a materially different time. The latest valid derived context is
+carried as a bounded `CurrentRoutineContext` for fewer than eight subsequent
+normalized observation sequences, then expires. Compatible movement and future
+sensor observations may inherit that current context before organism salience
+is evaluated; a context value never selects an action. Only
+`VERIFIED_MONOTONIC` and `AUTHENTICATED` time can train or age routine memory.
+`ANOMALOUS`, `UNAVAILABLE` and `UNVERIFIED_REBOOT` time may yield a bounded
+non-learning interpretation from existing memory but cannot create,
+reinforce or decay a routine expectation.

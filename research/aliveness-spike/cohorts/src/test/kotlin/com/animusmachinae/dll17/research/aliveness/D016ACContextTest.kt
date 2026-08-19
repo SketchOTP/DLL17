@@ -135,6 +135,57 @@ class D016ACContextTest {
         assertEquals(ContextInterpretation.EXPECTED_CONTEXT, withHistory.observation?.context?.interpretation)
     }
 
+    @Test
+    fun `fresh context persists onto identical movement and changes salience`() {
+        val place = CoarsePlaceObservation(CoarsePlaceNormalizer.fixture(8))
+        val movement = movementObservation(4L)
+
+        val expectedRuntime = PhoneBodyRuntime(11L)
+        repeat(3) { sequence -> expectedRuntime.step(locationObservation(place, morning, sequence.toLong())) }
+        val expectedPlace = expectedRuntime.step(locationObservation(place, morning, 3L))
+        val expectedMovement = expectedRuntime.step(movement)
+
+        val unusualRuntime = PhoneBodyRuntime(11L)
+        repeat(3) { sequence -> unusualRuntime.step(locationObservation(place, morning, sequence.toLong())) }
+        val unusualPlace = unusualRuntime.step(locationObservation(place, evening, 3L))
+        val unusualMovement = unusualRuntime.step(movement)
+
+        assertEquals(ContextInterpretation.EXPECTED_CONTEXT, expectedPlace.observation?.context?.interpretation)
+        assertEquals(ContextInterpretation.EXPECTED_CONTEXT, expectedMovement.observation?.context?.interpretation)
+        assertEquals(ContextInterpretation.FAMILIAR_BUT_UNUSUAL, unusualPlace.observation?.context?.interpretation)
+        assertEquals(ContextInterpretation.FAMILIAR_BUT_UNUSUAL, unusualMovement.observation?.context?.interpretation)
+        assertEquals(movement.signature(), expectedMovement.observation?.copy(context = null)?.signature())
+        assertEquals(movement.signature(), unusualMovement.observation?.copy(context = null)?.signature())
+        assertTrue(unusualMovement.worldObservationSalience > expectedMovement.worldObservationSalience)
+        assertNotEquals(expectedMovement.worldObservationSalience, unusualMovement.worldObservationSalience)
+    }
+
+    @Test
+    fun `current context expires before a later movement`() {
+        val place = CoarsePlaceObservation(CoarsePlaceNormalizer.fixture(9))
+        val runtime = PhoneBodyRuntime(12L)
+        runtime.step(locationObservation(place, morning, 0L))
+
+        val expired = runtime.step(movementObservation(PhoneBodyRuntime.CURRENT_CONTEXT_TTL_SEQUENCES))
+
+        assertEquals(null, expired.observation?.context)
+    }
+
+    @Test
+    fun `uncertain time never trains routine expectations`() {
+        val place = CoarsePlaceObservation(CoarsePlaceNormalizer.fixture(10))
+        val memory = BoundedRoutineContextMemory()
+        val anomalous = morning.copy(trust = TimeTrustClass.ANOMALOUS)
+        val reboot = morning.copy(trust = TimeTrustClass.UNVERIFIED_REBOOT)
+
+        repeat(4) { sequence -> memory.observe(place, anomalous, sequence.toLong()) }
+        repeat(4) { sequence -> memory.observe(place, reboot, (sequence + 4).toLong()) }
+
+        assertEquals(0, memory.entryCount())
+        assertEquals(false, memory.observe(place, anomalous, 8L).learningEligible)
+        assertEquals(false, memory.observe(place, reboot, 9L).learningEligible)
+    }
+
     private fun timeObservation(time: TrustedTimeObservation, sequence: Long): WorldObservation =
         WorldObservation(
             family = ObservationFamily.TRUSTED_TIME,
@@ -151,6 +202,15 @@ class D016ACContextTest {
         trustedTime = time,
         place = place,
         meta = meta(sequence),
+    )
+
+    private fun movementObservation(sequence: Long): WorldObservation = WorldObservation(
+        family = ObservationFamily.MOVEMENT_ACTIVITY,
+        activityFrom = ActivityBand.WALKING,
+        activityTo = ActivityBand.RUNNING,
+        motionBand = MotionBand.LOW,
+        significantMotion = false,
+        meta = meta(sequence).copy(confidencePpm = 600_000),
     )
 
     private fun meta(sequence: Long): ObservationMeta = ObservationMeta(

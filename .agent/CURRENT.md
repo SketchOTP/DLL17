@@ -3,21 +3,22 @@
 ## Lifecycle
 
 - Status: `ADOPTED`
-- Last updated: `2026-08-19T13:20:00-04:00`
+- Last updated: `2026-08-19T13:02:44-04:00`
 
 ## Active state after adoption
 
-- Local directive ID: `D-016-AC`
-- External directive ID: `D016-AC`
-- Objective: `Add bounded trusted-time, coarse-place and routine-familiarity context to the accepted phone sensorium without adding a second controller or retaining raw location.`
+- Local directive ID: `D-016-AC-R1`
+- External directive ID: `D016-AC-R1`
+- Objective: `Carry bounded learned time/place context across compatible observations, prove movement salience changes under identical movement evidence, and restrict routine learning to trusted time.`
 - Current status: `BLOCKED`
-- Acceptance: `LOCAL_CONTEXT_IMPLEMENTATION_AND_TESTS_PASS_PHYSICAL_PIXEL_VALIDATION_BLOCKED`
-- Current phase: `D016-AC`
+- Acceptance: `LOCAL_R1_CONTEXT_PROPAGATION_AND_TESTS_PASS_PHYSICAL_PIXEL_VALIDATION_BLOCKED`
+- Current phase: `D016-AC-R1`
 - Expected or actual touched areas: research/aliveness-spike/cohorts/, android-host/src/debug/, docs/architecture/, research/aliveness-spike/evidence/a001-v2/d016-ac/, and append-only governance/evidence records
-- Immediate next action: `Reconnect and authorize the designated Pixel for the required one-shot time/place boundary validation; no additional sensor or architecture work is authorized.`
+- Immediate next action: `Reconnect and authorize the designated Pixel for the required one-shot R1 time/place/movement boundary validation; no additional sensor or architecture work is authorized.`
 
 - `D016_AB_R1=ACCEPTED_PHONE_SENSORIUM_PROOF`; physical TTS remains unobserved because no VOCALIZE action occurred in the accepted bounded run.
-- D016-AC local deterministic fixtures and debug APK assembly pass. The APK SHA-256 is `96CABA8B27578B3CCF54DE28113FABBBE02725E63C898D3E4A10128856D23584`.
+- `D016_AC=PARTIAL_IMPLEMENTATION_REVIEW_FAILED_CONTEXT_PROPAGATION` is preserved as the review result. D016-AC-R1 local fixtures and debug APK assembly pass. The R1 APK SHA-256 is `FC3DE21554E33FA4BCB771DBE7D4D1F700A293AD5E8C4C1DF403DC02D6436D2F`.
+- R1 carries the latest valid derived context for fewer than eight subsequent normalized observation sequences. Only `VERIFIED_MONOTONIC` and `AUTHENTICATED` time train or age routine memory; `ANOMALOUS`, `UNAVAILABLE` and `UNVERIFIED_REBOOT` do not.
 - The Pixel precondition is currently absent from Atlas USB/ADB and local ADB. No Pixel installation, real trusted-time observation, coarse-place observation, permission-degraded device run or battery observation is claimed.
 - A001 remains unclaimed and `R003-R009` remain blocked.
 
